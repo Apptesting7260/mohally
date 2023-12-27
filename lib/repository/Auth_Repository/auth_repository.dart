@@ -35,8 +35,11 @@ class AuthRepository {
     dynamic response = await _apiService.postApi(data, AppUrl.createpassword);
     return CreatepassModel.fromJson(response);
   }
+
    Future<UpdateprofileModel> Updateprofile(var data) async{
     dynamic response = await _apiService.postApi(data, AppUrl.profileupdate);
     return UpdateprofileModel.fromJson(response);
   }
+
+
 }

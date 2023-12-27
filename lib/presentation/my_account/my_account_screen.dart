@@ -116,12 +116,20 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             SizedBox(height: 9.v),
             Text(
-              "Name",
+              "First Name",
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
             _buildFirstName(context),
+            SizedBox(height: 9.v),
+            Text(
+              "Last Name",
+              style: theme.textTheme.titleMedium,
+            ),
+            SizedBox(height: 9.v),
+            _buildLastName(context),
             SizedBox(height: 17.v),
+
             Text(
               "Email",
               style: theme.textTheme.titleMedium,
@@ -163,6 +171,18 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
         }
       },
       hintText: "Enter your first name",
+    );
+  }
+  Widget _buildLastName(BuildContext context) {
+    return CustomTextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Please Enter last Name";
+        } else {
+          return null;
+        }
+      },
+      hintText: "Enter your last name",
     );
   }
 

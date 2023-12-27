@@ -31,4 +31,5 @@ class AuthRepository {
     dynamic response = await _apiService.postApi(data, AppUrl.createpassword);
     return CreatepassModel.fromJson(response);
   }
+
 }

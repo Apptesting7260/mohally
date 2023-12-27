@@ -13,6 +13,9 @@ import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_ta
 import 'package:mohally/presentation/privacy_policy/privacy_policy.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/presentation/terms_conditions/terms_condition_screen.dart';
+import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,6 +64,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        appBar: _buildAppBar(context),
+
         body: Container(
           width: double.maxFinite,
           decoration: AppDecoration.fillWhiteA,
@@ -77,14 +82,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     ),
                     child: Column(
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "My Profile",
-                            style: theme.textTheme.headlineMedium,
-                          ),
-                        ),
-                        SizedBox(height: 33.v),
+                        // Align(
+                        //   alignment: Alignment.centerLeft,
+                        //   child: Text(
+                        //     "My Profile",
+                        //     style: theme.textTheme.headlineMedium,
+                        //   ),
+                        // ),
+                        // SizedBox(height: 33.v),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: SizedBox(
@@ -283,6 +288,26 @@ class _MyProfilePageState extends State<MyProfilePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return CustomAppBar(
+      leadingWidth: 60,
+      leading: AppbarLeadingIconbuttonTwo(
+        onTap: () {
+          Get.back();
+        },
+        imagePath: ImageConstant.imgBack,
+        margin: EdgeInsets.only(
+          left: 20,
+          top: 8,
+          bottom: 8,
+        ),
+      ),
+      title: AppbarSubtitle(
+        text: "My Profile",
+        margin: EdgeInsets.only(left: 16),
       ),
     );
   }

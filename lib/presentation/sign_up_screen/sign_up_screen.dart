@@ -202,6 +202,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           SizedBox(height: 9.v),
                           _buildEmail(context),
+                          SizedBox(height: 6.v),
+
+                          GestureDetector(
+                            onTap: (){
+
+                            },
+                            child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Text(
+                                  "Verify Email",
+                                  style: theme.textTheme.titleSmall!
+                                      .copyWith(color: Color(0xffFE8300)),
+                                )),
+                          ),
                           SizedBox(height: 17.v),
                           Text(
                             "Password",

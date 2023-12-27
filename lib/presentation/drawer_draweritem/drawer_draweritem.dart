@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/about_us_screen/about_us.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
+import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/payment_screen/payment_screen.dart';
 import 'package:mohally/presentation/privacy_policy/privacy_policy.dart';
 import 'package:mohally/presentation/spin_the_wheel_one_screen/spin_the_wheel_one_screen.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/presentation/terms_conditions/terms_condition_screen.dart';
 import 'package:mohally/widgets/custom_checkbox_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,25 +99,30 @@ class DrawerDraweritem extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.v),
-              Row(
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgProfileIcon,
-                    height: 25.adaptSize,
-                    width: 25.adaptSize,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10.h,
-                      top: 5.v,
-                      bottom: 2.v,
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => MyProfilePage());
+                },
+                child: Row(
+                  children: [
+                    CustomImageView(
+                      imagePath: ImageConstant.imgProfileIcon,
+                      height: 25.adaptSize,
+                      width: 25.adaptSize,
                     ),
-                    child: Text(
-                      "Profile ",
-                      style: CustomTextStyles.bodyLarge18,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
+                      ),
+                      child: Text(
+                        "Profile ",
+                        style: CustomTextStyles.bodyLarge18,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 20.v),
               GestureDetector(

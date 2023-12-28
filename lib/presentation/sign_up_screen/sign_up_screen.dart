@@ -4,9 +4,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/verification_code_screen/verification_code_screen.dart';
 import 'package:mohally/view_models/controller/signUp/signup_controller.dart';
+import 'package:mohally/view_models/controller/user_verify_controller/user_verify_controller.dart';
+import 'package:mohally/view_models/controller/verify_email/verify_email_controller.dart';
+import 'package:mohally/view_models/controller/verifyemailotp_controller/verifyemailotp_controller.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
+import 'package:pinput/pinput.dart';
 
 import '../login_screen/login_screen.dart';
 
@@ -24,8 +29,16 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   Signup_controller signup_controller = Get.put(Signup_controller());
+  VerifyEmailOTP_controller verifyemailOTP_controller =
+      Get.put(VerifyEmailOTP_controller());
+  Verifyemail_controller verifyemail_controller =
+      Get.put(Verifyemail_controller());
+  UserVerify_controller userVerify_controller =
+      Get.put(UserVerify_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final FocusNode _pinPutFocusNode = FocusNode();
   void _submit() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
@@ -35,6 +48,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _formKey.currentState!.save();
   }
 
+  String email = " ";
+  String mobile = " ";
+  RxBool verifyemail = false.obs;
+  RxBool verifyphone = false.obs;
   bool _passwordVisible = true;
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -55,6 +72,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(
+          fontSize: 20, color: Color(0xffFF8300), fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xffFF8300)),
+        borderRadius: BorderRadius.circular(30),
+      ),
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -195,6 +222,176 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             controller: signup_controller.phoneController.value,
                             hintText: "Enter your mobile number",
                           ),
+                          SizedBox(height: 7.v),
+
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                userVerify_controller.UserVerify_apihit(
+                                    signup_controller.emailController.value.text
+                                        .toString());
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      // title: Text(
+                                      //   "Enter Otp",
+                                      //   style: theme.textTheme.titleMedium,
+                                      // ),
+                                      content: Container(
+                                        height: 400,
+                                        width: 500,
+                                        child: Form(
+                                          key: formKey,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 10.v),
+                                              Text(
+                                                "Verification Code",
+                                                style: theme
+                                                    .textTheme.headlineLarge,
+                                              ),
+                                              SizedBox(height: 19.v),
+                                              Container(
+                                                width: 261.h,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 50.h),
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text:
+                                                            "Please type the verification code sent to ",
+                                                        style: CustomTextStyles
+                                                            .bodyLargeGray50001_2,
+                                                      ),
+                                                      TextSpan(
+                                                        text: "Mobile",
+                                                        style: CustomTextStyles
+                                                            .titleMediumPrimary16_1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              SizedBox(height: 36.v),
+
+                                              Pinput(
+                                                length: 6,
+                                                autofocus: true,
+                                                useNativeKeyboard: true,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                defaultPinTheme:
+                                                    defaultPinTheme,
+                                                onSubmitted: (String pin) =>
+                                                    _showSnackBar(pin, context),
+                                                focusNode: _pinPutFocusNode,
+                                                controller:
+                                                    verifyemailOTP_controller
+                                                        .pinController.value,
+                                                submittedPinTheme:
+                                                    defaultPinTheme,
+                                                focusedPinTheme:
+                                                    defaultPinTheme,
+                                                followingPinTheme:
+                                                    defaultPinTheme,
+                                              ),
+
+                                              SizedBox(height: 20.v),
+                                              CustomElevatedButton(
+                                                // loading: resetpasswordOTP_controller.loading.value,
+                                                onPressed: () {
+                                                  // otpbuttonused.value == true
+                                                  //     ? () {}
+                                                  //     : () {
+                                                  otpbuttonused.value = true;
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    formKey.currentState!
+                                                        .save();
+                                                    _pinPutFocusNode.unfocus();
+                                                    formKey.currentState!
+                                                        .validate();
+
+                                                    // verifyemailOTP_controller
+                                                    //     .pinController.value
+                                                    //     .clear();
+                                                  }
+                                                  if (userVerify_controller
+                                                          .userList.value.otp
+                                                          .toString() ==
+                                                      verifyemailOTP_controller
+                                                          .pinController
+                                                          .value
+                                                          .text) {
+                                                    verifyphone.value = true;
+                                                    Get.back();
+                                                  }else{
+                                                    _showSnackBar("wrong otp", context);
+                                                  }
+                                                  // verifyemailOTP_controller
+                                                  //     .VerifyEmailOTP_apihit(
+                                                  //         signup_controller
+                                                  //             .emailController
+                                                  //             .value
+                                                  //             .text
+                                                  //             .toString(),
+                                                  //         context);
+                                                },
+                                                text: "Verify",
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 24.h),
+                                                buttonStyle: CustomButtonStyles
+                                                    .fillPrimary,
+                                              ),
+                                              SizedBox(height: 24.v),
+                                              // RichText(
+                                              //   text: TextSpan(
+                                              //     children: [
+                                              //       TextSpan(
+                                              //         text: "I don’t receive a code!",
+                                              //         style: CustomTextStyles.bodyLargeLight,
+                                              //       ),
+                                              //       TextSpan(
+                                              //         text: "Resend",
+                                              //         style: CustomTextStyles.titleMediumPrimary,
+                                              //         // !waitOtpShow.value == true
+                                              //         //     ? "Resend"
+                                              //         //     : waitOtp.value.toString(),
+                                              //         // style: CustomTextStyles.titleMediumPrimary,
+                                              //         // recognizer: TapGestureRecognizer()
+                                              //         //   ..onTap = waitOtpShow.value == true
+                                              //         //       ? () {}
+                                              //         //       : () {
+                                              //         //           waitOtp.value = 60;
+                                              //         //           resetpasswordOTP_controller
+                                              //         //               .ResetpasswordOTP_apihit();
+                                              //         //
+                                              //         //           waitOtpUpdate();
+                                              //         //         }
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              //   textAlign: TextAlign.left,
+                                              // ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                "Verify Mobile",
+                                style: theme.textTheme.titleSmall!
+                                    .copyWith(color: Color(0xffFE8300)),
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 17.v),
                           Text(
                             "Email",
@@ -205,16 +402,167 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(height: 6.v),
 
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
+                              verifyemail_controller.Verifyeusermail_apihit(
+                                  signup_controller.emailController.value.text
+                                      .toString());
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    // title: Text(
+                                    //   "Enter Otp",
+                                    //   style: theme.textTheme.titleMedium,
+                                    // ),
+                                    content: Container(
+                                      height: 400,
+                                      width: 500,
+                                      child: Form(
+                                        key: formKey,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(height: 10.v),
+                                            Text(
+                                              "Verification Code",
+                                              style:
+                                                  theme.textTheme.headlineLarge,
+                                            ),
+                                            SizedBox(height: 19.v),
+                                            Container(
+                                              width: 261.h,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 50.h),
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          "Please type the verification code sent to ",
+                                                      style: CustomTextStyles
+                                                          .bodyLargeGray50001_2,
+                                                    ),
+                                                    TextSpan(
+                                                      text: "Email",
+                                                      style: CustomTextStyles
+                                                          .titleMediumPrimary16_1,
+                                                    ),
+                                                  ],
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            SizedBox(height: 36.v),
 
+                                            Pinput(
+                                              length: 6,
+                                              autofocus: true,
+                                              useNativeKeyboard: true,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              defaultPinTheme: defaultPinTheme,
+                                              onSubmitted: (String pin) =>
+                                                  _showSnackBar(pin, context),
+                                              focusNode: _pinPutFocusNode,
+                                              controller:
+                                                  verifyemailOTP_controller
+                                                      .pinController.value,
+                                              submittedPinTheme:
+                                                  defaultPinTheme,
+                                              focusedPinTheme: defaultPinTheme,
+                                              followingPinTheme:
+                                                  defaultPinTheme,
+                                            ),
+
+                                            SizedBox(height: 20.v),
+                                            CustomElevatedButton(
+                                              // loading: resetpasswordOTP_controller.loading.value,
+                                              onPressed: () {
+                                                // otpbuttonused.value == true
+                                                //     ? () {}
+                                                //     : () {
+                                                otpbuttonused.value = true;
+                                                if (formKey.currentState!
+                                                    .validate()) {
+                                                  formKey.currentState!.save();
+                                                  _pinPutFocusNode.unfocus();
+                                                  formKey.currentState!
+                                                      .validate();
+
+                                                  // verifyemailOTP_controller
+                                                  //     .pinController.value
+                                                  //     .clear();
+                                                }
+                                                if (verifyemail_controller
+                                                    .userList.value.otp
+                                                    .toString() ==
+                                                    verifyemailOTP_controller
+                                                        .pinController
+                                                        .value
+                                                        .text) {
+                                                  verifyemail.value = true;
+                                                  Get.back();
+                                                }else{
+                                                  _showSnackBar("wrong otp", context);
+                                                }
+                                                // verifyemail_controller.
+                                              },
+                                              text: "Verify",
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 24.h),
+                                              buttonStyle: CustomButtonStyles
+                                                  .fillPrimary,
+                                            ),
+                                            SizedBox(height: 24.v),
+                                            // RichText(
+                                            //   text: TextSpan(
+                                            //     children: [
+                                            //       TextSpan(
+                                            //         text: "I don’t receive a code!",
+                                            //         style: CustomTextStyles.bodyLargeLight,
+                                            //       ),
+                                            //       TextSpan(
+                                            //         text: "Resend",
+                                            //         style: CustomTextStyles.titleMediumPrimary,
+                                            //         // !waitOtpShow.value == true
+                                            //         //     ? "Resend"
+                                            //         //     : waitOtp.value.toString(),
+                                            //         // style: CustomTextStyles.titleMediumPrimary,
+                                            //         // recognizer: TapGestureRecognizer()
+                                            //         //   ..onTap = waitOtpShow.value == true
+                                            //         //       ? () {}
+                                            //         //       : () {
+                                            //         //           waitOtp.value = 60;
+                                            //         //           resetpasswordOTP_controller
+                                            //         //               .ResetpasswordOTP_apihit();
+                                            //         //
+                                            //         //           waitOtpUpdate();
+                                            //         //         }
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            //   textAlign: TextAlign.left,
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
                             },
                             child: Align(
                                 alignment: Alignment.bottomRight,
-                                child: Text(
-                                  "Verify Email",
-                                  style: theme.textTheme.titleSmall!
-                                      .copyWith(color: Color(0xffFE8300)),
-                                )),
+                                child: !(verifyemail.value == true && verifyphone.value == true)
+                                    ? Text(
+                                        "Verify Email",
+                                        style: theme.textTheme.titleSmall!
+                                            .copyWith(color: Color(0xffFE8300)),
+                                      )
+                                    : Text(
+                                        "Verified",
+                                        style: theme.textTheme.titleSmall!
+                                            .copyWith(color: Colors.green),
+                                      )),
                           ),
                           SizedBox(height: 17.v),
                           Text(
@@ -405,6 +753,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
     return CustomElevatedButton(
+      isDisabled: !verifyemailOTP_controller.verified.value,
       onPressed: () {
         checkvalidate();
       },
@@ -420,5 +769,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else {
       _submit();
     }
+  }
+
+  void _showSnackBar(String pin, BuildContext context) {
+    final snackBar = SnackBar(
+      content: Container(
+        height: 80.0,
+        child: Center(
+          child: Text(
+            'Pin Submitted. Value: $pin',
+            style: const TextStyle(fontSize: 25.0),
+          ),
+        ),
+      ),
+      backgroundColor: Theme.of(context).highlightColor,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }

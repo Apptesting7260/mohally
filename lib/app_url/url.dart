@@ -8,6 +8,8 @@ class AppUrl {
   static const String createpassword = '${baseurl}user-reset-password-api';
 
   static const String emailverify = '${baseurl}user-email-verify-api';
+  static const String verifyuser = '${baseurl}user-verify-api';
+  static const String emailverifyotp = '${baseurl}user-otp-verify-api';
 
   static const String termsandconditions ='${baseurl}pages-view-api?pagename=Terms %26 Condition';
   static const String privacypolicy ='${baseurl}pages-view-api?pagename=Privacy Policy';

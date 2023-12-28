@@ -5,6 +5,7 @@ import 'package:mohally/models/Login_Model/login_model.dart';
 import 'package:mohally/models/Sign_Up_Model/sign_up_model.dart';
 import 'package:mohally/models/reset_password_model/reset_password_model.dart';
 import 'package:mohally/models/resetpasswordotp_model/resetpasswordotp_model.dart';
+import 'package:mohally/models/user_verify_model/user_verify_model.dart';
 
 class AuthRepository {
   final _apiService  = NetworkApiServices();
@@ -31,5 +32,18 @@ class AuthRepository {
     dynamic response = await _apiService.postApi(data, AppUrl.createpassword);
     return CreatepassModel.fromJson(response);
   }
+  Future<UserVerifyModel> Verifyemailapi(var data) async{
+    dynamic response = await _apiService.postApi(data, AppUrl.verifyuser);
+    return UserVerifyModel.fromJson(response);
+  }
+
+  Future<UserVerifyModel> Verifyphoneapi(var data) async{
+    dynamic response = await _apiService.postApi(data, AppUrl.verifyuser);
+    return UserVerifyModel.fromJson(response);
+  }
+  // Future<CreatepassModel> Verifyemailotpapi(var data) async{
+  //   dynamic response = await _apiService.postApi(data, AppUrl.emailverifyotp);
+  //   return CreatepassModel.fromJson(response);
+  // }
 
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
+class MyAccountTextField extends StatelessWidget {
+  MyAccountTextField({
     Key? key,
     this.alignment,
     this.width,
@@ -86,7 +86,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
-          // readOnly: true,
+          readOnly: true,
           controller: controller,
           // focusNode: focusNode ?? FocusNode(),
           autofocus: autofocus!,
@@ -141,8 +141,8 @@ class CustomTextFormField extends StatelessWidget {
       );
 }
 
-/// Extension on [CustomTextFormField] to facilitate inclusion of all types of border style etc
-extension TextFormFieldStyleHelper on CustomTextFormField {
+/// Extension on [MyAccountTextField] to facilitate inclusion of all types of border style etc
+extension TextFormFieldStyleHelper on MyAccountTextField {
   static OutlineInputBorder get fillGray => OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.h),
         borderSide: BorderSide.none,

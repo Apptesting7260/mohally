@@ -11,7 +11,6 @@ class Signup_controller extends GetxController {
   final phoneController = TextEditingController().obs;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
-
   final emailFocusNode = FocusNode().obs;
   final passwordFocusNode = FocusNode().obs;
   RxBool loading = false.obs;
@@ -31,7 +30,7 @@ class Signup_controller extends GetxController {
       Get.to(LoginScreen());
 
       Utils.snackBar(value.status.toString(), value.message.toString()
-          // 'Signup successfully'
+         
           );
     }).onError((error, stackTrace) {
       loading.value = false;

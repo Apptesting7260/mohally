@@ -1,17 +1,23 @@
 import 'dart:io';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
+import 'package:mohally/data/app_exceptions.dart';
+import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/update_profile_screen.dart';
+import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
+import 'package:mohally/view_models/controller/DeleteAccountController/delete_account_controller.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_MyAccount_text_form_field.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
-import 'package:mohally/widgets/custom_text_form_field.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key})
@@ -24,6 +30,9 @@ class MyAccountScreen extends StatefulWidget {
 }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
+  final DeleteAccountIns = Get.put(DeleteAccountController());
+  final  UpdateProfile_Controllerins  = Get.put(UpdateProfile_Controller());
+   final  _controller = Get.put(MyAccountController());
   bool isEmail(String input) => EmailValidator.validate(input);
 
   File imgFile = File("");
@@ -45,6 +54,18 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     });
     Navigator.of(context).pop();
   }
+  @override
+  void initState() {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+ _controller.fetchMyAccountData();
+
+        // Get.to(MyAccountScreen());
+});
+    // _controller.fetchMyAccountData();
+    super.initState();
+   
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +73,18 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Padding(
+      body: Obx(() {
+
+        if(_controller.rxRequestStatus.value==Status.LOADING){
+          return Center(child: CircularProgressIndicator(  color: Colors.pink,));
+        }else if(_controller.rxRequestStatus.value==Status.ERROR){
+return GeneralExceptionWidget(onPress: (){},
+             
+            );
+        }else{
+          return
+    
+      Padding(
         padding: const EdgeInsets.all(18.0),
         child: ListView(
           children: [
@@ -68,11 +100,18 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     Container(
                       height: height * .2,
                       width: width * .3,
-                      child: CircleAvatar(
+                      child:_controller.MyAccount.value.userDetails!.imageUrl==null? CircleAvatar(
                         radius: 30.0,
                         backgroundImage: NetworkImage(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
                         backgroundColor: Colors.transparent,
+                      ):CircleAvatar(
+                        radius: 30.0,
+                        backgroundImage: NetworkImage(
+                           _controller.MyAccount.value.userDetails!.imageUrl.toString()),
+                        backgroundColor: Colors.transparent,
+                      
+                        
                       ),
                     ),
                     CustomIconButton(
@@ -142,73 +181,51 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
-            CustomTextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please Enter Mobile Number";
-                } else {
-                  return null;
-                }
-              },
-              hintText: "Enter your mobile number",
+            MyAccountTextField(
+
+               hintText: _controller.MyAccount.value.userDetails!.phone.toString(),
+
             ),
             SizedBox(height: 30.v),
-            _buildContinueButton(context),
+             _buildContinueButton(context),
             SizedBox(height: 109.v),
           ],
         ),
-      ),
-    );
+      );
+  }}));
   }
 
   Widget _buildFirstName(BuildContext context) {
-    return CustomTextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please Enter First Name";
-        } else {
-          return null;
-        }
-      },
-      hintText: "Enter your first name",
+    return MyAccountTextField(
+       hintText: _controller.MyAccount.value.userDetails!.firstName.toString(),
+
     );
   }
   Widget _buildLastName(BuildContext context) {
-    return CustomTextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please Enter last Name";
-        } else {
-          return null;
-        }
-      },
-      hintText: "Enter your last name",
+    return MyAccountTextField(
+       hintText: _controller.MyAccount.value.userDetails!.lastName.toString(),
+
     );
   }
 
   Widget _buildEmail(BuildContext context) {
-    return CustomTextFormField(
-      validator: (value) {
-        if (!isEmail(value!)) {
-          return 'Please enter a valid email.';
-        }
-        return null;
-      },
-      hintText: "Enter your email",
-      textInputType: TextInputType.emailAddress,
+    return MyAccountTextField(
+       hintText: _controller.MyAccount.value.userDetails!.email.toString(),
     );
   }
-
-  Widget _buildContinueButton(BuildContext context) {
+Widget _buildContinueButton(BuildContext context) {
     return CustomElevatedButton(
-      onPressed: () {},
-      text: "Save",
+      onPressed: () {
+        DeleteAccountIns.deleteUserData();
+        },
+      text: "Delete Account",
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
+      
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
@@ -221,9 +238,32 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           bottom: 8,
         ),
       ),
-      title: AppbarSubtitle(
-        text: "My Account",
-        margin: EdgeInsets.only(left: 16),
+      title: Row(
+        children: [
+          AppbarSubtitle(
+            text: "My Account",
+            margin: EdgeInsets.only(left: 16),
+          ),
+SizedBox(width: Get.width*.3,),
+           CustomElevatedButton(
+                            height: 28.v,
+                            width: 56.h,
+                            text: "Edit",
+                            leftIcon: Container(
+                              margin: EdgeInsets.only(right: 4.h),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgEditWhiteA70002,
+                                height: 12.adaptSize,
+                                width: 12.adaptSize,
+                              ),
+                            ),
+                            onPressed: () {
+                               Get.to(UpdateProfileScreen());
+                            },
+                            buttonTextStyle:
+                                CustomTextStyles.bodySmallWhiteA70002,
+                          ),
+        ],
       ),
     );
   }

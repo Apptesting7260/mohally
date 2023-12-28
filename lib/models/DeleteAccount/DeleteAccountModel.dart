@@ -1,12 +1,12 @@
-class UpdateprofileModel {
-  UpdateprofileModel({
+class DeleteAccountModel {
+  DeleteAccountModel({
      this.status,
      this.message,
   });
-   var status;
-   var message;
+  bool? status;
+  String? message;
   
-  UpdateprofileModel.fromJson(Map<String, dynamic> json){
+  DeleteAccountModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
   }

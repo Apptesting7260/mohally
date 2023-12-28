@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
 import 'package:mohally/presentation/category_page/category_page.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
@@ -7,6 +9,7 @@ import 'package:mohally/presentation/home_page_tab_container_screen/home_page_ta
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import '../../widgets/custom_bottom_bar.dart';
 
 class TabScreen extends StatefulWidget {
@@ -25,7 +28,7 @@ class _TabScreenState extends State<TabScreen> {
   bool loading = false;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
-
+final  _controller = Get.put(MyAccountController());
   @override
   void initState() {
     // fetchApi();
@@ -33,7 +36,7 @@ class _TabScreenState extends State<TabScreen> {
     // TODO: implement initState
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
-
+_controller.fetchMyAccountData();
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
   }

@@ -16,12 +16,10 @@ class MyAccountController extends GetxController {
     void fetchMyAccountData() {
     setRxRequestStatus(Status.LOADING);
     _api.myAccountapi().then((value) {
-     
       setaccountdetails(value);
        setRxRequestStatus(Status.COMPLETED);
       print(value);
      
-      //
     }).onError((error, stackTrace) {
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);

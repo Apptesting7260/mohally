@@ -58,13 +58,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   void initState() {
       SchedulerBinding.instance.addPostFrameCallback((_) {
  _controller.fetchMyAccountData();
-
-        // Get.to(MyAccountScreen());
 });
-    // _controller.fetchMyAccountData();
     super.initState();
-   
-    
   }
 
   @override

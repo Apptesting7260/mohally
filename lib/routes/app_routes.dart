@@ -109,6 +109,7 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static Map<String, WidgetBuilder> routes = {
+   
     splashScreen: (context) => SplashScreen(),
     welcomeScreen: (context) => WelcomeScreen(),
     chooseLanguageScreen: (context) => ChooseLanguageScreen(),

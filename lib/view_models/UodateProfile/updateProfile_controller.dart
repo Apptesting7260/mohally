@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:http/http.dart'as http;
@@ -62,9 +63,9 @@ MyAccountController MyAccountControllerin= MyAccountController();
       print(responseBody);
       // Check the response status
       if (response.statusCode == 200) {
-        print('File uploaded successfully!');
+           Utils.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen());
 
- Get.to(MyAccountScreen());
+ 
         loading.value = false;
 
       } else {
@@ -74,7 +75,8 @@ MyAccountController MyAccountControllerin= MyAccountController();
     } catch (e) {
       loading.value = false;
       print(response);
-      print('Error occurred while uploading file: $e');
+        Utils.snackBar('Failed','Error occurred while uploading file: $e');
+
     }
   }
 

@@ -9,6 +9,7 @@ String? varificationemail;
 
 class UserVerify_controller extends GetxController {
   final _api = AuthRepository();
+  RxBool verified =  false.obs;
 
 var userList = UserVerifyModel().obs;
    RxString error = ''.obs;

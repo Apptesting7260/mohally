@@ -19,6 +19,7 @@ class AppUrl {
   static const String profileupdate ='${baseurl}user-profile-update-api';
   static const String myaccount ='${baseurl}user-profile-view-api';
   static const String deleteMyAccount ='${baseurl}user-account-delete-api';
+  static const String homebannerapi ='${baseurl}home-banner-view-api';
 
 
 }

@@ -12,9 +12,11 @@ import 'package:mohally/widgets/custom_text_form_field.dart';
 
 import '../sign_up_screen/sign_up_screen.dart';
 import '../verification_code_screen/verification_code_screen.dart';
+
 RxBool loginbuttonused = false.obs;
 String? loginemail;
 String? loginPassword;
+
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key})
       : super(
@@ -26,7 +28,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   Login_controller login_controller = Get.put(Login_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -43,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -208,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return null;
       },
-      controller: login_controller.emailController.value ,
+      controller: login_controller.emailController.value,
       hintText: "Enter mobile number or email",
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
@@ -225,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return null;
         }
       },
-      controller:  login_controller.passwordController.value,
+      controller: login_controller.passwordController.value,
       hintText: "Enter your password",
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
@@ -236,9 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
             });
           },
           icon: Icon(
-            _passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
+            _passwordVisible ? Icons.visibility : Icons.visibility_off,
           )),
 
       // suffix: Container(
@@ -263,7 +263,9 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
     return CustomElevatedButton(
+      loading: login_controller.loading.value,
       onPressed: () {
+        login_controller.loading.value = true;
         // Get.to(()=>VerificationCodeScreen
         //   (controller:TextEditingController() ,pinPutFocusNode:FocusNode() ,)
         // );
@@ -322,6 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
       buttonStyle: CustomButtonStyles.outlineGray,
     );
   }
+
   checkvalidate() {
     print("send");
     if (!_formKey.currentState!.validate()) {
@@ -337,5 +340,4 @@ class _LoginScreenState extends State<LoginScreen> {
       loginPassword = login_controller.passwordController.value.text;
     }
   }
-
 }

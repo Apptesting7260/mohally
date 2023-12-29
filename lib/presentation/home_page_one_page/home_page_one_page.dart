@@ -1,4 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
+import 'package:mohally/data/response/status.dart';
+import 'package:mohally/view_models/controller/Home_Banner_Controller/home_banner_controller.dart';
+import 'package:mohally/widgets/Internet_exception_widget/internet_exception_widget.dart';
 
 import '../home_page_one_page/widgets/homepagesection_item_widget.dart';
 import '../home_page_one_page/widgets/recommendedsection_item_widget.dart';
@@ -20,13 +24,41 @@ class HomePageOnePage extends StatefulWidget {
 
 class HomePageOnePageState extends State<HomePageOnePage>
     with AutomaticKeepAliveClientMixin<HomePageOnePage> {
+  HomeBanner_controller homeBanner_controller = HomeBanner_controller();
+  List<Widget> carouselItems = [
+    // Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
+    Image.asset("assets/images/banner 1.png"),
+    Image.asset("assets/images/banner 1.png")
+  ];
+  @override
+  void initState() {
+    // homeBanner_controller.homeBanner_apihit();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
+    return
+        // Obx(() {
+        // if (homeBanner_controller.rxRequestStatus.value == Status.LOADING) {
+        //   return const Scaffold(
+        //     body: Center(child: CircularProgressIndicator()),
+        //   );
+        // } else if (homeBanner_controller.error.value == 'No internet') {
+        //   return Scaffold(
+        //     body: Center(
+        //         child: InterNetExceptionWidget(
+        //       onPress: () {},
+        //     )),
+        //   );
+        // }
+        // else{
 
-    return SafeArea(
+        SafeArea(
       child: Scaffold(
         body: SizedBox(
           width: mediaQueryData.size.width,
@@ -41,7 +73,20 @@ class HomePageOnePageState extends State<HomePageOnePage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildBannerSection(context),
+                        CarouselSlider(
+                          items: carouselItems,
+                          options: CarouselOptions(
+                            enlargeCenterPage: true,
+                            autoPlay: true,
+                            aspectRatio: 16 / 9,
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enableInfiniteScroll: true,
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 800),
+                            viewportFraction: 0.97,
+                          ),
+                        ),
+                        // _buildBannerSection(context),
                         SizedBox(height: 5.v),
                         // _buildShippingSection(context),
                         Row(
@@ -53,7 +98,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                   color: Colors.orange.shade50,
                                   borderRadius: BorderRadius.circular(10)),
                               height: 65,
-                              width: 160,
+                              width: 150,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -89,7 +134,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                   color: Colors.orange.shade50,
                                   borderRadius: BorderRadius.circular(10)),
                               height: 65,
-                              width: 160,
+                              width: 150,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -210,319 +255,315 @@ class HomePageOnePageState extends State<HomePageOnePage>
   }
 
   /// Section Widget
-  Widget _buildBannerSection(BuildContext context) {
-    // final height = MediaQuery.of(context).size.height;
-    // final width = MediaQuery.of(context).size.width;
-    List<Widget> carouselItems = [
-      Image.asset("assets/images/banner 1.png"),
-      Image.asset("assets/images/banner 1.png"),
-      Image.asset("assets/images/banner 1.png")
-    ];
-    // return SingleChildScrollView(
-    //   scrollDirection: Axis.horizontal,
-    //   child:
-    //   IntrinsicWidth(
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         Card(
-    //           clipBehavior: Clip.antiAlias,
-    //           elevation: 0,
-    //           margin: EdgeInsets.all(0),
-    //           color: appTheme.yellow50,
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadiusStyle.roundedBorder8,
-    //           ),
-    //           child: Container(
-    //             height: 144.v,
-    //             width: 304.h,
-    //             decoration: AppDecoration.fillYellow.copyWith(
-    //               borderRadius: BorderRadiusStyle.roundedBorder8,
-    //             ),
-    //             child: Stack(
-    //               alignment: Alignment.topRight,
-    //               children: [
-    //                 Align(
-    //                   alignment: Alignment.topRight,
-    //                   child: Container(
-    //                     height: 108.v,
-    //                     width: 165.h,
-    //                     decoration: BoxDecoration(
-    //                       color: theme.colorScheme.primary,
-    //                       borderRadius: BorderRadius.circular(
-    //                         82.h,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.topRight,
-    //                   child: DottedBorder(
-    //                     color: theme.colorScheme.primary,
-    //                     padding: EdgeInsets.only(
-    //                       left: 2.h,
-    //                       top: 2.v,
-    //                       right: 2.h,
-    //                       bottom: 2.v,
-    //                     ),
-    //                     strokeWidth: 2.h,
-    //                     radius: Radius.circular(85),
-    //                     borderType: BorderType.RRect,
-    //                     dashPattern: [
-    //                       7,
-    //                       7,
-    //                     ],
-    //                     child: Container(
-    //                       height: 116.v,
-    //                       width: 171.h,
-    //                       decoration: BoxDecoration(
-    //                         borderRadius: BorderRadius.circular(
-    //                           85.h,
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.topLeft,
-    //                   child: Padding(
-    //                     padding: EdgeInsets.only(
-    //                       left: 25.h,
-    //                       top: 17.v,
-    //                     ),
-    //                     child: Text(
-    //                       "SALE",
-    //                       style: CustomTextStyles.bodySmallInterPrimary,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.bottomLeft,
-    //                   child: Padding(
-    //                     padding: EdgeInsets.only(
-    //                       left: 28.h,
-    //                       bottom: 21.v,
-    //                     ),
-    //                     child: Text(
-    //                       "School Collections",
-    //                       style: CustomTextStyles.bodySmallInterErrorContainer,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.topLeft,
-    //                   child: Container(
-    //                     width: 111.h,
-    //                     margin: EdgeInsets.only(
-    //                       left: 25.h,
-    //                       top: 33.v,
-    //                     ),
-    //                     child: RichText(
-    //                       text: TextSpan(
-    //                         children: [
-    //                           TextSpan(
-    //                             text: "UPTO\n",
-    //                             style: CustomTextStyles
-    //                                 .headlineSmallInterErrorContainer,
-    //                           ),
-    //                           TextSpan(
-    //                             text: "60% OFF",
-    //                             style:
-    //                                 CustomTextStyles.headlineSmallInterPrimary,
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       textAlign: TextAlign.left,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.centerRight,
-    //                   child: Container(
-    //                     height: 123.v,
-    //                     width: 112.h,
-    //                     margin: EdgeInsets.only(right: 8.h),
-    //                     child: Stack(
-    //                       alignment: Alignment.centerLeft,
-    //                       children: [
-    //                         Opacity(
-    //                           opacity: 0.7,
-    //                           child: CustomImageView(
-    //                             imagePath: ImageConstant.imgShadow,
-    //                             height: 123.v,
-    //                             width: 112.h,
-    //                             alignment: Alignment.center,
-    //                           ),
-    //                         ),
-    //                         Align(
-    //                           alignment: Alignment.centerLeft,
-    //                           child: Row(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               CustomImageView(
-    //                                 imagePath: ImageConstant.imgMain,
-    //                                 height: 123.v,
-    //                                 width: 84.h,
-    //                               ),
-    //                               CustomImageView(
-    //                                 imagePath: ImageConstant.imgVector1,
-    //                                 height: 19.v,
-    //                                 width: 16.h,
-    //                                 margin: EdgeInsets.only(
-    //                                   left: 2.h,
-    //                                   top: 40.v,
-    //                                   bottom: 64.v,
-    //                                 ),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 CustomImageView(
-    //                   imagePath: ImageConstant.imgVector2,
-    //                   height: 25.adaptSize,
-    //                   width: 25.adaptSize,
-    //                   alignment: Alignment.topRight,
-    //                   margin: EdgeInsets.only(
-    //                     top: 39.v,
-    //                     right: 7.h,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //         Card(
-    //           clipBehavior: Clip.antiAlias,
-    //           elevation: 0,
-    //           margin: EdgeInsets.only(left: 15.h),
-    //           shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadiusStyle.roundedBorder8,
-    //           ),
-    //           child: Container(
-    //             height: 144.v,
-    //             width: 304.h,
-    //             decoration: AppDecoration.gradientCyanToIndigo.copyWith(
-    //               borderRadius: BorderRadiusStyle.roundedBorder8,
-    //             ),
-    //             child: Stack(
-    //               alignment: Alignment.bottomLeft,
-    //               children: [
-    //                 Align(
-    //                   alignment: Alignment.bottomRight,
-    //                   child: Container(
-    //                     height: 11.v,
-    //                     width: 90.h,
-    //                     margin: EdgeInsets.only(
-    //                       right: 50.h,
-    //                       bottom: 25.v,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       color:
-    //                           theme.colorScheme.errorContainer.withOpacity(0.2),
-    //                       borderRadius: BorderRadius.circular(
-    //                         45.h,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.bottomLeft,
-    //                   child: Container(
-    //                     height: 68.v,
-    //                     width: 93.h,
-    //                     decoration: BoxDecoration(
-    //                       color: appTheme.whiteA70002.withOpacity(0.1),
-    //                       borderRadius: BorderRadius.circular(
-    //                         46.h,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.topLeft,
-    //                   child: Padding(
-    //                     padding: EdgeInsets.only(
-    //                       left: 25.h,
-    //                       top: 22.v,
-    //                     ),
-    //                     child: Text(
-    //                       "ELECTRONIC DAY",
-    //                       style: CustomTextStyles.bodySmallInterWhiteA70002,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.bottomLeft,
-    //                   child: Padding(
-    //                     padding: EdgeInsets.only(
-    //                       left: 25.h,
-    //                       bottom: 26.v,
-    //                     ),
-    //                     child: Text(
-    //                       "40% OFF",
-    //                       style: CustomTextStyles
-    //                           .titleMediumInterWhiteA70002ExtraBold,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Align(
-    //                   alignment: Alignment.topLeft,
-    //                   child: Container(
-    //                     width: 144.h,
-    //                     margin: EdgeInsets.only(
-    //                       left: 25.h,
-    //                       top: 42.v,
-    //                     ),
-    //                     child: Text(
-    //                       "GET YOUR DREAM DEVICE",
-    //                       maxLines: 2,
-    //                       overflow: TextOverflow.ellipsis,
-    //                       style: CustomTextStyles.titleMediumInterWhiteA70002,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 CustomImageView(
-    //                   imagePath: ImageConstant.imgMain105x111,
-    //                   height: 105.v,
-    //                   width: 111.h,
-    //                   alignment: Alignment.topRight,
-    //                   margin: EdgeInsets.only(
-    //                     top: 11.v,
-    //                     right: 7.h,
-    //                   ),
-    //                 ),
-    //                 CustomImageView(
-    //                   imagePath: ImageConstant.imgMain93x62,
-    //                   height: 93.v,
-    //                   width: 62.h,
-    //                   alignment: Alignment.bottomRight,
-    //                   margin: EdgeInsets.only(bottom: 7.v),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
-    return CarouselSlider(
-      items: carouselItems,
-      options: CarouselOptions(
-        enlargeCenterPage: true,
-        autoPlay: true,
-        aspectRatio: 16 / 9,
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enableInfiniteScroll: true,
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-        viewportFraction: 0.97,
-      ),
-    );
-  }
+  // Widget _buildBannerSection(BuildContext context) {
+  //   // final height = MediaQuery.of(context).size.height;
+  //   // final width = MediaQuery.of(context).size.width;
+  //
+  //   // return SingleChildScrollView(
+  //   //   scrollDirection: Axis.horizontal,
+  //   //   child:
+  //   //   IntrinsicWidth(
+  //   //     child: Row(
+  //   //       mainAxisAlignment: MainAxisAlignment.center,
+  //   //       children: [
+  //   //         Card(
+  //   //           clipBehavior: Clip.antiAlias,
+  //   //           elevation: 0,
+  //   //           margin: EdgeInsets.all(0),
+  //   //           color: appTheme.yellow50,
+  //   //           shape: RoundedRectangleBorder(
+  //   //             borderRadius: BorderRadiusStyle.roundedBorder8,
+  //   //           ),
+  //   //           child: Container(
+  //   //             height: 144.v,
+  //   //             width: 304.h,
+  //   //             decoration: AppDecoration.fillYellow.copyWith(
+  //   //               borderRadius: BorderRadiusStyle.roundedBorder8,
+  //   //             ),
+  //   //             child: Stack(
+  //   //               alignment: Alignment.topRight,
+  //   //               children: [
+  //   //                 Align(
+  //   //                   alignment: Alignment.topRight,
+  //   //                   child: Container(
+  //   //                     height: 108.v,
+  //   //                     width: 165.h,
+  //   //                     decoration: BoxDecoration(
+  //   //                       color: theme.colorScheme.primary,
+  //   //                       borderRadius: BorderRadius.circular(
+  //   //                         82.h,
+  //   //                       ),
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.topRight,
+  //   //                   child: DottedBorder(
+  //   //                     color: theme.colorScheme.primary,
+  //   //                     padding: EdgeInsets.only(
+  //   //                       left: 2.h,
+  //   //                       top: 2.v,
+  //   //                       right: 2.h,
+  //   //                       bottom: 2.v,
+  //   //                     ),
+  //   //                     strokeWidth: 2.h,
+  //   //                     radius: Radius.circular(85),
+  //   //                     borderType: BorderType.RRect,
+  //   //                     dashPattern: [
+  //   //                       7,
+  //   //                       7,
+  //   //                     ],
+  //   //                     child: Container(
+  //   //                       height: 116.v,
+  //   //                       width: 171.h,
+  //   //                       decoration: BoxDecoration(
+  //   //                         borderRadius: BorderRadius.circular(
+  //   //                           85.h,
+  //   //                         ),
+  //   //                       ),
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.topLeft,
+  //   //                   child: Padding(
+  //   //                     padding: EdgeInsets.only(
+  //   //                       left: 25.h,
+  //   //                       top: 17.v,
+  //   //                     ),
+  //   //                     child: Text(
+  //   //                       "SALE",
+  //   //                       style: CustomTextStyles.bodySmallInterPrimary,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.bottomLeft,
+  //   //                   child: Padding(
+  //   //                     padding: EdgeInsets.only(
+  //   //                       left: 28.h,
+  //   //                       bottom: 21.v,
+  //   //                     ),
+  //   //                     child: Text(
+  //   //                       "School Collections",
+  //   //                       style: CustomTextStyles.bodySmallInterErrorContainer,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.topLeft,
+  //   //                   child: Container(
+  //   //                     width: 111.h,
+  //   //                     margin: EdgeInsets.only(
+  //   //                       left: 25.h,
+  //   //                       top: 33.v,
+  //   //                     ),
+  //   //                     child: RichText(
+  //   //                       text: TextSpan(
+  //   //                         children: [
+  //   //                           TextSpan(
+  //   //                             text: "UPTO\n",
+  //   //                             style: CustomTextStyles
+  //   //                                 .headlineSmallInterErrorContainer,
+  //   //                           ),
+  //   //                           TextSpan(
+  //   //                             text: "60% OFF",
+  //   //                             style:
+  //   //                                 CustomTextStyles.headlineSmallInterPrimary,
+  //   //                           ),
+  //   //                         ],
+  //   //                       ),
+  //   //                       textAlign: TextAlign.left,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.centerRight,
+  //   //                   child: Container(
+  //   //                     height: 123.v,
+  //   //                     width: 112.h,
+  //   //                     margin: EdgeInsets.only(right: 8.h),
+  //   //                     child: Stack(
+  //   //                       alignment: Alignment.centerLeft,
+  //   //                       children: [
+  //   //                         Opacity(
+  //   //                           opacity: 0.7,
+  //   //                           child: CustomImageView(
+  //   //                             imagePath: ImageConstant.imgShadow,
+  //   //                             height: 123.v,
+  //   //                             width: 112.h,
+  //   //                             alignment: Alignment.center,
+  //   //                           ),
+  //   //                         ),
+  //   //                         Align(
+  //   //                           alignment: Alignment.centerLeft,
+  //   //                           child: Row(
+  //   //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //   //                             children: [
+  //   //                               CustomImageView(
+  //   //                                 imagePath: ImageConstant.imgMain,
+  //   //                                 height: 123.v,
+  //   //                                 width: 84.h,
+  //   //                               ),
+  //   //                               CustomImageView(
+  //   //                                 imagePath: ImageConstant.imgVector1,
+  //   //                                 height: 19.v,
+  //   //                                 width: 16.h,
+  //   //                                 margin: EdgeInsets.only(
+  //   //                                   left: 2.h,
+  //   //                                   top: 40.v,
+  //   //                                   bottom: 64.v,
+  //   //                                 ),
+  //   //                               ),
+  //   //                             ],
+  //   //                           ),
+  //   //                         ),
+  //   //                       ],
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 CustomImageView(
+  //   //                   imagePath: ImageConstant.imgVector2,
+  //   //                   height: 25.adaptSize,
+  //   //                   width: 25.adaptSize,
+  //   //                   alignment: Alignment.topRight,
+  //   //                   margin: EdgeInsets.only(
+  //   //                     top: 39.v,
+  //   //                     right: 7.h,
+  //   //                   ),
+  //   //                 ),
+  //   //               ],
+  //   //             ),
+  //   //           ),
+  //   //         ),
+  //   //         Card(
+  //   //           clipBehavior: Clip.antiAlias,
+  //   //           elevation: 0,
+  //   //           margin: EdgeInsets.only(left: 15.h),
+  //   //           shape: RoundedRectangleBorder(
+  //   //             borderRadius: BorderRadiusStyle.roundedBorder8,
+  //   //           ),
+  //   //           child: Container(
+  //   //             height: 144.v,
+  //   //             width: 304.h,
+  //   //             decoration: AppDecoration.gradientCyanToIndigo.copyWith(
+  //   //               borderRadius: BorderRadiusStyle.roundedBorder8,
+  //   //             ),
+  //   //             child: Stack(
+  //   //               alignment: Alignment.bottomLeft,
+  //   //               children: [
+  //   //                 Align(
+  //   //                   alignment: Alignment.bottomRight,
+  //   //                   child: Container(
+  //   //                     height: 11.v,
+  //   //                     width: 90.h,
+  //   //                     margin: EdgeInsets.only(
+  //   //                       right: 50.h,
+  //   //                       bottom: 25.v,
+  //   //                     ),
+  //   //                     decoration: BoxDecoration(
+  //   //                       color:
+  //   //                           theme.colorScheme.errorContainer.withOpacity(0.2),
+  //   //                       borderRadius: BorderRadius.circular(
+  //   //                         45.h,
+  //   //                       ),
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.bottomLeft,
+  //   //                   child: Container(
+  //   //                     height: 68.v,
+  //   //                     width: 93.h,
+  //   //                     decoration: BoxDecoration(
+  //   //                       color: appTheme.whiteA70002.withOpacity(0.1),
+  //   //                       borderRadius: BorderRadius.circular(
+  //   //                         46.h,
+  //   //                       ),
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.topLeft,
+  //   //                   child: Padding(
+  //   //                     padding: EdgeInsets.only(
+  //   //                       left: 25.h,
+  //   //                       top: 22.v,
+  //   //                     ),
+  //   //                     child: Text(
+  //   //                       "ELECTRONIC DAY",
+  //   //                       style: CustomTextStyles.bodySmallInterWhiteA70002,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.bottomLeft,
+  //   //                   child: Padding(
+  //   //                     padding: EdgeInsets.only(
+  //   //                       left: 25.h,
+  //   //                       bottom: 26.v,
+  //   //                     ),
+  //   //                     child: Text(
+  //   //                       "40% OFF",
+  //   //                       style: CustomTextStyles
+  //   //                           .titleMediumInterWhiteA70002ExtraBold,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 Align(
+  //   //                   alignment: Alignment.topLeft,
+  //   //                   child: Container(
+  //   //                     width: 144.h,
+  //   //                     margin: EdgeInsets.only(
+  //   //                       left: 25.h,
+  //   //                       top: 42.v,
+  //   //                     ),
+  //   //                     child: Text(
+  //   //                       "GET YOUR DREAM DEVICE",
+  //   //                       maxLines: 2,
+  //   //                       overflow: TextOverflow.ellipsis,
+  //   //                       style: CustomTextStyles.titleMediumInterWhiteA70002,
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //                 CustomImageView(
+  //   //                   imagePath: ImageConstant.imgMain105x111,
+  //   //                   height: 105.v,
+  //   //                   width: 111.h,
+  //   //                   alignment: Alignment.topRight,
+  //   //                   margin: EdgeInsets.only(
+  //   //                     top: 11.v,
+  //   //                     right: 7.h,
+  //   //                   ),
+  //   //                 ),
+  //   //                 CustomImageView(
+  //   //                   imagePath: ImageConstant.imgMain93x62,
+  //   //                   height: 93.v,
+  //   //                   width: 62.h,
+  //   //                   alignment: Alignment.bottomRight,
+  //   //                   margin: EdgeInsets.only(bottom: 7.v),
+  //   //                 ),
+  //   //               ],
+  //   //             ),
+  //   //           ),
+  //   //         ),
+  //   //       ],
+  //   //     ),
+  //   //   ),
+  //   // );
+  //   return CarouselSlider(
+  //     items: carouselItems,
+  //     options: CarouselOptions(
+  //       enlargeCenterPage: true,
+  //       autoPlay: true,
+  //       aspectRatio: 16 / 9,
+  //       autoPlayCurve: Curves.fastOutSlowIn,
+  //       enableInfiniteScroll: true,
+  //       autoPlayAnimationDuration: Duration(milliseconds: 800),
+  //       viewportFraction: 0.97,
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildShippingSection(BuildContext context) {

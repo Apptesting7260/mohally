@@ -329,8 +329,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                           .text) {
                                                     verifyphone.value = true;
                                                     Get.back();
-                                                  }else{
-                                                    _showSnackBar("wrong otp", context);
+                                                    verifyemailOTP_controller
+                                                        .pinController
+                                                        .value
+                                                        .clear();
+                                                  } else {
+                                                    _showSnackBar(
+                                                        "wrong otp", context);
                                                   }
                                                   // verifyemailOTP_controller
                                                   //     .VerifyEmailOTP_apihit(
@@ -385,11 +390,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                 );
                               },
-                              child: Text(
-                                "Verify Mobile",
-                                style: theme.textTheme.titleSmall!
-                                    .copyWith(color: Color(0xffFE8300)),
-                              ),
+                              child: !(verifyemail.value == true &&
+                                      verifyphone.value == true)
+                                  ? Text(
+                                      "Verify Mobile",
+                                      style: theme.textTheme.titleSmall!
+                                          .copyWith(color: Color(0xffFE8300)),
+                                    )
+                                  : Text(
+                                      "Verified",
+                                      style: theme.textTheme.titleSmall!
+                                          .copyWith(color: Colors.green),
+                                    ),
                             ),
                           ),
                           SizedBox(height: 17.v),
@@ -493,16 +505,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   //     .clear();
                                                 }
                                                 if (verifyemail_controller
-                                                    .userList.value.otp
-                                                    .toString() ==
+                                                        .userList.value.otp
+                                                        .toString() ==
                                                     verifyemailOTP_controller
                                                         .pinController
                                                         .value
                                                         .text) {
                                                   verifyemail.value = true;
                                                   Get.back();
-                                                }else{
-                                                  _showSnackBar("wrong otp", context);
+                                                } else {
+                                                  _showSnackBar(
+                                                      "wrong otp", context);
                                                 }
                                                 // verifyemail_controller.
                                               },
@@ -552,7 +565,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             child: Align(
                                 alignment: Alignment.bottomRight,
-                                child: !(verifyemail.value == true && verifyphone.value == true)
+                                child: !(verifyemail.value == true &&
+                                        verifyphone.value == true)
                                     ? Text(
                                         "Verify Email",
                                         style: theme.textTheme.titleSmall!
@@ -753,7 +767,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
     return CustomElevatedButton(
-      isDisabled: !verifyemailOTP_controller.verified.value,
+      isDisabled: !(verifyemail.value &&
+          verifyphone.value),
       onPressed: () {
         checkvalidate();
       },

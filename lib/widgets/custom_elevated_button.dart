@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/base_button.dart';
 
@@ -61,9 +62,12 @@ class CustomElevatedButton extends BaseButton {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               leftIcon ?? const SizedBox.shrink(),
-              Text(
-                text,
-                style: buttonTextStyle ?? CustomTextStyles.titleMediumWhiteA700,
+              Center(
+                child: loading==false? Text(
+                  text,
+                  style: buttonTextStyle ?? CustomTextStyles.titleMediumWhiteA700,
+                ):LoadingAnimationWidget.prograssiveDots(
+                    color: Colors.white, size: 30),
               ),
               rightIcon ?? const SizedBox.shrink(),
             ],

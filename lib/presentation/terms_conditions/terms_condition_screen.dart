@@ -45,112 +45,114 @@ Future<String> _fetchData() async {
     // final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: 
-        FutureBuilder(
-          future: TermsandConditions,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Html(data: snapshot.data.toString()),
-                  ),
-                  SizedBox(height: 20)
-                ]
-              );
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: 
+          FutureBuilder(
+            future: TermsandConditions,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Html(data: snapshot.data.toString()),
+                    ),
+                    SizedBox(height: 20)
+                  ]
+                );
+              }
             }
-          }
-        )
+          )
+          
+          
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Center(
+          //       child: CustomImageView(
+          //         imagePath: ImageConstant.terms,
+          //       ),
+          //     ),
         
-        
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Center(
-        //       child: CustomImageView(
-        //         imagePath: ImageConstant.terms,
-        //       ),
-        //     ),
-
-        //     Gap(20),
-        //     Text(
-        //       "Terms of Use",
-        //       style: CustomTextStyles.titleMediumMedium16,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(20),
-        //     Text(
-        //       "1. Clause",
-        //       style: CustomTextStyles.titleMediumMedium16,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(20),
-        //     Text(
-        //       "2. Clause",
-        //       style: CustomTextStyles.titleMediumMedium16,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(20),
-        //     Text(
-        //       "3. Clause",
-        //       style: CustomTextStyles.titleMediumMedium16,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(30),
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         CustomElevatedButton(
-        //           height: 30,
-        //           width: 80,
-        //           text: "Accept",
-        //           margin: EdgeInsets.only(left: 8),
-        //           buttonStyle: CustomButtonStyles.fillPrimaryTL15,
-        //           buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
-        //         ),
-        //         CustomElevatedButton(
-        //           height: 30,
-        //           width: 80,
-        //           text: "Decline",
-        //           margin: EdgeInsets.only(left: 8),
-        //           buttonStyle: CustomButtonStyles.fillPrimaryTL15,
-        //           buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
-        //         ),
-        //       ],
-        //     )
-        //   ],
-        // ),
+          //     Gap(20),
+          //     Text(
+          //       "Terms of Use",
+          //       style: CustomTextStyles.titleMediumMedium16,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(20),
+          //     Text(
+          //       "1. Clause",
+          //       style: CustomTextStyles.titleMediumMedium16,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(20),
+          //     Text(
+          //       "2. Clause",
+          //       style: CustomTextStyles.titleMediumMedium16,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(20),
+          //     Text(
+          //       "3. Clause",
+          //       style: CustomTextStyles.titleMediumMedium16,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //             theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(30),
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         CustomElevatedButton(
+          //           height: 30,
+          //           width: 80,
+          //           text: "Accept",
+          //           margin: EdgeInsets.only(left: 8),
+          //           buttonStyle: CustomButtonStyles.fillPrimaryTL15,
+          //           buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
+          //         ),
+          //         CustomElevatedButton(
+          //           height: 30,
+          //           width: 80,
+          //           text: "Decline",
+          //           margin: EdgeInsets.only(left: 8),
+          //           buttonStyle: CustomButtonStyles.fillPrimaryTL15,
+          //           buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
+          //         ),
+          //       ],
+          //     )
+          //   ],
+          // ),
+        ),
       ),
     );
   }

@@ -51,6 +51,8 @@ flutter:
   assets: 
     - assets/
     - assets/images/
+    - assets/audio/
+    
   fonts: 
     - family: League Spartan
       fonts: 

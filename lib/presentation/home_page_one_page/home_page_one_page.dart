@@ -97,8 +97,8 @@ class HomePageOnePageState extends State<HomePageOnePage>
                               decoration: BoxDecoration(
                                   color: Colors.orange.shade50,
                                   borderRadius: BorderRadius.circular(10)),
-                              height: 65,
-                              width: 150,
+                              height: Get.height*.09,
+                              width: Get.width*.4,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -133,8 +133,8 @@ class HomePageOnePageState extends State<HomePageOnePage>
                               decoration: BoxDecoration(
                                   color: Colors.orange.shade50,
                                   borderRadius: BorderRadius.circular(10)),
-                              height: 65,
-                              width: 150,
+                             height: Get.height*.09,
+                              width: Get.width*.4,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(

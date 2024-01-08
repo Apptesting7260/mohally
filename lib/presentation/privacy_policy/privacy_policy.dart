@@ -42,94 +42,96 @@ else {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: FutureBuilder(
-          future: PrivacyPolicy,
-          builder: (context, snapshot){
-           if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Html(data: snapshot.data.toString()),
-                  ),
-                  SizedBox(height: 20),
-                ]
-              );
-          }
-          }
-          )
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Center(
-        //       child: CustomImageView(
-        //         imagePath: ImageConstant.policy,
-        //       ),
-        //     ),
-
-        //     Gap(20),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(20),
-        //     Text(
-        //       "What is Lorem Ipsum?",
-        //       style: CustomTextStyles.titleMediumMedium16,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(20),
-        //     Text(
-        //       ". What is Lorem Ipsum",
-        //       style: CustomTextStyles.titleSmall15,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(10),
-        //     Text(
-        //       ". What is Lorem Ipsum",
-        //       style: CustomTextStyles.titleSmall15,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //     Gap(10),
-        //     Text(
-        //       ". What is Lorem Ipsum",
-        //       style: CustomTextStyles.titleSmall15,
-        //     ),
-        //     Gap(10),
-        //     Text(
-        //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //         maxLines: 4,
-        //         overflow: TextOverflow.ellipsis,
-        //         style:
-        //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
-        //   ],
-        // ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: FutureBuilder(
+            future: PrivacyPolicy,
+            builder: (context, snapshot){
+             if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Html(data: snapshot.data.toString()),
+                    ),
+                    SizedBox(height: 20),
+                  ]
+                );
+            }
+            }
+            )
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Center(
+          //       child: CustomImageView(
+          //         imagePath: ImageConstant.policy,
+          //       ),
+          //     ),
+        
+          //     Gap(20),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(20),
+          //     Text(
+          //       "What is Lorem Ipsum?",
+          //       style: CustomTextStyles.titleMediumMedium16,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(20),
+          //     Text(
+          //       ". What is Lorem Ipsum",
+          //       style: CustomTextStyles.titleSmall15,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(10),
+          //     Text(
+          //       ". What is Lorem Ipsum",
+          //       style: CustomTextStyles.titleSmall15,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //     Gap(10),
+          //     Text(
+          //       ". What is Lorem Ipsum",
+          //       style: CustomTextStyles.titleSmall15,
+          //     ),
+          //     Gap(10),
+          //     Text(
+          //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          //         maxLines: 4,
+          //         overflow: TextOverflow.ellipsis,
+          //         style:
+          //         theme.textTheme.titleSmall!.copyWith(color: Colors.grey)),
+          //   ],
+          // ),
+        ),
       ),
     );
   }

@@ -220,13 +220,15 @@ class _CreatePasswordState extends State<CreatePassword> {
                       text: 'Continue',
                       buttonStyle: CustomButtonStyles.fillPrimary,
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate()) 
+                        {
                           _formKey.currentState!.save();
                           _submit();
                         }
                       },
                       height: height * .07,
-                      width: width * 0.5),
+                      width: width * 0.5
+                      ),
                 ),
               ],
             ),

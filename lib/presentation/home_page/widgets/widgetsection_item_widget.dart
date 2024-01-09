@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +21,7 @@ class WidgetsectionItemWidget extends StatelessWidget {
         borderRadius: BorderRadiusStyle.circleBorder12,
       ),
       child: Text(
-        "All",
+        "_All".tr,
         style: theme.textTheme.bodyMedium,
       ),
     );

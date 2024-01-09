@@ -150,7 +150,7 @@ else {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Privacy Policy",
+        text: "Privacy_Policy".tr,
         margin: EdgeInsets.only(left: 16),
       ),
     );

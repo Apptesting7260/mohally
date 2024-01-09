@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -54,7 +55,7 @@ class OrderConfirmedScreen extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.only(left: 39.h),
                           child: Text(
-                            "Order Confirmed!",
+                            "Order_Confirmed".tr,
                             style: theme.textTheme.headlineMedium,
                           ),
                         ),
@@ -67,7 +68,7 @@ class OrderConfirmedScreen extends StatelessWidget {
                           right: 12.h,
                         ),
                         child: Text(
-                          "Your order has been confirmed, we will send you confirmation email shortly.",
+                          "order_message".tr,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
@@ -78,7 +79,7 @@ class OrderConfirmedScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 73.v),
                       CustomElevatedButton(
-                        text: "Continue Shopping",
+                        text: "Continue_Shopping".tr,
                         buttonStyle: CustomButtonStyles.fillPrimary,
                       ),
                     ],
@@ -87,7 +88,7 @@ class OrderConfirmedScreen extends StatelessWidget {
               ),
               CustomOutlinedButton(
                 width: 315.h,
-                text: "Go to Orders",
+                text: "Go_to_Orders".tr,
                 margin: EdgeInsets.only(bottom: 5.v),
                 buttonStyle: CustomButtonStyles.outlineGrayTL25,
                 buttonTextStyle: theme.textTheme.titleMedium!,
@@ -113,7 +114,7 @@ class OrderConfirmedScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Order Confirmed!",
+        text: "Order_Confirmed",
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

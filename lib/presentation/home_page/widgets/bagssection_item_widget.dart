@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
@@ -29,7 +30,7 @@ class BagssectionItemWidget extends StatelessWidget {
           ),
           SizedBox(height: 7.v),
           Text(
-            "All",
+            "_All".tr,
             style: theme.textTheme.labelLarge,
           ),
           SizedBox(height: 13.v),

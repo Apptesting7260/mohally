@@ -32,7 +32,7 @@ class Resetpassword_controller extends GetxController {
 
       loading.value = false;
 
-      Utils.snackBar('send otp', 'please check otp in email');
+      Utils2.snackBar('send otp', 'please check otp in email');
       print("otppppp sendddd2");
       Get.to(VerificationCodeScreen(
         emailText: emailController.value.text,
@@ -44,7 +44,7 @@ class Resetpassword_controller extends GetxController {
       // Get.to(TabScreen(index:0,));
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utils.snackBar('incorrect', 'please check email');
+      Utils2.snackBar('incorrect', 'please check email');
       return; // error.toString()
     });
   }

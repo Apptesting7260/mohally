@@ -48,7 +48,7 @@ class _ForgotState extends State<Forgot> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Forgot Password",
+                    "Forgot_Password".tr,
                     style: theme.textTheme.headlineLarge,
                   ),
                 ),
@@ -62,7 +62,7 @@ class _ForgotState extends State<Forgot> {
                       right: 23.h,
                     ),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      "Lorem".tr,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class _ForgotState extends State<Forgot> {
                 SizedBox(height: 41.v),
                 SizedBox(height: 17.v),
                 Text(
-                  "Email",
+                  "_Email".tr,
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 9.v),
@@ -91,7 +91,7 @@ class _ForgotState extends State<Forgot> {
   }
 
   checkvalidate() {
-    print("send");
+    print("_send");
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
@@ -108,12 +108,12 @@ class _ForgotState extends State<Forgot> {
     return CustomTextFormField(
       validator: (value) {
         if (!isEmail(value!)) {
-          return 'Please enter a valid email.';
+          return 'enter_valid'.tr;
         }
         return null;
       },
       controller:resetpassword_controller .emailController.value,
-      hintText: "Enter your email",
+      hintText: "enter_mail".tr,
       textInputType: TextInputType.emailAddress,
     );
   }
@@ -127,7 +127,7 @@ class _ForgotState extends State<Forgot> {
         //     ));
         checkvalidate();
       },
-      text: "Continue",
+      text: "_Continue".tr,
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }

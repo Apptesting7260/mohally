@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
 import 'package:mohally/presentation/category_page/category_page.dart';
@@ -32,6 +35,14 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
   void initState() {
     super.initState();
     tabviewController = TabController(length: 5, vsync: this);
+        setInitialLocale();
+  }
+  void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
   }
 
   @override
@@ -103,27 +114,27 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
         tabs: [
           Tab(
             child: Text(
-              "All",
+              "_All".tr,
             ),
           ),
           Tab(
             child: Text(
-              "Women",
+              "_Women".tr,
             ),
           ),
           Tab(
             child: Text(
-              "Men",
+              "_Men".tr,
             ),
           ),
           Tab(
             child: Text(
-              "kids",
+              "_kids".tr,
             ),
           ),
           Tab(
             child: Text(
-              "Jewelry",
+              "_Jewelry".tr,
             ),
           ),
         ],

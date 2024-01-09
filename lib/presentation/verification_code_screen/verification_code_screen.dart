@@ -101,7 +101,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
               children: [
                 SizedBox(height: 10.v),
                 Text(
-                  "Verification Code",
+                  'Verification_Code'.tr,
                   style: theme.textTheme.headlineLarge,
                 ),
                 SizedBox(height: 19.v),
@@ -112,7 +112,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Please type the verification code sent to ",
+                          text: 'please_type'.tr,
                           style: CustomTextStyles.bodyLargeGray50001_2,
                         ),
                         TextSpan(

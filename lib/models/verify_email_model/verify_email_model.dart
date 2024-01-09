@@ -1,10 +1,10 @@
 class VerifyEmailModel {
   VerifyEmailModel({
-    required this.status,
-    required this.message,
+     this.status,
+     this.message,
   });
-  late final bool status;
-  late final String message;
+   bool ?status;
+   String? message;
 
   VerifyEmailModel.fromJson(Map<String, dynamic> json){
     status = json['status'];

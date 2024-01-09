@@ -1,10 +1,10 @@
 class CreatepassModel {
   CreatepassModel({
-    required this.status,
-    required this.message,
+  this.status,
+  this.message,
   });
-  late final bool status;
-  late final String message;
+   bool? status;
+   String? message;
 
   CreatepassModel.fromJson(Map<String, dynamic> json){
     status = json['status'];

@@ -32,10 +32,10 @@ class DeleteAccountController extends GetxController {
       print(response.statusCode);
       if (response.statusCode == 200) {
      loading.value = false;
-       Utils.snackBar('Success', 'Deleted Successfully');Get.offAll(SplashScreen());
+       Utils2.snackBar('Success', 'Deleted Successfully');Get.offAll(SplashScreen());
       } onError(error, stackTrace) {
         loading.value = false;
-      Utils.snackBar('Failed', 'Failed ');
+      Utils2.snackBar('Failed', 'Failed ');
         throw jsonDecode(response.body);
       }
     } catch (e) {

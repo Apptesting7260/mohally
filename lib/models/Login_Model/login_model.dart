@@ -1,12 +1,12 @@
 class LoginModel {
   LoginModel({
-    required this.status,
-    required this.message,
-    required this.token,
+     this.status,
+     this.message,
+     this.token,
   });
-  late final bool status;
-  late final String message;
-  late final String token;
+  bool ?status;
+  String ?message;
+  String ?token;
 
   LoginModel.fromJson(Map<String, dynamic> json){
     status = json['status'];

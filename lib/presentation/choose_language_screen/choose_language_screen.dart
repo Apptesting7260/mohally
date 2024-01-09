@@ -88,7 +88,9 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                 value: "Arabic",
                 groupValue: radioGroup,
                 isRightCheck: true,
+                
                 onChange: (value) {
+                  Get.updateLocale(Locale('ar','DZ'));
                   setState(() {
                     radioGroup = value;
                   });
@@ -133,6 +135,8 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                 groupValue: radioGroup,
                 isRightCheck: true,
                 onChange: (value) {
+                  
+                   Get.updateLocale(Locale('en','Us'));
                   setState(() {
                     radioGroup = value;
                   });

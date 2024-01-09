@@ -18,12 +18,35 @@ import '../my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import '../wishlist_page/wishlist_page.dart';
 
 // ignore_for_file: must_be_immutable
-class DrawerDraweritem extends StatelessWidget {
+class DrawerDraweritem extends StatefulWidget {
   DrawerDraweritem({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<DrawerDraweritem> createState() => _DrawerDraweritemState();
+}
+
+class _DrawerDraweritemState extends State<DrawerDraweritem> {
+  @override
+  void initState() {
+    
+
+    // Ensure that the initial locale is set when the screen initializes
+    setInitialLocale();
+
+    super.initState();
+  }
+
+  // Function to set the initial locale
+  void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
+  }
   bool raffleToWin = false;
 
   @override
@@ -91,7 +114,7 @@ class DrawerDraweritem extends StatelessWidget {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "Home",
+                        "_Home".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -117,7 +140,7 @@ class DrawerDraweritem extends StatelessWidget {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "Profile ",
+                        "_Profile".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -143,7 +166,7 @@ class DrawerDraweritem extends StatelessWidget {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "About Us ",
+                        "About_Us".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -169,7 +192,7 @@ class DrawerDraweritem extends StatelessWidget {
                         bottom: 4.v,
                       ),
                       child: Text(
-                        "Order",
+                        "_Order".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -195,7 +218,7 @@ class DrawerDraweritem extends StatelessWidget {
                         bottom: 3.v,
                       ),
                       child: Text(
-                        "Wishlist",
+                        "_Wishlist".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -220,7 +243,7 @@ class DrawerDraweritem extends StatelessWidget {
                         top: 3.v,
                       ),
                       child: Text(
-                        "Membership",
+                        "_Membership".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -245,7 +268,7 @@ class DrawerDraweritem extends StatelessWidget {
                         top: 3.v,
                       ),
                       child: Text(
-                        "Raffele To Win",
+                        "win".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -270,7 +293,7 @@ class DrawerDraweritem extends StatelessWidget {
                         top: 3.v,
                       ),
                       child: Text(
-                        "Privacy Policy",
+                        "Privacy_Policy".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -295,7 +318,7 @@ class DrawerDraweritem extends StatelessWidget {
                         top: 3.v,
                       ),
                       child: Text(
-                        "Terms and Conditions",
+                        "t_and_c".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -339,7 +362,7 @@ class DrawerDraweritem extends StatelessWidget {
                       top: 6.v,
                     ),
                     child: Text(
-                      "Settings",
+                      "_Settings".tr,
                       style: CustomTextStyles.bodyLarge18,
                     ),
                   ),
@@ -365,7 +388,7 @@ class DrawerDraweritem extends StatelessWidget {
                         top: 4.v,
                       ),
                       child: Text(
-                        "Logout",
+                        "_Logout".tr,
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -383,7 +406,7 @@ class DrawerDraweritem extends StatelessWidget {
   /// Section Widget
   Widget _buildRaffleToWin(BuildContext context) {
     return CustomCheckboxButton(
-      text: "Raffle to win",
+      text: "win".tr,
       value: raffleToWin,
       padding: EdgeInsets.symmetric(vertical: 3.v),
       textStyle: CustomTextStyles.bodyLarge18,

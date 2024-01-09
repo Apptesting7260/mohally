@@ -191,7 +191,7 @@ else {
         ),
       ),
       title: AppbarSubtitle(
-        text: "About Us",
+        text: "About_Us".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

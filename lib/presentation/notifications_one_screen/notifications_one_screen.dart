@@ -63,7 +63,7 @@ class NotificationsOneScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Notifications",
+        text: "Notifications_".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

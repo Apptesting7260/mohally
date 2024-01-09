@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../scratch_to_win_dialog/widgets/scratchtowingrid_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -26,7 +28,7 @@ class ScratchToWinDialog extends StatelessWidget {
           _buildScratchToWinGrid(context),
           SizedBox(height: 26.v),
           Text(
-            "scratch to win",
+            "scratch_to_win".tr,
             style: CustomTextStyles.titleLargeBold,
           ),
           SizedBox(height: 15.v),
@@ -36,7 +38,7 @@ class ScratchToWinDialog extends StatelessWidget {
           ),
           SizedBox(height: 27.v),
           CustomElevatedButton(
-            text: "Collect",
+            text: "Collect_".tr,
             margin: EdgeInsets.symmetric(horizontal: 10.h),
             buttonStyle: CustomButtonStyles.fillPrimary,
             buttonTextStyle: CustomTextStyles.titleMediumWhiteA70002,

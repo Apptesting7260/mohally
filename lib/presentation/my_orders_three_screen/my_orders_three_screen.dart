@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -57,7 +58,7 @@ class MyOrdersThreeScreen extends StatelessWidget {
               ),
               SizedBox(height: 23.v),
               Text(
-                "No Orders yet",
+                "No_Orders".tr,
                 style: CustomTextStyles.headlineSmallLeagueSpartan24,
               ),
               SizedBox(height: 5.v),
@@ -81,7 +82,7 @@ class MyOrdersThreeScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "My Orders",
+        text: "My_Orders".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

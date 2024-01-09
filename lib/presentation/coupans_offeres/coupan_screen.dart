@@ -91,7 +91,7 @@ class _CoupanScreenState extends State<CoupanScreen> {
                       CustomElevatedButton(
                         height: 30.v,
                         width: 80.h,
-                        text: "Apply",
+                        text: "_Apply".tr,
                         margin: EdgeInsets.only(left: 8.h),
                         buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                         buttonTextStyle:

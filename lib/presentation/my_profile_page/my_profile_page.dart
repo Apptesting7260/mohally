@@ -36,6 +36,19 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+
+     @override
+  void initState() {
+    super.initState();
+        setInitialLocale();
+  }
+    void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
+  }
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
@@ -119,11 +132,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text("Choose"),
+                                              title: Text("Choose_".tr),
                                               content: Row(
                                                 children: [
                                                   GestureDetector(
-                                                    child: Text("Camera"),
+                                                    child: Text("Camera_".tr),
                                                     onTap: () {
                                                       openCameraa(
                                                           ImageSource.camera);
@@ -131,7 +144,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                                   ),
                                                   SizedBox(width: 80),
                                                   GestureDetector(
-                                                    child: Text("Gallery"),
+                                                    child: Text("Gallery_".tr),
                                                     onTap: () {
                                                       openCameraa(
                                                           ImageSource.gallery);
@@ -175,15 +188,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgProfileIcon,
-                            userMessage: "My Account",
+                            userMessage: "MyAccount_".tr,
                           ),
                         ),
-                        SizedBox(height: 26.v),
-                        _buildMessageOne(
-                          context,
-                          userImage: ImageConstant.imgMessage1,
-                          userMessage: "Messages",
-                        ),
+                        // SizedBox(height: 26.v),
+                        // _buildMessageOne(
+                        //   context,
+                        //   userImage: ImageConstant.imgMessage1,
+                        //   userMessage: "Messages_".tr,
+                        // ),
                         SizedBox(height: 26.v),
                         GestureDetector(
                           onTap: () {
@@ -192,7 +205,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgBag,
-                            userMessage: "My Order",
+                            userMessage: "My_Orders",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -203,7 +216,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgRateReview1,
-                            userMessage: "My Reviews",
+                            userMessage: "My_Reviews".tr,
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -214,20 +227,20 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgCoupon1,
-                            userMessage: "Coupon & offers",
+                            userMessage: "Coupon_offers".tr,
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        _buildMessageOne(
-                          context,
-                          userImage: ImageConstant.imgShop1,
-                          userMessage: "Followed shops",
-                        ),
+                        // _buildMessageOne(
+                        //   context,
+                        //   userImage: ImageConstant.imgShop1,
+                        //   userMessage: "Followed_shops".tr,
+                        // ),
                         SizedBox(height: 26.v),
                         _buildMessageOne(
                           context,
                           userImage: ImageConstant.imgHistory1,
-                          userMessage: "Browsing history",
+                          userMessage: "Browsing_history".tr,
                         ),
                         SizedBox(height: 26.v),
                         GestureDetector(
@@ -237,7 +250,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgBagPrimary,
-                            userMessage: "Address",
+                            userMessage: "Address_".tr,
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -248,7 +261,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgNotification1,
-                            userMessage: "Notifications",
+                            userMessage: "Notifications_".tr,
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -259,7 +272,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgSupport1,
-                            userMessage: "Customer support",
+                            userMessage: "Customer_support".tr,
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -267,7 +280,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         _buildMessageOne(
                           context,
                           userImage: ImageConstant.imgSettingPrimary,
-                          userMessage: "Settings",
+                          userMessage:  "_Settings".tr,
                         ),
                         SizedBox(height: 40.v),
                         CustomElevatedButton(
@@ -276,7 +289,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
                             Get.offAll(() => LoginScreen());
                           },
-                          text: "Logout",
+                          text: "_Logout".tr,
                           margin: EdgeInsets.symmetric(horizontal: 10.h),
                           buttonStyle: CustomButtonStyles.fillPrimary,
                         ),
@@ -306,7 +319,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
       ),
       title: AppbarSubtitle(
-        text: "My Profile",
+        text: "My_Profile".tr,
         margin: EdgeInsets.only(left: 16),
       ),
     );

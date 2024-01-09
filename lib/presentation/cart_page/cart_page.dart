@@ -16,12 +16,17 @@ import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   CartPage({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
   String radioGroup = "";
 
   TextEditingController trailRunningJacketByController =
@@ -36,6 +41,20 @@ class CartPage extends StatelessWidget {
   String radioGroup2 = "";
 
   TextEditingController addtoCartController = TextEditingController();
+
+   @override
+  void initState() {
+    super.initState();
+        setInitialLocale();
+  }
+
+    void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

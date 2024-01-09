@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
 import 'package:mohally/presentation/category_page/category_page.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
 import 'package:mohally/presentation/home_page_tab_container_screen/home_page_tab_container_screen.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
-import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import '../../widgets/custom_bottom_bar.dart';
@@ -25,20 +23,28 @@ class _TabScreenState extends State<TabScreen> {
   int? bottomSelectedIndex;
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
-  bool loading = false;
-  var data;
   final drawerKey = GlobalKey<ScaffoldState>();
-final  _controller = Get.put(MyAccountController());
+  final _controller = Get.put(MyAccountController());
+
   @override
   void initState() {
-    // fetchApi();
-
-    // TODO: implement initState
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
-_controller.fetchMyAccountData();
+    _controller.fetchMyAccountData();
+
+    // Ensure that the initial locale is set when the screen initializes
+    setInitialLocale();
+
     super.initState();
-    // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
+  }
+
+  // Function to set the initial locale
+  void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
   }
 
   @override
@@ -46,16 +52,6 @@ _controller.fetchMyAccountData();
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: Colors.white,
-        //   onPressed: () {},
-        //   child: Icon(
-        //     Icons.add,
-        //     size: 30,
-        //     color: Color(0xffFE0091),
-        //   ),
-        // ),
         key: drawerKey,
         body: SafeArea(
           child: GestureDetector(
@@ -98,33 +94,33 @@ _controller.fetchMyAccountData();
     });
   }
 
-  Future<bool> _onWillPop() {
+  Future<bool> _onWillPop() async {
     if (bottomSelectedIndex != 1) {
       setState(
         () {
           pageController!.jumpTo(0);
         },
       );
-      return Future.value(false);
+      return false;
     } else if (bottomSelectedIndex == 1) {
       setState(
         () {
           pageController!.jumpTo(1);
         },
       );
-      return Future.value(false);
+      return false;
     }
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
       currentBackPressTime = now;
-      return Future.value(false);
+      return false;
     } else {
       SystemNavigator.pop();
     }
-    return Future.value(true);
+    return true;
   }
 
-  goAtLikeTab() {
+  void goAtLikeTab() {
     pageController!.animateToPage(1,
         duration: const Duration(microseconds: 1), curve: Curves.ease);
   }

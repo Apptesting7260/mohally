@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/utils/size_utils.dart';
 import 'package:mohally/theme/theme_helper.dart';
 import 'package:mohally/widgets/app_bar/appbar_title.dart';
@@ -15,6 +16,20 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  @override
+  void initState() {
+    super.initState();
+   
+        setInitialLocale();
+  }
+
+   void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
+  }
   TextEditingController searchController = TextEditingController();
 
   int selectedIndex = 0;
@@ -38,7 +53,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20.h),
               child: CustomSearchView(
                 controller: searchController,
-                hintText: "Search",
+                hintText: "search".tr,
               ),
             ),
             Gap(15),
@@ -111,7 +126,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10.0, horizontal: 5),
-                                      child: Text('Electronics'),
+                                      child: Text('_Electronics'),
                                     ),
                                   ))
                                 ],

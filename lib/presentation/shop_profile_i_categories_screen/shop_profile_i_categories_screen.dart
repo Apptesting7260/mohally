@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../shop_profile_i_categories_screen/widgets/photoslist1_item_widget.dart';
 import '../shop_profile_i_categories_screen/widgets/photoslist2_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -53,13 +55,13 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                "Items",
+                                "Items_".tr,
                                 style: CustomTextStyles.bodyLargeGray5000118,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 20.h),
                                 child: Text(
-                                  "categories",
+                                  "categories_".tr,
                                   style: CustomTextStyles.bodyLargeGray5000118,
                                 ),
                               ),
@@ -92,7 +94,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                                     width: 8.h,
                                   ),
                                 ),
-                                hintText: "Recommended",
+                                hintText: "Recommended_".tr,
                                 items: dropdownItemList,
                                 onChanged: (value) {},
                               ),
@@ -146,7 +148,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                             right: 32.h,
                           ),
                           child: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "Lorem".tr,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                             style:
@@ -218,7 +220,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                             right: 32.h,
                           ),
                           child: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "Lorem".tr,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                             style:
@@ -312,7 +314,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                               style: theme.textTheme.titleSmall,
                             ),
                             TextSpan(
-                              text: "Followers",
+                              text: "Followers_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],
@@ -341,7 +343,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                               style: theme.textTheme.titleSmall,
                             ),
                             TextSpan(
-                              text: "Sold",
+                              text: "Sold_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],
@@ -374,7 +376,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                               style: CustomTextStyles.titleMediumMedium,
                             ),
                             TextSpan(
-                              text: "Items",
+                              text: "Items_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],
@@ -388,7 +390,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                 CustomOutlinedButton(
                   height: 30.v,
                   width: 210.h,
-                  text: "Follow",
+                  text: "Follow_".tr,
                   buttonStyle: CustomButtonStyles.outlinePrimaryTL151,
                   buttonTextStyle: CustomTextStyles.titleSmallWhiteA70002,
                 ),

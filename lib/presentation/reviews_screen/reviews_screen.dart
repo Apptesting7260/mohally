@@ -63,7 +63,7 @@ class ReviewsScreen extends StatelessWidget {
                       width: 322.h,
                       margin: EdgeInsets.only(right: 13.h),
                       child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        "Lorem".tr,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: CustomTextStyles.bodyMediumGray9000115.copyWith(
@@ -111,7 +111,7 @@ class ReviewsScreen extends StatelessWidget {
                       width: 322.h,
                       margin: EdgeInsets.only(right: 13.h),
                       child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        "Lorem".tr,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: CustomTextStyles.bodyMediumGray9000115.copyWith(
@@ -158,7 +158,7 @@ class ReviewsScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Item Reviews",
+        text: "Item_Reviews".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );
@@ -205,7 +205,7 @@ class ReviewsScreen extends StatelessWidget {
           },
           height: 35.v,
           width: 114.h,
-          text: "Add Review",
+          text: "Add_Review".tr,
           margin: EdgeInsets.only(
             top: 5.v,
             bottom: 7.v,

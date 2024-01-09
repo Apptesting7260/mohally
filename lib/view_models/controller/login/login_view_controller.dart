@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/utils/Utils.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -17,7 +18,11 @@ class Login_controller extends GetxController {
 
   RxBool loading = false.obs;
 
-  void Login_apihit() async {
+  void Login_apihit(BuildContext context) async {
+    if(context == null){
+ print("Error: Context is null!");
+      return;
+    }
     loading.value = true;
     Map data = {
       'email': emailController.value.text,
@@ -27,22 +32,30 @@ class Login_controller extends GetxController {
     _api.Loginapi(data).then((value) {
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
+
       loading.value = false;
-      loginbuttonused.value = false;
+      // loginbuttonused.value = false;
+print(value.message);
+       if (value.message == "success_login".tr) {
 
-      Get.to(() => TabScreen(index: 0));
 
-      Utils.snackBar('Success', 'Login successfully');
+      
+       navigateToHomeScreen();
+
+      }
+      else {
+        Utils.snackBar(context, '_Login'.tr, value.message.toString());  
+      }
       saveData(
         token: value.token.toString(),
         message: value.message.toString(),
         status: value.status.toString(),
       );
+
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utils.snackBar('Failed', 'please check email/password');
-      loginbuttonused.value = false;
-
+    Utils.snackBar(context, '_Failed'.tr, 'check'.tr);
+      // loginbuttonused.value = false;
       // error.toString()
     });
   }
@@ -74,4 +87,14 @@ Future<Map<String, dynamic>> retrieveData() async {
     'message': prefs.getString('message'),
     // similarly, retrieve username and password if needed
   };
+
+  
+}
+void navigateToHomeScreen() {
+  if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+    Get.updateLocale(Locale('ar', 'DZ'));
+  } else {
+    Get.updateLocale(Locale('en', 'US'));
+  }
+  Get.offAll(() => TabScreen(index: 0));
 }

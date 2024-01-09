@@ -15,7 +15,7 @@ class RecommendedsectionItemWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 1.v),
         child: Text(
-          "Recommended",
+          "_Recommended",
           style: theme.textTheme.titleMedium,
         ),
       ),

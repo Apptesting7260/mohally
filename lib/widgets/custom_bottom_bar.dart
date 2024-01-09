@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
 class CustomBottomBar extends StatefulWidget {
@@ -22,31 +23,31 @@ class CustomBottomBarState extends State<CustomBottomBar> {
     BottomMenuModel(
   icon: ImageConstant.imgNavHome,
   activeIcon: ImageConstant.imgNavHome2,
-  title: "Home",
+  title: "_Home".tr,
   type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavCategory,
       activeIcon: ImageConstant.imgNavCategory2,
-      title: "Category",
+      title: "_Category".tr,
       type: BottomBarEnum.Category,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavWishlist,
       activeIcon: ImageConstant.imgNavWishlist2,
-      title: "Wishlist",
+      title: "_Wishlist".tr,
       type: BottomBarEnum.Wishlist,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavCart,
       activeIcon: ImageConstant.imgNavCart2,
-      title: "Cart",
+      title: "_Cart".tr,
       type: BottomBarEnum.Cart,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavProfile,
       activeIcon: ImageConstant.imgNavProfile2,
-      title: "Profile",
+      title: "_Profile".tr,
       type: BottomBarEnum.Profile,
     )
   ];
@@ -178,7 +179,7 @@ class DefaultWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Please replace the respective Widget here',
+              'replace'.tr,
               style: TextStyle(
                 fontSize: 18,
               ),

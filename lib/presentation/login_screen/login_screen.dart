@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   SizedBox(height: 36.v),
                   Text(
-                    "Sign-in",
+                    "Sign_in".tr,
                     style: theme.textTheme.headlineLarge,
                   ),
                   SizedBox(height: 15.v),
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       right: 23.h,
                     ),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      "Lorem".tr,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Mobile Number or Email",
+                      "mobile_or_email".tr,
                       style: theme.textTheme.titleMedium,
                     ),
                   ),
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Password",
+                      "password".tr,
                       style: theme.textTheme.titleMedium,
                     ),
                   ),
@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Center(
                       child: Text(
-                        "Forgot Password",
+                        "fpassword".tr,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 27.v),
                   Text(
-                    "Or ",
+                    "or".tr,
                     style: CustomTextStyles.titleMediumMedium_1,
                   ),
                   SizedBox(height: 27.v),
@@ -141,22 +141,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "By continuing, you agree to our ",
+                            text: "By_continuing".tr,
                             style: CustomTextStyles.bodyMediumJostGray90001,
                           ),
                           TextSpan(
-                            text: "Terms of Use",
+                            text: "Terms".tr,
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
                               decoration: TextDecoration.underline,
                             ),
                           ),
                           TextSpan(
-                            text: " and\n",
+                            text:"And".tr,
                             style: CustomTextStyles.bodyMediumJostGray90001,
                           ),
                           TextSpan(
-                            text: "Privacy & Cookie Policy.",
+                            text: "Privacy_".tr,
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
                               decoration: TextDecoration.underline,
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "You don't have an account yet?",
+                          text: "dont_have_account".tr,
                           style: CustomTextStyles.bodyMediumGray90001Light,
                         ),
                         TextSpan(
@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Handle the tap gesture
                               print('TextSpan tapped!');
                             },
-                          text: "Create One",
+                          text: "Create_One".tr,
                           style: CustomTextStyles.titleSmallPrimaryBold,
                         ),
                       ],
@@ -206,12 +206,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return CustomTextFormField(
       validator: (value) {
         if (!isEmail(value!) && !isPhone(value!)) {
-          return 'Please enter a valid email or phone number.';
+          return 'enter_valid'.tr;
         }
         return null;
       },
       controller: login_controller.emailController.value,
-      hintText: "Enter mobile number or email",
+      hintText: "Enter_mobile_or_email".tr,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
     );
@@ -222,13 +222,13 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: !_passwordVisible,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Please Enter Password";
+          return "Enter_Password".tr;
         } else {
           return null;
         }
       },
       controller: login_controller.passwordController.value,
-      hintText: "Enter your password",
+      hintText: "Enter_your_password".tr,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       suffix: IconButton(
@@ -262,25 +262,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
-    return CustomElevatedButton(
-      loading: login_controller.loading.value,
-      onPressed: () {
-        login_controller.loading.value = true;
-        // Get.to(()=>VerificationCodeScreen
-        //   (controller:TextEditingController() ,pinPutFocusNode:FocusNode() ,)
-        // );
-        // Get.to(() => TabScreen(index: 0));
-        checkvalidate();
-      },
-      text: "Continue",
-      buttonStyle: CustomButtonStyles.fillPrimary,
+    return Obx((){
+  return CustomElevatedButton(
+        loading: login_controller.loading.value,
+        onPressed: () {
+        
+          // Get.to(()=>VerificationCodeScreen
+          //   (controller:TextEditingController() ,pinPutFocusNode:FocusNode() ,)
+          // );
+          // Get.to(() => TabScreen(index: 0));
+         {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+       login_controller.loading.value = true;
+        login_controller.Login_apihit(context);
+       _formKey.currentState!.save();
+
+    }
+  }
+        },
+        text: "_Continue".tr,
+        buttonStyle: CustomButtonStyles.fillPrimary,
+      );
+    }
     );
   }
 
   /// Section Widget
   Widget _buildContinueWithGoogleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue with Google",
+      text: "continue_with_Google".tr,
       leftIcon: Container(
         margin: EdgeInsets.only(right: 12.h),
         child: CustomImageView(
@@ -296,7 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithFacebookButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue with Facbook",
+      text: "continue_with_Facbook".tr,
       leftIcon: Container(
         margin: EdgeInsets.only(right: 15.h),
         child: CustomImageView(
@@ -312,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithAppleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue with apple",
+      text: "continue_with_apple".tr,
       leftIcon: Container(
         margin: EdgeInsets.only(right: 17.h),
         child: CustomImageView(
@@ -326,18 +338,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   checkvalidate() {
-    print("send");
-    if (!_formKey.currentState!.validate()) {
-      return;
-    } else {
-      // Get.to(() => TabScreen(index: 0));
-      print('login button pressed');
-      loginbuttonused.value = true;
-      login_controller.Login_apihit();
-      _formKey.currentState!.save();
-
-      loginemail = login_controller.emailController.value.text;
-      loginPassword = login_controller.passwordController.value.text;
-    }
+    print("_send".tr);
+ 
   }
 }

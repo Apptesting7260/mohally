@@ -32,7 +32,7 @@ class NotificationsScreen extends StatelessWidget {
               ),
               SizedBox(height: 28.v),
               Text(
-                "No Notification yet",
+                "No_Notification".tr,
                 style: CustomTextStyles.headlineSmallLeagueSpartan,
               ),
               SizedBox(height: 5.v),
@@ -58,7 +58,7 @@ class NotificationsScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Notifications",
+        text: "Notifications_".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

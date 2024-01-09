@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -95,7 +96,7 @@ class ShopProfileICategoriesOneScreen extends StatelessWidget {
                                     style: theme.textTheme.titleSmall,
                                   ),
                                   TextSpan(
-                                    text: "Followers",
+                                    text: "Followers_".tr,
                                     style: CustomTextStyles.bodySmall12,
                                   ),
                                 ],
@@ -124,7 +125,7 @@ class ShopProfileICategoriesOneScreen extends StatelessWidget {
                                     style: theme.textTheme.titleSmall,
                                   ),
                                   TextSpan(
-                                    text: "Sold",
+                                    text: "Sold_".tr,
                                     style: CustomTextStyles.bodySmall12,
                                   ),
                                 ],
@@ -157,7 +158,7 @@ class ShopProfileICategoriesOneScreen extends StatelessWidget {
                                     style: CustomTextStyles.titleMediumMedium,
                                   ),
                                   TextSpan(
-                                    text: "Items",
+                                    text: "Items_".tr,
                                     style: CustomTextStyles.bodySmall12,
                                   ),
                                 ],
@@ -171,7 +172,7 @@ class ShopProfileICategoriesOneScreen extends StatelessWidget {
                       CustomOutlinedButton(
                         height: 30.v,
                         width: 210.h,
-                        text: "Follow",
+                        text: "Follow_".tr,
                         buttonStyle: CustomButtonStyles.outlinePrimaryTL151,
                         buttonTextStyle: CustomTextStyles.titleSmallWhiteA70002,
                       ),
@@ -192,13 +193,13 @@ class ShopProfileICategoriesOneScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "Items",
+                    "Items_".tr,
                     style: CustomTextStyles.bodyLargeGray5000118,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.h),
                     child: Text(
-                      "categories",
+                      "categories_".tr,
                       style: theme.textTheme.titleMedium,
                     ),
                   ),

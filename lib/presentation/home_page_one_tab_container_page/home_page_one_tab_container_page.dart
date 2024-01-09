@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/home_page_one_page/home_page_one_page.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton.dart';
@@ -51,7 +52,7 @@ class HomePageOneTabContainerPageState
                 padding: EdgeInsets.symmetric(horizontal: 20.h),
                 child: CustomSearchView(
                   controller: searchController,
-                  hintText: "Search",
+                  hintText: "search".tr,
                 ),
               ),
               SizedBox(height: 27.v),

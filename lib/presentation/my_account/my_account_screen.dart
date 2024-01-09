@@ -56,12 +56,21 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   }
   @override
   void initState() {
+     setInitialLocale();
+
       SchedulerBinding.instance.addPostFrameCallback((_) {
  _controller.fetchMyAccountData();
+
 });
     super.initState();
   }
-
+  void setInitialLocale() {
+    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+      Get.updateLocale(Locale('ar', 'DZ'));
+    } else {
+      Get.updateLocale(Locale('en', 'US'));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -150,14 +159,14 @@ return GeneralExceptionWidget(onPress: (){},
             ),
             SizedBox(height: 9.v),
             Text(
-              "First Name",
+              "fname".tr,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
             _buildFirstName(context),
             SizedBox(height: 9.v),
             Text(
-              "Last Name",
+              "lname".tr,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
@@ -165,14 +174,14 @@ return GeneralExceptionWidget(onPress: (){},
             SizedBox(height: 17.v),
 
             Text(
-              "Email",
+              "_Email".tr,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
             _buildEmail(context),
             SizedBox(height: 17.v),
             Text(
-              "Mobile Number",
+              "mobile_num".tr,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
@@ -213,7 +222,7 @@ Widget _buildContinueButton(BuildContext context) {
       onPressed: () {
         DeleteAccountIns.deleteUserData();
         },
-      text: "Delete Account",
+      text: "delete_acc".tr,
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }
@@ -236,14 +245,14 @@ Widget _buildContinueButton(BuildContext context) {
       title: Row(
         children: [
           AppbarSubtitle(
-            text: "My Account",
+            text: "my_acc".tr,
             margin: EdgeInsets.only(left: 16),
           ),
 SizedBox(width: Get.width*.3,),
            CustomElevatedButton(
                             height: 28.v,
                             width: 56.h,
-                            text: "Edit",
+                            text: "_Edit".tr,
                             leftIcon: Container(
                               margin: EdgeInsets.only(right: 4.h),
                               child: CustomImageView(

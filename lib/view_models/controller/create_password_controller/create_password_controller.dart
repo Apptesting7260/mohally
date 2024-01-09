@@ -35,12 +35,12 @@ class Createpass_controller extends GetxController {
       Get.to(  ()=>LoginScreen() );
 
 
-      Utils.snackBar('Success', 'Password Created successfully');
+      Utils2.snackBar('Success', 'Password Created successfully');
 
 
     }).onError((error, stackTrace){
       loading.value = false ;
-      Utils.snackBar('Incorrect','Try again');   // error.toString()
+      Utils2.snackBar('Incorrect','Try again');   // error.toString()
     });
   }
 }

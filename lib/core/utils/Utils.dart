@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mohally/theme/app_decoration.dart';
 
-class Utils {
+class Utils2 {
   static void fieldFocusChange(
       BuildContext context, FocusNode current, FocusNode nextFocus) {
     current.unfocus();

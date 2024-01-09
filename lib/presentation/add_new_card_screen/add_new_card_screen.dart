@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -45,7 +46,7 @@ class AddNewCardScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Card Owner",
+                    "Card_Owner".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -55,7 +56,7 @@ class AddNewCardScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Card Number",
+                    "Card_Number".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -87,7 +88,7 @@ class AddNewCardScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Add New Card",
+        text: "Add_New_Card".tr,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );
@@ -157,7 +158,7 @@ class AddNewCardScreen extends StatelessWidget {
   Widget _buildName(BuildContext context) {
     return CustomTextFormField(
       controller: nameController,
-      hintText: "Enter card owner name",
+      hintText: "Enter_card_owner_name".tr,
     );
   }
 
@@ -165,7 +166,7 @@ class AddNewCardScreen extends StatelessWidget {
   Widget _buildCardNumber(BuildContext context) {
     return CustomTextFormField(
       controller: cardNumberController,
-      hintText: "Enter card number",
+      hintText: "Enter_card_number".tr,
       textInputType: TextInputType.number,
     );
   }

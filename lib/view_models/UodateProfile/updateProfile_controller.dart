@@ -63,7 +63,7 @@ MyAccountController MyAccountControllerin= MyAccountController();
       print(responseBody);
       // Check the response status
       if (response.statusCode == 200) {
-           Utils.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen());
+           Utils2.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen());
 
  
         loading.value = false;
@@ -75,7 +75,7 @@ MyAccountController MyAccountControllerin= MyAccountController();
     } catch (e) {
       loading.value = false;
       print(response);
-        Utils.snackBar('Failed','Error occurred while uploading file: $e');
+        Utils2.snackBar('Failed','Error occurred while uploading file: $e');
 
     }
   }

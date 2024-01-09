@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../search_screen/widgets/menjumperschipview_item_widget.dart';
 import '../search_screen/widgets/vectorchipview_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +31,13 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Search",
+                "search".tr,
                 style: theme.textTheme.headlineMedium,
               ),
               SizedBox(height: 26.v),
               CustomSearchView(
                 controller: searchController,
-                hintText: "Search Category",
+                hintText: "Search_Category".tr,
               ),
               SizedBox(height: 26.v),
               _buildRecentSearchedRow(context),
@@ -59,7 +61,7 @@ class SearchScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 2.v),
           child: Text(
-            "recent searched",
+            "recent_searched".tr,
             style: CustomTextStyles.titleMedium16,
           ),
         ),

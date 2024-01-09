@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 
@@ -44,7 +45,7 @@ class MyordersoneItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 1.v),
                   child: Text(
-                    "Tracking number:",
+                    "Tracking_number".tr,
                     style: theme.textTheme.bodyMedium,
                   ),
                 ),
@@ -65,7 +66,7 @@ class MyordersoneItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 2.v),
                 child: Text(
-                  "Quantity:",
+                  "Quantity".tr,
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
@@ -78,7 +79,7 @@ class MyordersoneItemWidget extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "Total Amount:",
+                "Total_Amount".tr,
                 style: CustomTextStyles.bodyMediumGray90001_1,
               ),
               Padding(
@@ -97,14 +98,14 @@ class MyordersoneItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.v),
                 child: Text(
-                  "Cancelled",
+                  "_Cancelled".tr,
                   style: CustomTextStyles.bodyMediumRed700,
                 ),
               ),
               CustomElevatedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "Details",
+                text: "_Details".tr,
                 buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                 buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
               ),

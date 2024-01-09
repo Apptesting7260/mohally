@@ -33,12 +33,12 @@ class ResetpasswordOTP_controller extends GetxController {
 
       loading.value = false ;
 
-        Utils.snackBar('Right', 'Successfully');
+        Utils2.snackBar('Right', 'Successfully');
         Get.to( CreatePassword());
 
 
     }).onError((error, stackTrace){
-      Utils.snackBar('incorrect','please retry otp');
+      Utils2.snackBar('incorrect','please retry otp');
       loading.value = false ;
       otpbuttonused.value = false;
 

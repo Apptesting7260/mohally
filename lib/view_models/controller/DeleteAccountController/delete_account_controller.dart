@@ -10,16 +10,19 @@ import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeleteAccountController extends GetxController {
+  // ignore_for_file: unused_local_variable
+  // ignore: unused_field
   final _api = AuthRepository();
    final rxRequestStatus = Status.LOADING.obs;
    final deleteMyAccount = DeleteAccountModel().obs;
     
     RxBool loading = false.obs;
     Future<void> deleteUserData() async {
+      
       loading.value = true;
         final sp = await SharedPreferences.getInstance();
-    var token =
-        'token';
+    var token ='token';
+   var lang =sp.getString('selectedLanguage');
     try {
       http.Response response = await http.delete(
         Uri.parse(AppUrl.deleteMyAccount),
@@ -32,7 +35,10 @@ class DeleteAccountController extends GetxController {
       print(response.statusCode);
       if (response.statusCode == 200) {
      loading.value = false;
-       Utils2.snackBar('Success', 'Deleted Successfully');Get.offAll(SplashScreen());
+     sp.remove('token');
+     sp.remove('selectedLanguage');
+      //  Utils2.snackBar('Success', 'Deleted Successfully');
+       Get.offAll(SplashScreen());
       } onError(error, stackTrace) {
         loading.value = false;
       Utils2.snackBar('Failed', 'Failed ');

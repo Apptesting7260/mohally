@@ -24,14 +24,18 @@ class CustomTextFormField extends StatelessWidget {
     this.borderDecoration,
     this.fillColor,
     this.filled = true,
-    this.validator, 
+    this.validator,  
+    this.hintTextDirection, 
+     this. onChanged,
+    // TextDirection? hintTextDirection, 
     // this.readOnly
   }) : super(
           key: key,
+           
         );
 
   final Alignment? alignment;
-
+final TextDirection? hintTextDirection;
   final double? width;
 
   final TextEditingController? controller;
@@ -72,6 +76,7 @@ class CustomTextFormField extends StatelessWidget {
 
   final FormFieldValidator<String>? validator;
   // final bool? readOnly;
+  final FormFieldValidator<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +91,11 @@ class CustomTextFormField extends StatelessWidget {
   Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
+          onChanged: onChanged,
           // readOnly: true,
           controller: controller,
           // focusNode: focusNode ?? FocusNode(),
+
           autofocus: autofocus!,
           style: textStyle ?? CustomTextStyles.bodyLargeOnError,
           obscureText: obscureText!,

@@ -19,18 +19,18 @@ class WishlistPage extends StatefulWidget {
 class _WishlistPageState extends State<WishlistPage> {
 
 
-    @override
-  void initState() {
-    super.initState();
-        setInitialLocale();
-  }
-    void setInitialLocale() {
-    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-      Get.updateLocale(Locale('ar', 'DZ'));
-    } else {
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
+  //   @override
+  // void initState() {
+  //   super.initState();
+  //       setInitialLocale();
+  // }
+  //   void setInitialLocale() {
+  //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+  //     Get.updateLocale(Locale('ar', 'DZ'));
+  //   } else {
+  //     Get.updateLocale(Locale('en', 'US'));
+  //   }
+  // }
   @override
 
   
@@ -71,7 +71,7 @@ class _WishlistPageState extends State<WishlistPage> {
     return CustomElevatedButton(
       height: 35.v,
       width: 65.h,
-      text: "Edit",
+      text: "Edit".tr,
       margin: EdgeInsets.only(bottom: 2.v),
       leftIcon: Container(
         margin: EdgeInsets.only(right: 5.h),
@@ -105,7 +105,7 @@ class _WishlistPageState extends State<WishlistPage> {
               ),
               SizedBox(height: 6.v),
               Text(
-                "in wishlist",
+                "in wishlist".tr,
                 style: CustomTextStyles.bodyLargeGray50001_3,
               ),
             ],

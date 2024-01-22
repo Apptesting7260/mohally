@@ -24,8 +24,8 @@ class CoupanScreen extends StatefulWidget {
 class _CoupanScreenState extends State<CoupanScreen> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
+    // final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: _buildAppBar(context),
       body: Padding(
@@ -91,7 +91,7 @@ class _CoupanScreenState extends State<CoupanScreen> {
                       CustomElevatedButton(
                         height: 30.v,
                         width: 80.h,
-                        text: "_Apply".tr,
+                        text: "Apply",
                         margin: EdgeInsets.only(left: 8.h),
                         buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                         buttonTextStyle:

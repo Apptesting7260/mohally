@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/core/utils/Utils.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:mohally/view_models/controller/reset_password/reset_password_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Createpass_controller extends GetxController {
 
@@ -20,27 +21,26 @@ class Createpass_controller extends GetxController {
   RxBool loading = false.obs;
 
 
-  void Createpass_apihit(){
+  Future<void> Createpass_apihit(BuildContext? context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     String lang= prefs.getString('selectedLanguage').toString();
+     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     loading.value = true ;
     Map data = {
       'email':   varificationemail,
       'password' : passwordController.value.text,
-      'confirm_password' : confirmpasswordController.value.text
+      'confirm_password' : confirmpasswordController.value.text,
+      'language_type':lang
 
     };
     print(data);
     _api.Createpassapi(data).then((value){
       loading.value = false ;
-
-      Get.to(  ()=>LoginScreen() );
-
-
-      Utils2.snackBar('Success', 'Password Created successfully');
-
-
+      Get.offAll(  ()=>LoginScreen() );
+      Utils.snackBar(context!, 'Success',"Password Successfully Updated");
     }).onError((error, stackTrace){
       loading.value = false ;
-      Utils2.snackBar('Incorrect','Try again');   // error.toString()
+      Utils.snackBar(context!,'Failed','Try again');   // error.toString()
     });
   }
 }

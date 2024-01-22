@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
 
     // mediaQueryData = MediaQuery.of(context);
     return SafeArea(
@@ -52,8 +53,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.h),
               child: CustomSearchView(
+                enableTap: true,
+                readOnly: true,
                 controller: searchController,
-                hintText: "search".tr,
+                hintText: "search",
               ),
             ),
             Gap(15),
@@ -126,7 +129,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10.0, horizontal: 5),
-                                      child: Text('_Electronics'),
+                                      child: Text('Electronics'),
                                     ),
                                   ))
                                 ],

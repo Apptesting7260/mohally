@@ -1,17 +1,41 @@
-import 'package:get/get.dart';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import '../search_screen/widgets/menjumperschipview_item_widget.dart';
 import '../search_screen/widgets/vectorchipview_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  File imgFile = File("");
+
+  final imgPicker = ImagePicker();
+  void openCamera(abc) async {
+    var imgCamera = await imgPicker.pickImage(source: abc);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+    });
+    Navigator.of(context).pop();
+  }
+
+  //open camera
+  void openCameraa(abc) async {
+    var imgCamera = await imgPicker.pickImage(source: abc);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+    });
+    Navigator.of(context).pop();
+  }
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -31,13 +55,52 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "search".tr,
+                "search",
                 style: theme.textTheme.headlineMedium,
               ),
               SizedBox(height: 26.v),
-              CustomSearchView(
-                controller: searchController,
-                hintText: "Search_Category".tr,
+              Center(
+                child: Stack(
+                  children: [
+                    CustomSearchView(
+                      controller: searchController,
+                      readOnly: false,
+                      enableTap: false,
+                      hintText: "Search Category",
+                    ),
+                    Positioned(
+                  top: 20,
+                  left: 240,
+                  child: GestureDetector(
+                    onTap: (){
+                       showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Choose"),
+                                  content: Row(
+                                    children: [
+                                      GestureDetector(
+                                        child: Text("Camera"),
+                                        onTap: () {
+                                          openCameraa(ImageSource.camera);
+                                        },
+                                      ),
+                                      SizedBox(width: 80),
+                                      GestureDetector(
+                                        child: Text("Gallery"),
+                                        onTap: () {
+                                          openCameraa(ImageSource.gallery);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                    },
+                    child: Image.asset('assets/images/greycamera.png'))),
+                  ],
+                ),
               ),
               SizedBox(height: 26.v),
               _buildRecentSearchedRow(context),
@@ -61,7 +124,7 @@ class SearchScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 2.v),
           child: Text(
-            "recent_searched".tr,
+            "recent searched",
             style: CustomTextStyles.titleMedium16,
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../my_bag_promo_code_bottomsheet/widgets/mybagpromocode_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -36,7 +38,7 @@ class MyBagPromoCodeBottomsheet extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 3.v),
                     child: Text(
-                      "Your Promo Codes",
+                      "promo_code".tr,
                       style: theme.textTheme.titleMedium,
                     ),
                   ),

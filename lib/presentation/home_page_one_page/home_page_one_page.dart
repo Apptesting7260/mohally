@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
@@ -41,6 +42,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     mediaQueryData = MediaQuery.of(context);
     return
         // Obx(() {
@@ -171,12 +173,16 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         SizedBox(height: 19.v),
                         GridView.builder(
                           shrinkWrap: true,
+                          
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisExtent: 90.v,
+                            // mainAxisExtent: 90.v,
                             crossAxisCount: 4,
-                            mainAxisSpacing: 15.h,
-                            crossAxisSpacing: 15.h,
+                            mainAxisSpacing: 10.h,
+                            crossAxisSpacing: 10.h,
+                            
+                           mainAxisExtent: Get.height * .2
+
                           ),
                           physics: BouncingScrollPhysics(),
                           itemCount: 8,
@@ -596,13 +602,13 @@ class HomePageOnePageState extends State<HomePageOnePage>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Categories",
+            "Categories_".tr,
             style: theme.textTheme.titleMedium,
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 2.v),
             child: Text(
-              "See All",
+              "See_All".tr,
               style: CustomTextStyles.bodyMediumPrimary,
             ),
           ),
@@ -614,8 +620,9 @@ class HomePageOnePageState extends State<HomePageOnePage>
   /// Section Widget
   Widget _buildRecommendedSection(BuildContext context) {
     return SizedBox(
-      height: 18.v,
+      height: 28.v,
       child: ListView.separated(
+
         scrollDirection: Axis.horizontal,
         separatorBuilder: (
           context,
@@ -635,15 +642,14 @@ class HomePageOnePageState extends State<HomePageOnePage>
 
   /// Section Widget
   Widget _buildHomePageSection(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: 20.h),
+    return Center(
       child: GridView.builder(
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 265.v,
           crossAxisCount: 2,
           mainAxisSpacing: 15.h,
-          crossAxisSpacing: 15.h,
+          crossAxisSpacing: 35.h,
         ),
         physics: BouncingScrollPhysics(),
         itemCount: 6,
@@ -667,6 +673,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
             30.h,
           ),
         ),
+        
         CustomImageView(
           imagePath: ImageConstant.imgMaskGroup60x56,
           height: 60.v,

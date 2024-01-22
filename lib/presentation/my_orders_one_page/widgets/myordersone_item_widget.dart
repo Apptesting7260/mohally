@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
@@ -45,7 +46,7 @@ class MyordersoneItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 1.v),
                   child: Text(
-                    "Tracking_number".tr,
+                    "Tracking number",
                     style: theme.textTheme.bodyMedium,
                   ),
                 ),
@@ -66,7 +67,7 @@ class MyordersoneItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 2.v),
                 child: Text(
-                  "Quantity".tr,
+                  "Quantity",
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
@@ -79,7 +80,7 @@ class MyordersoneItemWidget extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "Total_Amount".tr,
+                "Total Amount",
                 style: CustomTextStyles.bodyMediumGray90001_1,
               ),
               Padding(
@@ -98,14 +99,14 @@ class MyordersoneItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.v),
                 child: Text(
-                  "_Cancelled".tr,
+                  " Cancelled",
                   style: CustomTextStyles.bodyMediumRed700,
                 ),
               ),
               CustomElevatedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "_Details".tr,
+                text: " Details",
                 buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                 buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
               ),

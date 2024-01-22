@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
@@ -14,8 +15,8 @@ class GridrectangleItemWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: CustomImageView(
         imagePath: ImageConstant.imgRectangle569491x375,
-        height: 200.v,
-        width: 165.h,
+        height: Get.height*.3,
+        width:Get.width*.4,
       ),
     );
   }

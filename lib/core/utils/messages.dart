@@ -58,10 +58,10 @@ class Language_message extends Translations{
 '_Login':'Login',
 '_Failed':'Failed',
 'check':'please check email/password',
+'update_':'Update',
+"Update_Profile":"Update Profile",
 
-//forget password
-"Forgot_Password":"Forgot Password",
-'please_type':'Please type the verification code sent to',
+
 
 //Home page Men,women,kids...
 '_All':'All',
@@ -111,6 +111,7 @@ class Language_message extends Translations{
   'My_Orders':'My Orders',
   '_Processing':'Processing',
 '_Cancel':'Cancel',
+"Cancelled_":"Cancelled",
 
 //MyProfile
 'Choose_':'Choose',
@@ -158,6 +159,111 @@ class Language_message extends Translations{
   "Card_Number": "Card Number",
   "Add_New_Card":"Add New Card",
   "Enter_card_owner_name":"Enter card owner name",
+  'm_y':"MM/YYYY",
+  'x':"XXX",
+  "EXP_":"EXP",
+  "CVV_":"CVV",
+   "Add_Card": "Add Card",
+   "Payment_":"Payment",
+      "Save_card_info":"Save card info",
+      "Save_Card":"Save Card",
+
+  //forget password
+"Forgot_Password":"Forgot Password",
+'please_type':'Please type the verification code sent to',
+'dont_receive_code':'I don\'t receive a code!',
+"_Resend":"Resend",
+"Create_Password":"Create Password",
+'please_create_new_pass':'Please create a New password',
+"New_Password":"New Password",
+" EnterPassword":" Enter Password",
+'enter_valid_password':'enter the valid password',
+ "Confirm_Password": "Confirm Password",
+'enter_valid_confirm_password':'enter the confirm valid password',
+'password_do_not_match':'password do not match',
+
+//My reviews
+'Share_':'Share',
+"Helpful_":"Helpful",
+//add reviews
+"Name_":"Name",
+ "your_experience": "How was your experience ?",
+ "your_rate": "What is you rate?",
+ 'enter_name':"Enter your name",
+ "describe_experience":'Describe your experience..' ,
+ "add": "Add photos/video",
+ "Submit_Review":"SubmitReview",
+
+// //otp controller 
+// "sent_to_your_email":"Reset Password OTP sent to your email",
+// "success_":"success",
+// 'Failed_to_Resend_OTP':'Failed to Resend OTP',
+// "Otp_Successfully_Match":"Otp Successfully Match",
+// 'incorrect_':'incorrect',
+// 'please_retry_otp':'please retry otp',
+
+//create password
+"Password_Successfully_Updated":"Password Successfully Updated",
+'Try_again':'Try again',
+
+
+//home page
+ "Bags_": "Bags",
+ '_Recommended':'Recommended',
+ "Categories_":"Categories",
+  "See_All": "See All",
+
+//membership screen 
+"membership_":"Membership",
+"Started_":"Started",
+
+//promo code
+"promo_code":"Your Promo Codes",
+
+//priceDetail
+"Price_Details":"Price Details",
+"Checkout_":"Checkout",
+"Total_":"Total",
+"Item_discount":"Item discount:",
+"Item_total":"Item total:",
+
+//shipping address
+"Use_as_the_shipping_address": "Use as the shipping address",
+"With_photos":"With photos",
+ "relevanve_": "relevanve",
+ "top_sales":"top ssales",
+  "most_recent": "most recent",
+   "Shipping_":"Shipping",
+   "Shopping_security": "Shopping security",
+  "Safe_Payment_Options":"Safe Payment Options",
+    "Secure_logistics": "Secure logistics",
+    "Secure_privacy": "Secure privacy",
+    "Purchase_protection":"Purchase protection",
+     "Products_details":"Products details",
+"Material_":"Material: ",
+"Composition_":"Composition: ",
+"Size_":  "Size",
+  "Size_Guide":"Size Guide",
+ "Delivery_": "Delivery ",
+ "Free_returns": "Free returns",
+ "Price_adjustment":"Price adjustment",
+   "Items_reviews_and_shop_ratings":"Items reviews and shop ratings",
+   "Shop_all_items":"Shop all items",
+"Add_to_Cart":"Add to Cart",
+
+//spin wheel
+ "Spin_The_Wheel": "Spin The Wheel",
+   "Daily_Raffle": "Daily Raffle To Win Or Scratch To Win Card",
+   "Play_":"Play",
+   "Spin_the_Wheel": "Spin the Wheel",
+   "Welcome":"Welcome To\n",
+   "Mohally_":"Mohally",
+    "Get_Started": "Get Started",
+       "Wishlist_": "Wishlist",
+        "in_wishlist":"in wishlist",
+'Success_':'Success',
+'verified':'OTP verified successfully'
+        
 },
 
 
@@ -166,9 +272,9 @@ class Language_message extends Translations{
 
 
 
-
-
 'ar_DZ':{
+'Success_':'نجاح',
+  'verified':'تم التحقق من OTP بنجاح',
   //Login Screen 
   'Sign_in':"تسجيل الدخول",
 "Lorem": 'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
@@ -201,7 +307,7 @@ class Language_message extends Translations{
 'mobile_num':'رقم الهاتف المحمول',
 'enter_mobile': 'الرجاء إدخال رقم الجوال',
 'enter_num':'أدخل رقم هاتفك المحمول',
-'Verification_Code':'Verification Code',
+'Verification_Code':'رمز التحقق',
 'type_verify':'الرجاء كتابة رمز التحقق المرسل إليه',
 '_Mobile':'متحرك',
 'wrong_otp':'كلمة مرور خاطئة',
@@ -218,6 +324,8 @@ class Language_message extends Translations{
 'valid_email':'يرجى إدخال البريد الإلكتروني الصحيح.',
 'enter_mail':'أدخل بريدك الإلكتروني',
 'pin_submit':'تم إرسال الدبوس. قيمة:',
+'update_':'تحديث',
+"Update_Profile":"تحديث الملف",
 
 //Home page Men,women,kids...
 
@@ -266,6 +374,7 @@ class Language_message extends Translations{
   'My_Orders':'طلباتي',
   '_Processing':'يعالج',
 '_Cancel':'يلغي',
+"Cancelled_":"ألغيت",
 
 //MyProfile
 'Choose_':'يختار',
@@ -309,9 +418,112 @@ class Language_message extends Translations{
     "Recommended_":"مُستَحسَن",
 
 
-//forget password
-"Forgot_Password":"Forgot Password",
-'please_type':'Please type the verification code sent to',
+//add_new_card
+ "Card_Owner": "صاحب بطاقة",
+  "Card_Number": "رقم البطاقة",
+  "Add_New_Card":"إضافة بطاقة جديدة",
+  "Enter_card_owner_name":"أدخل اسم مالك البطاقة",
+  'm_y':"شهر/ سنة",
+  'x':"XXX",
+  "EXP_":"EXP",
+  "CVV_":"CVV",
+   "Add_Card": "إضافة بطاقة",
+   "Payment_":"قسط",
+   "Save_card_info":"حفظ معلومات البطاقة",
+      "Save_Card":"احفظ البطاقة",
+
+  //forget password
+"Forgot_Password":"هل نسيت كلمة السر",
+'please_type':'الرجاء كتابة رمز التحقق المرسل إليه',
+'dont_receive_code':'لا أتلقى رمزًا!',
+"_Resend":"إعادة إرسال",
+"Create_Password":"إنشاء كلمة المرور",
+'please_create_new_pass':'الرجاء إنشاء كلمة مرور جديدة',
+"New_Password":"كلمة المرور الجديدة",
+" EnterPassword":" Enter Password",
+'enter_valid_password':'أدخل كلمة المرور الصالحة',
+ "Confirm_Password": "تأكيد كلمة المرور",
+'enter_valid_confirm_password':'أدخل تأكيد كلمة المرور الصالحة',
+'password_do_not_match':'كلمة السر غير مطابقة',
+
+//My reviews
+'Share_':'يشارك',
+"Helpful_":"متعاون",
+//add reviews
+"Name_":"اسم",
+ "your_experience": "كيف كانت تجربتك ؟",
+ "your_rate": "ما هو معدلك؟",
+ 'enter_name':"أدخل أسمك",
+ "describe_experience":'اوصف تجربتك ..' ,
+ "add": "إضافة صور / فيديو",
+ "Submit_Review":"إرسال المراجعة",
+
+// //otp controller 
+// "sent_to_your_email":"إعادة تعيين كلمة المرور OTP المرسلة إلى بريدك الإلكتروني",
+// "success_":"نجاح",
+// 'Failed_to_Resend_OTP':'Failed to Resend OTP',
+// "Otp_Successfully_Match":"تمت مطابقة OTP بنجاح",
+// 'incorrect_':'غير صحيح',
+// 'please_retry_otp':'يرجى إعادة المحاولة',
+
+//create password
+"Password_Successfully_Updated":"تم تحديث كلمة المرور بنجاح",
+'Try_again':'حاول ثانية',
+
+//home page
+ "Bags_": "أكياس",
+ '_Recommended':'مُستَحسَن',
+ "Categories_":"فئات",
+  "See_All": "اظهار الكل",
+
+//membership screen 
+"membership_":"عضوية",
+"Started_":"بدأت",
+
+//promo code
+"promo_code":"الرموز الترويجية الخاصة بك",
+
+//priceDetail
+"Price_Details":"تفاصيل الأسعار",
+"Checkout_":"الدفع",
+"Total_":"المجموع",
+"Item_discount":"خصم السلعة:",
+"Item_total":"مجموع الاشياء:",
+
+//shipping address
+"Use_as_the_shipping_address": "استخدم كعنوان الشحن",
+"With_photos":"مع الصور",
+ "relevanve_": "ملاءمة",
+ "top_sales":"أعلى المبيعات",
+  "most_recent": "الأحدث",
+   "Shipping_":"شحن",
+   "Shopping_security": "أمن التسوق",
+  "Safe_Payment_Options":"خيارات الدفع الآمنة",
+    "Secure_logistics": "الخدمات اللوجستية الآمنة",
+    "Secure_privacy": "تأمين الخصوصية",
+    "Purchase_protection":"حماية المشتريات",
+     "Products_details":"تفاصيل المنتجات",
+"Material_":"مادة: ",
+"Composition_":"تعبير: ",
+"Size_":  "مقاس",
+  "Size_Guide":"دليل المقاسات",
+ "Delivery_": "توصيل ",
+ "Free_returns": "عوائد مجانية",
+ "Price_adjustment":"تعديل السعر",
+   "Items_reviews_and_shop_ratings":"تقييمات العناصر وتقييمات المتجر",
+   "Shop_all_items":"تسوق جميع العناصر",
+"Add_to_Cart":"أضف إلى السلة",
+
+//spin wheel
+ "Spin_The_Wheel": "تدور العجلة",
+   "Daily_Raffle": "السحب اليومي للفوز أو اخدش للفوز بالبطاقة",
+   "Play_":"يلعب",
+   "Spin_the_Wheel": "Spin the Wheel",
+   "Welcome":"مرحبا بك في",
+   "Mohally_":"موهالي",
+    "Get_Started": "البدء",
+       "Wishlist_": "قائمة الرغبات",
+        "in_wishlist":"في قائمة الرغبات",
 }
   };
 }

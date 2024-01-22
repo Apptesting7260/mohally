@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_radio_button.dart';
@@ -35,7 +36,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 3.v),
                   child: Text(
-                    "Price Details",
+                    "Price_Details".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -106,7 +107,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: _buildItemDiscount(
               context,
-              itemDiscountText: "Item total:",
+              itemDiscountText: "Item_total".tr,
               priceText: "198",
             ),
           ),
@@ -115,7 +116,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: _buildItemDiscount(
               context,
-              itemDiscountText: "Item discount:",
+              itemDiscountText: "Item_discount".tr,
               priceText: "20",
             ),
           ),
@@ -124,7 +125,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: _buildItemDiscount(
               context,
-              itemDiscountText: "Total",
+              itemDiscountText: "Total_".tr,
               priceText: "218",
             ),
           ),
@@ -137,7 +138,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 11.v),
                   child: CustomRadioButton(
-                    text: "All",
+                    text: "All_".tr,
                     value: "All",
                     groupValue: radioGroup,
                     padding: EdgeInsets.symmetric(vertical: 1.v),
@@ -165,7 +166,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Total",
+                                  text: "Total_".tr,
                                   style: CustomTextStyles.bodyMediumGray90001,
                                 ),
                                 TextSpan(
@@ -205,7 +206,7 @@ class PriceDetailsBottomsheet extends StatelessWidget {
                 CustomElevatedButton(
                   height: 40.v,
                   width: 130.h,
-                  text: "Checkout",
+                  text: "Checkout_".tr,
                   margin: EdgeInsets.only(left: 10.h),
                   buttonStyle: CustomButtonStyles.fillPrimaryTL20,
                   buttonTextStyle: CustomTextStyles.titleMediumWhiteA70016,

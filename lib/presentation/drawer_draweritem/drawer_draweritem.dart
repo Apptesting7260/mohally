@@ -1,19 +1,21 @@
+// ignore_for_file: unused_import
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/Contactus/contactUs.dart';
 import 'package:mohally/presentation/about_us_screen/about_us.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/payment_screen/payment_screen.dart';
 import 'package:mohally/presentation/privacy_policy/privacy_policy.dart';
 import 'package:mohally/presentation/spin_the_wheel_one_screen/spin_the_wheel_one_screen.dart';
+import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/presentation/terms_conditions/terms_condition_screen.dart';
 import 'package:mohally/widgets/custom_checkbox_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../membership_screen/membership_screen.dart';
-import '../my_orders_page/my_orders_page.dart';
 import '../my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import '../wishlist_page/wishlist_page.dart';
 
@@ -114,7 +116,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "_Home".tr,
+                        "Home",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -140,7 +142,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "_Profile".tr,
+                        "Profile",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -166,7 +168,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "About_Us".tr,
+                        "About Us",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -192,7 +194,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         bottom: 4.v,
                       ),
                       child: Text(
-                        "_Order".tr,
+                        "Order",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -218,7 +220,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         bottom: 3.v,
                       ),
                       child: Text(
-                        "_Wishlist".tr,
+                        "Wishlist",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -243,7 +245,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         top: 3.v,
                       ),
                       child: Text(
-                        "_Membership".tr,
+                        "Membership",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -268,7 +270,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         top: 3.v,
                       ),
                       child: Text(
-                        "win".tr,
+                        "Raffle to win",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -293,7 +295,29 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         top: 3.v,
                       ),
                       child: Text(
-                        "Privacy_Policy".tr,
+                        "Privacy Policy",
+                        style: CustomTextStyles.bodyLarge18,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+               SizedBox(height: 20.v),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => ContactUs());
+                },
+                child: Row(
+                  children: [
+                   Image.asset('assets/images/contactus_drawer.png',height: 28.v,
+                      width: 28.h,),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.h,
+                        top: 3.v,
+                      ),
+                      child: Text(
+                        "Contact Us",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -318,7 +342,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         top: 3.v,
                       ),
                       child: Text(
-                        "t_and_c".tr,
+                        "Terms and Condition",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -361,9 +385,14 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                       left: 10.h,
                       top: 6.v,
                     ),
-                    child: Text(
-                      "_Settings".tr,
-                      style: CustomTextStyles.bodyLarge18,
+                    child: GestureDetector(
+                      onTap: (){
+                        
+                      },
+                      child: Text(
+                        "Settings",
+                        style: CustomTextStyles.bodyLarge18,
+                      ),
                     ),
                   ),
                 ],
@@ -388,7 +417,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                         top: 4.v,
                       ),
                       child: Text(
-                        "_Logout".tr,
+                        "Logout",
                         style: CustomTextStyles.bodyLarge18,
                       ),
                     ),
@@ -406,7 +435,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
   /// Section Widget
   Widget _buildRaffleToWin(BuildContext context) {
     return CustomCheckboxButton(
-      text: "win".tr,
+      text: "Raffele To Win",
       value: raffleToWin,
       padding: EdgeInsets.symmetric(vertical: 3.v),
       textStyle: CustomTextStyles.bodyLarge18,
@@ -417,8 +446,11 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
   }
 
   Future<void> clearSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
+   final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+    prefs.remove("token");
+    prefs.remove("selectedLanguage");
+     Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

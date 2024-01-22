@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/search_screen/search_screen.dart';
 
-class CustomSearchView extends StatelessWidget {
+class CustomSearchView extends StatefulWidget {
   CustomSearchView({
     Key? key,
     this.alignment,
@@ -24,10 +26,12 @@ class CustomSearchView extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
+      this.enableTap,
+       this.readOnly,
   }) : super(
           key: key,
         );
-
+final bool? readOnly;
   final Alignment? alignment;
 
   final double? width;
@@ -67,36 +71,54 @@ class CustomSearchView extends StatelessWidget {
   final FormFieldValidator<String>? validator;
 
   final Function(String)? onChanged;
+    final bool? enableTap;
 
   @override
+  State<CustomSearchView> createState() => _CustomSearchViewState();
+}
+
+class _CustomSearchViewState extends State<CustomSearchView> {
+  @override
   Widget build(BuildContext context) {
-    return alignment != null
+   return widget.alignment != null
         ? Align(
-            alignment: alignment ?? Alignment.center,
+            alignment: widget.alignment ?? Alignment.center,
             child: searchViewWidget,
           )
         : searchViewWidget;
   }
 
   Widget get searchViewWidget => SizedBox(
-        width: width ?? double.maxFinite,
-        child: TextFormField(
-          controller: controller,
-          focusNode: focusNode ?? FocusNode(),
-          autofocus: autofocus!,
-          style: textStyle ?? CustomTextStyles.bodyLargeOnError_1,
-          keyboardType: textInputType,
-          maxLines: maxLines ?? 1,
+        width:Get.width*.9,
+        
+        //  width ?? double.maxFinite,
+        child:
+        
+         TextFormField(
+          controller: widget.controller,
+          focusNode: widget.focusNode ?? FocusNode(),
+          autofocus: widget.autofocus!,
+          style: widget.textStyle ?? CustomTextStyles.bodyLargeOnError_1,
+          keyboardType: widget.textInputType,
+          readOnly: widget.readOnly!,
+          maxLines: widget.maxLines ?? 1,
           decoration: decoration,
-          validator: validator,
+          validator: widget.validator,
           onChanged: (String value) {
-            onChanged!.call(value);
+            widget.onChanged!.call(value);
           },
-        ),
+          onTap: (){
+             if (widget.enableTap!) {
+              Get.to(SearchScreen());
+              print('tapingggggggggggggggggggggggg');
+            }
+          },
+                 ),
       );
+
   InputDecoration get decoration => InputDecoration(
-        hintText: hintText ?? "",
-        hintStyle: hintStyle ?? CustomTextStyles.bodyLargeOnError_1,
+        hintText: widget.hintText ?? "",
+        hintStyle: widget.hintStyle ?? CustomTextStyles.bodyLargeOnError_1,
         prefixIcon: Padding(
           padding: EdgeInsets.all(
             15.h,
@@ -106,11 +128,11 @@ class CustomSearchView extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
         ),
-        prefixIconConstraints: prefixConstraints ??
+        prefixIconConstraints: widget.prefixConstraints ??
             BoxConstraints(
               maxHeight: 50.v,
             ),
-        suffixIcon: suffix ??
+        suffixIcon: widget.suffix ??
             Container(
               padding: EdgeInsets.all(15.h),
               margin: EdgeInsets.only(
@@ -126,42 +148,42 @@ class CustomSearchView extends StatelessWidget {
               ),
               child: CustomImageView(
                 imagePath: ImageConstant.imgSearchWhiteA70002,
-                height: 20.adaptSize,
+                height: 30.adaptSize,
                 width: 20.adaptSize,
               ),
             ),
-        suffixIconConstraints: suffixConstraints ??
+        suffixIconConstraints: widget.suffixConstraints ??
             BoxConstraints(
               maxHeight: 60.v,
             ),
         isDense: true,
-        contentPadding: contentPadding ??
+        contentPadding: widget.contentPadding ??
             EdgeInsets.only(
               left: 16.h,
               top: 17.v,
               bottom: 17.v,
             ),
-        fillColor: fillColor ?? appTheme.gray100,
-        filled: filled,
-        border: borderDecoration ??
+        fillColor: widget.fillColor ?? appTheme.gray100,
+        filled: widget.filled,
+        border: widget.borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.h),
+              borderRadius: BorderRadius.circular(30.h),
               borderSide: BorderSide(
                 color: appTheme.gray300,
                 width: 1,
               ),
             ),
-        enabledBorder: borderDecoration ??
+        enabledBorder: widget.borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.h),
+              borderRadius: BorderRadius.circular(30.h),
               borderSide: BorderSide(
                 color: appTheme.gray300,
                 width: 1,
               ),
             ),
-        focusedBorder: borderDecoration ??
+        focusedBorder: widget.borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.h),
+              borderRadius: BorderRadius.circular(30.h),
               borderSide: BorderSide(
                 color: appTheme.gray300,
                 width: 1,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
@@ -15,7 +16,7 @@ class RecommendedsectionItemWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 1.v),
         child: Text(
-          "_Recommended",
+          "_Recommended".tr,
           style: theme.textTheme.titleMedium,
         ),
       ),

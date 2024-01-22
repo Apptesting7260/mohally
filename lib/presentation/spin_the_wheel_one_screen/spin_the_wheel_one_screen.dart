@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
@@ -50,7 +51,7 @@ super.dispose();
   }
 
   playAudio() async {
-    var result = await audioPlayer.play(bytes);
+    // var result = await audioPlayer.play(bytes);
     print('Audio Played ');
     
   }
@@ -143,8 +144,8 @@ audioPlayer.stop();
                        indicators: [FortuneIndicator(child: Center(child:
                        Stack(children: [
                         Positioned(
-                         right: 125,
-                         top: 95,
+                         right: 106,
+                         top: 80,
                           child: Transform.rotate( angle: 3.14159 / 2,
                           child: Image.asset('assets/images/spin.png'))),
                         Center(
@@ -168,7 +169,7 @@ audioPlayer.stop();
                         textStyle: TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.bold,
-                        fontSize: 18
+                        fontSize: 14
                         )
                       ),
                       child: Row(
@@ -195,7 +196,7 @@ Text(items[i], )
               ),
               SizedBox(height: 20.v),
               Text(
-                "Daily Raffle To Win Or Scratch To Win Card",
+                "Daily Raffle To Win Or Scartch To Win Card",
                 style: CustomTextStyles.bodyLargeGray50001_3,
               ),
               SizedBox(height: 26.v),

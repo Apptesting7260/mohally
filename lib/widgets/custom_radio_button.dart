@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 
-class CustomRadioButton extends StatelessWidget {
+// ignore: must_be_immutable
+class CustomRadioButton extends StatefulWidget {
   CustomRadioButton({
     Key? key,
     required this.onChange,
@@ -51,30 +52,38 @@ class CustomRadioButton extends StatelessWidget {
   final Color? backgroundColor;
 
   @override
+  State<CustomRadioButton> createState() => _CustomRadioButtonState();
+}
+
+class _CustomRadioButtonState extends State<CustomRadioButton> {
+  @override
   Widget build(BuildContext context) {
-    return alignment != null
+    return widget.alignment != null
         ? Align(
-            alignment: alignment ?? Alignment.center,
+            alignment: widget.alignment ?? Alignment.center,
             child: buildRadioButtonWidget,
           )
         : buildRadioButtonWidget;
   }
 
-  bool get isGradient => gradient != null;
-  BoxDecoration get gradientDecoration => BoxDecoration(gradient: gradient);
+  bool get isGradient => widget.gradient != null;
+
+  BoxDecoration get gradientDecoration => BoxDecoration(gradient: widget.gradient);
+
   Widget get buildRadioButtonWidget => InkWell(
         onTap: () {
-          onChange(value!);
+          widget.onChange(widget.value!);
         },
         child: Container(
-          decoration: decoration,
-          width: width,
-          padding: padding,
-          child: (isRightCheck ?? false)
+          decoration: widget.decoration,
+          width: widget.width,
+          padding: widget.padding,
+          child: (widget.isRightCheck ?? false)
               ? rightSideRadioButton
               : leftSideRadioButton,
         ),
       );
+
   Widget get leftSideRadioButton => Row(
         children: [
           Padding(
@@ -84,6 +93,7 @@ class CustomRadioButton extends StatelessWidget {
           textWidget,
         ],
       );
+
   Widget get rightSideRadioButton => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -94,26 +104,29 @@ class CustomRadioButton extends StatelessWidget {
           ),
         ],
       );
+
   Widget get textWidget => Text(
-        text ?? "",
-        textAlign: textAlignment ?? TextAlign.center,
-        style: textStyle ?? CustomTextStyles.titleLargeMedium,
+        widget.text ?? "",
+        textAlign: widget.textAlignment ?? TextAlign.center,
+        style: widget.textStyle ?? CustomTextStyles.titleLargeMedium,
       );
+
   Widget get radioButtonWidget => SizedBox(
-        height: iconSize ?? 18.h,
-        width: iconSize ?? 18.h,
+        height: widget.iconSize ?? 18.h,
+        width: widget.iconSize ?? 18.h,
         child: Radio<String>(
           visualDensity: VisualDensity(
             vertical: -4,
             horizontal: -4,
           ),
-          value: value ?? "",
-          groupValue: groupValue,
+          value: widget.value ?? "",
+          groupValue: widget.groupValue,
           onChanged: (value) {
-            onChange(value!);
+            widget.onChange(value!);
           },
         ),
       );
+
   BoxDecoration get radioButtonDecoration =>
-      BoxDecoration(color: backgroundColor);
+      BoxDecoration(color: widget.backgroundColor);
 }

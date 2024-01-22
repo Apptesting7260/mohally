@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
-import '../../../presentation/verification_code_screen/verification_code_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../repository/Auth_Repository/auth_repository.dart';
 class VerifyEmailOTP_controller extends GetxController {
   final _api = AuthRepository();
@@ -12,6 +11,10 @@ class VerifyEmailOTP_controller extends GetxController {
   RxBool loading = false.obs;
   RxString statusOfApi = ''.obs;
   Future<void> VerifyEmailOTP_apihit(String email,BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     String lang= prefs.getString('selectedLanguage').toString();
+     print("${prefs.getString('selectedLanguage').toString()}==========lang");
+     // ignore: unnecessary_null_comparison
      if (context == null) {
       print("Error: Context is null!");
       return;
@@ -20,15 +23,17 @@ class VerifyEmailOTP_controller extends GetxController {
     Map data = {
       'email': email,
       'otp': pinController.value.text,
+      'language_type':lang
     };
  await _api.Verifyemailapi(data).then((value) {
       statusOfApi.value = value.status.toString();
       // setUserList(value);
       loading.value = false;
   if (value.message == "Otp Verifed Successfully.") {
-        Utils.snackBar(context, 'Success', value.message.toString());
-      } else {
-        Utils.snackBar(context, 'Error', value.message.toString());
+        Utils.snackBar(context, 'Success', value.message.toString());pinController.value.clear();
+      } 
+      else {
+        Utils.snackBar(context, 'Error', value.message.toString());pinController.value.clear();
       }
     }).onError((error, stackTrace) {
       print("Error: $error");

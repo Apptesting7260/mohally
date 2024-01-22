@@ -9,6 +9,7 @@ import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
+// ignore: must_be_immutable
 class AddressScreen extends StatelessWidget {
   AddressScreen({Key? key})
       : super(

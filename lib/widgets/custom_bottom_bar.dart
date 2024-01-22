@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 
+// ignore: must_be_immutable
 class CustomBottomBar extends StatefulWidget {
   final int bottomSelectedIndex;
   final Function bottomTapped;
@@ -23,31 +23,32 @@ class CustomBottomBarState extends State<CustomBottomBar> {
     BottomMenuModel(
   icon: ImageConstant.imgNavHome,
   activeIcon: ImageConstant.imgNavHome2,
-  title: "_Home".tr,
+  title: "Home",
   type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavCategory,
       activeIcon: ImageConstant.imgNavCategory2,
-      title: "_Category".tr,
+      title: "Category",
       type: BottomBarEnum.Category,
+      
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavWishlist,
       activeIcon: ImageConstant.imgNavWishlist2,
-      title: "_Wishlist".tr,
+      title: "Wishlist",
       type: BottomBarEnum.Wishlist,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavCart,
       activeIcon: ImageConstant.imgNavCart2,
-      title: "_Cart".tr,
+      title: "Cart",
       type: BottomBarEnum.Cart,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavProfile,
       activeIcon: ImageConstant.imgNavProfile2,
-      title: "_Profile".tr,
+      title: "Profile",
       type: BottomBarEnum.Profile,
     )
   ];
@@ -179,7 +180,7 @@ class DefaultWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'replace'.tr,
+              'Please replace the respective Widget here',
               style: TextStyle(
                 fontSize: 18,
               ),

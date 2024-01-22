@@ -185,7 +185,7 @@ class MembershipScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Membership",
+        text: "membership",
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mohally/theme/custom_button_style.dart';
 import 'package:mohally/view_models/controller/create_password_controller/create_password_controller.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:pinput/pinput.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({Key? key})
@@ -25,7 +26,8 @@ class _CreatePasswordState extends State<CreatePassword> {
     if (!isValid) {
       return;
     }
-    createpass_controller.Createpass_apihit();
+    createpass_controller.loading.value=true;
+    createpass_controller.Createpass_apihit(context);
     _formKey.currentState!.save();
   }
 
@@ -74,7 +76,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                 SizedBox(height: height * 0.01),
                 Center(
                   child: Text(
-                    "Create Password",
+                   "Create Password",
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
@@ -84,7 +86,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                 SizedBox(height: height * 0.001),
                 Center(
                   child: Text(
-                    "Please create a New password",
+                    'Please create a New password',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Color(0xff9796A1),
@@ -95,7 +97,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                 ),
                 SizedBox(height: height * 0.05),
                 Text(
-                  "New Password",
+                 "New Password",
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -145,7 +147,9 @@ class _CreatePasswordState extends State<CreatePassword> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'enter the valid password';
-                    }
+                    }  else if(createpass_controller.passwordController.value.length<6){
+          return 'The password must be at least 6 characters. ';
+        }
                     return null;
                   },
                   keyboardType: TextInputType.visiblePassword,
@@ -153,7 +157,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                 ),
                 SizedBox(height: height * 0.02),
                 Text(
-                  "Confirm Password",
+                 "Confirm Password",
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -166,7 +170,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: " Confirm Password",
+                      hintText:"Confirm Password",
                       hintStyle:
                           Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontSize: 14,
@@ -202,7 +206,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'enter the confirm valid password';
+                      return'enter the confirm valid password';
                     }
                     if (createpass_controller.passwordController.value.text !=
                         createpass_controller
@@ -216,19 +220,26 @@ class _CreatePasswordState extends State<CreatePassword> {
                 ),
                 SizedBox(height: height * 0.05),
                 Center(
-                  child: CustomElevatedButton(
-                      text: 'Continue',
-                      buttonStyle: CustomButtonStyles.fillPrimary,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) 
-                        {
-                          _formKey.currentState!.save();
-                          _submit();
-                        }
-                      },
-                      height: height * .07,
-                      width: width * 0.5
-                      ),
+                  child: Obx(() {
+                    return CustomElevatedButton(
+                      loading: createpass_controller.loading.value ,
+                        text: 'Continue'.tr,
+                        buttonStyle: CustomButtonStyles.fillPrimary,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) 
+                          {
+                            _formKey.currentState!.save();
+                            _submit();
+                          }
+                        },
+                        height: height * .07,
+                        width: width * 0.5
+                        );
+                  }
+
+                  
+                    
+                  ),
                 ),
               ],
             ),

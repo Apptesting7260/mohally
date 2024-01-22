@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
-import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
@@ -188,25 +187,25 @@ void initState() {
          controller: UpdateProfile_Controllerins.firstNameController.value,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Please Enter First Name";
+          return "Enter Your First Name";
         } else {
           return null;
         }
       },
-      hintText: "Enter your first name",
+      hintText: "Your First Name",
     );
   }
   Widget _buildLastName(BuildContext context) {
     return CustomTextFormField(
          controller: UpdateProfile_Controllerins.lastNameController.value,
       validator: (value) {
-        if (value!.isEmpty) {
-          return "Please Enter last Name";
+        if (value!.isEmpty&&value.length<3) {
+          return "Enter Last Name";
         } else {
           return null;
         }
       },
-      hintText: "Enter your last name",
+      hintText: "Your Last Name",
     );
   }
 
@@ -215,11 +214,11 @@ void initState() {
          controller: UpdateProfile_Controllerins.emailController.value,
       validator: (value) {
         if (!isEmail(value!)) {
-          return 'Please enter a valid email.';
+          return 'valid valid Email';
         }
         return null;
       },
-      hintText: "Enter your email",
+      hintText: 'enter your Email',
       textInputType: TextInputType.emailAddress,
     );
   }
@@ -230,13 +229,13 @@ Widget _builNumber(BuildContext context) {
     
          controller: UpdateProfile_Controllerins.phoneController.value,
       validator: (value) {
-        if (value!.isEmpty) {
-          return "Please Enter your Number";
+        if (value!.isEmpty && value.length==10) {
+          return 'enter valid mobile number';
         } else {
           return null;
         }
       },
-      hintText: "Enter Your Number ",
+      hintText: 'enter your number',
     );
   }
   Widget _buildContinueButton(BuildContext context) {
@@ -246,7 +245,7 @@ Widget _builNumber(BuildContext context) {
         checkvalidate();
        
         },
-      text: "Update",
+      text: 'update',
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }

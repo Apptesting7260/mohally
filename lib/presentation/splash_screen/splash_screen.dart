@@ -1,14 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/login_screen/login_screen.dart';
+import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../welcome_screen/welcome_screen.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key})
       : super(
@@ -22,22 +19,32 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer; // Store the Timer reference
   var x;
-  @override
-  void initState() {
-    getToken();
-    print('printingggggxxxxxxxxxxxxxxxxxxxxxxxxxx');
-    print(x);
-
-    _timer = Timer(Duration(milliseconds: 3000), () {
-      x == '' ? Get.to(WelcomeScreen()) : Get.off(TabScreen(index: 0));
-    });
-    super.initState();
-  }
-
   Future<void> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     x = await prefs.getString('token') ??
-        ''; // Returns the token or an empty string if it doesn't exist.
+   ''; // Returns the token or an empty string if it doesn't exist.
+  }
+checkuser()async{
+ final prefs = await SharedPreferences.getInstance();
+ String token= await prefs.getString('token').toString();
+String lang= prefs.getString('selectedLanguage').toString();
+print("$token=========t==o==k==e==n==================");
+print("$lang=========l==a==n==g==u==a==g==e============");
+if(token=="null"){     
+prefs.remove('selectedLanguage');
+Get.to(ChooseLanguageScreen());
+}
+else if(token!="null"&&lang=="Arabic"){
+  print(lang);
+  Get.offAll(arabic_TabScreen(index: 0,));
+}else if(token!="null"&&lang=="English"){
+   Get.offAll(TabScreen(index: 0,));
+}
+}
+   @override
+  void initState() {
+  checkuser();
+    super.initState();
   }
 
   @override
@@ -46,20 +53,9 @@ class _SplashScreenState extends State<SplashScreen> {
     _timer?.cancel();
     super.dispose();
   }
-
-  // void initState() {
-  //   Timer(
-  //       Duration(seconds: 3),
-  //           () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //           builder: (BuildContext context) =>WelcomeScreen() )));
-  //
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: theme.colorScheme.primary,

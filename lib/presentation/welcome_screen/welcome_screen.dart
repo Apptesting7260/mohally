@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
-import 'package:mohally/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-
-import '../choose_language_screen/choose_language_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key})
@@ -52,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                         style: CustomTextStyles.headlineMediumMedium,
                       ),
                       TextSpan(
-                        text: "Mohally",
+                        text: "Mohally ".tr,
                         style: theme.textTheme.displayLarge,
                       ),
                     ],
@@ -64,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(
                 width: 268.h,
                 child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -85,7 +82,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget _buildGetStartedButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-         Get.to(()=>ChooseLanguageScreen());
+         Get.to(()=>LoginScreen());
         // Get.to(() => LoginScreen());
       },
       text: "Get Started",

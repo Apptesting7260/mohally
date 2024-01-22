@@ -1,8 +1,10 @@
+// ignore_for_file: unused_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/user_verify_model/user_verify_model.dart';
 
@@ -26,21 +28,26 @@ class Verifyemail_controller extends GetxController {
   RxString statusOfApi = ''.obs;
 
   void Verifyeusermail_apihit(String email) async {
+   
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     String lang= prefs.getString('selectedLanguage').toString();
+     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     print("otp send1");
     print(email);
 
     loading.value = true;
     Map data = {
       'email': email,
-      'type': "email"
+      'type': "email",
+       'language_type':lang
     };
+  
     await _api.Verifyemailapi(data).then((value) {
       statusOfApi.value = value.status.toString();
       setUserList(value);
-
       loading.value = false;
-
       Utils2.snackBar('send otp', 'please check otp in email');
+       print("$data===========================otpdata");
       print("otp send2");
       // Get.to(VerificationCodeScreen(
       //   emailText: email,

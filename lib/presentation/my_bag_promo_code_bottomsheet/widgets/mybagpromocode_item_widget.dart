@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 
@@ -106,7 +107,7 @@ class MybagpromocodeItemWidget extends StatelessWidget {
                 CustomElevatedButton(
                   height: 36.v,
                   width: 93.h,
-                  text: "Apply",
+                  text: "_Apply".tr,
                   buttonStyle: CustomButtonStyles.fillPrimaryTL20,
                   buttonTextStyle:
                       CustomTextStyles.titleSmallMetropolisWhiteA70002,

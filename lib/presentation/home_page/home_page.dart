@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '../home_page/widgets/bagssection_item_widget.dart';
 import '../home_page/widgets/homepagesection1_item_widget.dart';
 import '../home_page/widgets/widgetsection_item_widget.dart';
@@ -21,6 +22,7 @@ class HomePageState extends State<HomePage>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(

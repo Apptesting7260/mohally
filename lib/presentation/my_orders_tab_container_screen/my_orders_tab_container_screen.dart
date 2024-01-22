@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/MyOrder_Widgets/my_orders_page.dart';
 import 'package:mohally/presentation/my_orders_one_page/my_orders_one_page.dart';
-import 'package:mohally/presentation/my_orders_page/my_orders_page.dart';
 import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
-import 'package:mohally/widgets/app_bar/appbar_trailing_iconbutton_one.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 
 class MyOrdersTabContainerScreen extends StatefulWidget {
@@ -108,21 +107,21 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
         // labelPadding: EdgeInsets.only(left: 5,right: 5),
         labelColor: appTheme.whiteA70002,
         labelStyle: TextStyle(
-          fontSize: 14.fSize,
+          fontSize: 12,
           fontFamily: 'League Spartan',
           fontWeight: FontWeight.w500,
         ),
 
         unselectedLabelColor: appTheme.gray90001,
         unselectedLabelStyle: TextStyle(
-          fontSize: 14.fSize,
+          fontSize: 12,
           fontFamily: 'League Spartan',
           fontWeight: FontWeight.w400,
         ),
         indicator: BoxDecoration(
           color: theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(
-            15.h,
+            30.h,
           ),
         ),
         tabs: [

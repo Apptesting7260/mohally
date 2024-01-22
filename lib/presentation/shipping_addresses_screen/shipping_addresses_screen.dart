@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 
 import '../shipping_addresses_screen/widgets/shippingaddresses_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class ShippingAddressesScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Shipping_Addresses".tr ,
+        text: "Shipping Addresses"          ,
         margin: EdgeInsets.only(left: 16.h),
       ),
     );

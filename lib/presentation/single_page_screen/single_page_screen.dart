@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-import 'package:mohally/presentation/add_review_screen/add_review_screen.dart';
+import 'package:mohally/presentation/home_page_one_page/widgets/homepagesection_item_widget.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
-
 import '../single_page_screen/widgets/gridrectangle_item_widget.dart';
-import '../single_page_screen/widgets/gridtenoff_item_widget.dart';
-import '../single_page_screen/widgets/listrecommended_item_widget.dart';
 import '../single_page_screen/widgets/listrectangle1_item_widget.dart';
 import '../single_page_screen/widgets/listrectangle_item_widget.dart';
 import '../single_page_screen/widgets/listwidget_item_widget.dart';
@@ -13,16 +10,29 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_one.dart';
 import 'package:mohally/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
-import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 
-class SinglePageScreen extends StatelessWidget {
+class SinglePageScreen extends StatefulWidget {
   const SinglePageScreen({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<SinglePageScreen> createState() => _SinglePageScreenState();
+}
+
+class _SinglePageScreenState extends State<SinglePageScreen> {
+
+   int selectedTabIndex=0;
+ List<String> recomemded_text = [
+  'Recommended',
+  'Men\'s clothing',
+ 'Recommended',
+  'Men\'s clothing',
+ 'Recommended',
+];
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -36,99 +46,42 @@ class SinglePageScreen extends StatelessWidget {
             children: [
               _buildStackSixtyNine(context),
               SizedBox(height: 26.v),
-              Container(
-                width: 304.h,
-                margin: EdgeInsets.only(
-                  left: 20.h,
-                  right: 50.h,
-                ),
+              Padding(
+                padding: const EdgeInsets.only(left:15),
                 child: Text(
-                  "NOBERO Men's Travel Cotton Solid Plain Hoody Sports Winter",
-                  maxLines: 3,
+               "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyles.titleMediumMedium_1.copyWith(
-                    height: 1.33,
-                  ),
+                  style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
                 ),
               ),
               SizedBox(height: 12.v),
-              Container(
-                height: 18.v,
-                width: 224.h,
-                margin: EdgeInsets.only(left: 20.h),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgVectorGray50001,
-                      height: 6.v,
-                      width: 3.h,
-                      alignment: Alignment.centerRight,
-                      margin: EdgeInsets.only(right: 103.h),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 3.v,
-                              bottom: 1.v,
+                            Padding(
+                              padding: const EdgeInsets.only(left:15),
+                              child: Text(
+                               "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
+                              ),
                             ),
-                            child: Text(
-                              "25K+ sold, By",
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                          ),
-                          CustomImageView(
-                            imagePath: ImageConstant.imgEllipse88918x18,
-                            height: 18.adaptSize,
-                            width: 18.adaptSize,
-                            radius: BorderRadius.circular(
-                              9.h,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 3.v,
-                              bottom: 1.v,
-                            ),
-                            child: Text(
-                              "ZLNZ (100K+ sold)",
-                              style: CustomTextStyles.bodyMediumGray90001_1,
-                            ),
-                          ),
-                          CustomImageView(
-                            imagePath: ImageConstant.imgArrowRightGray90001,
-                            height: 8.v,
-                            width: 4.h,
-                            margin: EdgeInsets.only(
-                              top: 3.v,
-                              bottom: 5.v,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            
               SizedBox(height: 13.v),
               Padding(
-                padding: EdgeInsets.only(left: 20.h),
+                padding: EdgeInsets.only(left: 15.h),
                 child: Row(
                   children: [
+                    
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.h),
+                      child: Text(
+                        "4.8",
+                        style: CustomTextStyles.bodyMediumInterGray90001,
+                      ),
+                    ),
                     CustomRatingBar(
                       initialRating: 4,
                       itemSize: 16,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 6.h),
-                      child: Text(
-                        "(200)",
-                        style: CustomTextStyles.bodyMediumInterGray90001,
-                      ),
                     ),
                   ],
                 ),
@@ -141,15 +94,15 @@ class SinglePageScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         children: [
-                          TextSpan(
-                            text: "99",
+                           TextSpan(
+                            text: "\$99 ",
                             style: CustomTextStyles.titleLargePrimary,
                           ),
                           TextSpan(
                             text: " ",
                           ),
                           TextSpan(
-                            text: "120",
+                            text: " \$120",
                             style:
                                 CustomTextStyles.titleMediumGray50001.copyWith(
                               decoration: TextDecoration.lineThrough,
@@ -159,45 +112,62 @@ class SinglePageScreen extends StatelessWidget {
                       ),
                       textAlign: TextAlign.left,
                     ),
+                    SizedBox(width: Get.width*.02,),
+                    // Container(
+                    //   width: 48.h,
+                    //   margin: EdgeInsets.only(
+                    //     left: 9.h,
+                    //     top: 4.v,
+                    //     bottom: 5.v,
+                    //   ),
+                    //   padding: EdgeInsets.symmetric(
+                    //     horizontal: 9.h,
+                    //     vertical: 2.v,
+                    //   ),
+                    //   decoration: AppDecoration.fillPrimary.copyWith(
+                    //     borderRadius: BorderRadiusStyle.roundedBorder8,
+                    //   ),
+                      // child: Text(
+                      //   "-20% خصم",
+                      //   style: TextStyle(color: Colors.white, fontSize: 9, fontFamily: 'League Spartan'),
+                      // ),
+                    // ),
                     Container(
-                      width: 48.h,
-                      margin: EdgeInsets.only(
-                        left: 9.h,
-                        top: 4.v,
-                        bottom: 5.v,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 9.h,
-                        vertical: 2.v,
-                      ),
-                      decoration: AppDecoration.fillPrimary.copyWith(
-                        borderRadius: BorderRadiusStyle.roundedBorder8,
-                      ),
-                      child: Text(
-                        "-20 off",
-                        style: TextStyle(color: Colors.white, fontSize: 9),
-                      ),
-                    ),
+            width: 63,
+            height: 16,
+            decoration:     BoxDecoration(
+        borderRadius: BorderRadius.circular(20), 
+        color: Color.fromARGB(36, 206, 117, 147)),
+        child: Center(
+          child:Text(
+                        "-20% off",
+                        style: TextStyle(color: Color(0xffff8300), fontSize: 9, fontFamily: 'League Spartan'),
+           ) ,
+        ),
+            )
                   ],
                 ),
               ),
-              SizedBox(height: 22.v),
+              SizedBox(height: 32.v),
               Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Color: ",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      TextSpan(
-                        text: "Olive Green",
-                        style: CustomTextStyles.bodyLargeGray50001_2,
-                      ),
-                    ],
+                padding: const EdgeInsets.only(left:15),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "color:",
+                          style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, ),
+                        ),
+                        TextSpan(
+                          text:"olive green",
+                         style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
                 ),
               ),
               SizedBox(height: 11.v),
@@ -208,7 +178,7 @@ class SinglePageScreen extends StatelessWidget {
               _buildListWidget(context),
               SizedBox(height: 30.v),
               Padding(
-                padding: EdgeInsets.only(left: 20.h),
+                padding: EdgeInsets.only(left: 15.h),
                 child: Row(
                   children: [
                     Padding(
@@ -217,40 +187,45 @@ class SinglePageScreen extends StatelessWidget {
                         bottom: 9.v,
                       ),
                       child: Text(
-                        "Qty",
+                      "amount",
                         style: theme.textTheme.titleMedium,
                       ),
                     ),
-                    Container(
-                      width: 120.h,
-                      margin: EdgeInsets.only(left: 14.h),
-                      padding: EdgeInsets.symmetric(vertical: 10.v),
-                      decoration: AppDecoration.fillPrimary.copyWith(
-                        borderRadius: BorderRadiusStyle.circleBorder20,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          CustomImageView(
-                            imagePath: ImageConstant.imgLine1,
-                            height: 1.v,
-                            width: 13.h,
-                            margin: EdgeInsets.symmetric(vertical: 9.v),
-                          ),
-                          Text(
-                            "1",
-                            style: CustomTextStyles.titleLargeWhiteA7000220,
-                          ),
-                          CustomImageView(
-                            imagePath: ImageConstant.imgGroup239412WhiteA70002,
-                            height: 13.adaptSize,
-                            width: 13.adaptSize,
-                            margin: EdgeInsets.only(
-                              top: 2.v,
-                              bottom: 3.v,
+                   
+                    Padding(
+                      padding: const EdgeInsets.only(right:20),
+                      child: Container(
+                        width: 120.h,
+                        margin: EdgeInsets.only(left: 14.h),
+                        padding: EdgeInsets.symmetric(vertical: 10.v),
+                        decoration: AppDecoration.fillPrimary.copyWith(
+                          borderRadius: BorderRadiusStyle.circleBorder20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                          
+                             CustomImageView(
+                              imagePath: ImageConstant.imgGroup239412WhiteA70002,
+                              height: 13.adaptSize,
+                              width: 13.adaptSize,
+                              margin: EdgeInsets.only(
+                                top: 2.v,
+                                bottom: 3.v,
+                              ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              "1",
+                              style: CustomTextStyles.titleLargeWhiteA7000220,
+                            ),
+                              CustomImageView(
+                              imagePath: ImageConstant.imgLine1,
+                             height: 13.adaptSize,
+                              width: 13.adaptSize,
+                              margin: EdgeInsets.symmetric(vertical: 9.v),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -259,55 +234,108 @@ class SinglePageScreen extends StatelessWidget {
               SizedBox(height: 30.v),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: _buildShoppingSecurity(
-                  context,
-                  image: ImageConstant.imgMaskGroup4,
-                  securityMessage: "Shipping",
-                ),
+                child: 
+                Row(
+                  
+                  children: [
+                    Image.asset('assets/images/img_mask_group_4.png',width: 16,),
+                    SizedBox(width: Get.width*.03,),
+                    Text('shipping', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),)
+                  ],
+                )
+                // _buildShoppingSecurity(
+                //   context,
+                //   image: ImageConstant.imgMaskGroup4,
+                //   securityMessage:"Shipping",
+                // ),
               ),
               SizedBox(height: 12.v),
-              _buildRowDescription(context),
+              Padding(
+                padding: const EdgeInsets.only(left:15),
+                child: _buildRowDescription(context),
+              ),
               SizedBox(height: 35.v),
               _buildRowReturnOne(context),
               SizedBox(height: 29.v),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                padding: EdgeInsets.only(left: 20),
                 child: _buildShoppingSecurity(
                   context,
                   image: ImageConstant.imgMaskGroup16x16,
-                  securityMessage: "Shopping security",
+                  securityMessage:"  Shopping security",
                 ),
               ),
               SizedBox(height: 16.v),
               Padding(
                 padding: EdgeInsets.only(left: 27.h),
-                child: Text(
-                  "Safe Payment Options",
-                  style: CustomTextStyles.bodyMediumInter,
+                child: Row(
+                  children: [
+                     Container(
+                      height: Get.height*.01,
+                      width: Get.width*.02,
+                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
+                    ),
+                    SizedBox(width: Get.width*.03,),
+                    Text(
+                     "secure payment options",
+                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 7.v),
               Padding(
                 padding: EdgeInsets.only(left: 27.h),
-                child: Text(
-                  "Secure logistics",
-                  style: CustomTextStyles.bodyMediumInter,
-                ),
+                child:
+                 Row(
+                   children: [
+                    Container(
+                      height: Get.height*.01,
+                      width: Get.width*.02,
+                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
+                    ),
+                    SizedBox(width: Get.width*.03,),
+                     Text(
+                    "Secure Logistics",
+                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
+                                     ),
+                   ],
+                 ),
               ),
               SizedBox(height: 6.v),
               Padding(
                 padding: EdgeInsets.only(left: 27.h),
-                child: Text(
-                  "Secure privacy",
-                  style: CustomTextStyles.bodyMediumInter,
+                child: Row(
+                  children: [
+                     Container(
+                      height: Get.height*.01,
+                      width: Get.width*.02,
+                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
+                    ),
+                    SizedBox(width: Get.width*.03,),
+                    Text(
+                   "Secure privacy",
+                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 7.v),
               Padding(
                 padding: EdgeInsets.only(left: 27.h),
-                child: Text(
-                  "Purchase protection",
-                  style: CustomTextStyles.bodyMediumInter,
+                child: Row(
+                  children: [
+                     Container(
+                      height: Get.height*.01,
+                      width: Get.width*.02,
+                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
+                    ),
+                    SizedBox(width: Get.width*.03,),
+                    Text(
+                     "purchase protection",
+                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 25.v),
@@ -316,8 +344,9 @@ class SinglePageScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20.h),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
+                     Text(
                       "4.8",
                       style: CustomTextStyles.titleMediumInter,
                     ),
@@ -332,16 +361,17 @@ class SinglePageScreen extends StatelessWidget {
                         itemSize: 16,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 6.h,
-                        top: 2.v,
-                      ),
-                      child: Text(
-                        "(200 shop ratings)",
-                        style: CustomTextStyles.bodyMediumInterGray90001,
-                      ),
-                    ),
+                   
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //     left: 6.h,
+                    //     top: 2.v,
+                    //   ),
+                    //   child: Text(
+                    //     "(200 shop ratings)",
+                    //     style: CustomTextStyles.bodyMediumInterGray90001,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -350,8 +380,8 @@ class SinglePageScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20.h),
                 child: _buildRonaldRichards(
                   context,
-                  userName: "Ronald Richards",
-                  userClockText: "13 Sep, 2020",
+                  userName: 'Ronald Richards',
+                  userClockText: "September 13, 2020",
                 ),
               ),
               SizedBox(height: 20.v),
@@ -367,12 +397,10 @@ class SinglePageScreen extends StatelessWidget {
                 width: 138.h,
                 margin: EdgeInsets.only(left: 20.h),
                 child: Text(
-                  "Purchase : Black/L(40)\nOverall : True to size",
+                "Purchase: Black/Large(40)\nTotal: True to size",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyles.bodyMedium15.copyWith(
-                    height: 1.33,
-                  ),
+                  style: TextStyle(fontFamily: 'League Spartan', color:Colors.grey, fontSize: 15, fontWeight: FontWeight.w400)
                 ),
               ),
               SizedBox(height: 4.v),
@@ -380,47 +408,44 @@ class SinglePageScreen extends StatelessWidget {
                 width: 322.h,
                 margin: EdgeInsets.only(
                   left: 20.h,
-                  right: 32.h,
+                  right: 20.h,
                 ),
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                 'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyles.bodyMediumGray9000115.copyWith(
-                    height: 1.33,
-                  ),
+                  style:TextStyle(fontFamily: 'League Spartan', color:Colors.black, fontSize: 15, fontWeight: FontWeight.w400)
                 ),
               ),
               SizedBox(height: 13.v),
               _buildListRectangle1(context),
               SizedBox(height: 20.v),
               Padding(
-                padding: EdgeInsets.only(right: 20.h),
+                padding: EdgeInsets.only(left: 190.h),
                 child: _buildShareOne(
                   context,
-                  userShareLabel: "Share",
+                  userShareLabel: 'Share',
                   userHelpfulLabel: "Helpful (2)",
                 ),
               ),
               SizedBox(height: 20.v),
-              Opacity(
-                opacity: 0.1,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Divider(
-                    color: appTheme.gray90001.withOpacity(0.39),
-                    indent: 19.h,
-                    endIndent: 20.h,
-                  ),
+              Center(
+                child: Divider(
+                  color:  Color.fromARGB(40, 39, 39, 39),
+                  endIndent: 20,
+                  indent: 20,
+                  thickness: 1,
+                
                 ),
               ),
+              
               SizedBox(height: 20.v),
               Padding(
                 padding: EdgeInsets.only(left: 20.h),
                 child: _buildRonaldRichards(
                   context,
                   userName: "Ronald Richards",
-                  userClockText: "13 Sep, 2020",
+                  userClockText:"September 13, 2020",
                 ),
               ),
               SizedBox(height: 20.v),
@@ -436,33 +461,29 @@ class SinglePageScreen extends StatelessWidget {
                 width: 138.h,
                 margin: EdgeInsets.only(left: 20.h),
                 child: Text(
-                  "Purchase : Black/L(40)\nOverall : True to size",
+                "Purchase: Black/Large(40)\nTotal: True to size",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyles.bodyMedium15.copyWith(
-                    height: 1.33,
-                  ),
+                  style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.grey)
                 ),
               ),
-              SizedBox(height: 4.v),
+              SizedBox(height: 10.v),
               Container(
                 width: 322.h,
                 margin: EdgeInsets.only(
-                  left: 20.h,
-                  right: 32.h,
+                  right: 20.h,
+                  left: 32.h,
                 ),
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                 'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyles.bodyMediumGray9000115.copyWith(
-                    height: 1.33,
-                  ),
+                  style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.black)
                 ),
               ),
               SizedBox(height: 13.v),
               Padding(
-                padding: EdgeInsets.only(right: 20.h),
+                padding: EdgeInsets.only(left: 190.h),
                 child: _buildShareOne(
                   context,
                   userShareLabel: "Share",
@@ -470,13 +491,13 @@ class SinglePageScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30.v),
-              _buildRowFollow(context),
+              // _buildRowFollow(context),
               SizedBox(height: 27.v),
               Padding(
                 padding: EdgeInsets.only(left: 20.h),
                 child: Text(
-                  "Products details",
-                  style: CustomTextStyles.titleMedium_1,
+                "Product Details",
+                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black)
                 ),
               ),
               SizedBox(height: 14.v),
@@ -486,12 +507,12 @@ class SinglePageScreen extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Material: ",
-                        style: CustomTextStyles.bodyLargeGray50001_2,
+                        text:"Material :",
+                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
                       ),
                       TextSpan(
-                        text: "Polyester",
-                        style: CustomTextStyles.titleMediumMedium,
+                        text: "Polyster",
+                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
                       ),
                     ],
                   ),
@@ -506,11 +527,11 @@ class SinglePageScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "Composition: ",
-                        style: CustomTextStyles.bodyLargeGray50001_2,
+                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
                       ),
                       TextSpan(
-                        text: "100% Polyester",
-                        style: CustomTextStyles.titleMediumMedium,
+                        text: "100٪ Polyster",
+                         style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
                       ),
                     ],
                   ),
@@ -524,12 +545,12 @@ class SinglePageScreen extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Details: ",
-                        style: CustomTextStyles.bodyLargeGray50001_2,
+                        text: "Detail:",
+                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
                       ),
                       TextSpan(
                         text: "None",
-                        style: CustomTextStyles.titleMediumMedium,
+                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
                       ),
                     ],
                   ),
@@ -540,14 +561,14 @@ class SinglePageScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20.h),
                 child: Text(
-                  "See All",
-                  style: CustomTextStyles.titleMediumPrimaryMedium,
+                 "See All",
+                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, fontFamily: 'League Spartan', color: Color(0xffff8300))
                 ),
               ),
               SizedBox(height: 17.v),
               CustomImageView(
                 imagePath: ImageConstant.imgRectangle569491x375,
-                height: 480.v,
+                height: Get.height*.7,
                 width: 335.h,
                 alignment: Alignment.center,
               ),
@@ -556,7 +577,7 @@ class SinglePageScreen extends StatelessWidget {
               SizedBox(height: 5.v),
               CustomImageView(
                 imagePath: ImageConstant.imgRectangle569491x375,
-                height: 480.v,
+               height: Get.height*.7,
                 width: 335.h,
                 alignment: Alignment.center,
               ),
@@ -567,19 +588,10 @@ class SinglePageScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "See All",
+                      "See al",
                       style: CustomTextStyles.titleMediumPrimaryMedium,
                     ),
-                    CustomImageView(
-                      imagePath: ImageConstant.imgVectorPrimary,
-                      height: 4.v,
-                      width: 8.h,
-                      margin: EdgeInsets.only(
-                        left: 6.h,
-                        top: 5.v,
-                        bottom: 5.v,
-                      ),
-                    ),
+                    Icon(Icons.keyboard_arrow_down, color: Color(0xffff8300),)
                   ],
                 ),
               ),
@@ -588,7 +600,10 @@ class SinglePageScreen extends StatelessWidget {
               SizedBox(height: 37.v),
               _buildListRecommended(context),
               SizedBox(height: 15.v),
-              _buildGridTenOff(context),
+              Padding(
+                padding: const EdgeInsets.only(left:15),
+                child: Center(child: _buildHomePageSection(context)),
+              ),
               SizedBox(height: 15.v),
             ],
           ),
@@ -599,15 +614,36 @@ class SinglePageScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildButtonOneHundredTen(BuildContext context) {
-    return CustomElevatedButton(
-      height: 20.v,
-      width: 41.h,
-      text: "1/10",
-      margin: EdgeInsets.only(right: 20.h),
-      buttonStyle: CustomButtonStyles.fillErrorContainer,
-      buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
-      alignment: Alignment.centerRight,
+    return
+    Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Container(
+           
+             height: 20.v,
+            width: 41.h,
+            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: const Color.fromARGB(127, 0, 0, 0),
+          
+            ),
+            child: Center(
+              child: Text('1/10', style: TextStyle(color: Colors.white),),
+            ),
+          ),
+        ),
+      ],
     );
+    
+    //  CustomElevatedButton(
+    //   height: 20.v,
+    //   width: 41.h,
+    //   text: "1/10",
+    //   margin: EdgeInsets.only(right: 20.h),
+    //   buttonStyle: ButtonStyle(backgroundColor: Colors.black),
+    //   buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
+    //   alignment: Alignment.centerRight,
+    // );
   }
 
   /// Section Widget
@@ -672,8 +708,8 @@ class SinglePageScreen extends StatelessWidget {
                           top: 3.v,
                         ),
                         child: Text(
-                          "Free shipping for you",
-                          style: CustomTextStyles.labelLargeInterWhiteA70002,
+                       "Free shipping for you",
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
                         ),
                       ),
                       Spacer(),
@@ -683,8 +719,8 @@ class SinglePageScreen extends StatelessWidget {
                           bottom: 2.v,
                         ),
                         child: Text(
-                          "Time-limited offer",
-                          style: CustomTextStyles.bodySmallInterWhiteA70002,
+                      "Limited time offer",
+                         style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
                         ),
                       ),
                     ],
@@ -700,7 +736,8 @@ class SinglePageScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildListRectangle(BuildContext context) {
-    return Align(
+    return 
+    Align(
       alignment: Alignment.center,
       child: SizedBox(
         height: 60.v,
@@ -737,14 +774,14 @@ class SinglePageScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Size",
-              style: theme.textTheme.titleMedium,
+             "Size",
+              style: theme.textTheme.titleMedium
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 2.v),
               child: Text(
-                "Size Guide",
-                style: CustomTextStyles.bodyMedium15,
+               "Size Guide",
+                style: theme.textTheme.titleMedium?.copyWith(color: Colors.grey)
               ),
             ),
           ],
@@ -781,120 +818,76 @@ class SinglePageScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildRowDescription(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(left: 20.h),
-        child: IntrinsicWidth(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.h,
-                    vertical: 9.v,
-                  ),
-                  decoration: AppDecoration.fillGray10003.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder8,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 2.v),
-                      SizedBox(
-                        width: 224.h,
-                        child: RichText(
-                          text: TextSpan(
+    return 
+     Container(
+                            
+        width: 300,
+        height: 119,
+       child: ListView.builder(
+         scrollDirection: Axis.horizontal,
+         itemCount: 3,
+         itemBuilder: (context, index) {
+           return  Center(
+           child: IntrinsicWidth(
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Expanded(
+                   child: Container(
+         width: 300,
+             height: 119,
+               padding: EdgeInsets.symmetric(
+                       horizontal: 15.h,
+                       vertical: 9.v,
+                     ),
+                     decoration: AppDecoration.fillGray10003.copyWith(
+                       borderRadius: BorderRadiusStyle.roundedBorder8,
+                     ),
+                     child: Column(
+                       mainAxisSize: MainAxisSize.min,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       // mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         SizedBox(height: 5.v),
+                         Text("Standard: Free for all orders",style: TextStyle(color: Color(0xffff8300), fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                         // SizedBox(height: Get.height*.01,),
+                          Row(
                             children: [
-                              TextSpan(
-                                text: "Standard: free on all orders",
-                                style: CustomTextStyles.labelLargeInterPrimary,
-                              ),
-                              TextSpan(
-                                text: " Delivery ",
-                                style: CustomTextStyles.bodySmallInter,
-                              ),
-                              TextSpan(
-                                text: "Nov 15-23, 73.9% are ≤ 8 days",
-                                style: CustomTextStyles.labelLargeInter,
-                              ),
-                              TextSpan(
-                                text:
-                                    " Get a £5.00 credit for late delivery Courier company:",
-                                style: CustomTextStyles.bodySmallInter,
-                              ),
-                              TextSpan(
-                                text: " Royal Mail, Yodel, etc",
-                                style: CustomTextStyles.labelLargeInter,
-                              ),
+                              Text( "delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                              Text( "November 15-23, 73.9% ≥ 8 days",style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),                     
                             ],
                           ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 15.h),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.h,
-                    vertical: 9.v,
-                  ),
-                  decoration: AppDecoration.fillGray10003.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder8,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 2.v),
-                      SizedBox(
-                        width: 270.h,
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Express\n",
-                                style: CustomTextStyles.labelLargeInter,
-                              ),
-                              TextSpan(
-                                text: "Delivery ",
-                                style: CustomTextStyles.bodySmallInter,
-                              ),
-                              TextSpan(
-                                text: "Nov 15-23, 73.9% are ≤ 8 days",
-                                style: CustomTextStyles.labelLargeInter,
-                              ),
-                              TextSpan(
-                                text:
-                                    " Get a £5.00 credit for late delivery Courier company:",
-                                style: CustomTextStyles.bodySmallInter,
-                              ),
-                              TextSpan(
-                                text: " Royal Mail, Yodel, etc",
-                                style: CustomTextStyles.labelLargeInter,
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                         // SizedBox(height: Get.height*.01,),
+                         
+                          Text( "Get £5.00 credit for late delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                         // SizedBox(height: Get.height*.01,),
+                         Row(
+                           children: [
+                             Text('Courier company:',
+                              style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                                Text(' Royal Mail, Yodel, etc',
+                              style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                           ],
+                         ),
+                     
+               ],
+             ),
+           ),
+                 ),
+              SizedBox(width: Get.width*.1,)
+                 ]
+                 
+             )
+           )
+         );
+         
+         }
+       ),
+     );
+    
+    
+  
   }
 
   /// Section Widget
@@ -909,23 +902,24 @@ class SinglePageScreen extends StatelessWidget {
           children: [
             CustomImageView(
               imagePath: ImageConstant.imgReturn1,
-              height: 16.adaptSize,
-              width: 16.adaptSize,
+              height: 25.adaptSize,
+              width: 25.adaptSize,
             ),
             Padding(
               padding: EdgeInsets.only(left: 7.h),
               child: Text(
-                "Free returns",
-                style: CustomTextStyles.titleMedium16,
+                "free returns",
+                style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 16, fontWeight:FontWeight.w600, ),
               ),
             ),
-            Container(
+           Container(
               height: 4.adaptSize,
               width: 4.adaptSize,
               margin: EdgeInsets.only(
-                left: 4.h,
-                top: 6.v,
-                bottom: 6.v,
+                left: 8.h,
+                top: 10.v,
+                bottom: 8.h
+               
               ),
               decoration: BoxDecoration(
                 color: appTheme.gray90001,
@@ -937,10 +931,11 @@ class SinglePageScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 4.h),
               child: Text(
-                "Price adjustment",
-                style: CustomTextStyles.titleMedium16,
+              "Price Adjusments",
+                style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 16, fontWeight:FontWeight.w600, ),
               ),
             ),
+             
             Spacer(),
             CustomImageView(
               imagePath: ImageConstant.imgArrowRightGray90001,
@@ -965,8 +960,8 @@ class SinglePageScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Items reviews and shop ratings",
-              style: CustomTextStyles.titleMedium16_2,
+            "item reviews",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black)
             ),
             Spacer(),
             GestureDetector(
@@ -974,20 +969,15 @@ class SinglePageScreen extends StatelessWidget {
                 Get.to(() => ReviewsScreen());
               },
               child: Text(
-                "See All",
-                style: CustomTextStyles.titleSmallPrimary,
+                "Show all",
+               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'League Spartan', color: Color(0xffff8300))
               ),
             ),
-            CustomImageView(
-              imagePath: ImageConstant.imgArrowRightPrimary,
-              height: 8.v,
-              width: 4.h,
-              margin: EdgeInsets.only(
-                left: 6.h,
-                top: 2.v,
-                bottom: 4.v,
-              ),
-            ),
+            GestureDetector(
+               onTap: () {
+                Get.to(() => ReviewsScreen());
+              },
+              child: Icon(Icons.keyboard_arrow_right_outlined,  color: Color(0xffff8300),))
           ],
         ),
       ),
@@ -1001,7 +991,7 @@ class SinglePageScreen extends StatelessWidget {
       child: ListView.separated(
         padding: EdgeInsets.only(
           left: 20.h,
-          right: 95.h,
+          right: 20.h,
         ),
         scrollDirection: Axis.horizontal,
         separatorBuilder: (
@@ -1009,7 +999,7 @@ class SinglePageScreen extends StatelessWidget {
           index,
         ) {
           return SizedBox(
-            width: 100.h,
+            width: Get.width*.04,
           );
         },
         itemCount: 3,
@@ -1025,7 +1015,7 @@ class SinglePageScreen extends StatelessWidget {
     return Expanded(
       child: CustomOutlinedButton(
         height: 36.v,
-        text: "Follow",
+        text:   "Follow ",
         margin: EdgeInsets.only(right: 5.h),
         buttonStyle: CustomButtonStyles.outlinePrimary,
         buttonTextStyle: CustomTextStyles.titleSmallPrimary,
@@ -1090,7 +1080,7 @@ class SinglePageScreen extends StatelessWidget {
                                 style: CustomTextStyles.titleMediumMedium,
                               ),
                               TextSpan(
-                                text: "Followers",
+                                text: "Followers ",
                                 style: theme.textTheme.bodyMedium,
                               ),
                             ],
@@ -1163,7 +1153,7 @@ class SinglePageScreen extends StatelessWidget {
           child: GridView.builder(
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 201.v,
+              mainAxisExtent: Get.height*.3,
               crossAxisCount: 2,
               mainAxisSpacing: 5.h,
               crossAxisSpacing: 5.h,
@@ -1187,60 +1177,71 @@ class SinglePageScreen extends StatelessWidget {
       buttonStyle: CustomButtonStyles.outlinePrimaryTL25,
       buttonTextStyle: CustomTextStyles.titleMediumWhiteA70002,
       alignment: Alignment.center,
+      onPressed: (){
+       
+      },
     );
   }
 
   /// Section Widget
   Widget _buildListRecommended(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: SizedBox(
-        height: 18.v,
-        child: ListView.separated(
-          padding: EdgeInsets.only(left: 20.h),
-          scrollDirection: Axis.horizontal,
-          separatorBuilder: (
-            context,
-            index,
-          ) {
-            return SizedBox(
-              width: 20.h,
-            );
-          },
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return ListrecommendedItemWidget();
-          },
+    return   Container(
+        height: Get.height * .05,
+        child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: recomemded_text.length,
+      itemBuilder: (context, index) {
+        bool isSelected = index == selectedTabIndex; // Assuming you have a variable to track the selected tab index
+      
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  recomemded_text[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isSelected ? Colors.black : Colors.grey,
+                    fontWeight: isSelected ? FontWeight.bold:FontWeight.w400 ,
+                    fontFamily:  'League Spartan',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
         ),
-      ),
-    );
+      );
   }
 
   /// Section Widget
-  Widget _buildGridTenOff(BuildContext context) {
-    return Expanded(
-      child: Align(
-        alignment: Alignment.center,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.h),
-          child: GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 265.v,
-              crossAxisCount: 2,
-              mainAxisSpacing: 15.h,
-              crossAxisSpacing: 15.h,
-            ),
-            physics: BouncingScrollPhysics(),
-            itemCount: 12,
-            itemBuilder: (context, index) {
-              return GridtenoffItemWidget();
-            },
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildGridTenOff(BuildContext context) {
+  //   return Expanded(
+  //     child: Align(
+  //       alignment: Alignment.center,
+  //       child: Padding(
+  //         padding: EdgeInsets.symmetric(horizontal: 20.h),
+  //         child: GridView.builder(
+  //           shrinkWrap: true,
+  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //             mainAxisExtent: 265.v,
+  //             crossAxisCount: 2,
+  //             mainAxisSpacing: 15.h,
+  //             crossAxisSpacing: 15.h,
+  //           ),
+  //           physics: BouncingScrollPhysics(),
+  //           itemCount: 12,
+  //           itemBuilder: (context, index) {
+  //             return GridtenoffItemWidget();
+  //           },
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   /// Common widget
   Widget _buildShoppingSecurity(
@@ -1254,24 +1255,25 @@ class SinglePageScreen extends StatelessWidget {
       children: [
         CustomImageView(
           imagePath: image,
-          height: 16.adaptSize,
-          width: 16.adaptSize,
+          height: 25.adaptSize,
+          width: 25.adaptSize,
         ),
         Padding(
-          padding: EdgeInsets.only(left: 7.h),
+          padding: EdgeInsets.only(right: 7.h),
           child: Text(
             securityMessage,
-            style: CustomTextStyles.titleMedium16.copyWith(
-              color: appTheme.gray90001,
-            ),
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),
           ),
         ),
         Spacer(),
-        CustomImageView(
-          imagePath: ImageConstant.imgArrowRightGray90001,
-          height: 8.v,
-          width: 4.h,
-          margin: EdgeInsets.symmetric(vertical: 4.v),
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: CustomImageView(
+            imagePath: ImageConstant.imgArrowRightGray90001,
+            height: 8.v,
+            width: 4.h,
+            margin: EdgeInsets.symmetric(vertical: 4.v),
+          ),
         ),
       ],
     );
@@ -1285,32 +1287,34 @@ class SinglePageScreen extends StatelessWidget {
   }) {
     return Row(
       children: [
-        Container(
-          height: 40.adaptSize,
-          width: 40.adaptSize,
-          decoration: AppDecoration.fillBlueGray.copyWith(
-            borderRadius: BorderRadiusStyle.circleBorder20,
-          ),
-          child: CustomImageView(
-            imagePath: ImageConstant.imgRectangle568,
-            height: 40.adaptSize,
-            width: 40.adaptSize,
-            radius: BorderRadius.circular(
-              20.h,
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Container(
+            height: 60.adaptSize,
+            width: 60.adaptSize,
+            decoration: 
+            AppDecoration.fillBlueGray.copyWith(
+              borderRadius: BorderRadiusStyle.circleBorder20,
             ),
-            alignment: Alignment.center,
+            child: CustomImageView(
+              imagePath: ImageConstant.imgRectangle568,
+              height: 60.adaptSize,
+              width: 60.adaptSize,
+              radius: BorderRadius.circular(
+                30.h,
+              ),
+              alignment: Alignment.center,
+            ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 10.h),
+          padding: EdgeInsets.only(right: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 userName,
-                style: CustomTextStyles.titleSmall15.copyWith(
-                  color: appTheme.gray90001,
-                ),
+                style: TextStyle(fontFamily: 'League Spartan', fontSize:11 , fontWeight: FontWeight.w400, color:Colors.black )
               ),
               SizedBox(height: 8.v),
               Row(
@@ -1327,9 +1331,7 @@ class SinglePageScreen extends StatelessWidget {
                     ),
                     child: Text(
                       userClockText,
-                      style: CustomTextStyles.bodySmall11.copyWith(
-                        color: appTheme.gray50001,
-                      ),
+                        style: TextStyle(fontFamily: 'League Spartan', fontSize:11 , fontWeight: FontWeight.w400, color:Colors.black )
                     ),
                   ),
                 ],
@@ -1348,20 +1350,26 @@ class SinglePageScreen extends StatelessWidget {
     required String userHelpfulLabel,
   }) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+         Padding(
+          padding: EdgeInsets.only(left: 4.h),
+          child: Text(
+            userShareLabel,
+            style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
+          ),
+        ),
         CustomImageView(
           imagePath: ImageConstant.imgShare1,
           height: 16.adaptSize,
           width: 16.adaptSize,
         ),
+        SizedBox(width: Get.width*.02,),
         Padding(
           padding: EdgeInsets.only(left: 4.h),
           child: Text(
-            userShareLabel,
-            style: CustomTextStyles.bodySmallInterGray90001.copyWith(
-              color: appTheme.gray90001,
-            ),
+            userHelpfulLabel,
+           style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
           ),
         ),
         CustomImageView(
@@ -1370,15 +1378,7 @@ class SinglePageScreen extends StatelessWidget {
           width: 16.adaptSize,
           margin: EdgeInsets.only(left: 10.h),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 4.h),
-          child: Text(
-            userHelpfulLabel,
-            style: CustomTextStyles.bodySmallInterGray90001.copyWith(
-              color: appTheme.gray90001,
-            ),
-          ),
-        ),
+       
         CustomImageView(
           imagePath: ImageConstant.imgGroup239583,
           height: 15.v,
@@ -1386,6 +1386,23 @@ class SinglePageScreen extends StatelessWidget {
           margin: EdgeInsets.only(left: 10.h),
         ),
       ],
+    );
+  }
+  Widget _buildHomePageSection(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: Get.height*.4,
+        crossAxisCount: 2,
+        // mainAxisSpacing: 2,
+        crossAxisSpacing: 10.h,
+        
+      ),
+      physics: BouncingScrollPhysics(),
+      itemCount: 6,
+      itemBuilder: (context, index) {
+        return HomepagesectionItemWidget();
+      },
     );
   }
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import '../my_orders_one_page/widgets/myordersone_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -19,6 +20,7 @@ class MyOrdersOnePageState extends State<MyOrdersOnePage>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(

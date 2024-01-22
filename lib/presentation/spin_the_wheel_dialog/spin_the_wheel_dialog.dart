@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 
@@ -37,7 +38,7 @@ class SpinTheWheelDialog extends StatelessWidget {
           ),
           SizedBox(height: 17.v),
           CustomElevatedButton(
-            text: "Collect",
+            text: "Collect_".tr,
             buttonStyle: CustomButtonStyles.fillPrimary,
             buttonTextStyle: CustomTextStyles.titleMediumWhiteA70002,
           ),

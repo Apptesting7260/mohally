@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
 class AppbarSubtitle extends StatelessWidget {
@@ -28,9 +27,7 @@ class AppbarSubtitle extends StatelessWidget {
         padding: margin ?? EdgeInsets.zero,
         child: Text(
           text,
-          style: theme.textTheme.titleLarge!.copyWith(
-            color: appTheme.gray90001,
-          ),
+          style: TextStyle(color: Colors.black, fontFamily: 'Almarai', fontWeight: FontWeight.w600, fontSize: 22)
         ),
       ),
     );

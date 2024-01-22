@@ -1,30 +1,30 @@
+// ignore_for_file: unused_import
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/view_models/controller/reset_password/reset_password_controller.dart';
 import 'package:mohally/view_models/controller/resetpasswordotp_controller/resetpasswordotp_controller.dart';
 import 'package:pinput/pinput.dart';
-
 import '../home_page_one_tab_container_page/home_page_one_tab_container_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-
 import '../home_page_tab_container_screen/home_page_tab_container_screen.dart';
 import '../tab_screen/tab_bar.dart';
 
 RxBool otpbuttonused = false.obs;
 
+// ignore: must_be_immutable
 class VerificationCodeScreen extends StatefulWidget {
   String? emailText;
 
-  final FocusNode pinPutFocusNode;
-  final TextEditingController controller;
+  final FocusNode? pinPutFocusNode;
+  final TextEditingController? controller;
   VerificationCodeScreen(
       {Key? key,
-      required this.controller,
-      required this.emailText,
-      required this.pinPutFocusNode})
+       this.controller,
+       this.emailText,
+       this.pinPutFocusNode})
       : super(
           key: key,
         );
@@ -36,8 +36,6 @@ class VerificationCodeScreen extends StatefulWidget {
 class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   ResetpasswordOTP_controller resetpasswordOTP_controller =
       Get.put(ResetpasswordOTP_controller());
-  Resetpassword_controller resetpassword_controller =
-      Get.put(Resetpassword_controller());
   RxInt waitOtp = 60.obs;
   RxBool waitOtpShow = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -56,6 +54,25 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     });
   }
 
+void resendOtp() {
+  resetpasswordOTP_controller.loading.value = true;
+  resetpasswordOTP_controller.resendOtp(varificationemail!).then((success) {
+    resetpasswordOTP_controller.loading.value = false;
+    if (success) {
+      Utils.snackBar(context, 'Success', ' Otp Send On Your Email');
+      resetpasswordOTP_controller.pinController.value.text = '';
+      setState(() {
+      print('refreshingggggggg');
+      });
+    } else {
+      Utils.snackBar(context, 'Error', resetpasswordOTP_controller.error.value);
+    }
+  });
+}
+
+
+
+
   @override
   void initState() {
     resetpasswordOTP_controller.pinController.value.clear();
@@ -65,7 +82,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
 
   @override
   void dispose() {
-    resetpasswordOTP_controller.ResetpasswordOTP_apihit();
+    resetpasswordOTP_controller.ResetpasswordOTP_apihit(context);
     resetpasswordOTP_controller.pinController.value.dispose();
     // pinController.dispose();
     _pinPutFocusNode.dispose();
@@ -77,7 +94,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     mediaQueryData = MediaQuery.of(context);
     final defaultPinTheme = PinTheme(
       width: 56,
-      height: 56,
+      height: 50,
       textStyle: TextStyle(
           fontSize: 20, color: Color(0xffFF8300), fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
@@ -101,7 +118,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
               children: [
                 SizedBox(height: 10.v),
                 Text(
-                  'Verification_Code'.tr,
+                  'Verification Code',
                   style: theme.textTheme.headlineLarge,
                 ),
                 SizedBox(height: 19.v),
@@ -112,11 +129,11 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'please_type'.tr,
+                          text:'Please type the verification code sent to',
                           style: CustomTextStyles.bodyLargeGray50001_2,
                         ),
                         TextSpan(
-                          text: "Email",
+                          text: varificationemail,
                           style: CustomTextStyles.titleMediumPrimary16_1,
                         ),
                       ],
@@ -150,60 +167,85 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                 ),
 
                 SizedBox(height: 20.v),
-                CustomElevatedButton(
-                  loading: resetpasswordOTP_controller.loading.value,
-                  onPressed: () {
-                    // otpbuttonused.value == true
-                    //     ? () {}
-                    //     : () {
-                            otpbuttonused.value = true;
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
-                              _pinPutFocusNode.unfocus();
-                              formKey.currentState!.validate();
-                              resetpasswordOTP_controller
-                                  .ResetpasswordOTP_apihit();
+                Obx((){
+                  return CustomElevatedButton(
+                    loading: resetpasswordOTP_controller.loading.value,
+                    onPressed: 
+                    // () {
+                    //   // otpbuttonused.value == true
+                    //   //     ? () {}
+                    //   //     : () {
+                    //           otpbuttonused.value = true;
+                    //           if (formKey.currentState!.validate()) {
+                    //             formKey.currentState!.save();
+                    //             _pinPutFocusNode.unfocus();
+                    //             formKey.currentState!.validate();
+                    //             resetpasswordOTP_controller
+                    //                 .ResetpasswordOTP_apihit(context);
+                  
+                    //             // resetpasswordOTP_controller.pinController.value.clear();
+                    //           }
+                    //         // };
+                    //   // Get.to(() => TabScreen(
+                    //   //       index: 0,
+                    //   //     ));
+                    // },
+                  
+                    () {
+                                if (!formKey.currentState!.validate()) {
+                                  return;
+                                } else {
+                               resetpasswordOTP_controller.loading.value=true;
+                               resetpasswordOTP_controller
+                                    .ResetpasswordOTP_apihit(context);
+                                    _pinPutFocusNode.unfocus();
+                                      formKey.currentState!.save();
+                                    // Get.offAll(() =>  Password_ChangedScreen(email: ForgetPassVm.emailcontroller.value.text));
+                  
+                                }
+                                },
+                    text: 'Verify',
+                    margin: EdgeInsets.symmetric(horizontal: 24.h),
+                    buttonStyle: CustomButtonStyles.fillPrimary,
+                  );
+                }
 
-                              // resetpasswordOTP_controller.pinController.value.clear();
-                            }
-                          // };
-                    // Get.to(() => TabScreen(
-                    //       index: 0,
-                    //     ));
-                  },
-                  text: "Verify",
-                  margin: EdgeInsets.symmetric(horizontal: 24.h),
-                  buttonStyle: CustomButtonStyles.fillPrimary,
                 ),
                 SizedBox(height: 24.v),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "I don’t receive a code!",
-                        style: CustomTextStyles.bodyLargeLight,
-                      ),
-                      TextSpan(
-                        text: "Resend",
-                        style: CustomTextStyles.titleMediumPrimary,
-                        // !waitOtpShow.value == true
-                        //     ? "Resend"
-                        //     : waitOtp.value.toString(),
-                        // style: CustomTextStyles.titleMediumPrimary,
-                        // recognizer: TapGestureRecognizer()
-                        //   ..onTap = waitOtpShow.value == true
-                        //       ? () {}
-                        //       : () {
-                        //           waitOtp.value = 60;
-                        //           resetpasswordOTP_controller
-                        //               .ResetpasswordOTP_apihit();
-                        //
-                        //           waitOtpUpdate();
-                        //         }
-                      ),
-                    ],
+                InkWell(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text:'I don\'t receive a code!',
+                          style: CustomTextStyles.bodyLargeLight,
+                        ),
+                        TextSpan(
+                          text: "Resend",
+                          style: CustomTextStyles.titleMediumPrimary,
+                          // !waitOtpShow.value == true
+                          //     ? "Resend"
+                          //     : waitOtp.value.toString(),
+                          // style: CustomTextStyles.titleMediumPrimary,
+                          // recognizer: TapGestureRecognizer()
+                          //   ..onTap = waitOtpShow.value == true
+                          //       ? () {}
+                          //       : () {
+                          //           waitOtp.value = 60;
+                          //           resetpasswordOTP_controller
+                          //               .ResetpasswordOTP_apihit();
+                          //
+                          //           waitOtpUpdate();
+                          //         }
+                          
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
+                  onTap: (){
+                    resendOtp();
+                  },
                 ),
                 // Spacer(),
                 // _buildVerificationCodeGrid(context),
@@ -269,7 +311,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
         height: 80.0,
         child: Center(
           child: Text(
-            'Pin Submitted. Value: $pin',
+           'Pin Submitted. Value:$pin'.tr,
             style: const TextStyle(fontSize: 25.0),
           ),
         ),

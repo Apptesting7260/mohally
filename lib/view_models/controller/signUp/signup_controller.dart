@@ -1,15 +1,17 @@
+// ignore_for_file: unused_import
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mohally/core/utils/Utils.dart';
+import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_login_screen.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/models/Home_Banner_Model/home_banner_model.dart';
 import 'package:mohally/models/Sign_Up_Model/sign_up_model.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+// String? varificationemail;
 class Signup_controller extends GetxController {
+  
   final _api = AuthRepository();
   final firstNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;
@@ -31,7 +33,10 @@ class Signup_controller extends GetxController {
 
   void setError(String value) => error.value = value;
 
-  void signup_apihit(BuildContext context) {
+  Future<void> signup_apihit(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     String lang= prefs.getString('selectedLanguage').toString();
+     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     loading.value = true;
     Map data = {
       'first_name': firstNameController.value.text,
@@ -39,7 +44,8 @@ class Signup_controller extends GetxController {
       'phone': phoneController.value.text,
       'email': emailController.value.text,
       'password': passwordController.value.text,
-      'country':countryController.value.text
+      'country':countryController.value.text,
+      'language_type':lang
     };
     _api.Signupapi(data).then((value) {
       loading.value = false;
@@ -47,18 +53,17 @@ class Signup_controller extends GetxController {
        print("Message: ${value.message}");
 
        if (value.message == "User SignUp Successfully") {
-       
-           Get.to(() => TabScreen(index: 0));
+        //  varificationemail = emailController.value.text;
+           Get.to(() => LoginScreen());
 
       }
-      else{
-print("done");
+      else {
+        Utils.snackBar(context, 'Failed', value.message.toString());  
       }
      
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;
-      
       Utils.snackBar(context, 'Failed', error.toString());// error.toString()
     });
   }

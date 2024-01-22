@@ -7,6 +7,7 @@ import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
+// ignore: must_be_immutable
 class AddNewCardScreen extends StatelessWidget {
   AddNewCardScreen({Key? key})
       : super(
@@ -46,7 +47,7 @@ class AddNewCardScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Card_Owner".tr,
+                    "Card Owner",
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -56,7 +57,7 @@ class AddNewCardScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Card_Number".tr,
+                    "Card Number",
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -88,7 +89,7 @@ class AddNewCardScreen extends StatelessWidget {
         ),
       ),
       title: AppbarSubtitle(
-        text: "Add_New_Card".tr,
+        text: "Add New Card",
         margin: EdgeInsets.only(left: 16.h),
       ),
     );
@@ -158,7 +159,7 @@ class AddNewCardScreen extends StatelessWidget {
   Widget _buildName(BuildContext context) {
     return CustomTextFormField(
       controller: nameController,
-      hintText: "Enter_card_owner_name".tr,
+      hintText: "Enter card owner name",
     );
   }
 
@@ -166,7 +167,7 @@ class AddNewCardScreen extends StatelessWidget {
   Widget _buildCardNumber(BuildContext context) {
     return CustomTextFormField(
       controller: cardNumberController,
-      hintText: "Enter_card_number".tr,
+      hintText: "Enter card number",
       textInputType: TextInputType.number,
     );
   }
@@ -176,16 +177,16 @@ class AddNewCardScreen extends StatelessWidget {
     return CustomTextFormField(
       width: 160.h,
       controller: mMYYYYController,
-      hintText: "MM/YYYY",
+      hintText:  'MM/YYYY',
     );
   }
 
   /// Section Widget
   Widget _buildPrice(BuildContext context) {
     return CustomTextFormField(
-      width: 28.h,
+      width: 160.h,
       controller: priceController,
-      hintText: "XXX",
+      hintText: 'XXX',
       textInputAction: TextInputAction.done,
     );
   }
@@ -202,7 +203,7 @@ class AddNewCardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "EXP",
+                   "EXP",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 10.v),
@@ -211,28 +212,19 @@ class AddNewCardScreen extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: Get.width*.02,),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 7.h),
-            child: Column(
+            child:Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "CVV",
+                   "CVV",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 10.v),
-                Container(
-                  width: 160.h,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 18.h,
-                    vertical: 15.v,
-                  ),
-                  decoration: AppDecoration.outlineOnPrimaryContainer.copyWith(
-                    borderRadius: BorderRadiusStyle.circleBorder25,
-                  ),
-                  child: _buildPrice(context),
-                ),
+                _buildPrice(context),
               ],
             ),
           ),

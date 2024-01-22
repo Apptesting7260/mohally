@@ -76,7 +76,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar:
+      
+      _buildAppBar(context),
       body: Obx(() {
 
         if(_controller.rxRequestStatus.value==Status.LOADING){
@@ -159,14 +161,14 @@ return GeneralExceptionWidget(onPress: (){},
             ),
             SizedBox(height: 9.v),
             Text(
-              "fname".tr,
+              "First Name",
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
             _buildFirstName(context),
             SizedBox(height: 9.v),
             Text(
-              "lname".tr,
+              "Last Name",
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
@@ -174,14 +176,14 @@ return GeneralExceptionWidget(onPress: (){},
             SizedBox(height: 17.v),
 
             Text(
-              "_Email".tr,
+              "Email",
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
             _buildEmail(context),
             SizedBox(height: 17.v),
             Text(
-              "mobile_num".tr,
+             'Mobile Number',
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 9.v),
@@ -222,7 +224,7 @@ Widget _buildContinueButton(BuildContext context) {
       onPressed: () {
         DeleteAccountIns.deleteUserData();
         },
-      text: "delete_acc".tr,
+      text: "Delete Account",
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }
@@ -245,14 +247,14 @@ Widget _buildContinueButton(BuildContext context) {
       title: Row(
         children: [
           AppbarSubtitle(
-            text: "my_acc".tr,
+            text: "My Account",
             margin: EdgeInsets.only(left: 16),
           ),
 SizedBox(width: Get.width*.3,),
            CustomElevatedButton(
                             height: 28.v,
                             width: 56.h,
-                            text: "_Edit".tr,
+                            text: "Edit",
                             leftIcon: Container(
                               margin: EdgeInsets.only(right: 4.h),
                               child: CustomImageView(

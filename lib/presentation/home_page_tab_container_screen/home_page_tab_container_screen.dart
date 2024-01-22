@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -35,17 +36,17 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
   void initState() {
     super.initState();
     tabviewController = TabController(length: 5, vsync: this);
-        setInitialLocale();
+   // setInitialLocale();
   }
-  void setInitialLocale() {
-    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-      Get.updateLocale(Locale('ar', 'DZ'));
-    } else {
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
+  // void setInitialLocale() {
+  //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+  //     Get.updateLocale(Locale('ar', 'DZ'));
+  //   } else {
+  //     Get.updateLocale(Locale('en', 'US'));
+  //   }
+  // }
 
-  @override
+  // @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
@@ -114,27 +115,27 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
         tabs: [
           Tab(
             child: Text(
-              "_All".tr,
+              "All",
             ),
           ),
           Tab(
             child: Text(
-              "_Women".tr,
+              "Women",
             ),
           ),
           Tab(
             child: Text(
-              "_Men".tr,
+              "Men",
             ),
           ),
           Tab(
             child: Text(
-              "_kids".tr,
+              "kids",
             ),
           ),
           Tab(
             child: Text(
-              "_Jewelry".tr,
+              "Jewelry",
             ),
           ),
         ],

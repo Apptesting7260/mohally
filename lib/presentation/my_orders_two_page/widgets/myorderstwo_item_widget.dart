@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
@@ -46,7 +46,7 @@ class MyorderstwoItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 1.v),
                   child: Text(
-                    "Tracking_number".tr,
+                    "Tracking number",
                     style: theme.textTheme.bodyMedium,
                   ),
                 ),
@@ -67,7 +67,7 @@ class MyorderstwoItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 2.v),
                 child: Text(
-                 "Quantity".tr,
+                 "Quantity",
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
@@ -80,7 +80,7 @@ class MyorderstwoItemWidget extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "Total_Amount".tr,
+                "Total Amount",
                 style: CustomTextStyles.bodyMediumGray90001_1,
               ),
               Padding(
@@ -102,7 +102,7 @@ class MyorderstwoItemWidget extends StatelessWidget {
                   bottom: 6.v,
                 ),
                 child: Text(
-                  "_Processing".tr,
+                  " Processing",
                   style: CustomTextStyles.bodyMediumPrimary,
                 ),
               ),
@@ -110,13 +110,13 @@ class MyorderstwoItemWidget extends StatelessWidget {
               CustomOutlinedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "_Cancel".tr,
+                text: " Cancel",
                 buttonTextStyle: CustomTextStyles.labelLargePrimary,
               ),
               CustomElevatedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "_Details".tr,
+                text: " Details",
                 margin: EdgeInsets.only(left: 8.h),
                 buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                 buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,

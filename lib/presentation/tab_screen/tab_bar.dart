@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
-import 'package:mohally/presentation/category_page/category_page.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
 import 'package:mohally/presentation/home_page_tab_container_screen/home_page_tab_container_screen.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
@@ -33,19 +32,11 @@ class _TabScreenState extends State<TabScreen> {
     _controller.fetchMyAccountData();
 
     // Ensure that the initial locale is set when the screen initializes
-    setInitialLocale();
 
     super.initState();
   }
 
   // Function to set the initial locale
-  void setInitialLocale() {
-    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-      Get.updateLocale(Locale('ar', 'DZ'));
-    } else {
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

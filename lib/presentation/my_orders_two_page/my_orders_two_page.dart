@@ -19,6 +19,7 @@ class MyOrdersTwoPageState extends State<MyOrdersTwoPage>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(

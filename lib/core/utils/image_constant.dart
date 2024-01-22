@@ -56,6 +56,7 @@ class ImageConstant {
 
   static String imgGroup239531 = '$imagePath/img_group_239531.svg';
 
+
   static String imgNavWishlistPrimary =
       '$imagePath/img_nav_wishlist_primary.svg';
 

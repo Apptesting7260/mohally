@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../shop_profile_i_item_screen/widgets/shopprofileiitem_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -34,13 +36,13 @@ class ShopProfileIItemScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Items",
+                      "Items_",
                       style: theme.textTheme.titleMedium,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.h),
                       child: Text(
-                        "categories",
+                        "categories_",
                         style: CustomTextStyles.bodyLargeGray5000118,
                       ),
                     ),
@@ -62,14 +64,14 @@ class ShopProfileIItemScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(bottom: 1.v),
                       child: Text(
-                        "relevanve ",
+                        "relevanve_".tr,
                         style: CustomTextStyles.titleSmallSemiBold_1,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.h),
                       child: Text(
-                        "top sales",
+                        "top_sales".tr,
                         style: theme.textTheme.bodyMedium,
                       ),
                     ),
@@ -79,7 +81,7 @@ class ShopProfileIItemScreen extends StatelessWidget {
                         bottom: 1.v,
                       ),
                       child: Text(
-                        "most recent",
+                        "most_recent".tr,
                         style: theme.textTheme.bodyMedium,
                       ),
                     ),
@@ -128,7 +130,7 @@ class ShopProfileIItemScreen extends StatelessWidget {
     return CustomOutlinedButton(
       height: 30.v,
       width: 210.h,
-      text: "Follow",
+      text: "Follow_".tr,
       buttonStyle: CustomButtonStyles.outlinePrimaryTL151,
       buttonTextStyle: CustomTextStyles.titleSmallWhiteA70002,
     );
@@ -167,7 +169,7 @@ class ShopProfileIItemScreen extends StatelessWidget {
                               style: theme.textTheme.titleSmall,
                             ),
                             TextSpan(
-                              text: "Followers",
+                              text: "Followers_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],
@@ -196,7 +198,7 @@ class ShopProfileIItemScreen extends StatelessWidget {
                               style: theme.textTheme.titleSmall,
                             ),
                             TextSpan(
-                              text: "Sold",
+                              text: "Sold_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],
@@ -229,7 +231,7 @@ class ShopProfileIItemScreen extends StatelessWidget {
                               style: CustomTextStyles.titleMediumMedium,
                             ),
                             TextSpan(
-                              text: "Items",
+                              text: "Items_".tr,
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ],

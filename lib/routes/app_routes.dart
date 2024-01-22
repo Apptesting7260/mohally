@@ -45,6 +45,9 @@ class AppRoutes {
   static const String homePageOneTabContainerPage =
       '/home_page_one_tab_container_page';
 
+        static const String arabichomePageOneTabContainerPage =
+      '/arabic_home_page_one_tab_container_page';
+
   static const String homePageOneContainerScreen =
       '/home_page_one_container_screen';
 

@@ -10,6 +10,7 @@ import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
+// ignore: must_be_immutable
 class PaymentScreen extends StatelessWidget {
   PaymentScreen({Key? key})
       : super(
@@ -51,7 +52,7 @@ class PaymentScreen extends StatelessWidget {
                   _buildAddNewCard(context),
                   SizedBox(height: 27.v),
                   Text(
-                    "Card Owner",
+                    "Card Owner" ,
                     style: theme.textTheme.titleMedium,
                   ),
                   SizedBox(height: 9.v),
@@ -242,7 +243,7 @@ class PaymentScreen extends StatelessWidget {
               bottom: 5.v,
             ),
             child: Text(
-              "Save card info",
+              "Save_card_info".tr,
               style: theme.textTheme.bodyLarge,
             ),
           ),

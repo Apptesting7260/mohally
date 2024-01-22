@@ -1,14 +1,15 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
-import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login_controller extends GetxController {
+  
   final _api = AuthRepository();
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
@@ -19,6 +20,9 @@ class Login_controller extends GetxController {
   RxBool loading = false.obs;
 
   void Login_apihit(BuildContext context) async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     String lang= prefs.getString('selectedLanguage').toString();
+     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     if(context == null){
  print("Error: Context is null!");
       return;
@@ -26,9 +30,9 @@ class Login_controller extends GetxController {
     loading.value = true;
     Map data = {
       'email': emailController.value.text,
-      'password': passwordController.value.text
+      'password': passwordController.value.text,
+      'language_type':lang
     };
-
     _api.Loginapi(data).then((value) {
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
@@ -36,15 +40,12 @@ class Login_controller extends GetxController {
       loading.value = false;
       // loginbuttonused.value = false;
 print(value.message);
-       if (value.message == "success_login".tr) {
+  if (value.message == "You Are Successfully Login") {
 
-
-      
-       navigateToHomeScreen();
-
+Get.offAll(() => TabScreen(index: 0));
       }
       else {
-        Utils.snackBar(context, '_Login'.tr, value.message.toString());  
+        Utils.snackBar(context, 'Login', value.message.toString());  
       }
       saveData(
         token: value.token.toString(),
@@ -54,7 +55,7 @@ print(value.message);
 
     }).onError((error, stackTrace) {
       loading.value = false;
-    Utils.snackBar(context, '_Failed'.tr, 'check'.tr);
+    Utils.snackBar(context, 'Failed', 'please check email/password');
       // loginbuttonused.value = false;
       // error.toString()
     });
@@ -87,14 +88,5 @@ Future<Map<String, dynamic>> retrieveData() async {
     'message': prefs.getString('message'),
     // similarly, retrieve username and password if needed
   };
+}
 
-  
-}
-void navigateToHomeScreen() {
-  if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-    Get.updateLocale(Locale('ar', 'DZ'));
-  } else {
-    Get.updateLocale(Locale('en', 'US'));
-  }
-  Get.offAll(() => TabScreen(index: 0));
-}

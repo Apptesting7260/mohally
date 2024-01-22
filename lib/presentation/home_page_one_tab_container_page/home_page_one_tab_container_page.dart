@@ -1,6 +1,10 @@
+// ignore_for_file: unused_import
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/Notifications/no_more_notification.dart';
 import 'package:mohally/presentation/home_page_one_page/home_page_one_page.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -22,6 +26,27 @@ class HomePageOneTabContainerPage extends StatefulWidget {
 
 class HomePageOneTabContainerPageState
     extends State<HomePageOneTabContainerPage> with TickerProviderStateMixin {
+
+ File imgFile = File("");
+
+  final imgPicker = ImagePicker();
+  void openCamera(abc) async {
+    var imgCamera = await imgPicker.pickImage(source: abc);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+    });
+    Navigator.of(context).pop();
+  }
+
+  //open camera
+  void openCameraa(abc) async {
+    var imgCamera = await imgPicker.pickImage(source: abc);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+    });
+    Navigator.of(context).pop();
+  }
+
   TextEditingController searchController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -50,9 +75,49 @@ class HomePageOneTabContainerPageState
               SizedBox(height: 22.v),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: CustomSearchView(
-                  controller: searchController,
-                  hintText: "search".tr,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      CustomSearchView(
+                        readOnly: true,
+                        enableTap: true,
+                        controller: searchController,
+                        hintText: "search",
+                      ),
+                        Positioned(
+                  top: 20,
+                  left: 240,
+                  child: GestureDetector(
+                    onTap: (){
+                       showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Choose"),
+                                  content: Row(
+                                    children: [
+                                      GestureDetector(
+                                        child: Text("Camera"),
+                                        onTap: () {
+                                          openCameraa(ImageSource.camera);
+                                        },
+                                      ),
+                                      SizedBox(width: 80),
+                                      GestureDetector(
+                                        child: Text("Gallery"),
+                                        onTap: () {
+                                          openCameraa(ImageSource.gallery);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                    },
+                    
+                    child: Image.asset('assets/images/greycamera.png'))),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 27.v),
@@ -84,7 +149,10 @@ class HomePageOneTabContainerPageState
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60.h,
-      leading: GestureDetector(
+      leading: 
+      
+      
+      GestureDetector(
         onTap: () {
           if (_scaffoldKey.currentState!.isDrawerOpen) {
             _scaffoldKey.currentState!.openEndDrawer();
@@ -138,6 +206,9 @@ class HomePageOneTabContainerPageState
                 height: 20.adaptSize,
                 width: 20.adaptSize,
                 alignment: Alignment.center,
+                  onTap: () {
+              Get.to(No_More_Notifications());
+            },
                 margin: EdgeInsets.all(10.h),
               ),
             ],
@@ -149,57 +220,60 @@ class HomePageOneTabContainerPageState
 
   /// Section Widget
   Widget _buildTabview(BuildContext context) {
-    return Container(
-      height: 23.v,
-      width: 355.h,
-      child: TabBar(
-        controller: tabviewController,
-        isScrollable: true,
-        labelColor: theme.colorScheme.primary,
-        labelStyle: TextStyle(
-          fontSize: 18.fSize,
-          fontFamily: 'League Spartan',
-          fontWeight: FontWeight.w400,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        height: 33.v,
+        width: 355.h,
+        child: TabBar(
+          controller: tabviewController,
+          isScrollable: true,
+          labelColor: theme.colorScheme.primary,
+          labelStyle: TextStyle(
+            fontSize: 18.fSize,
+            fontFamily: 'League Spartan',
+            fontWeight: FontWeight.w400,
+          ),
+          unselectedLabelColor: appTheme.gray50001,
+          unselectedLabelStyle: TextStyle(
+            fontSize: 18.fSize,
+            fontFamily: 'League Spartan',
+            fontWeight: FontWeight.w400,
+          ),
+          indicatorColor: theme.colorScheme.primary,
+          tabs: [
+            Tab(
+              child: Text(
+                "_All".tr,
+              ),
+            ),
+            Tab(
+              child: Text(
+                "Women",
+              ),
+            ),
+            Tab(
+              child: Text(
+                "Men",
+              ),
+            ),
+            Tab(
+              child: Text(
+                "kids",
+              ),
+            ),
+            Tab(
+              child: Text(
+                "Jewelry",
+              ),
+            ),
+            Tab(
+              child: Text(
+                "Bags",
+              ),
+            ),
+          ],
         ),
-        unselectedLabelColor: appTheme.gray50001,
-        unselectedLabelStyle: TextStyle(
-          fontSize: 18.fSize,
-          fontFamily: 'League Spartan',
-          fontWeight: FontWeight.w400,
-        ),
-        indicatorColor: theme.colorScheme.primary,
-        tabs: [
-          Tab(
-            child: Text(
-              "All",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Women",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Men",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "kids",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Jewelry",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Bags",
-            ),
-          ),
-        ],
       ),
     );
   }

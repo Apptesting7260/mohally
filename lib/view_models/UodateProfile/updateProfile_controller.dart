@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 var response;
 
 class UpdateProfile_Controller extends GetxController {
+
   final _api = AuthRepository();
   final firstNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;

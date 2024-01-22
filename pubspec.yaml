@@ -33,6 +33,7 @@ dependencies:
   audioplayers: ^5.1.0
   loading_animation_widget: ^1.2.0+4
   easy_localization: ^3.0.3
+  google_fonts: ^4.0.4
 
 
 
@@ -88,3 +89,10 @@ flutter:
           weight: 600
         - asset: assets/fonts/InterMedium.ttf
           weight: 500
+    - family: Almarai
+      fonts: 
+        - asset: assets/fonts/Almarai-Bold.ttf
+        - asset: assets/fonts/Almarai-ExtraBold.ttf
+        - asset: assets/fonts/Almarai-Light.ttf
+        - asset: assets/fonts/Almarai-Regular.ttf
+

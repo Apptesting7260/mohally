@@ -5,24 +5,19 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/address_screen/address_screen.dart';
+import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/coupans_offeres/coupan_screen.dart';
-import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
-import 'package:mohally/presentation/my_orders_page/my_orders_page.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
-import 'package:mohally/presentation/privacy_policy/privacy_policy.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
-import 'package:mohally/presentation/terms_conditions/terms_condition_screen.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../customer_support/customer_support.dart';
 import '../notifications_one_screen/notifications_one_screen.dart';
-import '../notifications_screen/notifications_screen.dart';
 
 // ignore_for_file: must_be_immutable
 class MyProfilePage extends StatefulWidget {
@@ -132,11 +127,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text("Choose_".tr),
+                                              title: Text("Choose"),
                                               content: Row(
                                                 children: [
                                                   GestureDetector(
-                                                    child: Text("Camera_".tr),
+                                                    child: Text("Camera"),
                                                     onTap: () {
                                                       openCameraa(
                                                           ImageSource.camera);
@@ -144,7 +139,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                                   ),
                                                   SizedBox(width: 80),
                                                   GestureDetector(
-                                                    child: Text("Gallery_".tr),
+                                                    child: Text("Gallery"),
                                                     onTap: () {
                                                       openCameraa(
                                                           ImageSource.gallery);
@@ -188,7 +183,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgProfileIcon,
-                            userMessage: "MyAccount_".tr,
+                            userMessage: "MyAccount",
                           ),
                         ),
                         // SizedBox(height: 26.v),
@@ -205,7 +200,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgBag,
-                            userMessage: "My_Orders",
+                            userMessage: "My Orders",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -216,7 +211,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgRateReview1,
-                            userMessage: "My_Reviews".tr,
+                            userMessage: "MyReviews",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -227,10 +222,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgCoupon1,
-                            userMessage: "Coupon_offers".tr,
+                            userMessage: "Coupon offers",
                           ),
                         ),
-                        SizedBox(height: 26.v),
+                      
                         // _buildMessageOne(
                         //   context,
                         //   userImage: ImageConstant.imgShop1,
@@ -240,7 +235,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         _buildMessageOne(
                           context,
                           userImage: ImageConstant.imgHistory1,
-                          userMessage: "Browsing_history".tr,
+                          userMessage: "Browsing history",
                         ),
                         SizedBox(height: 26.v),
                         GestureDetector(
@@ -250,7 +245,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgBagPrimary,
-                            userMessage: "Address_".tr,
+                            userMessage: "Address ",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -261,7 +256,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgNotification1,
-                            userMessage: "Notifications_".tr,
+                            userMessage: "Notifications",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -272,7 +267,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgSupport1,
-                            userMessage: "Customer_support".tr,
+                            userMessage: "Customer support",
                           ),
                         ),
                         SizedBox(height: 26.v),
@@ -280,16 +275,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         _buildMessageOne(
                           context,
                           userImage: ImageConstant.imgSettingPrimary,
-                          userMessage:  "_Settings".tr,
+                          userMessage:  "Settings",
                         ),
                         SizedBox(height: 40.v),
                         CustomElevatedButton(
                           onPressed: () async {
                             await clearSharedPreferences();
 
-                            Get.offAll(() => LoginScreen());
+                            Get.offAll(() => ChooseLanguageScreen());
                           },
-                          text: "_Logout".tr,
+                          text: "Logout",
                           margin: EdgeInsets.symmetric(horizontal: 10.h),
                           buttonStyle: CustomButtonStyles.fillPrimary,
                         ),
@@ -319,7 +314,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
       ),
       title: AppbarSubtitle(
-        text: "My_Profile".tr,
+        text: "My Profile",
         margin: EdgeInsets.only(left: 16),
       ),
     );

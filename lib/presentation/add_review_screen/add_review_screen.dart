@@ -9,6 +9,7 @@ import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
+// ignore: must_be_immutable
 class AddReviewScreen extends StatelessWidget {
   AddReviewScreen({Key? key})
       : super(
@@ -55,7 +56,7 @@ class AddReviewScreen extends StatelessWidget {
                 _buildGroupEditText(context),
                 SizedBox(height: 19.v),
                 Text(
-                  "What is you rate?",
+                 "What is you rate?",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 7.v),
@@ -102,7 +103,7 @@ class AddReviewScreen extends StatelessWidget {
   Widget _buildNameEditText(BuildContext context) {
     return CustomTextFormField(
       controller: nameEditTextController,
-      hintText: "Enter your name",
+      hintText:  'Enter your name',
       borderDecoration: TextFormFieldStyleHelper.outlineGray,
     );
   }
@@ -124,7 +125,7 @@ class AddReviewScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildAddPhotosVideoButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "Add photos/video",
+      text:"Add photos/video",
       margin: EdgeInsets.symmetric(horizontal: 10.h),
       leftIcon: Container(
         margin: EdgeInsets.only(right: 9.h),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 
 // ignore: must_be_immutable
-class MyorderslistItemWidget extends StatelessWidget {
-  const MyorderslistItemWidget({Key? key})
+class MyorderslistItemWidget_arabic extends StatelessWidget {
+  const MyorderslistItemWidget_arabic({Key? key})
       : super(
           key: key,
         );
@@ -46,8 +45,8 @@ class MyorderslistItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 1.v),
                   child: Text(
-                     "Tracking_number".tr,
-                    style: theme.textTheme.bodyMedium,
+                     "عدد تتبع",
+                    style: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'Almarai'),
                   ),
                 ),
                 Padding(
@@ -67,7 +66,7 @@ class MyorderslistItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 2.v),
                 child: Text(
-                  "Quantity".tr,
+                  "كمية",
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
@@ -80,7 +79,7 @@ class MyorderslistItemWidget extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                 "Total_Amount".tr,
+                 "المبلغ الإجمالي",
                 style: CustomTextStyles.bodyMediumGray90001_1,
               ),
               Padding(
@@ -99,7 +98,7 @@ class MyorderslistItemWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.v),
                 child: Text(
-                  "_Delivered".tr,
+                  "تم التوصيل",
                   style: CustomTextStyles.bodyMediumGreen40002,
                 ),
               ),
@@ -107,13 +106,13 @@ class MyorderslistItemWidget extends StatelessWidget {
               CustomOutlinedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "_Details".tr,
+                text: "تفاصيل",
                 buttonTextStyle: CustomTextStyles.labelLargePrimary,
               ),
               CustomElevatedButton(
                 height: 30.v,
                 width: 80.h,
-                text: "Re_Order".tr,
+                text: "إعادة الطلب",
                 margin: EdgeInsets.only(left: 8.h),
                 buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                 buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,

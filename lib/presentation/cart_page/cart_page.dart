@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:get/get.dart';
 import 'package:mohally/presentation/price_details_bottomsheet/price_details_bottomsheet.dart';
 import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
@@ -27,6 +28,9 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+    bool isSelected=false;
+   bool isSelected2=false;
+   bool allSelected=false;
   String radioGroup = "";
 
   TextEditingController trailRunningJacketByController =
@@ -413,17 +417,45 @@ class _CartPageState extends State<CartPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomRadioButton(
-                  width: 221.h,
-                  text: "Trail Running Jacket Nike...",
-                  value: "Trail Running Jacket Nike...",
-                  groupValue: radioGroup,
-                  textStyle: theme.textTheme.titleSmall,
-                  isRightCheck: true,
-                  onChange: (value) {
-                    radioGroup = value;
+                Row(
+             children: [
+              Text( "Trail Running Jacket Nike...",style: theme.textTheme.titleSmall),
+               SizedBox(width: Get.width*.1),
+               GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSelected2 = !isSelected2;
+                    });
                   },
+                  child: Container(
+                  height: Get.height*.03,
+                  width: Get.width*.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 2,
+                        color:  Color(0xffff8300),
+                      ),
+                     
+                      color: Colors.white,
+                    ),
+                    child: isSelected2
+                        ? Center(
+                            child: Container(
+                           height: Get.height*.02,
+                  width: Get.width*.03,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color:  Color(0xffff8300),
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
+             ],
+           ),
+                
                 _buildBy(
                   context,
                   userName: "By",
@@ -500,17 +532,45 @@ class _CartPageState extends State<CartPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomRadioButton(
-                  width: 221.h,
-                  text: "Trail Running Jacket Nike...",
-                  value: "Trail Running Jacket Nike...",
-                  groupValue: radioGroup1,
-                  textStyle: theme.textTheme.titleSmall,
-                  isRightCheck: true,
-                  onChange: (value) {
-                    radioGroup1 = value;
+                Row(
+             children: [
+              Text( "Trail Running Jacket Nike...",style: theme.textTheme.titleSmall),
+               SizedBox(width: Get.width*.1),
+               GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSelected = !isSelected;
+                    });
                   },
+                  child: Container(
+                  height: Get.height*.03,
+                  width: Get.width*.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 2,
+                        color:  Color(0xffff8300),
+                      ),
+                     
+                      color: Colors.white,
+                    ),
+                    child: isSelected
+                        ? Center(
+                            child: Container(
+                           height: Get.height*.02,
+                  width: Get.width*.03,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color:  Color(0xffff8300),
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
+             ],
+           ),
+                
                 _buildBy(
                   context,
                   userName: "By",
@@ -1014,7 +1074,7 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
             );
-            ;
+
           },
         );
       },
@@ -1034,19 +1094,60 @@ class _CartPageState extends State<CartPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11.v),
-            child: CustomRadioButton(
-              text: "All",
-              value: "All",
-              groupValue: radioGroup2,
-              padding: EdgeInsets.symmetric(vertical: 1.v),
-              textStyle: CustomTextStyles.bodyLarge18,
-              onChange: (value) {
-                radioGroup2 = value;
-              },
-            ),
-          ),
+           Row(
+             children: [
+            
+            
+               GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      allSelected = !allSelected;
+                    });
+                  },
+                  child: Container(
+                  height: Get.height*.03,
+                  width: Get.width*.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 2,
+                        color:  Colors.black,
+                      ),
+                     
+                      color: Colors.white,
+                    ),
+                    child: allSelected
+                        ? Center(
+                            child: Container(
+                           height: Get.height*.02,
+                  width: Get.width*.03,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color:  Colors.black,
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                ),
+                SizedBox(width: Get.width*.02,),
+                  Text("All",style: theme.textTheme.titleSmall),
+             ],
+           ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(vertical: 11.v),
+            
+          //   child: CustomRadioButton(
+          //     text: "All",
+          //     value: "All",
+          //     groupValue: radioGroup2,
+          //     padding: EdgeInsets.symmetric(vertical: 1.v),
+          //     textStyle: CustomTextStyles.bodyLarge18,
+          //     onChange: (value) {
+          //       radioGroup2 = value;
+          //     },
+          //   ),
+          // ),
           Container(
             height: 40.v,
             width: 125.h,
@@ -1122,7 +1223,7 @@ class _CartPageState extends State<CartPage> {
       child: Center(
         child: Text(
           "Add to Cart",
-          style: TextStyle(fontSize: 13, color: Colors.black),
+          style: TextStyle(fontSize: 10, color: Colors.black),
         ),
       ),
     );
@@ -1141,7 +1242,7 @@ class _CartPageState extends State<CartPage> {
     //     style: CustomTextStyles.bodyMediumGray90001_1,
     //   ),
     // )
-    ;
+    
 
     //   CustomTextFormField(
     //   width: 120.h,
@@ -1156,7 +1257,7 @@ class _CartPageState extends State<CartPage> {
     //   borderDecoration: TextFormFieldStyleHelper.outlineErrorContainer,
     //   filled: false,
     // )
-    ;
+  
   }
 
   /// Section Widget

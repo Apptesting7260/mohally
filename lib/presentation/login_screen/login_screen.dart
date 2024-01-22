@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:mohally/view_models/controller/login/login_view_controller.dart'
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../sign_up_screen/sign_up_screen.dart';
 import '../verification_code_screen/verification_code_screen.dart';
@@ -28,6 +30,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  
   Login_controller login_controller = Get.put(Login_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -48,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-
+ ThemeData theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -65,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   SizedBox(height: 36.v),
                   Text(
-                    "Sign_in".tr,
+                    'Sign-in',
                     style: theme.textTheme.headlineLarge,
                   ),
                   SizedBox(height: 15.v),
@@ -76,8 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       right: 23.h,
                     ),
                     child: Text(
-                      "Lorem".tr,
+                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                       maxLines: 3,
+                      
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: CustomTextStyles.bodyLargeGray50001_3.copyWith(
@@ -89,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "mobile_or_email".tr,
+                     'Mobile Number or Email',
                       style: theme.textTheme.titleMedium,
                     ),
                   ),
@@ -99,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "password".tr,
+                      'Password',
                       style: theme.textTheme.titleMedium,
                     ),
                   ),
@@ -114,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Center(
                       child: Text(
-                        "fpassword".tr,
+                        'Forgot Password',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -124,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 27.v),
                   Text(
-                    "or".tr,
+                  'Or',
                     style: CustomTextStyles.titleMediumMedium_1,
                   ),
                   SizedBox(height: 27.v),
@@ -141,25 +145,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "By_continuing".tr,
+                            text: 'By continuing, you agree to our ',
                             style: CustomTextStyles.bodyMediumJostGray90001,
                           ),
                           TextSpan(
-                            text: "Terms".tr,
+                            text: 'Terms of Use',
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
-                              decoration: TextDecoration.underline,
+                              // decoration: TextDecoration.underline,
                             ),
                           ),
                           TextSpan(
-                            text:"And".tr,
+                            text:  '  and',
                             style: CustomTextStyles.bodyMediumJostGray90001,
                           ),
                           TextSpan(
-                            text: "Privacy_".tr,
+                            text: '\nPrivacy & Cookie Policy.',
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
-                              decoration: TextDecoration.underline,
+                              // decoration: TextDecoration.underline,
                             ),
                           ),
                         ],
@@ -172,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "dont_have_account".tr,
+                          text:'You don\'t have an account yet ?',
                           style: CustomTextStyles.bodyMediumGray90001Light,
                         ),
                         TextSpan(
@@ -185,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Handle the tap gesture
                               print('TextSpan tapped!');
                             },
-                          text: "Create_One".tr,
+                          text: 'Create One',
                           style: CustomTextStyles.titleSmallPrimaryBold,
                         ),
                       ],
@@ -205,15 +209,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildMobileNumber(BuildContext context) {
     return CustomTextFormField(
       validator: (value) {
-        if (!isEmail(value!) && !isPhone(value!)) {
-          return 'enter_valid'.tr;
+        if (!isEmail(value!) && !isPhone(value)) {
+          return 'Please enter a valid email or phone number.';
         }
         return null;
       },
       controller: login_controller.emailController.value,
-      hintText: "Enter_mobile_or_email".tr,
+      hintText: 'Enter mobile number or email',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
+      
     );
   }
 
@@ -222,13 +227,13 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: !_passwordVisible,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Enter_Password".tr;
+          return 'Please Enter Password';
         } else {
           return null;
         }
       },
       controller: login_controller.passwordController.value,
-      hintText: "Enter_your_password".tr,
+      hintText: 'Enter your password',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       suffix: IconButton(
@@ -237,9 +242,10 @@ class _LoginScreenState extends State<LoginScreen> {
               _passwordVisible = !_passwordVisible;
             });
           },
-          icon: Icon(
-            _passwordVisible ? Icons.visibility : Icons.visibility_off,
-          )),
+             icon: Icon(
+            _passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+          ),
+          color:  Color(0xffff8300),),
 
       // suffix: Container(
       //   margin: EdgeInsets.fromLTRB(12.h, 13.v, 16.h, 13.v),
@@ -282,7 +288,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
         },
-        text: "_Continue".tr,
+        text:'Continue',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
     }
@@ -292,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithGoogleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue_with_Google".tr,
+      text: 'continue with Google',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 12.h),
         child: CustomImageView(
@@ -308,7 +314,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithFacebookButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue_with_Facbook".tr,
+      text: 'continue with Facbook',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 15.h),
         child: CustomImageView(
@@ -324,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithAppleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: "continue_with_apple".tr,
+      text:'continue with apple',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 17.h),
         child: CustomImageView(
@@ -341,4 +347,12 @@ class _LoginScreenState extends State<LoginScreen> {
     print("_send".tr);
  
   }
+  // CrossAxisAlignment getCrossAxisAlignment(BuildContext context) {
+  //   // Check if the current locale is Arabic
+  //   if (Localizations.localeOf(context).languageCode == 'ar') {
+  //     return CrossAxisAlignment.end; // Align to the right for Arabic
+  //   } else {
+  //     return CrossAxisAlignment.start; // Align to the left for other languages
+  //   }
+  // }
 }

@@ -13,6 +13,7 @@ import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 
+// ignore: must_be_immutable
 class ShopProfileICategoriesScreen extends StatelessWidget {
   ShopProfileICategoriesScreen({Key? key})
       : super(
@@ -101,7 +102,7 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                               CustomOutlinedButton(
                                 height: 28.v,
                                 width: 94.h,
-                                text: "With photos",
+                                text: "With_photos".tr,
                                 margin: EdgeInsets.only(left: 10.h),
                                 buttonStyle: CustomButtonStyles.outlineGrayTL14,
                                 buttonTextStyle:
@@ -164,8 +165,8 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                           padding: EdgeInsets.only(right: 20.h),
                           child: _buildShareOne(
                             context,
-                            share: "Share",
-                            helpfulTwo: "Helpful (2)",
+                            share: "Share_".tr,
+                            helpfulTwo: "Helpful_".tr,
                           ),
                         ),
                         SizedBox(height: 20.v),
@@ -236,8 +237,8 @@ class ShopProfileICategoriesScreen extends StatelessWidget {
                           padding: EdgeInsets.only(right: 20.h),
                           child: _buildShareOne(
                             context,
-                            share: "Share",
-                            helpfulTwo: "Helpful (2)",
+                            share: "Share_".tr,
+                            helpfulTwo: "Helpful_".tr,
                           ),
                         ),
                       ],

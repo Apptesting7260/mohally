@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -148,6 +149,9 @@ class AddReviewScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10.h),
       buttonStyle: CustomButtonStyles.fillPrimary,
       alignment: Alignment.center,
+      onPressed: () {
+        Get.offAll(ReviewsScreen());
+      },
     );
   }
 }

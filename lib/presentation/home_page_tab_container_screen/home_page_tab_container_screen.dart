@@ -91,57 +91,58 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
   }
 
   /// Section Widget
-  Widget _buildTabview(BuildContext context) {
-    return Container(
-      height: 25.v,
-      width: 311.h,
-      margin: EdgeInsets.only(left: 26.h),
-      child: TabBar(
-        controller: tabviewController,
-        labelPadding: EdgeInsets.zero,
-        labelColor: theme.colorScheme.primary,
-        labelStyle: TextStyle(
-          fontSize: 15.fSize,
-          fontFamily: 'Inter',
-          fontWeight: FontWeight.w600,
-        ),
-        unselectedLabelColor: appTheme.gray50001,
-        unselectedLabelStyle: TextStyle(
-          fontSize: 15.fSize,
-          fontFamily: 'Inter',
-          fontWeight: FontWeight.w500,
-        ),
-        indicatorColor: theme.colorScheme.primary,
-        tabs: [
-          Tab(
-            child: Text(
-              "All",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Women",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Men",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "kids",
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Jewelry",
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildTabview(BuildContext context) {
+  //   return 
+  //   Container(
+  //     height: 25.v,
+  //     width: 311.h,
+  //     margin: EdgeInsets.only(left: 26.h),
+  //     child: TabBar(
+  //       controller: tabviewController,
+  //       labelPadding: EdgeInsets.zero,
+  //       labelColor: theme.colorScheme.primary,
+  //       labelStyle: TextStyle(
+  //         fontSize: 15.fSize,
+  //         fontFamily: 'Inter',
+  //         fontWeight: FontWeight.w600,
+  //       ),
+  //       unselectedLabelColor: appTheme.gray50001,
+  //       unselectedLabelStyle: TextStyle(
+  //         fontSize: 15.fSize,
+  //         fontFamily: 'Inter',
+  //         fontWeight: FontWeight.w500,
+  //       ),
+  //       indicatorColor: theme.colorScheme.primary,
+  //       tabs: [
+  //         Tab(
+  //           child: Text(
+  //             "All",
+  //           ),
+  //         ),
+  //         Tab(
+  //           child: Text(
+  //             "Women",
+  //           ),
+  //         ),
+  //         Tab(
+  //           child: Text(
+  //             "Men",
+  //           ),
+  //         ),
+  //         Tab(
+  //           child: Text(
+  //             "kids",
+  //           ),
+  //         ),
+  //         Tab(
+  //           child: Text(
+  //             "Jewelry",
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildBottomBar(BuildContext context) {

@@ -20,8 +20,8 @@ class DeleteAccountController extends GetxController {
     Future<void> deleteUserData() async {
       
       loading.value = true;
-        final sp = await SharedPreferences.getInstance();
-    var token ='token';
+  final sp = await SharedPreferences.getInstance();
+  var token ='token';
    var lang =sp.getString('selectedLanguage');
     try {
       http.Response response = await http.delete(

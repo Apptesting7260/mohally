@@ -179,7 +179,6 @@ class category_womens_clothing_gridItemWidget_arabic extends StatelessWidget {
         Container(
               height: 16.v,
           width: 48.h,
-          
           decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Color.fromARGB(71, 228, 193, 204),
           ),
@@ -236,7 +235,7 @@ class category_womens_clothing_gridItemWidget_arabic extends StatelessWidget {
                 SizedBox(height: 5.v),
                 Row(
                   children: [
-Text(
+                  Text(
                       "2k+ مُباع  " ,
                         style: theme.textTheme.bodySmall?.copyWith(fontFamily:'Almarai' ),
                       ),
@@ -246,7 +245,6 @@ Text(
                       ),
                   ],
                 ),
-               
               ],
             ),
             Padding(

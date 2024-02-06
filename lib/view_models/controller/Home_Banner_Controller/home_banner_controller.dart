@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/Home_Banner_Model/home_banner_model.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBanner_controller extends GetxController {
   final _api = AuthRepository();
@@ -19,10 +20,11 @@ class HomeBanner_controller extends GetxController {
   RxBool loading = false.obs;
   List<Widget> carouselItems=[];
   void homeBanner_apihit() async {
+        final sp = await SharedPreferences.getInstance();
     loading.value = true;
     Map data = {"page_name": "home", "location": "top"};
-
-    _api.homeBannerapi(data).then((value) {
+ var header = {'Authorization': "Bearer ${sp.getString("token")}"};
+    _api.homeBannerapi(data, headers: header).then((value) {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
@@ -30,8 +32,8 @@ class HomeBanner_controller extends GetxController {
       loading.value = false;
 
     }).onError((error, stackTrace) {
-
-      print("fdfdgfdgfdfdhf");
+      print(error.toString());
+      print("======Banner==Error====");
       loading.value = false;
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);

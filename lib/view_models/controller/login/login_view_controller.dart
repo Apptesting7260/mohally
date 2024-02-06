@@ -13,10 +13,8 @@ class Login_controller extends GetxController {
   final _api = AuthRepository();
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
-
   final emailFocusNode = FocusNode().obs;
   final passwordFocusNode = FocusNode().obs;
-
   RxBool loading = false.obs;
 
   void Login_apihit(BuildContext context) async {

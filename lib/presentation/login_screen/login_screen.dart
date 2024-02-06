@@ -10,6 +10,7 @@ import 'package:mohally/view_models/controller/login/login_view_controller.dart'
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../sign_up_screen/sign_up_screen.dart';
@@ -214,6 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return null;
       },
+      autofocus: false,
       controller: login_controller.emailController.value,
       hintText: 'Enter mobile number or email',
       textInputAction: TextInputAction.done,
@@ -228,10 +230,15 @@ class _LoginScreenState extends State<LoginScreen> {
       validator: (value) {
         if (value!.isEmpty) {
           return 'Please Enter Password';
-        } else {
+        }  else if(login_controller.passwordController.value.length<6){
+          return 'The password must be at least 6 characters. ';
+        }
+        
+        else {
           return null;
         }
       },
+      autofocus: false,
       controller: login_controller.passwordController.value,
       hintText: 'Enter your password',
       textInputAction: TextInputAction.done,
@@ -272,11 +279,6 @@ class _LoginScreenState extends State<LoginScreen> {
   return CustomElevatedButton(
         loading: login_controller.loading.value,
         onPressed: () {
-        
-          // Get.to(()=>VerificationCodeScreen
-          //   (controller:TextEditingController() ,pinPutFocusNode:FocusNode() ,)
-          // );
-          // Get.to(() => TabScreen(index: 0));
          {
     if (!_formKey.currentState!.validate()) {
       return;

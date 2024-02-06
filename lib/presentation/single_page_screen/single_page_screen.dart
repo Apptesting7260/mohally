@@ -1,14 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:mohally/presentation/home_page_one_page/widgets/homepagesection_item_widget.dart';
+import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
-import '../single_page_screen/widgets/gridrectangle_item_widget.dart';
-import '../single_page_screen/widgets/listrectangle1_item_widget.dart';
-import '../single_page_screen/widgets/listrectangle_item_widget.dart';
-import '../single_page_screen/widgets/listwidget_item_widget.dart';
+import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
+import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_one.dart';
-import 'package:mohally/widgets/app_bar/appbar_trailing_iconbutton.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
@@ -24,8 +23,15 @@ class SinglePageScreen extends StatefulWidget {
 }
 
 class _SinglePageScreenState extends State<SinglePageScreen> {
-
-   int selectedTabIndex=0;
+  
+  int counter = 1;
+   bool PrizeAdjustmentisExpanded = false;
+   bool ShoppingSecurityisExpanded = false;
+   
+int selectedIndex=0;
+EnglishSingleProductViewController productviewcontroller =EnglishSingleProductViewController();
+int selectedTabIndex=0;
+  HomeView_controller_English homeView_controller = HomeView_controller_English();
  List<String> recomemded_text = [
   'Recommended',
   'Men\'s clothing',
@@ -33,584 +39,651 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
   'Men\'s clothing',
  'Recommended',
 ];
+@override
+void initState() {
+  super.initState();
+  productviewcontroller.Single_ProductApiHit();
+  homeView_controller.homeview_apihit();
+ // homeView_controller.homeview_apihit();
+}
+
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-        body: SizedBox(
-          width: double.maxFinite,
-          child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildStackSixtyNine(context),
-              SizedBox(height: 26.v),
-              Padding(
-                padding: const EdgeInsets.only(left:15),
-                child: Text(
-               "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
-                ),
-              ),
-              SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left:15),
-                              child: Text(
-                               "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
-                              ),
-                            ),
-            
-              SizedBox(height: 13.v),
-              Padding(
-                padding: EdgeInsets.only(left: 15.h),
-                child: Row(
-                  children: [
-                    
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.h),
-                      child: Text(
-                        "4.8",
-                        style: CustomTextStyles.bodyMediumInterGray90001,
-                      ),
+    return  Obx((){
+      if (productviewcontroller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      }  else {
+          return      SafeArea(
+          child: Scaffold(
+            body:        
+            SizedBox(
+              width: double.maxFinite,
+              child: 
+              productviewcontroller.userList.value.productView ==  null 
+                                    // productviewcontroller.userList.value
+                                    //         .productView?.length ==
+                                    //     0
+                                ? Center(child:  Text('Error: ${productviewcontroller.error.value}'))
+              :ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildStackSixtyNine(context),
+                  SizedBox(height: 26.v),
+                  Padding(
+                    padding: const EdgeInsets.only(left:15),
+                    child: Text(
+                       "${productviewcontroller.userList.value.productView?.title.toString()}",
+                  // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
                     ),
-                    CustomRatingBar(
-                      initialRating: 4,
-                      itemSize: 16,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 14.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: Row(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                           TextSpan(
-                            text: "\$99 ",
-                            style: CustomTextStyles.titleLargePrimary,
-                          ),
-                          TextSpan(
-                            text: " ",
-                          ),
-                          TextSpan(
-                            text: " \$120",
-                            style:
-                                CustomTextStyles.titleMediumGray50001.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                        ],
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    SizedBox(width: Get.width*.02,),
-                    // Container(
-                    //   width: 48.h,
-                    //   margin: EdgeInsets.only(
-                    //     left: 9.h,
-                    //     top: 4.v,
-                    //     bottom: 5.v,
-                    //   ),
-                    //   padding: EdgeInsets.symmetric(
-                    //     horizontal: 9.h,
-                    //     vertical: 2.v,
-                    //   ),
-                    //   decoration: AppDecoration.fillPrimary.copyWith(
-                    //     borderRadius: BorderRadiusStyle.roundedBorder8,
-                    //   ),
-                      // child: Text(
-                      //   "-20% خصم",
-                      //   style: TextStyle(color: Colors.white, fontSize: 9, fontFamily: 'League Spartan'),
-                      // ),
-                    // ),
-                    Container(
-            width: 63,
-            height: 16,
-            decoration:     BoxDecoration(
-        borderRadius: BorderRadius.circular(20), 
-        color: Color.fromARGB(36, 206, 117, 147)),
-        child: Center(
-          child:Text(
-                        "-20% off",
-                        style: TextStyle(color: Color(0xffff8300), fontSize: 9, fontFamily: 'League Spartan'),
-           ) ,
-        ),
-            )
-                  ],
-                ),
-              ),
-              SizedBox(height: 32.v),
-              Padding(
-                padding: const EdgeInsets.only(left:15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: RichText(
-                    text: TextSpan(
+                  ),
+                  SizedBox(height: 12.v),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:15),
+                                  child: Text(
+                                     "${productviewcontroller.userList.value.productView?.slug.toString()}",
+                                  // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'League Spartan')
+                                  ),
+                                ),
+                
+                  SizedBox(height: 13.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.h),
+                    child: Row(
                       children: [
-                        TextSpan(
-                          text: "color:",
-                          style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, ),
+                        
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.h),
+                          child: Text(
+                            "4.8",
+                            style: CustomTextStyles.bodyMediumInterGray90001,
+                          ),
                         ),
-                        TextSpan(
-                          text:"olive green",
-                         style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, color: Colors.grey),
+                        CustomRatingBar(
+                          initialRating: 4,
+                          itemSize: 16,
                         ),
                       ],
                     ),
-                    textAlign: TextAlign.left,
                   ),
-                ),
-              ),
-              SizedBox(height: 11.v),
-              _buildListRectangle(context),
-              SizedBox(height: 27.v),
-              _buildRowSize(context),
-              SizedBox(height: 11.v),
-              _buildListWidget(context),
-              SizedBox(height: 30.v),
-              Padding(
-                padding: EdgeInsets.only(left: 15.h),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 13.v,
-                        bottom: 9.v,
-                      ),
-                      child: Text(
-                      "amount",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    ),
-                   
-                    Padding(
-                      padding: const EdgeInsets.only(right:20),
-                      child: Container(
-                        width: 120.h,
-                        margin: EdgeInsets.only(left: 14.h),
-                        padding: EdgeInsets.symmetric(vertical: 10.v),
-                        decoration: AppDecoration.fillPrimary.copyWith(
-                          borderRadius: BorderRadiusStyle.circleBorder20,
+                  SizedBox(height: 14.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: Row(
+                      children: [
+                        Obx((){
+                          var currentPrice = productviewcontroller.userList.value.productView?.productDetails?[0].price ?? 0;
+                           return RichText(
+                            text: TextSpan(
+                              children: [
+                                 TextSpan(
+                                  text: "\$$currentPrice ",
+                                  style: CustomTextStyles.titleLargePrimary,
+                                ),
+                                TextSpan(
+                                  text: " ",
+                                ),
+                                TextSpan(
+                                  text: " \$120",
+                                  style:
+                                      CustomTextStyles.titleMediumGray50001.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.left,
+                          );
+                        }
+                         
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                          
-                             CustomImageView(
-                              imagePath: ImageConstant.imgGroup239412WhiteA70002,
-                              height: 13.adaptSize,
-                              width: 13.adaptSize,
-                              margin: EdgeInsets.only(
-                                top: 2.v,
-                                bottom: 3.v,
-                              ),
-                            ),
-                            Text(
-                              "1",
-                              style: CustomTextStyles.titleLargeWhiteA7000220,
-                            ),
-                              CustomImageView(
-                              imagePath: ImageConstant.imgLine1,
-                             height: 13.adaptSize,
-                              width: 13.adaptSize,
-                              margin: EdgeInsets.symmetric(vertical: 9.v),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30.v),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: 
-                Row(
-                  
-                  children: [
-                    Image.asset('assets/images/img_mask_group_4.png',width: 16,),
-                    SizedBox(width: Get.width*.03,),
-                    Text('shipping', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),)
-                  ],
+                        SizedBox(width: Get.width*.02,),
+                        // Container(
+                        //   width: 48.h,
+                        //   margin: EdgeInsets.only(
+                        //     left: 9.h,
+                        //     top: 4.v,
+                        //     bottom: 5.v,
+                        //   ),
+                        //   padding: EdgeInsets.symmetric(
+                        //     horizontal: 9.h,
+                        //     vertical: 2.v,
+                        //   ),
+                        //   decoration: AppDecoration.fillPrimary.copyWith(
+                        //     borderRadius: BorderRadiusStyle.roundedBorder8,
+                        //   ),
+                          // child: Text(
+                          //   "-20% خصم",
+                          //   style: TextStyle(color: Colors.white, fontSize: 9, fontFamily: 'League Spartan'),
+                          // ),
+                        // ),
+                        Container(
+                width: 63,
+                height: 16,
+                decoration:     BoxDecoration(
+            borderRadius: BorderRadius.circular(20), 
+            color: Color.fromARGB(36, 206, 117, 147)),
+            child: Center(
+              child:Text(
+                            "-20% off",
+                            style: TextStyle(color: Color(0xffff8300), fontSize: 9, fontFamily: 'League Spartan'),
+               ) ,
+            ),
                 )
-                // _buildShoppingSecurity(
-                //   context,
-                //   image: ImageConstant.imgMaskGroup4,
-                //   securityMessage:"Shipping",
-                // ),
-              ),
-              SizedBox(height: 12.v),
-              Padding(
-                padding: const EdgeInsets.only(left:15),
-                child: _buildRowDescription(context),
-              ),
-              SizedBox(height: 35.v),
-              _buildRowReturnOne(context),
-              SizedBox(height: 29.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: _buildShoppingSecurity(
-                  context,
-                  image: ImageConstant.imgMaskGroup16x16,
-                  securityMessage:"  Shopping security",
-                ),
-              ),
-              SizedBox(height: 16.v),
-              Padding(
-                padding: EdgeInsets.only(left: 27.h),
-                child: Row(
-                  children: [
-                     Container(
-                      height: Get.height*.01,
-                      width: Get.width*.02,
-                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
+                      ],
                     ),
-                    SizedBox(width: Get.width*.03,),
-                    Text(
-                     "secure payment options",
-                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 7.v),
-              Padding(
-                padding: EdgeInsets.only(left: 27.h),
-                child:
-                 Row(
-                   children: [
-                    Container(
-                      height: Get.height*.01,
-                      width: Get.width*.02,
-                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
-                    ),
-                    SizedBox(width: Get.width*.03,),
-                     Text(
-                    "Secure Logistics",
-                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
-                                     ),
-                   ],
-                 ),
-              ),
-              SizedBox(height: 6.v),
-              Padding(
-                padding: EdgeInsets.only(left: 27.h),
-                child: Row(
-                  children: [
-                     Container(
-                      height: Get.height*.01,
-                      width: Get.width*.02,
-                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
-                    ),
-                    SizedBox(width: Get.width*.03,),
-                    Text(
-                   "Secure privacy",
-                     style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 7.v),
-              Padding(
-                padding: EdgeInsets.only(left: 27.h),
-                child: Row(
-                  children: [
-                     Container(
-                      height: Get.height*.01,
-                      width: Get.width*.02,
-                      decoration: BoxDecoration(shape: BoxShape.circle,   color: Colors.grey,),
-                    ),
-                    SizedBox(width: Get.width*.03,),
-                    Text(
-                     "purchase protection",
-                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 25.v),
-              _buildRowItemsReviewsAnd(context),
-              SizedBox(height: 8.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                     Text(
-                      "4.8",
-                      style: CustomTextStyles.titleMediumInter,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 6.h,
-                        top: 2.v,
-                        bottom: 2.v,
+                  ),
+                  SizedBox(height: 32.v),
+                  Obx((){
+                      var color = productviewcontroller.userList.value.productView?.productDetails?[0].color ?? 0;
+return Padding(
+                      padding: const EdgeInsets.only(left:15),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "color:",
+                                style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, ),
+                              ),
+                                TextSpan(
+                                text:"  ",
+                               
+                              ),
+                              TextSpan(
+                                text:"$color",
+                               style: theme.textTheme.titleMedium?.copyWith(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                      child: CustomRatingBar(
-                        initialRating: 4,
-                        itemSize: 16,
-                      ),
+                    );
+                  }
+                    
+                  ),
+                  SizedBox(height: 11.v),
+                  _buildListRectangle(context),
+                  SizedBox(height: 27.v),
+                  _buildRowSize(context),
+                  SizedBox(height: 11.v),
+                  _buildListWidget(context),
+                  SizedBox(height: 30.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.h),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 13.v,
+                            bottom: 9.v,
+                          ),
+                          child: Text(
+                          "amount",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                       
+                        Padding(
+                          padding: const EdgeInsets.only(right:20),
+                          child: Container(
+                             width: 100.h,
+                            height: Get.height*.05,
+                            margin: EdgeInsets.only(left: 14.h),
+                            padding: EdgeInsets.symmetric(vertical: 10.v),
+                            decoration: AppDecoration.fillPrimary.copyWith(
+                              borderRadius: BorderRadiusStyle.circleBorder30,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                 CustomImageView(
+                                 onTap: (){
+                                       setState(() {
+                // Increment the counter when "+" is pressed
+                counter++;
+              });
+                                    },
+                                  imagePath: ImageConstant.imgGroup239412WhiteA70002,
+                                  height: 13.adaptSize,
+                                  width: 13.adaptSize,
+                                  margin: EdgeInsets.only(
+                                    top: 2.v,
+                                    bottom: 3.v,
+                                  ),
+                                ),
+                                Text(
+                                   counter.toString(),
+                                  style: CustomTextStyles.titleLargeWhiteA7000220,
+                                ),
+                                  CustomImageView(
+                                     onTap: (){
+                                    setState(() {
+                // Decrement the counter when "-" is pressed
+                if (counter > 1) {
+                  counter--;
+                }
+              });
+            
+                                  },
+                                    
+                                  imagePath: ImageConstant.imgLine1,
+                                 height: 13.adaptSize,
+                                  width: 13.adaptSize,
+                                  margin: EdgeInsets.symmetric(vertical: 9.v),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                   
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //     left: 6.h,
-                    //     top: 2.v,
-                    //   ),
-                    //   child: Text(
-                    //     "(200 shop ratings)",
-                    //     style: CustomTextStyles.bodyMediumInterGray90001,
-                    //   ),
+                  ),
+                  SizedBox(height: 30.v),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: 
+                    Row(
+                      
+                      children: [
+                        Image.asset('assets/images/img_mask_group_4.png',width: 16,),
+                        SizedBox(width: Get.width*.03,),
+                        Text('shipping', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),)
+                      ],
+                    )
+                    // _buildShoppingSecurity(
+                    //   context,
+                    //   image: ImageConstant.imgMaskGroup4,
+                    //   securityMessage:"Shipping",
                     // ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 27.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: _buildRonaldRichards(
-                  context,
-                  userName: 'Ronald Richards',
-                  userClockText: "September 13, 2020",
-                ),
-              ),
-              SizedBox(height: 20.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: CustomRatingBar(
-                  initialRating: 2,
-                  itemSize: 14,
-                ),
-              ),
-              SizedBox(height: 8.v),
-              Container(
-                width: 138.h,
-                margin: EdgeInsets.only(left: 20.h),
-                child: Text(
-                "Purchase: Black/Large(40)\nTotal: True to size",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontFamily: 'League Spartan', color:Colors.grey, fontSize: 15, fontWeight: FontWeight.w400)
-                ),
-              ),
-              SizedBox(height: 4.v),
-              Container(
-                width: 322.h,
-                margin: EdgeInsets.only(
-                  left: 20.h,
-                  right: 20.h,
-                ),
-                child: Text(
-                 'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style:TextStyle(fontFamily: 'League Spartan', color:Colors.black, fontSize: 15, fontWeight: FontWeight.w400)
-                ),
-              ),
-              SizedBox(height: 13.v),
-              _buildListRectangle1(context),
-              SizedBox(height: 20.v),
-              Padding(
-                padding: EdgeInsets.only(left: 190.h),
-                child: _buildShareOne(
-                  context,
-                  userShareLabel: 'Share',
-                  userHelpfulLabel: "Helpful (2)",
-                ),
-              ),
-              SizedBox(height: 20.v),
-              Center(
-                child: Divider(
-                  color:  Color.fromARGB(40, 39, 39, 39),
-                  endIndent: 20,
-                  indent: 20,
-                  thickness: 1,
-                
-                ),
-              ),
-              
-              SizedBox(height: 20.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: _buildRonaldRichards(
-                  context,
-                  userName: "Ronald Richards",
-                  userClockText:"September 13, 2020",
-                ),
-              ),
-              SizedBox(height: 20.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: CustomRatingBar(
-                  initialRating: 3,
-                  itemSize: 14,
-                ),
-              ),
-              SizedBox(height: 8.v),
-              Container(
-                width: 138.h,
-                margin: EdgeInsets.only(left: 20.h),
-                child: Text(
-                "Purchase: Black/Large(40)\nTotal: True to size",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.grey)
-                ),
-              ),
-              SizedBox(height: 10.v),
-              Container(
-                width: 322.h,
-                margin: EdgeInsets.only(
-                  right: 20.h,
-                  left: 32.h,
-                ),
-                child: Text(
-                 'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.black)
-                ),
-              ),
-              SizedBox(height: 13.v),
-              Padding(
-                padding: EdgeInsets.only(left: 190.h),
-                child: _buildShareOne(
-                  context,
-                  userShareLabel: "Share",
-                  userHelpfulLabel: "Helpful (2)",
-                ),
-              ),
-              SizedBox(height: 30.v),
-              // _buildRowFollow(context),
-              SizedBox(height: 27.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: Text(
-                "Product Details",
-                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black)
-                ),
-              ),
-              SizedBox(height: 14.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text:"Material :",
-                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
-                      ),
-                      TextSpan(
-                        text: "Polyster",
-                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
-                      ),
-                    ],
                   ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              SizedBox(height: 5.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Composition: ",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
-                      ),
-                      TextSpan(
-                        text: "100٪ Polyster",
-                         style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
-                      ),
-                    ],
+                  SizedBox(height: 12.v),
+                  Padding(
+                    padding: const EdgeInsets.only(left:15),
+                    child: _buildRowDescription(context),
                   ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              SizedBox(height: 3.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Detail:",
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey)
-                      ),
-                      TextSpan(
-                        text: "None",
-                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black)
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              SizedBox(height: 13.v),
-              Padding(
-                padding: EdgeInsets.only(left: 20.h),
-                child: Text(
-                 "See All",
-                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, fontFamily: 'League Spartan', color: Color(0xffff8300))
-                ),
-              ),
-              SizedBox(height: 17.v),
-              CustomImageView(
-                imagePath: ImageConstant.imgRectangle569491x375,
-                height: Get.height*.7,
-                width: 335.h,
-                alignment: Alignment.center,
-              ),
-              SizedBox(height: 5.v),
-              _buildGridRectangle(context),
-              SizedBox(height: 5.v),
-              CustomImageView(
-                imagePath: ImageConstant.imgRectangle569491x375,
-               height: Get.height*.7,
-                width: 335.h,
-                alignment: Alignment.center,
-              ),
-              SizedBox(height: 18.v),
-              Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "See al",
-                      style: CustomTextStyles.titleMediumPrimaryMedium,
+                  SizedBox(height: 35.v),
+                  _buildRowReturnOne(context),
+                  SizedBox(height: 29.v),
+                   _buildShoppingSecurity(context),
+                  SizedBox(height: 16.v),
+                 
+                  SizedBox(height: 25.v),
+                  _buildRowItemsReviewsAnd(context),
+                  SizedBox(height: 8.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                         Text(
+                          "4.8",
+                          style: CustomTextStyles.titleMediumInter,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 6.h,
+                            top: 2.v,
+                            bottom: 2.v,
+                          ),
+                          child: CustomRatingBar(
+                            initialRating: 4,
+                            itemSize: 16,
+                          ),
+                        ),
+                       
+                        // Padding(
+                        //   padding: EdgeInsets.only(
+                        //     left: 6.h,
+                        //     top: 2.v,
+                        //   ),
+                        //   child: Text(
+                        //     "(200 shop ratings)",
+                        //     style: CustomTextStyles.bodyMediumInterGray90001,
+                        //   ),
+                        // ),
+                      ],
                     ),
-                    Icon(Icons.keyboard_arrow_down, color: Color(0xffff8300),)
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 27.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: _buildRonaldRichards(
+                      context,
+                      userName: 'Ronald Richards',
+                      userClockText: "September 13, 2020",
+                    ),
+                  ),
+                  SizedBox(height: 20.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: CustomRatingBar(
+                      initialRating: 2,
+                      itemSize: 14,
+                    ),
+                  ),
+                  SizedBox(height: 8.v),
+                  Container(
+                    width: 138.h,
+                    margin: EdgeInsets.only(left: 20.h),
+                    child: Text(
+                    "Purchase: Black/Large(40)\nTotal: True to size",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontFamily: 'League Spartan', color:Colors.grey, fontSize: 15, fontWeight: FontWeight.w400)
+                    ),
+                  ),
+                  SizedBox(height: 4.v),
+                  Container(
+                    width: 322.h,
+                    margin: EdgeInsets.only(
+                      left: 20.h,
+                      right: 20.h,
+                    ),
+                    child: Text(
+                     'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style:TextStyle(fontFamily: 'League Spartan', color:Colors.black, fontSize: 15, fontWeight: FontWeight.w400)
+                    ),
+                  ),
+                  SizedBox(height: 13.v),
+                  _buildListRectangle1(context),
+                  SizedBox(height: 20.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 190.h),
+                    child: _buildShareOne(
+                      context,
+                      userShareLabel: 'Share',
+                      userHelpfulLabel: "Helpful (2)",
+                    ),
+                  ),
+                  SizedBox(height: 20.v),
+                  Center(
+                    child: Divider(
+                      color:  Color.fromARGB(40, 39, 39, 39),
+                      endIndent: 20,
+                      indent: 20,
+                      thickness: 1,
+                    
+                    ),
+                  ),
+                  
+                  SizedBox(height: 20.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: _buildRonaldRichards(
+                      context,
+                      userName: "Ronald Richards",
+                      userClockText:"September 13, 2020",
+                    ),
+                  ),
+                  SizedBox(height: 20.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: CustomRatingBar(
+                      initialRating: 3,
+                      itemSize: 14,
+                    ),
+                  ),
+                  SizedBox(height: 8.v),
+                  Container(
+                    width: 138.h,
+                    margin: EdgeInsets.only(left: 20.h),
+                    child: Text(
+                    "Purchase: Black/Large(40)\nTotal: True to size",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.grey)
+                    ),
+                  ),
+                  SizedBox(height: 10.v),
+                  Container(
+                    width: 322.h,
+                    margin: EdgeInsets.only(
+                      right: 20.h,
+                      left: 32.h,
+                    ),
+                    child: Text(
+                     'Lorem Ipsum is simply dummy text of the printing industry. Lorem Ipsum has been the industry\'s classic dummy text ever since the 1500.',
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontFamily: 'League Spartan', fontSize: 15, fontWeight:FontWeight.w400, color: Colors.black)
+                    ),
+                  ),
+                  SizedBox(height: 13.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 190.h),
+                    child: _buildShareOne(
+                      context,
+                      userShareLabel: "Share",
+                      userHelpfulLabel: "Helpful (2)",
+                    ),
+                  ),
+                  SizedBox(height: 30.v),
+                  // _buildRowFollow(context),
+                  SizedBox(height: 27.v),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: Text(
+                    "Product Details",
+                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black)
+                    ),
+                  ),
+                  SizedBox(height: 14.v),
+                 Obx(() {
+   var materialTags = productviewcontroller.userList.value.productView?.productCatgories?.tags;
+  var materialsubTags = productviewcontroller.userList.value.productView?.productCatgories?.subtags;
+  var details=productviewcontroller.userList.value.productView?.productDetails;
+  int itemCount = productviewcontroller.userList.value.productView?.productCatgories?.subtags?.length ?? 0;
+  // Calculate the total height needed based on the number of items
+ // double totalHeight = itemCount *.50; // Assuming each item has a height of 30.0 (you can adjust this)
+
+  return Container(
+    height:itemCount*40.0,
+    child: ListView.builder(
+      itemCount:productviewcontroller.userList.value.productView?.productCatgories!.subtags?.length ??0,
+      itemBuilder: (context, index) {
+        return Padding(
+        padding: EdgeInsets.only(left: 20.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"${materialTags?[0].tagTitle}:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
+                  ),
+                  TextSpan(
+                    text: " ${materialsubTags?[index].subTagName}",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                ],
               ),
-              SizedBox(height: 17.v),
-              _buildAddToCart(context),
-              SizedBox(height: 37.v),
-              _buildListRecommended(context),
-              SizedBox(height: 15.v),
-              Padding(
-                padding: const EdgeInsets.only(left:15),
-                child: Center(child: _buildHomePageSection(context)),
-              ),
-              SizedBox(height: 15.v),
-            ],
-          ),
+              textAlign: TextAlign.left,
+            ),
+          Gap(10)
+          ],
         ),
-      ),
+        
+      );
+      },
+    ),
+  );
+}),
+
+Obx(() {
+   var materialTags = productviewcontroller.userList.value.productView?.productCatgories?.tags;
+  var materialsubTags = productviewcontroller.userList.value.productView?.productCatgories?.subtags;
+  var details=productviewcontroller.userList.value.productView?.productDetails;
+  int itemCount = productviewcontroller.userList.value.productView?.productCatgories?.subtags?.length ?? 0;
+
+  // Calculate the total height needed based on the number of items
+ // double totalHeight = itemCount *.50; // Assuming each item has a height of 30.0 (you can adjust this)
+
+  return Container(
+    height:itemCount*40.0,
+    child: ListView.builder(
+      itemCount:productviewcontroller.userList.value.productView?.productDetails?.length ??0,
+      itemBuilder: (context, index) {
+        return Padding(
+        padding: EdgeInsets.only(left: 20.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text("${materialTags?[1].tagTitle}:",  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),),
+            
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"SizeCapicity:",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: " ${details?[index].sizecapicity}",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+             SizedBox(height: Get.height*.01,),
+             RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"color:",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: " ${details?[index].color}",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+             SizedBox(height: Get.height*.01,),
+             RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"Quantity:",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: " ${details?[index].quantity}",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+            SizedBox(height: Get.height*.01,),
+             RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"price:",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: " ${details?[index].price}",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                  ),
+                  
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+          Gap(10)
+          ],
+        ),
+        
+      );
+      },
+    ),
+  );
+}),
+
+             
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.h),
+                    child: Text(
+                     "See All",
+                       style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, fontFamily: 'League Spartan', color: Color(0xffff8300))
+                    ),
+                  ),
+               //   SizedBox(height: 10.v),
+                  CustomImageView(
+                   imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+                    height: Get.height*.4,
+                    width: 335.h,
+                    alignment: Alignment.center,
+                  ),
+                  SizedBox(height: 5.v),
+                 //_buildGridRectangle(context),
+                  SizedBox(height: 5.v),
+                  CustomImageView(
+                    imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+                   height: Get.height*.4,
+                    width: 335.h,
+                    alignment: Alignment.center,
+                  ),
+                  SizedBox(height: 18.v),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "See all",
+                          style: CustomTextStyles.titleMediumPrimaryMedium,
+                        ),
+                        Icon(Icons.keyboard_arrow_down, color: Color(0xffff8300),)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 17.v),
+                  _buildAddToCart(context),
+                  SizedBox(height: 37.v),
+                  _buildListRecommended(context),
+                  SizedBox(height: 15.v),
+                  Padding(
+                    padding: const EdgeInsets.only(left:15),
+                    child: Center(child: _buildHomePageSection(context)),
+                  ),
+                  SizedBox(height: 15.v),
+                ],
+              ),
+            ),
+          ),
+        );
+    }
+    }
     );
-  }
+    }
+
+  
 
   /// Section Widget
   Widget _buildButtonOneHundredTen(BuildContext context) {
@@ -618,7 +691,7 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
     Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: Container(
            
              height: 20.v,
@@ -649,16 +722,19 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
   /// Section Widget
   Widget _buildStackSixtyNine(BuildContext context) {
     return Container(
-      height: 491.v,
+     height: 505.v,
       width: double.maxFinite,
+      
       decoration: AppDecoration.fillGray10003,
       child: Stack(
         alignment: Alignment.center,
         children: [
           CustomImageView(
-            imagePath: ImageConstant.imgRectangle569491x375,
-            height: 491.v,
-            width: 375.h,
+            fit: BoxFit.cover,
+              imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+              height: 505.v,
+            // height: 599.v,
+            width: Get.width,
             alignment: Alignment.center,
           ),
           Align(
@@ -666,64 +742,75 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CustomAppBar(
-                  height: 40.v,
-                  leadingWidth: 60.h,
-                  leading: AppbarLeadingIconbuttonOne(
+               Padding(
+                 padding: const EdgeInsets.only(top:10, right: 10, left: 10),
+                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+  Container(
+                    width: Get.width*.09,
+                  height: Get.height*.05,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                  child: GestureDetector(
                     onTap: () {
                       Get.back();
                     },
-                    imagePath: ImageConstant.imgBack,
-                    margin: EdgeInsets.only(left: 20.h),
-                  ),
-                  actions: [
-                    AppbarTrailingIconbutton(
-                      imagePath: ImageConstant.imgSearchGray90001,
-                      margin: EdgeInsets.symmetric(horizontal: 20.h),
-                    ),
+                    child: Icon(Icons.arrow_back, ))),
+ Container(
+                         margin: EdgeInsets.only(left: 20.h,),
+                  width: Get.width*.09,
+                  height: Get.height*.05,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                  child: Image.asset('assets/images/search.png',)),
                   ],
-                ),
+                 )
+                 
+              
+               ),
                 SizedBox(height: 371.v),
                 _buildButtonOneHundredTen(context),
                 SizedBox(height: 10.v),
-                Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.h,
-                    vertical: 10.v,
-                  ),
-                  decoration: AppDecoration.fillPrimary,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomImageView(
-                        imagePath: ImageConstant.imgMaskGroup1,
-                        height: 16.adaptSize,
-                        width: 16.adaptSize,
-                        margin: EdgeInsets.only(top: 1.v),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 6.h,
-                          top: 3.v,
+                Padding(
+                  padding: const EdgeInsets.only(top:7),
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.h,
+                      vertical: 10.v,
+                    ),
+                    decoration: AppDecoration.fillPrimary,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomImageView(
+                          imagePath: ImageConstant.imgMaskGroup1,
+                          height: 16.adaptSize,
+                          width: 16.adaptSize,
+                          margin: EdgeInsets.only(top: 1.v),
                         ),
-                        child: Text(
-                       "Free shipping for you",
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 6.h,
+                            top: 3.v,
+                          ),
+                          child: Text(
+                         "Free shipping for you",
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 1.v,
-                          bottom: 2.v,
+                        Spacer(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 1.v,
+                            bottom: 2.v,
+                          ),
+                          child: Text(
+                        "Limited time offer",
+                           style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
+                          ),
                         ),
-                        child: Text(
-                      "Limited time offer",
-                         style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: 'League Spartan')
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -755,9 +842,23 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
               width: 8.h,
             );
           },
-          itemCount: 5,
+          itemCount: productviewcontroller.userList.value.productView?.galleryUrl?.length??0,
+          
           itemBuilder: (context, index) {
-            return ListrectangleItemWidget();
+            return SizedBox(
+      width: 60.h,
+      child: Align(
+        alignment: Alignment.center,
+        child: CustomImageView(fit: BoxFit.cover,
+         imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+          height: 60.adaptSize,
+          width: 60.adaptSize,
+          radius: BorderRadius.circular(
+            6.h,
+          ),
+        ),
+      ),
+    );
           },
         ),
       ),
@@ -791,11 +892,15 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
   }
 
   /// Section Widget
-  Widget _buildListWidget(BuildContext context) {
-    return Align(
+Widget _buildListWidget(BuildContext context) {
+ //List<ProductDetail>? productDetails = productviewcontroller.userList.value?.productView?.productDetails;
+
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(10,0,10,0),
+    child: Align(
       alignment: Alignment.centerRight,
       child: SizedBox(
-        height: 32.v,
+        height: 40.v,
         child: ListView.separated(
           padding: EdgeInsets.only(left: 20.h),
           scrollDirection: Axis.horizontal,
@@ -807,82 +912,130 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
               width: 10.h,
             );
           },
-          itemCount: 5,
+          itemCount: productviewcontroller.userList.value?.productView?.productDetails?.length ?? 0,
           itemBuilder: (context, index) {
-            return ListwidgetItemWidget();
+            if (index < 0 || index >= (productviewcontroller.userList.value?.productView?.productDetails?.length ?? 0)) {
+              // Check if index is out of bounds
+              return Container(); // Return an empty container or any other widget as needed
+            }
+    
+            bool isSelected = index == selectedIndex;
+    
+            // Access the sizeCapacity from your data model
+            String sizeCapacity = productviewcontroller.userList.value?.productView?.productDetails![index].sizecapicity;
+    
+            return SizedBox(
+              width: 70.h,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: 70.0, // Adjust this width as needed
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 17.0, // Adjust this padding as needed
+                      vertical: 8.0, // Adjust this padding as needed
+                    ),
+                    decoration: BoxDecoration(
+                      color: isSelected ? Color(0xffff8300) : Colors.grey[10003],
+                      border: Border.all(color: isSelected ? Color(0xffff8300) : Colors.black),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        sizeCapacity,
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   /// Section Widget
   Widget _buildRowDescription(BuildContext context) {
     return 
-     Container(
-                            
-        width: 300,
-        height: 119,
-       child: ListView.builder(
-         scrollDirection: Axis.horizontal,
-         itemCount: 3,
-         itemBuilder: (context, index) {
-           return  Center(
-           child: IntrinsicWidth(
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 Expanded(
-                   child: Container(
-         width: 300,
-             height: 119,
-               padding: EdgeInsets.symmetric(
-                       horizontal: 15.h,
-                       vertical: 9.v,
-                     ),
-                     decoration: AppDecoration.fillGray10003.copyWith(
-                       borderRadius: BorderRadiusStyle.roundedBorder8,
-                     ),
-                     child: Column(
-                       mainAxisSize: MainAxisSize.min,
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       // mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         SizedBox(height: 5.v),
-                         Text("Standard: Free for all orders",style: TextStyle(color: Color(0xffff8300), fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
-                         // SizedBox(height: Get.height*.01,),
-                          Row(
-                            children: [
-                              Text( "delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
-                              Text( "November 15-23, 73.9% ≥ 8 days",style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),                     
-                            ],
-                          ),
-                         // SizedBox(height: Get.height*.01,),
-                         
-                          Text( "Get £5.00 credit for late delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
-                         // SizedBox(height: Get.height*.01,),
-                         Row(
-                           children: [
-                             Text('Courier company:',
-                              style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
-                                Text(' Royal Mail, Yodel, etc',
-                              style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
-                           ],
-                         ),
-                     
-               ],
+     Padding(
+     padding: const EdgeInsets.fromLTRB(15,0,15,0),
+       child: Container(
+                              
+          width: 300,
+          height: 119,
+         child: ListView.builder(
+           scrollDirection: Axis.horizontal,
+           itemCount: 3,
+           itemBuilder: (context, index) {
+             return  Center(
+             child: IntrinsicWidth(
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Expanded(
+                     child: Container(
+           width: 300,
+               height: 119,
+                 padding: EdgeInsets.symmetric(
+                         horizontal: 15.h,
+                         vertical: 9.v,
+                       ),
+                       decoration: AppDecoration.fillGray10003.copyWith(
+                         borderRadius: BorderRadiusStyle.roundedBorder8,
+                       ),
+                       child: Column(
+                         mainAxisSize: MainAxisSize.min,
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         // mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           SizedBox(height: 5.v),
+                           Text("Standard: Free for all orders",style: TextStyle(color: Color(0xffff8300), fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                           // SizedBox(height: Get.height*.01,),
+                            Row(
+                              children: [
+                                Text( "delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                                Text( "November 15-23, 73.9% ≥ 8 days",style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),                     
+                              ],
+                            ),
+                           // SizedBox(height: Get.height*.01,),
+                           
+                            Text( "Get £5.00 credit for late delivery",style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                           // SizedBox(height: Get.height*.01,),
+                           Row(
+                             children: [
+                               Text('Courier company:',
+                                style: TextStyle(color: Colors.grey, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                                  Text(' Royal Mail, Yodel, etc',
+                                style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 12, fontWeight:FontWeight.w400, ),),
+                             ],
+                           ),
+                       
+                 ],
+               ),
              ),
-           ),
-                 ),
-              SizedBox(width: Get.width*.1,)
-                 ]
-                 
+                   ),
+                 SizedBox(width: Get.width*.06,)
+                   ]
+                   
+               )
              )
-           )
-         );
-         
-         }
+           );
+           
+           }
+         ),
        ),
      );
     
@@ -892,31 +1045,34 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
 
   /// Section Widget
   Widget _buildRowReturnOne(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomImageView(
-              imagePath: ImageConstant.imgReturn1,
-              height: 25.adaptSize,
-              width: 25.adaptSize,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 7.h),
-              child: Text(
-                "free returns",
-                style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 16, fontWeight:FontWeight.w600, ),
-              ),
-            ),
-           Container(
+    return   Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child:
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomImageView(
+   
+        imagePath:  ImageConstant.imgReturn1,
+        height: 25.adaptSize,
+        width: 25.adaptSize,
+                ),
+                Padding(
+        padding: EdgeInsets.only(left: 7.h),
+        child: Text(
+        "Free Returns",
+          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),
+        ),
+                ),
+                 // SizedBox(width:Get.width*.02),
+                Container(
               height: 4.adaptSize,
               width: 4.adaptSize,
               margin: EdgeInsets.only(
-                left: 8.h,
+             //   left: 8.h,
                 top: 10.v,
                 bottom: 8.h
                
@@ -928,6 +1084,7 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
                 ),
               ),
             ),
+            //SizedBox(width:Get.width*.02),
             Padding(
               padding: EdgeInsets.only(left: 4.h),
               child: Text(
@@ -935,17 +1092,29 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
                 style: TextStyle(color: Colors.black, fontFamily: 'League Spartan', fontSize: 16, fontWeight:FontWeight.w600, ),
               ),
             ),
-             
-            Spacer(),
-            CustomImageView(
-              imagePath: ImageConstant.imgArrowRightGray90001,
-              height: 8.v,
-              width: 4.h,
-              margin: EdgeInsets.symmetric(vertical: 4.v),
-            ),
-          ],
+                Spacer(),
+                         GestureDetector(
+                  onTap: (){
+          setState(() {
+          PrizeAdjustmentisExpanded = !PrizeAdjustmentisExpanded;
+          });
+        },
+                  child:  Icon(
+                PrizeAdjustmentisExpanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.arrow_forward_ios,
+                size:  10,
+              ), 
+              )
+              ],
+            )
+        
         ),
-      ),
+        if (PrizeAdjustmentisExpanded) _buildAdditionalInformation("Safe Payment Options"),
+        if (PrizeAdjustmentisExpanded) _buildAdditionalInformation("Secure Logistics"),
+        if (PrizeAdjustmentisExpanded) _buildAdditionalInformation("Secure Privacy "),
+        if (PrizeAdjustmentisExpanded) _buildAdditionalInformation("Purchase protection "),
+      ],
     );
   }
 
@@ -956,8 +1125,6 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.h),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
             "item reviews",
@@ -1004,7 +1171,35 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
         },
         itemCount: 3,
         itemBuilder: (context, index) {
-          return Listrectangle1ItemWidget();
+          return SizedBox(
+      height: 80.adaptSize,
+      width: 80.adaptSize,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CustomImageView(
+            imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+            height: 80.adaptSize,
+            width: 80.adaptSize,
+            radius: BorderRadius.circular(
+              8.h,
+            ),
+            alignment: Alignment.center,
+          ),
+          CustomImageView(
+            imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+            height: 80.adaptSize,
+            width: 80.adaptSize,
+            radius: BorderRadius.circular(
+              5.h,
+            ),
+            alignment: Alignment.center,
+          ),
+        ],
+      ),
+    );
+          
+          // Listrectangle1ItemWidget();
         },
       ),
     );
@@ -1145,27 +1340,49 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
 
   /// Section Widget
   Widget _buildGridRectangle(BuildContext context) {
-    return Expanded(
-      child: Align(
+    return Obx((){
+      return 
+      Expanded(
+        child: Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.h),
+            child: 
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: Get.height*.3,
+                crossAxisCount: 2,
+                mainAxisSpacing: 5.h,
+                crossAxisSpacing: 5.h,
+              ),
+              physics: NeverScrollableScrollPhysics(),
+              itemCount:productviewcontroller.userList.value.productView?.galleryUrl?.length??0,
+              itemBuilder: (context, index) {
+                return  Align(
         alignment: Alignment.center,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.h),
-          child: GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: Get.height*.3,
-              crossAxisCount: 2,
-              mainAxisSpacing: 5.h,
-              crossAxisSpacing: 5.h,
+        child: CachedNetworkImage(
+          imageUrl: 
+          "${productviewcontroller.userList.value.productView!.galleryUrl.toString()}",
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+       ),
+        
+        
+        // CustomImageView(
+        // imagePath: "${productviewcontroller.userList.value.productView?.galleryUrl.toString()}",
+        //   height: Get.height*.3,
+        //   width:Get.width*.4,
+        // ),
+      );
+          //GridrectangleItemWidget();
+              },
             ),
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return GridrectangleItemWidget();
-            },
           ),
         ),
-      ),
+      );
+    }
+
     );
   }
 
@@ -1182,7 +1399,189 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
       },
     );
   }
-
+ Widget _buildHomePageSection(BuildContext context) {
+    return Obx((){
+      if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      }  else {
+          return
+     homeView_controller.userList.value.categoryData ==  null ||
+                                    homeView_controller.userList.value
+                                            .categoryData?.length ==
+                                        0
+                                ? Center(child:  Text('Error: ${homeView_controller.error.value}'))
+                                :Center(
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisExtent: Get.height*.4,
+            crossAxisCount: 2,
+            mainAxisSpacing: 20.h,
+            crossAxisSpacing: 35.h,
+          ),
+          physics: BouncingScrollPhysics(),
+          itemCount: homeView_controller.userList.value.recommendedProduct?.length ?? 0,
+          itemBuilder: (context, index) {
+            return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+             decoration:BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                            
+                                            width: Get.width,padding: EdgeInsets.only(left: 20),
+          height: 170.adaptSize,
+           
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                CustomImageView(
+                 fit: BoxFit.cover,
+                  onTap: () {
+        Englishproductid =
+      homeView_controller.userList.value.recommendedProduct![index].id!.toString();
+      
+      setState(() {
+        Englishproductid;
+      });
+        Get.to(SinglePageScreen(), 
+        );
+      },
+                  imagePath:"${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
+                  // ImageConstant.imgRectangle569,
+                  height: 160.adaptSize,
+                  width: 160.adaptSize,
+                  radius: BorderRadius.circular(
+                    10.h,
+                  ),
+                  alignment: Alignment.center,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10.v,
+                    right: 20.h,
+                  ),
+                  child: CustomIconButton(
+                    height: 20.adaptSize,
+                    width: 20.adaptSize,
+                    padding: EdgeInsets.all(5.h),
+                    decoration: IconButtonStyleHelper.fillWhiteA,
+                    alignment: Alignment.topRight,
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgSearch,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12.v),
+          // CustomElevatedButton(
+          //   height: 16.v,
+          //   width: 48.h,
+          //   text: "10% Off",
+          //   buttonTextStyle:
+          //       theme.textTheme.labelSmall!.copyWith(color: Colors.white),
+          // ),
+           Container(
+                                                  height: 16.v,
+                                              width: 48.h,
+                                              
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),
+                                              color: Color.fromARGB(71, 228, 193, 204),
+                                              ),
+                                              child: Center(child: Text("10% Off", style: TextStyle(
+                                                fontSize: 8, color: Color(0xffff8300),fontWeight: FontWeight.w600,
+                                                // fontFamily: 'Almarai'
+                                              ),),),
+                                            ),
+          SizedBox(height: 5.v),
+          SizedBox(
+            width: 131.h,
+            child: Text(
+              "${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
+            //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelLarge!.copyWith(
+                height: 1.33,
+              ),
+            ),
+          ),
+          SizedBox(height: 3.v),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "4.8",
+                          style: theme.textTheme.labelMedium,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.h),
+                          child: CustomRatingBar(
+                            ignoreGestures: true,
+                            initialRating: 0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5.v),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text:  "${homeView_controller.userList.value.recommendedProduct?[index].pricee.toString()}",
+                          //"99 ",
+                          style: CustomTextStyles.titleMediumPrimary_2,
+                        ),
+                        TextSpan(
+                          text: "2k+ sold",
+                          style: theme.textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 35.h,
+                  top: 5.v,
+                ),
+                child: CustomIconButton(onTap: (){
+                  
+                },
+                  height: 25.adaptSize,
+                  width: 25.adaptSize,
+                  padding: EdgeInsets.all(6.h),
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgGroup239533,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+            //HomepagesectionItemWidget();
+          },
+        ),
+      );
+    }
+    }
+     
+    );
+  }
   /// Section Widget
   Widget _buildListRecommended(BuildContext context) {
     return   Container(
@@ -1244,41 +1643,88 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
   // }
 
   /// Common widget
-  Widget _buildShoppingSecurity(
-    BuildContext context, {
-    required String image,
-    required String securityMessage,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildShoppingSecurity(BuildContext context){
+ return  Column(
       children: [
-        CustomImageView(
-          imagePath: image,
-          height: 25.adaptSize,
-          width: 25.adaptSize,
-        ),
         Padding(
-          padding: EdgeInsets.only(right: 7.h),
-          child: Text(
-            securityMessage,
-            style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600, fontFamily: 'League Spartan', color: Colors.black),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child:
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomImageView(
+   
+        imagePath:  ImageConstant.imgMaskGroup16x16,
+        height: 25.adaptSize,
+        width: 25.adaptSize,
+                ),
+                Padding(
+        padding: EdgeInsets.only(left: 7.h),
+        child: Text(
+        "Shopping Security",
+          style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600, fontFamily: 'Almarai', color: Colors.black),
         ),
-        Spacer(),
+                ),
+                Spacer(),
+
+                GestureDetector(
+                  onTap: (){
+          setState(() {
+          ShoppingSecurityisExpanded = !ShoppingSecurityisExpanded;
+          });
+        },
+                  child:  Icon(
+                ShoppingSecurityisExpanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.arrow_forward_ios,
+                size: 10,
+              ), 
+              )
+       
+              ],
+            )
+        
+        ),
+        if (ShoppingSecurityisExpanded) _buildAdditionalInformation("Safe Payment Options"),
+        if (ShoppingSecurityisExpanded) _buildAdditionalInformation("Secure Logistics"),
+        if (ShoppingSecurityisExpanded) _buildAdditionalInformation("Secure Privacy "),
+        if (ShoppingSecurityisExpanded) _buildAdditionalInformation("Purchase protection "),
+      ],
+    );
+  }
+Widget _buildAdditionalInformation(String text) {
+    return Column(
+      children: [
+        SizedBox(height: 7.v),
         Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: CustomImageView(
-            imagePath: ImageConstant.imgArrowRightGray90001,
-            height: 8.v,
-            width: 4.h,
-            margin: EdgeInsets.symmetric(vertical: 4.v),
+          padding: EdgeInsets.only(left: 27.h),
+          child: Row(
+            children: [
+              Container(
+                height: Get.height * 0.01,
+                width: Get.width * 0.02,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(width: Get.width * 0.03),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Almarai',
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
-
   /// Common widget
   Widget _buildRonaldRichards(
     BuildContext context, {
@@ -1293,9 +1739,10 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
             height: 60.adaptSize,
             width: 60.adaptSize,
             decoration: 
-            AppDecoration.fillBlueGray.copyWith(
-              borderRadius: BorderRadiusStyle.circleBorder20,
-            ),
+            BoxDecoration(shape: BoxShape.circle),
+            // AppDecoration.fillBlueGray.copyWith(
+            //   borderRadius: BorderRadiusStyle.circleBorder20,
+            // ),
             child: CustomImageView(
               imagePath: ImageConstant.imgRectangle568,
               height: 60.adaptSize,
@@ -1388,21 +1835,21 @@ class _SinglePageScreenState extends State<SinglePageScreen> {
       ],
     );
   }
-  Widget _buildHomePageSection(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: Get.height*.4,
-        crossAxisCount: 2,
-        // mainAxisSpacing: 2,
-        crossAxisSpacing: 10.h,
+  // Widget _buildHomePageSection(BuildContext context) {
+  //   return GridView.builder(
+  //     shrinkWrap: true,
+  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //       mainAxisExtent: Get.height*.4,
+  //       crossAxisCount: 2,
+  //       // mainAxisSpacing: 2,
+  //       crossAxisSpacing: 10.h,
         
-      ),
-      physics: BouncingScrollPhysics(),
-      itemCount: 6,
-      itemBuilder: (context, index) {
-        return HomepagesectionItemWidget();
-      },
-    );
-  }
+  //     ),
+  //     physics: BouncingScrollPhysics(),
+  //     itemCount: 6,
+  //     itemBuilder: (context, index) {
+  //       return HomepagesectionItemWidget();
+  //     },
+  //   );
+  // }
 }

@@ -32,12 +32,11 @@ fetchData();
 }
 String? htmlresponse;
 
-
 fetchData() async {
-    var request = http.MultipartRequest('POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
-    request.fields.addAll({
-      'page_name': 'privacy-policy',
-      'language_type': 'English'
+var request = http.MultipartRequest('POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
+request.fields.addAll({
+  'page_name': 'about-us',
+  'language_type': 'English'
     });
 
     http.StreamedResponse response = await request.send();

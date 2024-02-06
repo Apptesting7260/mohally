@@ -73,19 +73,28 @@ print("token----------${sp.getString("token").toString()}");
 
 
   @override
-  Future<dynamic> postApi(var data , String url)async{
-
+  Future<dynamic> postApi(var data , String url, [Map<String, String>? header])async{
+ final sp = await SharedPreferences.getInstance();
+//String token = sp.getString('token').toString();
     if (kDebugMode) {
-      print(url);
-      print(data);
+      print("=========URL========$url");
+      print("=========DATA=======$data");
     }
 
     dynamic responseJson ;
     try {
 
       final response = await http.post(Uri.parse(url),
-        body: data
+        body: data,
+        headers: {
+'Authorization': "Bearer ${sp.getString('token').toString()}"
+
+        }
+
+
       ).timeout( const Duration(seconds: 30));
+      print(sp.getString('token').toString());
+      print("========================response========body===========================");
       print(response.body);
       responseJson  = returnResponse(response) ;
     }on SocketException {

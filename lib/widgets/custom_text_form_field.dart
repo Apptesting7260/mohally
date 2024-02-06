@@ -7,6 +7,8 @@ class CustomTextFormField extends StatelessWidget {
     this.alignment,
     this.width,
     this.controller,
+    this.readOnly,
+        
     // this.focusNode,
     this.autofocus = true,
     this.textStyle,
@@ -27,8 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,  
     this.hintTextDirection, 
      this. onChanged,
-    // TextDirection? hintTextDirection, 
-    // this.readOnly
+
   }) : super(
           key: key,
            
@@ -37,10 +38,9 @@ class CustomTextFormField extends StatelessWidget {
   final Alignment? alignment;
 final TextDirection? hintTextDirection;
   final double? width;
-
+final bool? readOnly;
   final TextEditingController? controller;
 
-  // final FocusNode? focusNode;
 
   final bool? autofocus;
 
@@ -95,7 +95,7 @@ final TextDirection? hintTextDirection;
           // readOnly: true,
           controller: controller,
           // focusNode: focusNode ?? FocusNode(),
-
+ readOnly: readOnly??false,
           autofocus: autofocus!,
           style: textStyle ?? CustomTextStyles.bodyLargeOnError,
           obscureText: obscureText!,

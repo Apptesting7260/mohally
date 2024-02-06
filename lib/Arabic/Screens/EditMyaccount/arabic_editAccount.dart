@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_update_controller.dart';
+import 'package:mohally/Arabic/Screens/MyAccount/arabic_myaccount.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
@@ -39,8 +40,6 @@ class _UpdateProfileScreen_arabicState extends State<UpdateProfileScreen_arabic>
   //   UpdateProfile_Controllerins.updateprofile_apihit();
   //   _formKey.currentState!.save();
   // }
-
-
   final imgPicker = ImagePicker();
   void openCamera(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
@@ -114,28 +113,27 @@ void initState() {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("يختار"),
-                                      content: Row(
-                                        children: [
-                                          GestureDetector(
-                                            child: Text("آلة تصوير"),
-                                            onTap: () {
-                                              // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                              openCameraa(ImageSource.camera);
-                                            },
-                                          ),
-                                          SizedBox(width: 80),
-                                          GestureDetector(
-                                            child: Text("صالة عرض"),
-                                            onTap: () {
-                                              // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                              openCameraa(ImageSource.gallery);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    return  AlertDialog(
+                                    backgroundColor: Color(0xFFFF8300),
+                                    title: Text("يختار" , textAlign:TextAlign.right, style:TextStyle( fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400),),
+                                    content: Row(
+                                      children: [
+                                        GestureDetector(
+                                          child: Text("آلة تصوير", style: TextStyle( fontFamily: 'Almarai', color: Colors.white,fontSize:16),),
+                                          onTap: () {
+                                            openCameraa(ImageSource.camera);
+                                          },
+                                        ),
+                                        SizedBox(width: 80),
+                                        GestureDetector(
+                                          child: Text("صالة عرض", style: TextStyle( fontFamily: 'Almarai', color: Colors.white, fontSize:16)),
+                                          onTap: () {
+                                            openCameraa(ImageSource.gallery);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                   });
                             },
                             imagePath: ImageConstant.imgCamera1WhiteA70002,
@@ -271,24 +269,27 @@ Widget _builNumber(BuildContext context) {
     );
   }
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
-      ),
-      title: AppbarSubtitle(
-        text: "تحديث الملف",
-        margin: EdgeInsets.only(left: 16),
-      ),
-    );
+    return AppBar(
+          title:
+          AppbarSubtitle(
+            text: "تحرير الحساب",
+            margin: EdgeInsets.only(left: 16),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(top:15, ),
+            child: GestureDetector(
+              onTap: () {
+              Get.offAll(MyAccountScreen_arabic());
+              },
+              child: Container(
+                width: Get.width*.07,
+                height: Get.height*.03,
+                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
+                child: Icon(Icons.arrow_back, )
+                ),
+            ),
+          ),
+        );
   }
    checkvalidate() {
     print("send");

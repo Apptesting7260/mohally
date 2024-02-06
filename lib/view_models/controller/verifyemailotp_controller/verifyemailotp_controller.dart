@@ -47,27 +47,6 @@ class VerifyEmailOTP_controller extends GetxController {
        
 
       }
-    // _api.Verifyemailotpapi(data).then((value) {
-    //   print("1");
-    //   statusOfApi.value = value.status.toString();
-    //   print("2");
-    //
-    //   loading.value = false;
-    //
-    //   Utils.snackBar('Success', 'Successfully Verified Email');
-    //   print("3");
-    //
-    //   verified.value = true;
-    //   Navigator.pop(context);
-    //   print("4");
-    //
-    // }).onError((error, stackTrace) {
-    //   print("object");
-    //   Utils.snackBar('incorrect', 'please retry otp');
-    //   loading.value = false;
-    //   otpbuttonused.value = false;
 
-// error.toString()
-//     });
   }
 

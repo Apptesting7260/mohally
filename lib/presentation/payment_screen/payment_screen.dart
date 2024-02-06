@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/add_new_card_screen/add_new_card_screen.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -11,12 +13,17 @@ import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
 // ignore: must_be_immutable
-class PaymentScreen extends StatelessWidget {
+class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key})
       : super(
           key: key,
         );
 
+  @override
+  State<PaymentScreen> createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> {
   TextEditingController johnDueController = TextEditingController();
 
   TextEditingController cardNumberController = TextEditingController();
@@ -26,6 +33,11 @@ class PaymentScreen extends StatelessWidget {
   TextEditingController cvvController = TextEditingController();
 
   bool isSelectedSwitch = false;
+
+  List<String> cardImages =[
+ "assets/images/card1.png",
+ "assets/images/card2.png",
+];
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +59,9 @@ class PaymentScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHorizontalScroll(context),
+                  // _buildHorizontalScroll(context),
+                  _buildcard(context),
+
                   SizedBox(height: 19.v),
                   _buildAddNewCard(context),
                   SizedBox(height: 27.v),
@@ -150,6 +164,9 @@ class PaymentScreen extends StatelessWidget {
       ),
       buttonStyle: CustomButtonStyles.outlinePrimaryTL251,
       buttonTextStyle: CustomTextStyles.bodyLargePrimary17,
+      onPressed: () {
+        Get.to(AddNewCardScreen());
+      },
     );
   }
 
@@ -243,20 +260,56 @@ class PaymentScreen extends StatelessWidget {
               bottom: 5.v,
             ),
             child: Text(
-              "Save_card_info".tr,
+              "Save card info",
               style: theme.textTheme.bodyLarge,
             ),
           ),
-          CustomSwitch(
-            value: isSelectedSwitch,
-            onChange: (value) {
-              isSelectedSwitch = value;
-            },
-          ),
+         CustomSwitch(
+  value: isSelectedSwitch,
+  onChange: (value) {
+// Handle the change in switch state
+setState(() {
+  isSelectedSwitch = value;
+});
+  },
+),
+
         ],
       ),
     );
   }
+
+Widget _buildcard(BuildContext context){
+  return   CarouselSlider(
+  options: CarouselOptions(
+autoPlay: false, // Set to true for automatic sliding
+aspectRatio: 2.0,
+enlargeCenterPage: true,
+  ),
+  items: cardImages.map((String imageUrl) {
+return Builder(
+  builder: (BuildContext context) {
+ return Container(
+   width: MediaQuery.of(context).size.width,
+   // margin: EdgeInsets.symmetric(horizontal: 6.0),
+   decoration: BoxDecoration(
+borderRadius: BorderRadius.all(Radius.circular(10)
+),
+image: DecorationImage(image: AssetImage(  imageUrl,),
+ fit: BoxFit.fill,
+)
+   ),
+   // child: Image.asset(
+   //   imageUrl,
+   //   fit: BoxFit.cover,
+   // ),
+ );
+  },
+);
+  }).toList(),
+);
+  
+}
 
   /// Section Widget
   Widget _buildSaveCard(BuildContext context) {

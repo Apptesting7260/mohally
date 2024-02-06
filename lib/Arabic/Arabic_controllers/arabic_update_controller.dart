@@ -25,59 +25,56 @@ class arabic_UpdateProfile_Controller extends GetxController {
 
 MyAccountController MyAccountControllerin= MyAccountController();
   Future<void> arabicProfileApiHit() async {
-    final sp = await SharedPreferences.getInstance();
+final sp = await SharedPreferences.getInstance();
 
-    loading.value = true;
-    try {
-      
-      var url = Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
-      var request = http.MultipartRequest('POST', url);
+loading.value = true;
+try {
+  
+  var url = Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
+  var request = http.MultipartRequest('POST', url);
 
   
-      if (imgFile == null) {
+  if (imgFile == null) {
 
-      } else {
-        print("object");
-        var fileStream = http.ByteStream(imgFile!.openRead());
-        var length = await imgFile!.length();
-        var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-            filename: imgFile!.path.split('/').last);
-        request.files.add(multipartFile);
-        print(imgFile);
-      }
-
-      // Add other text fields to the request+
-      request.fields['first_name'] = firstNameController.value.text;
-      request.fields['last_name'] = lastNameController.value.text;
-      request.fields['phone'] = phoneController.value.text;
-
-      request.headers['Authorization'] =
-      "Bearer ${sp.getString("token")}";
-      
-
-      // Send the request and get the response
-      response = await request.send();
-      var responseBody = await response.stream.bytesToString();
-
-      print(responseBody);
-      // Check the response status
-      if (response.statusCode == 200) {
-           Utils2.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen_arabic());
-
- 
-        loading.value = false;
-
-      } else {
-        print('Failed to upload file. Status code: ${response.statusCode}');
-        loading.value = false;
-      }
-    } catch (e) {
-      loading.value = false;
-      print(response);
-        Utils2.snackBar('Failed','Error occurred while uploading file: $e');
-
-    }
+  } else {
+print("object");
+var fileStream = http.ByteStream(imgFile!.openRead());
+var length = await imgFile!.length();
+var multipartFile = http.MultipartFile('pro_img', fileStream, length,
+filename: imgFile!.path.split('/').last);
+request.files.add(multipartFile);
+print(imgFile);
   }
 
+  // Add other text fields to the request+
+  request.fields['first_name'] = firstNameController.value.text;
+  request.fields['last_name'] = lastNameController.value.text;
+  request.fields['phone'] = phoneController.value.text;
 
+  request.headers['Authorization'] =
+  "Bearer ${sp.getString("token")}";
+  
+
+  // Send the request and get the response
+  response = await request.send();
+  var responseBody = await response.stream.bytesToString();
+
+  print(responseBody);
+  // Check the response status
+  if (response.statusCode == 200) {
+   Utils2.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen_arabic());
+
+ 
+loading.value = false;
+
+  } else {
+print('Failed to upload file. Status code: ${response.statusCode}');
+loading.value = false;
+  }
+} catch (e) {
+  loading.value = false;
+  print(response);
+Utils2.snackBar('Failed','Error occurred while uploading file: $e');
+}
+}
 }

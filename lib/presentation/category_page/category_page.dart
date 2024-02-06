@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../category_page/widgets/category_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -38,13 +40,54 @@ class CategoryPage extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.h),
-                  child: CustomSearchView(
-                    controller: searchController,
-                    hintText: "Search Category",
-                    alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                child: Center(
+                  child: Stack(
+                    children: [
+                      CustomSearchView(
+                        readOnly: true,
+                        enableTap: true,
+                        controller: searchController,
+                        hintText: "search",
+                      ),
+                        Positioned(
+                  top: 20,
+                  left: 240,
+                  child: GestureDetector(
+                    onTap: (){
+                      //  showDialog(
+                      //         context: context,
+                      //         builder: (BuildContext context) {
+                      //           return AlertDialog(
+                      //             title: Text("Choose"),
+                      //             content: Row(
+                      //               children: [
+                      //                 GestureDetector(
+                      //                   child: Text("Camera"),
+                      //                   onTap: () {
+                      //                     openCameraa(ImageSource.camera);
+                      //                   },
+                      //                 ),
+                      //                 SizedBox(width: 80),
+                      //                 GestureDetector(
+                      //                   child: Text("Gallery"),
+                      //                   onTap: () {
+                      //                     openCameraa(ImageSource.gallery);
+                      //                   },
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           );
+                      //         }
+                      //         );
+                      _buildOncameraclick(context);
+                    },
+                    
+                    child: Image.asset('assets/images/greycamera.png'))),
+                    ],
                   ),
                 ),
+              ),
               ),
               SizedBox(height: 29.v),
               Padding(
@@ -458,4 +501,106 @@ class CategoryPage extends StatelessWidget {
       ),
     );
   }
+  Future _buildOncameraclick(BuildContext context){
+  return showModalBottomSheet(
+     context: context,
+              builder: (BuildContext context) {
+      return Container(
+ width: double.maxFinite,
+      padding: EdgeInsets.symmetric(vertical: 17.v),
+      decoration: AppDecoration.fillWhiteA.copyWith(
+        borderRadius: BorderRadiusStyle.customBorderTL30,
+      ),
+       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomImageView(
+            imagePath: ImageConstant.imgMaskGroup24x24,
+            height: 24.adaptSize,
+            width: 24.adaptSize,
+            alignment: Alignment.centerRight,
+            margin: EdgeInsets.only(right: 20.h),
+            onTap: () {
+              Get.back();
+            },
+          ),
+          SizedBox(height: 17.v),
+          Divider(
+            thickness: 0.5,
+            color: Colors.grey
+          ),
+          SizedBox(height: 15.v),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomImageView(
+                imagePath:"assets/images/blackcamera.png",
+                height: 18.adaptSize,
+                width: 18.adaptSize,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 6.h,
+                  top: 3.v,
+                ),
+                child: Text(
+                  "Take photo",
+                  style: theme.textTheme.bodyLarge,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 19.v),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomImageView(
+                imagePath: "assets/images/blackvideo.png",
+                height: 16.adaptSize,
+                width: 16.adaptSize,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 6.h),
+                child: Text(
+                  "Select from album",
+                  style: theme.textTheme.bodyLarge,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 22.v),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomImageView(
+                imagePath:  "assets/images/clock.png",
+                height: 18.adaptSize,
+                width: 18.adaptSize,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 6.h,
+                  top: 3.v,
+                ),
+                child: Text(
+                  "Search history",
+                  style: theme.textTheme.bodyLarge,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 17.v),
+          InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Text(
+              "Cancel",
+              style: CustomTextStyles.titleMediumPrimaryMedium,
+            ),
+          ),
+        ],
+      ));}
+      );
+}
 }

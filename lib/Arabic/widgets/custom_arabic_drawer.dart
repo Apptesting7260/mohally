@@ -13,11 +13,9 @@ import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/core/utils/size_utils.dart';
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/theme/app_decoration.dart';
-import 'package:mohally/theme/custom_text_style.dart';
 import 'package:mohally/theme/theme_helper.dart';
 import 'package:mohally/widgets/custom_checkbox_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore_for_file: must_be_immutable
@@ -118,8 +116,12 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "  بيت  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   بيت",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -144,8 +146,12 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "  حساب تعريفي  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   حساب تعريفي",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -170,8 +176,12 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                         bottom: 2.v,
                       ),
                       child: Text(
-                        "  معلومات عنا  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   معلومات عنا",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -192,12 +202,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
-                        bottom: 4.v,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
-                        "  طلب  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   طلب",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -218,12 +232,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 4.v,
-                        bottom: 3.v,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
-                        "  قائمة الرغبات  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   قائمة الرغبات",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -244,17 +262,22 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                         bottom: 2.v,
                       ),
                       child: Text(
-                        "  عضوية  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   عضوية",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 19.v),
+              SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
                   Get.to(() => SpinTheWheelOneScreen_arabic());
@@ -269,11 +292,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v
                       ),
                       child: Text(
-                        "  السحب للفوز  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   السحب للفوز",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -294,11 +322,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v
                       ),
                       child: Text(
-                        "   سياسة الخصوصية  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   سياسة الخصوصية",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -317,11 +350,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v
                       ),
                       child: Text(
-                         "  اتصل بنا",
-                        style: CustomTextStyles.bodyLarge18,
+                         "   اتصل بنا",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -342,11 +380,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v
                       ),
                       child: Text(
-                        "  أحكام وشروط  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   أحكام وشروط",
+                        style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -386,11 +429,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                   Padding(
                     padding: EdgeInsets.only(
                       left: 10.h,
-                      top: 6.v,
+                      top: 5.v,
+                        bottom: 2.v
                     ),
                     child: Text(
-                      "  إعدادات  ",
-                      style: CustomTextStyles.bodyLarge18,
+                      "   إعدادات",
+                      style: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],
@@ -411,11 +459,16 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 4.v,
+                        top: 5.v,
+                        bottom: 2.v
                       ),
                       child: Text(
-                        "  تسجيل خروج  ",
-                        style: CustomTextStyles.bodyLarge18,
+                        "   تسجيل خروج",
+                        style: TextStyle(
+    color: Color(0xFFFF8300),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -435,7 +488,11 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
       text: "رافيل للفوز",
       value: raffleToWin,
       padding: EdgeInsets.symmetric(vertical: 3.v),
-      textStyle: CustomTextStyles.bodyLarge18,
+      textStyle: TextStyle(
+    color: Color(0xFF272727),
+   fontSize: 16,
+    fontFamily: 'Almarai',
+    fontWeight: FontWeight.w400),
       onChange: (value) {
         raffleToWin = value;
       },
@@ -448,6 +505,6 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
     prefs.remove("token");
     prefs.remove("selectedLanguage");
      Get.offAll(() => SplashScreen());
-    print('data clearrrerererererererererre');
+    print('=====d=a=t=a=========c=l=e=a=r=====');
   }
 }

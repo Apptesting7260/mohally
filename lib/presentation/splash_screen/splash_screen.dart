@@ -21,8 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   var x;
   Future<void> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    x = await prefs.getString('token') ??
-   ''; // Returns the token or an empty string if it doesn't exist.
+    x = await prefs.getString('token') ??''; // Returns the token or an empty string if it doesn't exist.
   }
 checkuser()async{
  final prefs = await SharedPreferences.getInstance();
@@ -30,11 +29,12 @@ checkuser()async{
 String lang= prefs.getString('selectedLanguage').toString();
 print("$token=========t==o==k==e==n==================");
 print("$lang=========l==a==n==g==u==a==g==e============");
-if(token=="null"){     
+if(token=="null"){    
 prefs.remove('selectedLanguage');
 Get.to(ChooseLanguageScreen());
 }
 else if(token!="null"&&lang=="Arabic"){
+   // Get.offAll(arabic_TabScreen(index: 0,));
   print(lang);
   Get.offAll(arabic_TabScreen(index: 0,));
 }else if(token!="null"&&lang=="English"){
@@ -43,7 +43,11 @@ else if(token!="null"&&lang=="Arabic"){
 }
    @override
   void initState() {
+
+    Timer(Duration(seconds: 2), () {
   checkuser();
+
+     });
     super.initState();
   }
 
@@ -58,13 +62,14 @@ else if(token!="null"&&lang=="Arabic"){
     mediaQueryData = MediaQuery.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: theme.colorScheme.primary,
+       backgroundColor: theme.colorScheme.primary,
         body: SizedBox(
           height: mediaQueryData.size.height,
-          width: double.maxFinite,
-          child: Stack(
+          child: 
+          Stack(
             alignment: Alignment.center,
             children: [
+             
               CustomImageView(
                 imagePath: ImageConstant.imgImage2023110,
                 height: 375.adaptSize,
@@ -80,7 +85,9 @@ else if(token!="null"&&lang=="Arabic"){
             ],
           ),
         ),
-      ),
-    );
+
+)
+      );
+
   }
 }

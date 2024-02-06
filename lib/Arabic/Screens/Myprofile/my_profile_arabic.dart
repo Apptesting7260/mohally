@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_HomeTab.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/Arabic/Screens/CustomerSupport/arabic_customersupport.dart';
 import 'package:mohally/Arabic/Screens/MyAccount/arabic_myaccount.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/arabic_my_order.dart';
@@ -78,7 +80,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
             padding: const EdgeInsets.only(top:15, ),
             child: GestureDetector(
               onTap: () {
-                Get.back();
+                Get.offAll(arabic_TabScreen(index: 0,));
               },
               child: Container(
                 width: Get.width*.07,
@@ -143,27 +145,26 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text("Choose"),
-                                                content: Row(
-                                                  children: [
-                                                    GestureDetector(
-                                                      child: Text("Camera"),
-                                                      onTap: () {
-                                                        openCameraa(
-                                                            ImageSource.camera);
-                                                      },
-                                                    ),
-                                                    SizedBox(width: 80),
-                                                    GestureDetector(
-                                                      child: Text("Gallery"),
-                                                      onTap: () {
-                                                        openCameraa(
-                                                            ImageSource.gallery);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
+                                    backgroundColor: Color(0xFFFF8300),
+                                    title: Text("يختار" , textAlign:TextAlign.right, style:TextStyle( fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400),),
+                                    content: Row(
+                                      children: [
+                                        GestureDetector(
+                                          child: Text("آلة تصوير", style: TextStyle( fontFamily: 'Almarai', color: Colors.white,fontSize:16),),
+                                          onTap: () {
+                                            openCameraa(ImageSource.camera);
+                                          },
+                                        ),
+                                        SizedBox(width: 80),
+                                        GestureDetector(
+                                          child: Text("صالة عرض", style: TextStyle( fontFamily: 'Almarai', color: Colors.white, fontSize:16)),
+                                          onTap: () {
+                                            openCameraa(ImageSource.gallery);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                             });
                                       },
                                       imagePath:
@@ -309,6 +310,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                     ),
                   ),
                 ),
+                
               ],
             ),
           ),

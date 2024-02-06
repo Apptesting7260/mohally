@@ -28,6 +28,7 @@ class CustomSearchView extends StatefulWidget {
     this.onChanged,
       this.enableTap,
        this.readOnly,
+         this.onFieldSubmitted,
   }) : super(
           key: key,
         );
@@ -72,6 +73,7 @@ final bool? readOnly;
 
   final Function(String)? onChanged;
     final bool? enableTap;
+       final Function(String)? onFieldSubmitted;
 
   @override
   State<CustomSearchView> createState() => _CustomSearchViewState();
@@ -87,13 +89,10 @@ class _CustomSearchViewState extends State<CustomSearchView> {
           )
         : searchViewWidget;
   }
-
   Widget get searchViewWidget => SizedBox(
         width:Get.width*.9,
-        
         //  width ?? double.maxFinite,
         child:
-        
          TextFormField(
           controller: widget.controller,
           focusNode: widget.focusNode ?? FocusNode(),
@@ -104,6 +103,11 @@ class _CustomSearchViewState extends State<CustomSearchView> {
           maxLines: widget.maxLines ?? 1,
           decoration: decoration,
           validator: widget.validator,
+           onFieldSubmitted: (String value) {
+            if (widget.onFieldSubmitted != null) {
+              widget.onFieldSubmitted!.call(value);
+            }
+          },
           onChanged: (String value) {
             widget.onChanged!.call(value);
           },
@@ -146,7 +150,8 @@ class _CustomSearchViewState extends State<CustomSearchView> {
                   ),
                 ),
               ),
-              child: CustomImageView(
+              child: 
+              CustomImageView(
                 imagePath: ImageConstant.imgSearchWhiteA70002,
                 height: 30.adaptSize,
                 width: 20.adaptSize,

@@ -37,7 +37,6 @@ class MyOrdersPage_arabic_delieverdState extends State<MyOrdersPage_arabic_delie
       ),
     );
   }
-
   /// Section Widget
   Widget _buildMyOrdersList(BuildContext context) {
     return Expanded(
@@ -49,13 +48,15 @@ class MyOrdersPage_arabic_delieverdState extends State<MyOrdersPage_arabic_delie
           separatorBuilder: (
             context,
             index,
-          ) {
+          ) 
+          {
             return SizedBox(
               height: 15.v,
             );
           },
           itemCount: 3,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, index) 
+          {
             return MyorderslistItemWidget_arabic();
           },
         ),

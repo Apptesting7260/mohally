@@ -1,15 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/address_screen/address_screen.dart';
 import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/coupans_offeres/coupan_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
+import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -35,15 +35,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
      @override
   void initState() {
     super.initState();
-        setInitialLocale();
+    //    setInitialLocale();
   }
-    void setInitialLocale() {
-    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-      Get.updateLocale(Locale('ar', 'DZ'));
-    } else {
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
+  //   void setInitialLocale() {
+  //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+  //     Get.updateLocale(Locale('ar', 'DZ'));
+  //   } else {
+  //     Get.updateLocale(Locale('en', 'US'));
+  //   }
+  // }
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
@@ -112,7 +112,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   child: CircleAvatar(
                                     radius: 30.0,
                                     backgroundImage: NetworkImage(
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
                                     backgroundColor: Colors.transparent,
                                   ),
                                 ),
@@ -240,7 +240,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         SizedBox(height: 26.v),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => AddressScreen());
+                            // Get.to(() => AddressScreen());
+                                  Get.to(() => Default_address());
                           },
                           child: _buildMessageOne(
                             context,
@@ -293,6 +294,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   ),
                 ),
               ),
+              
             ],
           ),
         ),
@@ -304,7 +306,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.back();
+          Get.offAll(TabScreen(index:0));
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
@@ -361,6 +363,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+      Get.offAll(() => ChooseLanguageScreen());
     print('data clearrrerererererererererre');
   }
 }

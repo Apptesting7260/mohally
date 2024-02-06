@@ -8,6 +8,7 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/data/app_exceptions.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/update_profile_screen.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
 import 'package:mohally/view_models/controller/DeleteAccountController/delete_account_controller.dart';
@@ -232,14 +233,14 @@ Widget _buildContinueButton(BuildContext context) {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       
-      leadingWidth: 60,
+      leadingWidth: 50,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.back();
+          Get.offAll(MyProfilePage());
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
-          left: 20,
+          left: 10,
           top: 8,
           bottom: 8,
         ),
@@ -251,24 +252,27 @@ Widget _buildContinueButton(BuildContext context) {
             margin: EdgeInsets.only(left: 16),
           ),
 SizedBox(width: Get.width*.3,),
-           CustomElevatedButton(
-                            height: 28.v,
-                            width: 56.h,
-                            text: "Edit",
-                            leftIcon: Container(
-                              margin: EdgeInsets.only(right: 4.h),
-                              child: CustomImageView(
-                                imagePath: ImageConstant.imgEditWhiteA70002,
-                                height: 12.adaptSize,
-                                width: 12.adaptSize,
+           Padding(
+             padding: const EdgeInsets.only(right: 10),
+             child: CustomElevatedButton(
+                              height: 28.v,
+                              width: 56.h,
+                              text: "Edit",
+                              leftIcon: Container(
+                                margin: EdgeInsets.only(right: 4.h),
+                                child: CustomImageView(
+                                  imagePath: ImageConstant.imgEditWhiteA70002,
+                                  height: 12.adaptSize,
+                                  width: 12.adaptSize,
+                                ),
                               ),
+                              onPressed: () {
+                                 Get.to(UpdateProfileScreen());
+                              },
+                              buttonTextStyle:
+                                  CustomTextStyles.bodySmallWhiteA70002,
                             ),
-                            onPressed: () {
-                               Get.to(UpdateProfileScreen());
-                            },
-                            buttonTextStyle:
-                                CustomTextStyles.bodySmallWhiteA70002,
-                          ),
+           ),
         ],
       ),
     );

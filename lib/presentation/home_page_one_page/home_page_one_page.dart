@@ -1,10 +1,22 @@
 // ignore_for_file: unused_import
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/category_page/category_page.dart';
+import 'package:mohally/presentation/category_page/category_screen.dart';
+import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
+import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Home_Banner_Controller/home_banner_controller.dart';
+import 'package:mohally/view_models/controller/Home_controller.dart/HomeController.dart';
+import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
+import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/Internet_exception_widget/internet_exception_widget.dart';
-
+import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
+import 'package:mohally/widgets/custom_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page_one_page/widgets/homepagesection_item_widget.dart';
 import '../home_page_one_page/widgets/recommendedsection_item_widget.dart';
 import '../home_page_one_page/widgets/shippingsection_item_widget.dart';
@@ -25,9 +37,36 @@ class HomePageOnePage extends StatefulWidget {
 
 class HomePageOnePageState extends State<HomePageOnePage>
     with AutomaticKeepAliveClientMixin<HomePageOnePage> {
+      bool isProductAddedToWishlist = false;
+
+//    Future<void> loadStatus() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     List<String>? savedList = prefs.getStringList('buttonTappedList');
+//     if (savedList != null) {
+//       setState(() {
+//         isButtonTappedList = savedList.map((str) => str == 'true').toList();
+//       });
+//     }
+//   }
+
+//   // Save the current status to SharedPreferences
+//   Future<void> saveStatus() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     List<String> stringList = isButtonTappedList.map((value) => value.toString()).toList();
+//     prefs.setStringList('buttonTappedList', stringList);
+//   }
+// // Save the current status to SharedPreferences
+
+
+      List<bool> isButtonTappedList = List.generate(8, (index) => false);
+    bool  isButtonTapped =false;
+
+    EnglishSingleProductViewController singleProductViewController =EnglishSingleProductViewController();
+   HomeView_controller_English homeView_controller = HomeView_controller_English();
   HomeBanner_controller homeBanner_controller = HomeBanner_controller();
+  EnglishAdd_remove_wishlistController englishAddRemoveWishlistController =EnglishAdd_remove_wishlistController();
   List<Widget> carouselItems = [
-    // Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
+  //  Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
     Image.asset("assets/images/banner 1.png"),
     Image.asset("assets/images/banner 1.png")
   ];
@@ -36,6 +75,13 @@ class HomePageOnePageState extends State<HomePageOnePage>
     // homeBanner_controller.homeBanner_apihit();
     // TODO: implement initState
     super.initState();
+    homeView_controller.homeview_apihit();
+   // loadStatus();
+  }
+   @override
+  void dispose() {
+   // saveStatus(); // Save the status when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -45,29 +91,29 @@ class HomePageOnePageState extends State<HomePageOnePage>
     super.build(context);
     mediaQueryData = MediaQuery.of(context);
     return
-        // Obx(() {
-        // if (homeBanner_controller.rxRequestStatus.value == Status.LOADING) {
-        //   return const Scaffold(
-        //     body: Center(child: CircularProgressIndicator()),
-        //   );
-        // } else if (homeBanner_controller.error.value == 'No internet') {
-        //   return Scaffold(
-        //     body: Center(
-        //         child: InterNetExceptionWidget(
-        //       onPress: () {},
-        //     )),
-        //   );
-        // }
-        // else{
-
-        SafeArea(
+        Obx(() {
+     
+     if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      }
+      // else if (homeBanner_controller.error.value == 'No internet') {
+      //   return Scaffold(
+      //     body: Center(
+      //         child: InterNetExceptionWidget(
+      //       onPress: () {},
+      //     )),
+      //   );}
+        else{
+       return SafeArea(
       child: Scaffold(
         body: SizedBox(
           width: mediaQueryData.size.width,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 30.v),
+                //sSizedBox(height: 20.v),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
@@ -75,179 +121,189 @@ class HomePageOnePageState extends State<HomePageOnePage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CarouselSlider(
-                          items: carouselItems,
-                          options: CarouselOptions(
-                            enlargeCenterPage: true,
-                            autoPlay: true,
-                            aspectRatio: 16 / 9,
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enableInfiniteScroll: true,
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            viewportFraction: 0.97,
-                          ),
+                        
+                       CarouselSlider(
+  items: carouselItems,
+  // List.generate(
+  //   homeBanner_controller.userList.value.homeBanner?.bannerUrl == null
+  //       ? 0
+  //       : homeBanner_controller.userList.value.homeBanner!.bannerUrl!.length,
+  //   (index) => Image.network(
+  //     homeBanner_controller.userList.value.homeBanner?.bannerUrl?[index].toString() ?? "",
+  //   ),
+  // ),
+  options: CarouselOptions(
+    autoPlay: true,
+    aspectRatio: 2.0,
+    enlargeCenterPage: true,
+  ),
                         ),
                         // _buildBannerSection(context),
                         SizedBox(height: 5.v),
-                        // _buildShippingSection(context),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        Padding(
+                          padding: const EdgeInsets.only(right:15),
+                          child: Row(
+                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SizedBox(width: 5.h),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.orange.shade50,
-                                  borderRadius: BorderRadius.circular(10)),
-                              height: Get.height*.09,
-                              width: Get.width*.4,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset("assets/images/ship.png"),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Free Shipping",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                        Text("Time-limited offer",
-                                            style: theme.textTheme.subtitle2!
-                                                .copyWith(color: Colors.grey)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 15.h),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.orange.shade50,
-                                  borderRadius: BorderRadius.circular(10)),
-                             height: Get.height*.09,
-                              width: Get.width*.4,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset("assets/images/return.png"),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Free Shipping",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                        Text("Time-limited offer",
-                                            style: theme.textTheme.subtitle2!
-                                                .copyWith(color: Colors.grey)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                               
+                                     Container(
+                                                 height: Get.height*.1,
+                                                 width: Get.width*.4,
+                                                
+                                                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)
+                                                 ),
+                                    color: Color.fromARGB(136, 235, 215, 215),
+                                                 ),
+                                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                   children: [
+                                     Image.asset( "assets/images/return.png",),
+                                     SizedBox(width: Get.width*.01,),
+                                     Column(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                       children: [
+                                         Text('Free shipping', style: 
+                                         TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black,fontFamily: 'League Spartan'),),
+                                          Text('Time Limited Offer',style: 
+                                         TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey,fontFamily: 'League Spartan'),),
+                                     
+                                       ],
+                                     )
+                                   ],
+                                                 ),
+                                                ),
+                                                SizedBox(width: Get.width*.05,),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 3),
+                                       child: Container(
+                                                   height: Get.height*.1,
+                                                   width: Get.width*.4,
+                                                  
+                                                   decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)
+                                                   ),
+                                                                          color: Color.fromARGB(135, 236, 213, 213),
+                                                   ),
+                                                   child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                          children: [
+                                       Image.asset( "assets/images/ship.png",),
+                                       SizedBox(width: Get.width*.01,),
+                                       Column(
+                                         mainAxisAlignment: MainAxisAlignment.center,
+                                         children: [
+                                           Text('Free Returns', style: 
+                                           TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black,fontFamily: 'League Spartan'),),
+                                            Text('Within 90 days',style: 
+                                           TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey,fontFamily: 'League Spartan'),),
+                                       
+                                         ],
+                                       )
+                                                                          ],
+                                                   ),
+                                                  ),
+                                     ),
                           ],
+                                                ),
                         ),
                         SizedBox(height: 29.v),
                         _buildCategorySection(context),
                         SizedBox(height: 19.v),
-                        GridView.builder(
-                          shrinkWrap: true,
+                        // GridView.builder(
+                        //   shrinkWrap: true,
                           
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            // mainAxisExtent: 90.v,
-                            crossAxisCount: 4,
-                            mainAxisSpacing: 10.h,
-                            crossAxisSpacing: 10.h,
+                        //   gridDelegate:
+                        //       SliverGridDelegateWithFixedCrossAxisCount(
+                        //     // mainAxisExtent: 90.v,
+                        //     crossAxisCount: 4,
+                        //     mainAxisSpacing: 10.h,
+                        //     crossAxisSpacing: 10.h,
                             
-                           mainAxisExtent: Get.height * .2
+                        //    mainAxisExtent: Get.height * .2
 
-                          ),
-                          physics: BouncingScrollPhysics(),
-                          itemCount: 8,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    height: 70,
-                                    width: 70,
-                                    child: Image.asset(
-                                      "assets/images/img_mask_group_60x56.png",
-                                      fit: BoxFit.cover,
-                                    )),
-                                SizedBox(height: 2.v),
-                                Center(
-                                    child: Text(
-                                  "Electronics",
-                                  style: theme.textTheme.bodySmall,
-                                ))
-                              ],
-                            );
-                          },
-                        ),
-                        // Padding(
-                        //   padding: EdgeInsets.only(right: 29.h),
-                        //   child: _buildWidget(context),
+                        //   ),
+                        //   physics: BouncingScrollPhysics(),
+                        //   itemCount: 8,
+                        //   itemBuilder: (BuildContext context, int index) {
+                        //     return Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         Container(
+                        //             height: 70,
+                        //             width: 70,
+                        //             child: Image.asset(
+                        //               "assets/images/img_mask_group_60x56.png",
+                        //               fit: BoxFit.cover,
+                        //             )),
+                        //         SizedBox(height: 2.v),
+                        //         Center(
+                        //             child: Text(
+                        //           "Electronics",
+                        //           style: theme.textTheme.bodySmall,
+                        //         ))
+                        //       ],
+                        //     );
+                        //   },
                         // ),
-                        // SizedBox(height: 7.v),
-                        // Padding(
-                        //   padding: EdgeInsets.only(
-                        //     left: 3.h,
-                        //     right: 26.h,
-                        //   ),
-                        //   child: _buildElectronics(
-                        //     context,
-                        //     electronicsText: "Electronics",
-                        //     womenSClothingText: "Women’s\nClothing",
-                        //     menSClothingText: "Men’s\nClothing",
-                        //     curvePlusText: "Curve &  Plus",
-                        //   ),
-                        // ),
-                        // SizedBox(height: 14.v),
-                        // Padding(
-                        //   padding: EdgeInsets.only(right: 29.h),
-                        //   child: _buildWidget(context),
-                        //  ),
-                        // SizedBox(height: 7.v),
-                        // Padding(
-                        //   padding: EdgeInsets.only(
-                        //     left: 3.h,
-                        //     right: 26.h,
-                        //   ),
-                        //   child: _buildElectronics(
-                        //     context,
-                        //     electronicsText: "Electronics",
-                        //     womenSClothingText: "Women’s\nClothing",
-                        //     menSClothingText: "Men’s\nClothing",
-                        //     curvePlusText: "Curve &  Plus",
-                        //   ),
-                        // ),
+                        homeView_controller.userList.value.categoryData ==  null ||
+                                    homeView_controller.userList.value
+                                            .categoryData?.length ==
+                                        0
+                                ? Center(child:  Text('Error: ${homeView_controller.error.value}'))
+                                : Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: GridView.builder(
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        mainAxisExtent: Get.height*.2,
+                                        crossAxisCount: 4,
+                                        mainAxisSpacing: 17.h,
+                                        crossAxisSpacing: 15.h,
+                                      ),
+                                      physics: BouncingScrollPhysics(),
+                                      itemCount: 8,
+                                      // homeView_controller
+                                      //     .userList.value.categoryData?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(38.0),
+                                              child: Image.network(
+                                                "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
+                                                height: 68,
+                                                width: 68,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.v),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                                style:
+                                                TextStyle(color: Color(0xFF272727),
+fontSize: 12,
+fontFamily: 'Almarai',
+fontWeight: FontWeight.w500,)
+                                                // theme.textTheme.bodySmall,
+                                                // overflow: TextOverflow.ellipsis,
+                                                // maxLines: 1,
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                      
                         SizedBox(height: 20.v),
-                        _buildRecommendedSection(context),
-                        SizedBox(height: 20.v),
-                        _buildHomePageSection(context),
+                       _buildHomePageSection(context),
+                      SizedBox(height: 20.v),
                       ],
                     ),
                   ),
@@ -257,319 +313,10 @@ class HomePageOnePageState extends State<HomePageOnePage>
           ),
         ),
       ),
-    );
+    );}
+        }
+        );
   }
-
-  /// Section Widget
-  // Widget _buildBannerSection(BuildContext context) {
-  //   // final height = MediaQuery.of(context).size.height;
-  //   // final width = MediaQuery.of(context).size.width;
-  //
-  //   // return SingleChildScrollView(
-  //   //   scrollDirection: Axis.horizontal,
-  //   //   child:
-  //   //   IntrinsicWidth(
-  //   //     child: Row(
-  //   //       mainAxisAlignment: MainAxisAlignment.center,
-  //   //       children: [
-  //   //         Card(
-  //   //           clipBehavior: Clip.antiAlias,
-  //   //           elevation: 0,
-  //   //           margin: EdgeInsets.all(0),
-  //   //           color: appTheme.yellow50,
-  //   //           shape: RoundedRectangleBorder(
-  //   //             borderRadius: BorderRadiusStyle.roundedBorder8,
-  //   //           ),
-  //   //           child: Container(
-  //   //             height: 144.v,
-  //   //             width: 304.h,
-  //   //             decoration: AppDecoration.fillYellow.copyWith(
-  //   //               borderRadius: BorderRadiusStyle.roundedBorder8,
-  //   //             ),
-  //   //             child: Stack(
-  //   //               alignment: Alignment.topRight,
-  //   //               children: [
-  //   //                 Align(
-  //   //                   alignment: Alignment.topRight,
-  //   //                   child: Container(
-  //   //                     height: 108.v,
-  //   //                     width: 165.h,
-  //   //                     decoration: BoxDecoration(
-  //   //                       color: theme.colorScheme.primary,
-  //   //                       borderRadius: BorderRadius.circular(
-  //   //                         82.h,
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.topRight,
-  //   //                   child: DottedBorder(
-  //   //                     color: theme.colorScheme.primary,
-  //   //                     padding: EdgeInsets.only(
-  //   //                       left: 2.h,
-  //   //                       top: 2.v,
-  //   //                       right: 2.h,
-  //   //                       bottom: 2.v,
-  //   //                     ),
-  //   //                     strokeWidth: 2.h,
-  //   //                     radius: Radius.circular(85),
-  //   //                     borderType: BorderType.RRect,
-  //   //                     dashPattern: [
-  //   //                       7,
-  //   //                       7,
-  //   //                     ],
-  //   //                     child: Container(
-  //   //                       height: 116.v,
-  //   //                       width: 171.h,
-  //   //                       decoration: BoxDecoration(
-  //   //                         borderRadius: BorderRadius.circular(
-  //   //                           85.h,
-  //   //                         ),
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.topLeft,
-  //   //                   child: Padding(
-  //   //                     padding: EdgeInsets.only(
-  //   //                       left: 25.h,
-  //   //                       top: 17.v,
-  //   //                     ),
-  //   //                     child: Text(
-  //   //                       "SALE",
-  //   //                       style: CustomTextStyles.bodySmallInterPrimary,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.bottomLeft,
-  //   //                   child: Padding(
-  //   //                     padding: EdgeInsets.only(
-  //   //                       left: 28.h,
-  //   //                       bottom: 21.v,
-  //   //                     ),
-  //   //                     child: Text(
-  //   //                       "School Collections",
-  //   //                       style: CustomTextStyles.bodySmallInterErrorContainer,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.topLeft,
-  //   //                   child: Container(
-  //   //                     width: 111.h,
-  //   //                     margin: EdgeInsets.only(
-  //   //                       left: 25.h,
-  //   //                       top: 33.v,
-  //   //                     ),
-  //   //                     child: RichText(
-  //   //                       text: TextSpan(
-  //   //                         children: [
-  //   //                           TextSpan(
-  //   //                             text: "UPTO\n",
-  //   //                             style: CustomTextStyles
-  //   //                                 .headlineSmallInterErrorContainer,
-  //   //                           ),
-  //   //                           TextSpan(
-  //   //                             text: "60% OFF",
-  //   //                             style:
-  //   //                                 CustomTextStyles.headlineSmallInterPrimary,
-  //   //                           ),
-  //   //                         ],
-  //   //                       ),
-  //   //                       textAlign: TextAlign.left,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.centerRight,
-  //   //                   child: Container(
-  //   //                     height: 123.v,
-  //   //                     width: 112.h,
-  //   //                     margin: EdgeInsets.only(right: 8.h),
-  //   //                     child: Stack(
-  //   //                       alignment: Alignment.centerLeft,
-  //   //                       children: [
-  //   //                         Opacity(
-  //   //                           opacity: 0.7,
-  //   //                           child: CustomImageView(
-  //   //                             imagePath: ImageConstant.imgShadow,
-  //   //                             height: 123.v,
-  //   //                             width: 112.h,
-  //   //                             alignment: Alignment.center,
-  //   //                           ),
-  //   //                         ),
-  //   //                         Align(
-  //   //                           alignment: Alignment.centerLeft,
-  //   //                           child: Row(
-  //   //                             crossAxisAlignment: CrossAxisAlignment.start,
-  //   //                             children: [
-  //   //                               CustomImageView(
-  //   //                                 imagePath: ImageConstant.imgMain,
-  //   //                                 height: 123.v,
-  //   //                                 width: 84.h,
-  //   //                               ),
-  //   //                               CustomImageView(
-  //   //                                 imagePath: ImageConstant.imgVector1,
-  //   //                                 height: 19.v,
-  //   //                                 width: 16.h,
-  //   //                                 margin: EdgeInsets.only(
-  //   //                                   left: 2.h,
-  //   //                                   top: 40.v,
-  //   //                                   bottom: 64.v,
-  //   //                                 ),
-  //   //                               ),
-  //   //                             ],
-  //   //                           ),
-  //   //                         ),
-  //   //                       ],
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 CustomImageView(
-  //   //                   imagePath: ImageConstant.imgVector2,
-  //   //                   height: 25.adaptSize,
-  //   //                   width: 25.adaptSize,
-  //   //                   alignment: Alignment.topRight,
-  //   //                   margin: EdgeInsets.only(
-  //   //                     top: 39.v,
-  //   //                     right: 7.h,
-  //   //                   ),
-  //   //                 ),
-  //   //               ],
-  //   //             ),
-  //   //           ),
-  //   //         ),
-  //   //         Card(
-  //   //           clipBehavior: Clip.antiAlias,
-  //   //           elevation: 0,
-  //   //           margin: EdgeInsets.only(left: 15.h),
-  //   //           shape: RoundedRectangleBorder(
-  //   //             borderRadius: BorderRadiusStyle.roundedBorder8,
-  //   //           ),
-  //   //           child: Container(
-  //   //             height: 144.v,
-  //   //             width: 304.h,
-  //   //             decoration: AppDecoration.gradientCyanToIndigo.copyWith(
-  //   //               borderRadius: BorderRadiusStyle.roundedBorder8,
-  //   //             ),
-  //   //             child: Stack(
-  //   //               alignment: Alignment.bottomLeft,
-  //   //               children: [
-  //   //                 Align(
-  //   //                   alignment: Alignment.bottomRight,
-  //   //                   child: Container(
-  //   //                     height: 11.v,
-  //   //                     width: 90.h,
-  //   //                     margin: EdgeInsets.only(
-  //   //                       right: 50.h,
-  //   //                       bottom: 25.v,
-  //   //                     ),
-  //   //                     decoration: BoxDecoration(
-  //   //                       color:
-  //   //                           theme.colorScheme.errorContainer.withOpacity(0.2),
-  //   //                       borderRadius: BorderRadius.circular(
-  //   //                         45.h,
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.bottomLeft,
-  //   //                   child: Container(
-  //   //                     height: 68.v,
-  //   //                     width: 93.h,
-  //   //                     decoration: BoxDecoration(
-  //   //                       color: appTheme.whiteA70002.withOpacity(0.1),
-  //   //                       borderRadius: BorderRadius.circular(
-  //   //                         46.h,
-  //   //                       ),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.topLeft,
-  //   //                   child: Padding(
-  //   //                     padding: EdgeInsets.only(
-  //   //                       left: 25.h,
-  //   //                       top: 22.v,
-  //   //                     ),
-  //   //                     child: Text(
-  //   //                       "ELECTRONIC DAY",
-  //   //                       style: CustomTextStyles.bodySmallInterWhiteA70002,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.bottomLeft,
-  //   //                   child: Padding(
-  //   //                     padding: EdgeInsets.only(
-  //   //                       left: 25.h,
-  //   //                       bottom: 26.v,
-  //   //                     ),
-  //   //                     child: Text(
-  //   //                       "40% OFF",
-  //   //                       style: CustomTextStyles
-  //   //                           .titleMediumInterWhiteA70002ExtraBold,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 Align(
-  //   //                   alignment: Alignment.topLeft,
-  //   //                   child: Container(
-  //   //                     width: 144.h,
-  //   //                     margin: EdgeInsets.only(
-  //   //                       left: 25.h,
-  //   //                       top: 42.v,
-  //   //                     ),
-  //   //                     child: Text(
-  //   //                       "GET YOUR DREAM DEVICE",
-  //   //                       maxLines: 2,
-  //   //                       overflow: TextOverflow.ellipsis,
-  //   //                       style: CustomTextStyles.titleMediumInterWhiteA70002,
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //                 CustomImageView(
-  //   //                   imagePath: ImageConstant.imgMain105x111,
-  //   //                   height: 105.v,
-  //   //                   width: 111.h,
-  //   //                   alignment: Alignment.topRight,
-  //   //                   margin: EdgeInsets.only(
-  //   //                     top: 11.v,
-  //   //                     right: 7.h,
-  //   //                   ),
-  //   //                 ),
-  //   //                 CustomImageView(
-  //   //                   imagePath: ImageConstant.imgMain93x62,
-  //   //                   height: 93.v,
-  //   //                   width: 62.h,
-  //   //                   alignment: Alignment.bottomRight,
-  //   //                   margin: EdgeInsets.only(bottom: 7.v),
-  //   //                 ),
-  //   //               ],
-  //   //             ),
-  //   //           ),
-  //   //         ),
-  //   //       ],
-  //   //     ),
-  //   //   ),
-  //   // );
-  //   return CarouselSlider(
-  //     items: carouselItems,
-  //     options: CarouselOptions(
-  //       enlargeCenterPage: true,
-  //       autoPlay: true,
-  //       aspectRatio: 16 / 9,
-  //       autoPlayCurve: Curves.fastOutSlowIn,
-  //       enableInfiniteScroll: true,
-  //       autoPlayAnimationDuration: Duration(milliseconds: 800),
-  //       viewportFraction: 0.97,
-  //     ),
-  //   );
-  // }
 
   /// Section Widget
   Widget _buildShippingSection(BuildContext context) {
@@ -597,19 +344,24 @@ class HomePageOnePageState extends State<HomePageOnePage>
   /// Section Widget
   Widget _buildCategorySection(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 20.h),
+      padding: EdgeInsets.only(right: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Categories_".tr,
+            "Categories",
             style: theme.textTheme.titleMedium,
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 2.v),
-            child: Text(
-              "See_All".tr,
-              style: CustomTextStyles.bodyMediumPrimary,
+            child: GestureDetector(
+              onTap: (){
+                Get.to(   Get.to(CategoryScreen()));
+              },
+              child: Text(
+                "See All",
+                style: CustomTextStyles.bodyMediumPrimary,
+              ),
             ),
           ),
         ],
@@ -618,47 +370,225 @@ class HomePageOnePageState extends State<HomePageOnePage>
   }
 
   /// Section Widget
-  Widget _buildRecommendedSection(BuildContext context) {
-    return SizedBox(
-      height: 28.v,
-      child: ListView.separated(
+  // Widget _buildRecommendedSection(BuildContext context) {
+  //   return SizedBox(
+  //     height: 28.v,
+  //     child: ListView.separated(
 
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (
-          context,
-          index,
-        ) {
-          return SizedBox(
-            width: 20.h,
-          );
-        },
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return RecommendedsectionItemWidget();
-        },
-      ),
-    );
-  }
+  //       scrollDirection: Axis.horizontal,
+  //       separatorBuilder: (
+  //         context,
+  //         index,
+  //       ) {
+  //         return SizedBox(
+  //           width: 20.h,
+  //         );
+  //       },
+  //       itemCount: 3,
+  //       itemBuilder: (context, index) {
+  //         return RecommendedsectionItemWidget();
+  //       },
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildHomePageSection(BuildContext context) {
-    return Center(
-      child: GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 265.v,
-          crossAxisCount: 2,
-          mainAxisSpacing: 15.h,
-          crossAxisSpacing: 35.h,
-        ),
-        physics: BouncingScrollPhysics(),
-        itemCount: 6,
-        itemBuilder: (context, index) {
-          return HomepagesectionItemWidget();
+    //  super.build(context);
+    return Padding(
+       padding: const EdgeInsets.only(right:20),
+      child: Container(
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisExtent: Get.height*.4,
+               crossAxisCount: 2,
+                  // mainAxisSpacing: 2,
+                 crossAxisSpacing: 10.h,
+          ),
+          physics: BouncingScrollPhysics(),
+          itemCount: homeView_controller.userList.value.recommendedProduct?.length ?? 0,
+          itemBuilder: (context, index) {
+            return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+                // decoration:BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                              
+           width: Get.width,padding: EdgeInsets.only(left: 10),
+        //    width: 170.adaptSize,
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                CustomImageView(
+                 
+                  onTap: () {
+          Englishproductid =
+         homeView_controller.userList.value.recommendedProduct![index].id!.toString();
+        
+            setState(() {
+        Englishproductid;
+            });
+          Get.to(SinglePageScreen(), 
+          );
         },
+         fit: BoxFit.cover,
+                  imagePath:"${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
+                  // ImageConstant.imgRectangle569,
+                  height: 190.adaptSize,
+                                                      width: 190.adaptSize,
+                  radius: BorderRadius.circular(
+                    10.h,
+                  ),
+                  alignment: Alignment.center,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10.v,
+                  right: 10.h,
+                  ),
+                  child:
+                   CustomIconButton(
+                    onTap: () {
+                   
+                          Add_remove_productidd =
+                        homeView_controller.userList.value.recommendedProduct![index].id!.toString();
+                        EnglishAdd_remove_wishlistController().AddRemoveWishlish_apihit();
+                       
+                        setState(() {
+                          // Add_remove_productidd;
+                          //  isButtonTapped = !isButtonTapped;
+                           isButtonTappedList[index] =!isButtonTappedList[index];
+                       });
+
+                        },
+                    height: 20.adaptSize,
+                    width: 20.adaptSize,
+                    padding: EdgeInsets.all(5.h),
+                    decoration: IconButtonStyleHelper.fillWhiteA,
+                    alignment: Alignment.topRight,
+                    child:CustomImageView(
+        imagePath:  isButtonTappedList[index]
+            ? ImageConstant. imgGroup239531// Change this to your tapped image
+            :  ImageConstant.imgSearch,    // Default image
       ),
-    );
-  }
+                  )
+     
+
+                                  
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12.v),
+          
+           Padding(
+             padding: const EdgeInsets.only(left: 10),
+             child: Container(
+                  height: 16.v,
+                       width: 48.h,
+                       
+                       decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),
+                       color: Color.fromARGB(71, 228, 193, 204),
+                       ),
+                       child: Center(child: Text("10% Off", style: TextStyle(
+              fontSize: 8, color: Color(0xffff8300),fontWeight: FontWeight.w600,
+              // fontFamily: 'Almarai'
+                       ),),),
+                     ),
+           ),
+          SizedBox(height: 5.v),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: SizedBox(
+              width: 131.h,
+              child: Text(
+                "${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
+              //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.labelLarge!.copyWith(
+                  height: 1.33,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 3.v),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "4.8",
+                            style: theme.textTheme.labelMedium,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 3.h),
+                            child: CustomRatingBar(
+                              ignoreGestures: true,
+                              initialRating: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 5.v),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:  "${homeView_controller.userList.value.recommendedProduct?[index].pricee.toString()}",
+                            //"99 ",
+                            style: CustomTextStyles.titleMediumPrimary_2,
+                          ),
+                          TextSpan(
+                            text: "2k+ sold",
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 35.h,
+                    top: 5.v,
+                  ),
+                  child: 
+                  CustomIconButton(
+                                                     
+                                                      height: 30.adaptSize,
+                                                      width: 30.adaptSize,
+                                                      padding: EdgeInsets.all(6.h),
+                                                      child: CustomImageView(
+                                                        imagePath: ImageConstant.imgGroup239533,
+                                                      ),
+                                                    ),
+                ),
+            
+              ],
+            ),
+          ),
+        ],
+            );
+           
+          },
+        ),
+      ),
+    );  
+      }
+      
+  
 
   /// Common widget
   Widget _buildWidget(BuildContext context) {

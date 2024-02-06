@@ -1,35 +1,31 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/shipping_addresses_screen/widgets/shippingaddresses_item_widget.dart';
+import 'package:mohally/view_models/controller/Add_new_addressController/add_new_address_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
+import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
-class AddressScreen extends StatelessWidget {
+class AddressScreen extends StatefulWidget {
   AddressScreen({Key? key})
       : super(
           key: key,
         );
 
-  TextEditingController nameEditTextController = TextEditingController();
+  @override
+  State<AddressScreen> createState() => _AddressScreenState();
+}
 
-  TextEditingController addressEditTextController = TextEditingController();
-
-  TextEditingController cityEditTextController = TextEditingController();
-
-  TextEditingController countryEditTextController = TextEditingController();
-
-  TextEditingController californiaEditTextController = TextEditingController();
-
-  TextEditingController zipcodeEditTextController = TextEditingController();
-
-  TextEditingController group184EditTextController = TextEditingController();
-
+class _AddressScreenState extends State<AddressScreen> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  EnglishCreateaddress_controller _newAddressController =EnglishCreateaddress_controller();
   bool isSelectedSwitch = false;
 
   @override
@@ -40,75 +36,84 @@ class AddressScreen extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
-        body: SizedBox(
-          width: mediaQueryData.size.width,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: 19.v),
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 20.h,
-                right: 20.h,
-                bottom: 5.v,
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Name",
-                      style: theme.textTheme.titleMedium,
+        body: Form(
+          key: _formKey,
+          child: SizedBox(
+             width: double.maxFinite,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 20.h,
+                        right: 20.h,
+                        bottom: 5.v,
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Name",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                          SizedBox(height: 9.v),
+                          _buildNameEditText(context),
+                          SizedBox(height: 17.v),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Address",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                          SizedBox(height: 9.v),
+                          _buildAddressEditText(context),
+                          SizedBox(height: 19.v),
+                          _buildCityRow(context),
+                          SizedBox(height: 19.v),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "State/Province/Region",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                          SizedBox(height: 7.v),
+                          _buildCaliforniaEditText(context),
+                          SizedBox(height: 19.v),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Zip Code (Postal Code)",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                          SizedBox(height: 7.v),
+                          _buildZipcodeEditText(context),
+                          SizedBox(height: 17.v),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Mobile Number",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                          SizedBox(height: 9.v),
+                          _buildGroup184EditText(context),
+                          SizedBox(height: 20.v),
+                          _buildSaveRow(context),
+                          SizedBox(height: 30.v),
+                          _buildSaveAddressButton(context),
+                           SizedBox(height: 30.v),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 9.v),
-                  _buildNameEditText(context),
-                  SizedBox(height: 17.v),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Address",
-                      style: theme.textTheme.titleMedium,
-                    ),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildAddressEditText(context),
-                  SizedBox(height: 19.v),
-                  _buildCityRow(context),
-                  SizedBox(height: 19.v),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "State/Province/Region",
-                      style: theme.textTheme.titleMedium,
-                    ),
-                  ),
-                  SizedBox(height: 7.v),
-                  _buildCaliforniaEditText(context),
-                  SizedBox(height: 19.v),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Zip Code (Postal Code)",
-                      style: theme.textTheme.titleMedium,
-                    ),
-                  ),
-                  SizedBox(height: 7.v),
-                  _buildZipcodeEditText(context),
-                  SizedBox(height: 17.v),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Mobile Number",
-                      style: theme.textTheme.titleMedium,
-                    ),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildGroup184(context),
-                  SizedBox(height: 20.v),
-                  _buildSaveRow(context),
-                  SizedBox(height: 30.v),
-                  _buildSaveAddressButton(context),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -141,16 +146,36 @@ class AddressScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildNameEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: nameEditTextController,
-      hintText: "John Due",
+      controller: _newAddressController.nameEditTextController.value,
+      textInputType: TextInputType.name,
+      hintText: "Enter Your Name",
+      validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Name'  ;
+      }
+      else if (RegExp(r'[0-9]').hasMatch(value)) {
+        // Check if the value contains numbers
+        return 'Name should not contain numbers';
+      }
+     
+return null; 
+          
+        }
     );
   }
 
   /// Section Widget
-  Widget _buildAddressEditText(BuildContext context) {
+   Widget _buildAddressEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: addressEditTextController,
-      hintText: "3 Newbridge Court",
+      textInputType: TextInputType.emailAddress,
+      controller: _newAddressController.addressEditTextController.value,
+      hintText: "Enter Your Address",
+      validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Address'  ;
+      }
+return null; 
+        }
     );
   }
 
@@ -158,10 +183,17 @@ class AddressScreen extends StatelessWidget {
   Widget _buildCityEditText(BuildContext context) {
     return CustomTextFormField(
       width: 160.h,
-      controller: cityEditTextController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Select Country';
+        }
+        return null;
+      },
+      controller: _newAddressController.cityEditTextController.value,
       hintText: "Chino Hills",
       suffix: Container(
         margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
+        
         child: CustomImageView(
           imagePath: ImageConstant.imgVectorGray900014x8,
           height: 4.v,
@@ -183,7 +215,13 @@ class AddressScreen extends StatelessWidget {
   Widget _buildCountryEditText(BuildContext context) {
     return CustomTextFormField(
       width: 160.h,
-      controller: countryEditTextController,
+        validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Select Country';
+        }
+        return null;
+      },
+        controller: _newAddressController.countrycontroller.value,
       hintText: "United States",
       suffix: Container(
         margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
@@ -248,34 +286,102 @@ class AddressScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildCaliforniaEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: californiaEditTextController,
-      hintText: "California",
+      validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Your State'  ;
+      }
+return null; 
+          
+        },
+      controller: _newAddressController.statecontroller.value,
+      hintText: "Enter State Name",
     );
   }
 
   /// Section Widget
-  Widget _buildZipcodeEditText(BuildContext context) {
+   Widget _buildZipcodeEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: zipcodeEditTextController,
+      textInputType: TextInputType.number,
+     validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Zipcode'  ;
+      }
+return null; 
+          
+        },
+      controller: _newAddressController.zipcodeEditTextController.value,
       hintText: "91709",
     );
   }
-
   /// Section Widget
   Widget _buildGroup184EditText(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 10.h,
-          top: 3.v,
-        ),
-        child: CustomTextFormField(
-          controller: group184EditTextController,
-          hintText: "1453-987533",
-          textInputAction: TextInputAction.done,
-        ),
-      ),
-    );
+    return  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: TextFormField(
+                      cursorColor: Colors.black,
+                      controller: _newAddressController.group184EditTextController.value,
+                      inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                               validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Your Mobile Number'  ;
+      } 
+      else if(_newAddressController.group184EditTextController.value.length!=10){
+       return "Phone Number Must be of Length 10 ";
+      }
+return null;
+          
+        },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          prefixIcon:
+                           CountryCodePicker(
+                            padding: EdgeInsets.only(bottom: 1),
+                            onChanged: (element) =>
+                                debugPrint(element.toLongString()),
+                            initialSelection: 'US',
+                            countryFilter: [],
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            favorite: const [
+                              '+1',
+                              'US',
+                            ],
+                            showDropDownButton: true,
+                            showFlag: true,
+                            
+                          ),
+                          hintStyle: TextStyle(
+                              fontFamily: 'League Spartan',
+                              color: Colors.black),
+                          fillColor:appTheme.gray100,
+        filled: true,
+        border: 
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.h),
+              borderSide: BorderSide(
+                color: theme.colorScheme.onPrimaryContainer,
+                width: 1,
+              ),
+            ),
+        enabledBorder: 
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.h),
+              borderSide: BorderSide(
+                color: theme.colorScheme.onPrimaryContainer,
+                width: 1,
+              ),
+            ),
+        focusedBorder: 
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.h),
+              borderSide: BorderSide(
+                color: appTheme.gray300,
+                width: 1,
+              ),
+            ),
+      )
+                    ),
+                  );
   }
 
   /// Section Widget
@@ -332,7 +438,14 @@ class AddressScreen extends StatelessWidget {
   Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        Get.to(() => ShippingaddressesItemWidget());
+              if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+       _newAddressController.loading.value = true;
+        _newAddressController.createaddress_apihit(context);
+       _formKey.currentState!.save();
+
+    }
       },
       text: "Save Address",
       margin: EdgeInsets.only(

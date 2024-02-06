@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myorder_Processing.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myorder_cancelled.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabuc_myorder_delievered.dart';
+import 'package:mohally/Arabic/Screens/Myprofile/my_profile_arabic.dart';
 import 'package:mohally/core/app_export.dart';
 
 class MyOrdersTab_arabic extends StatefulWidget {
@@ -34,9 +35,7 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
       child: Scaffold(
         appBar: 
          AppBar(
-          title: Align(
-            alignment: Alignment.centerRight,
-            child: Text( "طلباتي", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),)),
+          title: Text("طلباتي", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),),
           leading: Padding(
             padding: const EdgeInsets.only(top:15, ),
             child: GestureDetector(

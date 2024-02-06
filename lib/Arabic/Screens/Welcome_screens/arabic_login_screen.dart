@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_login_controller.dart.dart';
 import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_forgetPassword.dart';
 import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_signup.dart';
-
-
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/core/utils/size_utils.dart';
 import 'package:mohally/theme/custom_button_style.dart';
@@ -14,6 +12,7 @@ import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
+import 'package:pinput/pinput.dart';
 
 RxBool loginbuttonused = false.obs;
 String? loginemail;
@@ -218,7 +217,7 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
         }
         return null;
       },
-     
+     autofocus: false,
       controller: login_controller.emailController.value,
       hintText:'أدخل رقم الجوال أو البريد الإلكتروني',
       hintStyle: TextStyle(fontFamily:'Almarai'),
@@ -237,13 +236,17 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
       validator: (value) {
         if (value!.isEmpty) {
           return 'الرجاء إدخال كلمة المرور';
-
-        } else {
+        } 
+        else if(login_controller.passwordController.value.length<6){
+          return 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل. ';
+        }
+        else {
           return null;
         }
       },
+      autofocus: false,
       controller: login_controller.passwordController.value,
-      hintText: 'ادخل رقمك السري',
+      hintText: '      ادخل رقمك السري'  ,
       hintStyle: TextStyle(fontFamily:'Almarai'),
 
       textInputAction: TextInputAction.done,

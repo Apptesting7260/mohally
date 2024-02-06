@@ -193,6 +193,7 @@ verifyemailOTP_controller.pinController.value.clear();
                               child: GestureDetector(
                                    onTap: () {
                                     if (!verifyphone.value) {
+                                        verifyemailOTP_controller.pinController.value.clear();
       // Only perform actions if the phone is not verified
       String phoneNumber = signup_controller.phoneController.value.text;
 
@@ -200,6 +201,9 @@ verifyemailOTP_controller.pinController.value.clear();
         // Display a message indicating that the user should enter a mobile number
         Utils.snackBar(context, 'خطأ', 'الرجاء إدخال رقم الجوال');
       }
+      else if (phoneNumber.length<10) {
+          Utils.snackBar(context, 'خطأ', 'الرجاء إدخال رقم جوال صحيح');
+        } 
           if (signup_controller.phoneController.value.text.isNotEmpty &&
               signup_controller.phoneController.value.text.length == 10) {
             userVerify_controller.UserVerify_apihit(
@@ -210,7 +214,7 @@ verifyemailOTP_controller.pinController.value.clear();
                                     builder: (context) {
                                       return AlertDialog(
                                         content: Container(
-                                         height: Get.height*.3,
+                                         height: Get.height*.4,
                                           width: 500,
                                           child: Form(
                                             key: formKey,
@@ -222,33 +226,50 @@ verifyemailOTP_controller.pinController.value.clear();
                                                   style: theme.textTheme.headlineLarge,
                                                 ),
                                                 SizedBox(height: 19.v),
-                                                 Container(
-                                              
-                                                width: 450.h,
-                                                
-                                                child: RichText(
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text:
-                                                          'الرجاء إدخال رمز التحقق المرسل إلى ',
-                                                         style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 10)
-                                                      ),
-                                                      TextSpan(
-                                                        text: signup_controller.phoneController.value.text,
-                                                       style: TextStyle(fontFamily: 'Almarai', color: Color(0xffFE8300), fontWeight: FontWeight.w600, fontSize: 12)
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  textAlign: TextAlign.center,
+                                                   RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                      'الرجاء إدخال رمز التحقق المرسل إلى\n',
+                                                       style: TextStyle( color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12), 
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                       '\n',
+                                                      
+                                                    ),
+                                                    TextSpan(
+                                                      text: signup_controller.phoneController.value.text,
+                                                      style: TextStyle( color: Color(0xffFE8300), fontWeight: FontWeight.w600, fontSize: 10)
+                                                    ),
+                                                     TextSpan(
+                                                      text:
+                                                       '\n',
+                                                      
+                                                    ),
+                                                  ],
                                                 ),
+                                                textAlign: TextAlign.center,
                                               ),
+                                               
+                                               GestureDetector(
+  onTap: () {
+    // Clear the PIN input field
+    verifyemailOTP_controller.pinController.value.clear();
+    Future.delayed(Duration(seconds: 1), () {
+      Utils.snackBar(context,'Success', 'OTP Resent Successfully');
+    });
+         },
+         child: Text('إعادة إرسال كلمة المرور', style:TextStyle( color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14, fontFamily: 'Almarai') )),
+                                              
+                                               
                                                 SizedBox(height: 36.v),
                               
                                                 Container(
-                                                      height: Get.height*.05,
+                                                      height: Get.height*.04,
                                                 decoration: BoxDecoration(shape: BoxShape.circle),
-                                                  width: Get.width*.9,
+                                                
                                                   child: Pinput(
                                                     length: 6,
                                                     autofocus: false,
@@ -269,7 +290,7 @@ verifyemailOTP_controller.pinController.value.clear();
                                                   onPressed: () {
                                                    if (verifyemailOTP_controller.pinController.value.text.isEmpty) {
     // Display an error message indicating that the OTP is required
-    Utils2.snackBar('Failed', 'Please enter the OTP');
+    Utils.snackBar(context,'Failed', 'Please enter the OTP');
   } else {
     if (userVerify_controller.userList.value.otp.toString() ==
         verifyemailOTP_controller.pinController.value.text) {
@@ -289,7 +310,7 @@ verifyemailOTP_controller.pinController.value.clear();
       // }
     } else {
       // Display an error message indicating that the OTP is incorrect
-     Utils2.snackBar('Failed', 'Please Enter Correct Otp');
+     Utils.snackBar(context,'Failed', 'Please Enter Correct Otp');
       print('Incorrect OTP');
     }
   }
@@ -356,15 +377,27 @@ verifyemailOTP_controller.pinController.value.clear();
           
                               onTap:
                                 () {
-                                   if (!verifyemail.value) {
-       String Email = signup_controller.emailController.value.text;
-      if (Email.isEmpty) {
-        // Display a message indicating that the user should enter a mobile number
-        Utils.snackBar(context, 'فشل', 'الرجاء إدخال البريد الإلكتروني');
-      }
-          // Only perform actions if the phone is not verified
-          if (signup_controller.emailController.value.text.isNotEmpty ) {
-           verifyemail_controller.Verifyeusermail_apihit(signup_controller.emailController.value.text.toString());
+      //                              if (!verifyemail.value) {
+      //                                 verifyemailOTP_controller.pinController.value.clear();
+      //  String Email = signup_controller.emailController.value.text;
+      // if (Email.isEmpty) {
+      //   // Display a message indicating that the user should enter a mobile number
+      //   Utils.snackBar(context, 'فشل', 'الرجاء إدخال البريد الإلكتروني');
+      // }
+      
+      //     // Only perform actions if the phone is not verified
+      //     if (signup_controller.emailController.value.text.isNotEmpty ) {
+      //      verifyemail_controller.Verifyeusermail_apihit(signup_controller.emailController.value.text.toString());
+         String email = signup_controller.emailController.value.text;
+        if (email.isEmpty) {
+          Utils.snackBar(context, 'Failed', 'Please enter your email');
+        } else if (!isEmail(email)) {
+          Utils.snackBar(context, 'Failed', 'Please enter a valid email');
+        } else {
+          // Only perform actions if the email is valid
+          if (!verifyemail.value) {
+            verifyemailOTP_controller.pinController.value.clear();
+            verifyemail_controller.Verifyeusermail_apihit(email);
                                 showDialog(
                                   context: context,
                                   builder: (context) {
@@ -374,7 +407,7 @@ verifyemailOTP_controller.pinController.value.clear();
                                       //   style: theme.textTheme.titleMedium,
                                       // ),
                                       content: Container(
-                                          height: Get.height*.3,
+                                          height: Get.height*.4,
                                           
                                         child: Form(
                                           key: formKey,
@@ -387,30 +420,48 @@ verifyemailOTP_controller.pinController.value.clear();
                                                     theme.textTheme.headlineLarge,
                                               ),
                                               SizedBox(height: 19.v),
-                                              Container(
-                                                child: RichText(
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text:
-                                                          'الرجاء إدخال رمز التحقق المرسل إلى ',
-                                                         style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 10)
-                                                      ),
-                                                      TextSpan(
-                                                        text: signup_controller.emailController.value.text,
-                                                       style: TextStyle(fontFamily: 'Almarai', color: Color(0xffFE8300), fontWeight: FontWeight.w600, fontSize: 12)
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  textAlign: TextAlign.center,
+                                               RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                     'الرجاء إدخال رمز التحقق المرسل إلى\n',
+                                                       style: TextStyle( color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12), 
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                       '\n',
+                                                      
+                                                    ),
+                                                    TextSpan(
+                                                      text: signup_controller.emailController.value.text,
+                                                     style: TextStyle( color: Color(0xffFE8300), fontWeight: FontWeight.w600, fontSize: 10)
+                                                    ),
+                                                     TextSpan(
+                                                      text:
+                                                       '\n',
+                                                      
+                                                    ),
+                                                  ],
                                                 ),
+                                                textAlign: TextAlign.center,
                                               ),
+                                               
+                                               GestureDetector(
+  onTap: () {
+    // Clear the PIN input field
+    verifyemailOTP_controller.pinController.value.clear();
+    Future.delayed(Duration(seconds: 1), () {
+      Utils.snackBar(context,'Success', 'OTP Resent Successfully');
+    });
+         },
+                                                child: Text('Resend Otp', style:TextStyle( color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14) )),
                                               SizedBox(height: 36.v),
         
                                               Container(
-                                                 height: Get.height*.05,
+                                                 height: Get.height*.04,
                                                 decoration: BoxDecoration(shape: BoxShape.circle),
-                                                  width: Get.width*.9,
+                                                
                                                 child: Pinput(
                                                   length: 6,
                                                   // autofocus: true,
@@ -438,7 +489,7 @@ verifyemailOTP_controller.pinController.value.clear();
                                                     otpbuttonused.value = true;
                                                  if (verifyemailOTP_controller.pinController.value.text.isEmpty) {
     // Display an error message indicating that the OTP is required
-   Utils2.snackBar('Failed', 'Please Enter  Otp');
+   Utils.snackBar(context ,'Failed', 'Please enter the OTP');
   } else {
     if (verifyemail_controller.userList.value.otp .toString() 
            == verifyemailOTP_controller.pinController .value .text) {
@@ -456,7 +507,7 @@ print("${ verifyemailOTP_controller.pinController .value .text}===========otp");
     } else {
       // Display an error message indicating that the OTP is incorrect
       print("${ verifyemailOTP_controller.pinController .value .text}===========otp");
-     Utils2.snackBar('Failed', 'Please Enter Correct Otp');
+     Utils.snackBar(context,'Failed', 'Please Enter Correct Otp');
       print('Incorrect OTP');
     } }},    
                                                 
@@ -501,12 +552,12 @@ print("${ verifyemailOTP_controller.pinController .value .text}===========otp");
                                         ),
                                       ),
                                     );
-                                  },
-                                );
-                              } } 
-                              else {
-            Utils.snackBar(context, 'فشل', 'تم التحقق من الهاتف بالفعل');
-          print('Email is already verified');
+                                        },
+            );
+          } else {
+            Utils.snackBar(context, 'Failed',  'Email has already been verified');
+           
+          }
         }
       },child: !(verifyemail.value == true )
                                   ? Text(
@@ -589,6 +640,10 @@ print("${ verifyemailOTP_controller.pinController .value .text}===========otp");
         else if(signup_controller.firstNameController.value.length<=2){
           return 'يجب أن يتكون الاسم الأول من 3 أحرف على الأقل. ';
         }
+        else if (RegExp(r'[0-9]').hasMatch(value)) {
+        // Check if the value contains numbers
+        return ' Name should not contain numbers';
+      }
           // else if (value.length <= 3) {
           //             return 'يجب أن يتكون الاسم الأول من 3 أحرف على الأقل.';}
         else {
@@ -611,6 +666,10 @@ print("${ verifyemailOTP_controller.pinController .value .text}===========otp");
         else if(signup_controller.lastNameController.value.length<=2){
           return 'يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل. ';
         }
+        else if (RegExp(r'[0-9]').hasMatch(value)) {
+        // Check if the value contains numbers
+        return 'Last Name should not contain numbers';
+      }
           // else if (value.length <= 3) {
           //             return 'يجب أن يتكون الاسم الأخير من 3 أحرف على الأقل..';}
         else {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
@@ -15,14 +14,10 @@ class ChooseLanguageScreen extends StatefulWidget {
   @override
   State<ChooseLanguageScreen> createState() => _ChooseLanguageScreenState();
 }
-
 class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
-  
   String radioGroup = "";
-   String continueButtonText = "Continue";
-
+  String continueButtonText = "Continue";
   // int _value = 1;
-
   @override
   void initState() {
     super.initState();
@@ -41,28 +36,24 @@ Future<void> _loadSelectedLanguage() async {
       });}
     });
   }
-
   Future<void> _saveSelectedLanguage(String language) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selectedLanguage', language);
   }
-
   void _navigateToNextScreen()async {
      SharedPreferences prefs = await SharedPreferences.getInstance();
      String lang= prefs.getString('selectedLanguage').toString();
     if (lang=="Arabic") {
-      print(lang);
+      print("$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
        Get.to(() => arabic_WelcomeScreen());
     } else if (lang=="English") {
-        print(lang);
+       print("$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
       Get.to(() => WelcomeScreen());
     }
-    
   }
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -81,19 +72,15 @@ Future<void> _loadSelectedLanguage() async {
               _buildChooseLanguageEnglish(context),
               SizedBox(height: 20.v),
               CustomElevatedButton(
-                
-                  // Check if a language is selected before navigating
                   onPressed: () async {
   if (radioGroup.isNotEmpty) {
     await _saveSelectedLanguage(radioGroup);
     _navigateToNextScreen();
   } 
-   
   else {
     Utils.snackBar(context, '', 'Please Select a Language\nيرجى تحديد لغة ');
     print("Please choose a language");
-  }
-                },
+  } },
                 text: continueButtonText,
                 buttonStyle: CustomButtonStyles.fillPrimary,
               ),
@@ -198,5 +185,4 @@ Future<void> _loadSelectedLanguage() async {
       ),
     );
   }
-  
 }

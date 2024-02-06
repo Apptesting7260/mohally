@@ -1,12 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/theme/custom_text_style.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
-import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
-import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 class ContactUs_arabic extends StatefulWidget {
@@ -69,24 +64,22 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
     );
   }
    PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
-      ),
-      title: AppbarSubtitle(
-        text: "Contact Us",
-        margin: EdgeInsets.only(left: 16),
-      ),
-    );
+    return   AppBar(
+          title: Text("اتصل بنا", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),),
+          leading: Padding(
+            padding: const EdgeInsets.only(top:15, ),
+            child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                width: Get.width*.07,
+                height: Get.height*.03,
+                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
+                child: Icon(Icons.arrow_back, )),
+            ),
+          ),
+        );
   }
   Widget _buildName(BuildContext context) {
     return CustomTextFormField(

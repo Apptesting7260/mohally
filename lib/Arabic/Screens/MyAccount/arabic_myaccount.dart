@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Screens/EditMyaccount/arabic_editAccount.dart';
+import 'package:mohally/Arabic/Screens/Myprofile/my_profile_arabic.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/data/app_exceptions.dart';
@@ -79,8 +80,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar:
-      
-      _buildAppBar(context),
+       _buildAppBar(context),
       body: Directionality(
         textDirection: TextDirection.ltr,
         child: Obx(() {
@@ -134,19 +134,20 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("يختار"),
+                                  return  AlertDialog(
+                                    backgroundColor: Color(0xFFFF8300),
+                                    title: Text("يختار" , textAlign:TextAlign.right, style:TextStyle( fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400),),
                                     content: Row(
                                       children: [
                                         GestureDetector(
-                                          child: Text("آلة تصوير"),
+                                          child: Text("آلة تصوير", style: TextStyle( fontFamily: 'Almarai', color: Colors.white,fontSize:16),),
                                           onTap: () {
                                             openCameraa(ImageSource.camera);
                                           },
                                         ),
                                         SizedBox(width: 80),
                                         GestureDetector(
-                                          child: Text("صالة عرض"),
+                                          child: Text("صالة عرض", style: TextStyle( fontFamily: 'Almarai', color: Colors.white, fontSize:16)),
                                           onTap: () {
                                             openCameraa(ImageSource.gallery);
                                           },
@@ -247,21 +248,10 @@ Widget _buildContinueButton(BuildContext context) {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      
-      leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
-      ),
-      title: Row(
+    return  AppBar(
+          title:
+          Row(
+
         children: [
           AppbarSubtitle(
             text: "حسابي",
@@ -288,6 +278,20 @@ SizedBox(width: Get.width*.3,),
                           ),
         ],
       ),
-    );
+          leading: Padding(
+            padding: const EdgeInsets.only(top:15, ),
+            child: GestureDetector(
+              onTap: () {
+              Get.offAll(MyProfilePage_arabic());
+              },
+              child: Container(
+                width: Get.width*.07,
+                height: Get.height*.03,
+                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
+                child: Icon(Icons.arrow_back, )
+                ),
+            ),
+          ),
+        );
   }
 }

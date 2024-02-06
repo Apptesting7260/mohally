@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Myprofile/my_profile_arabic.dart';
 import 'package:mohally/Arabic/widgets/arabic_add_review.dart';
 import 'package:mohally/presentation/add_review_screen/add_review_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class ReviewsScreen_arabic extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar:  AppBar(
+        appBar:  
+        AppBar(
           title: Text("مراجعات العناصر", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),),
           leading: Padding(
             padding: const EdgeInsets.only(top:15, ),

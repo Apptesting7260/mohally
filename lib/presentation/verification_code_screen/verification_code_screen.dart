@@ -1,10 +1,12 @@
 // ignore_for_file: unused_import
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/view_models/controller/reset_password/reset_password_controller.dart';
-import 'package:mohally/view_models/controller/resetpasswordotp_controller/resetpasswordotp_controller.dart';
+import 'package:mohally/view_models/controller/resetpasswordotp_controller/verificationOtp_controller.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page_one_tab_container_page/home_page_one_tab_container_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -34,8 +36,9 @@ class VerificationCodeScreen extends StatefulWidget {
 }
 
 class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
-  ResetpasswordOTP_controller resetpasswordOTP_controller =
-      Get.put(ResetpasswordOTP_controller());
+  Resetpassword_controller resend =Get.put(Resetpassword_controller());
+  VerificationOTP_controller resetpasswordOTP_controller =
+      Get.put(VerificationOTP_controller());
   RxInt waitOtp = 60.obs;
   RxBool waitOtpShow = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -54,25 +57,33 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     });
   }
 
-void resendOtp() {
-  resetpasswordOTP_controller.loading.value = true;
-  resetpasswordOTP_controller.resendOtp(varificationemail!).then((success) {
-    resetpasswordOTP_controller.loading.value = false;
+
+void resendOtp() async {
+  try {
+     resetpasswordOTP_controller.loading.value = true;
+    // Get the email from the widget
+    String? email = widget.emailText;
+ SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String language = prefs.getString('selectedLanguage') ?? "";
+    // Call the resendOtp method from the controller
+    bool success = await resend.resendOtp(email!,language );
+    // Show a snackbar based on the response
     if (success) {
-      Utils.snackBar(context, 'Success', ' Otp Send On Your Email');
-      resetpasswordOTP_controller.pinController.value.text = '';
-      setState(() {
-      print('refreshingggggggg');
-      });
+      Utils.snackBar(context ,'Success', 'OTP resend successfully');
+       resetpasswordOTP_controller.pinController.value.clear();
+        resetpasswordOTP_controller.loading.value = false;
+
     } else {
-      Utils.snackBar(context, 'Error', resetpasswordOTP_controller.error.value);
+      Utils.snackBar(context ,'Error', 'Failed to resend OTP');
+       resetpasswordOTP_controller.loading.value = false;
+
     }
-  });
+  } catch (error) {
+    print("Error: $error");
+    Utils2.snackBar('Error', 'Failed to resend OTP');
+  }
 }
-
-
-
-
   @override
   void initState() {
     resetpasswordOTP_controller.pinController.value.clear();
@@ -106,180 +117,123 @@ void resendOtp() {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(
-            horizontal: 6.h,
-            vertical: 45.v,
-          ),
+        body: SingleChildScrollView(
           child: Form(
             key: formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 10.v),
-                Text(
-                  'Verification Code',
-                  style: theme.textTheme.headlineLarge,
-                ),
-                SizedBox(height: 19.v),
-                Container(
-                  width: 261.h,
-                  margin: EdgeInsets.symmetric(horizontal: 50.h),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text:'Please type the verification code sent to',
-                          style: CustomTextStyles.bodyLargeGray50001_2,
-                        ),
-                        TextSpan(
-                          text: varificationemail,
-                          style: CustomTextStyles.titleMediumPrimary16_1,
-                        ),
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
+            child: Container(
+              height: Get.height,
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(
+                horizontal: 6.h,
+                vertical: 45.v,
+              ),
+              child: 
+              Column(
+                children: [
+                  SizedBox(height: 10.v),
+                  Text(
+                    'Verification Code',
+                    style: theme.textTheme.headlineLarge,
                   ),
-                ),
-                SizedBox(height: 36.v),
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //     left: 19.h,
-                //     right: 18.h,
-                //   ),
-                //   child: CustomPinCodeTextField(
-                //     context: context,
-                //     onChanged: (value) {},
-                //   ),
-                // ),
-                Pinput(
-                  length: 6,
-                  autofocus: true,
-                  useNativeKeyboard: true,
-                  keyboardType: TextInputType.number,
-                  defaultPinTheme: defaultPinTheme,
-                  onSubmitted: (String pin) => _showSnackBar(pin, context),
-                  focusNode: _pinPutFocusNode,
-                  controller: resetpasswordOTP_controller.pinController.value,
-                  submittedPinTheme: defaultPinTheme,
-                  focusedPinTheme: defaultPinTheme,
-                  followingPinTheme: defaultPinTheme,
-                ),
-
-                SizedBox(height: 20.v),
-                Obx((){
-                  return CustomElevatedButton(
-                    loading: resetpasswordOTP_controller.loading.value,
-                    onPressed: 
-                    // () {
-                    //   // otpbuttonused.value == true
-                    //   //     ? () {}
-                    //   //     : () {
-                    //           otpbuttonused.value = true;
-                    //           if (formKey.currentState!.validate()) {
-                    //             formKey.currentState!.save();
-                    //             _pinPutFocusNode.unfocus();
-                    //             formKey.currentState!.validate();
-                    //             resetpasswordOTP_controller
-                    //                 .ResetpasswordOTP_apihit(context);
-                  
-                    //             // resetpasswordOTP_controller.pinController.value.clear();
-                    //           }
-                    //         // };
-                    //   // Get.to(() => TabScreen(
-                    //   //       index: 0,
-                    //   //     ));
-                    // },
-                  
-                    () {
-                                if (!formKey.currentState!.validate()) {
-                                  return;
-                                } else {
-                               resetpasswordOTP_controller.loading.value=true;
-                               resetpasswordOTP_controller
-                                    .ResetpasswordOTP_apihit(context);
-                                    _pinPutFocusNode.unfocus();
-                                      formKey.currentState!.save();
-                                    // Get.offAll(() =>  Password_ChangedScreen(email: ForgetPassVm.emailcontroller.value.text));
-                  
-                                }
-                                },
-                    text: 'Verify',
-                    margin: EdgeInsets.symmetric(horizontal: 24.h),
-                    buttonStyle: CustomButtonStyles.fillPrimary,
-                  );
-                }
-
-                ),
-                SizedBox(height: 24.v),
-                InkWell(
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text:'I don\'t receive a code!',
-                          style: CustomTextStyles.bodyLargeLight,
+                  SizedBox(height: 19.v),
+                  Container(
+                    width: 261.h,
+                    margin: EdgeInsets.symmetric(horizontal: 50.h),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:'Please type the verification code sent to',
+                            style: CustomTextStyles.bodyLargeGray50001_2,
+                          ),
+                           TextSpan(
+                          text:'\n',
+                           
                         ),
                         TextSpan(
-                          text: "Resend",
-                          style: CustomTextStyles.titleMediumPrimary,
-                          // !waitOtpShow.value == true
-                          //     ? "Resend"
-                          //     : waitOtp.value.toString(),
-                          // style: CustomTextStyles.titleMediumPrimary,
-                          // recognizer: TapGestureRecognizer()
-                          //   ..onTap = waitOtpShow.value == true
-                          //       ? () {}
-                          //       : () {
-                          //           waitOtp.value = 60;
-                          //           resetpasswordOTP_controller
-                          //               .ResetpasswordOTP_apihit();
-                          //
-                          //           waitOtpUpdate();
-                          //         }
-                          
+                          text:'\n',
+                           
                         ),
-                      ],
+                          TextSpan(
+                            text: varificationemail,
+                            style: CustomTextStyles.titleMediumPrimary16_1,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.left,
                   ),
-                  onTap: (){
-                    resendOtp();
-                  },
-                ),
-                // Spacer(),
-                // _buildVerificationCodeGrid(context),
-                // SizedBox(height: 7.v),
-                // Align(
-                //   alignment: Alignment.centerRight,
-                //   child: Padding(
-                //     padding: EdgeInsets.only(right: 44.h),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.end,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         CustomElevatedButton(
-                //           height: 46.v,
-                //           width: 117.h,
-                //           text: "0",
-                //           buttonStyle: CustomButtonStyles.outlineBlueGray,
-                //           buttonTextStyle: theme.textTheme.headlineSmall!,
-                //         ),
-                //         CustomImageView(
-                //           imagePath: ImageConstant.imgDelete,
-                //           height: 18.v,
-                //           width: 22.h,
-                //           margin: EdgeInsets.only(
-                //             left: 55.h,
-                //             top: 13.v,
-                //             bottom: 15.v,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
-              ],
+                  SizedBox(height: 36.v),
+                 
+                  Pinput(
+                    validator:(value) {
+                        if (value!.isEmpty) {
+                          return "The otp field is required.";
+                        }
+                        return null; },
+                    length: 6,
+                    autofocus: false,
+                    useNativeKeyboard: true,
+                    keyboardType: TextInputType.number,
+                    defaultPinTheme: defaultPinTheme,
+                    onSubmitted: (String pin) => _showSnackBar(pin, context),
+                    focusNode: _pinPutFocusNode,
+                    controller: resetpasswordOTP_controller.pinController.value,
+                    submittedPinTheme: defaultPinTheme,
+                    focusedPinTheme: defaultPinTheme,
+                    followingPinTheme: defaultPinTheme,
+                    errorTextStyle: TextStyle(fontWeight: FontWeight.w500, fontFamily: 'League Spartan', fontSize: 10, color: Colors.red),
+                  ),
+                        
+                  SizedBox(height: 20.v),
+                  Obx((){
+                    return CustomElevatedButton(
+                      loading: resetpasswordOTP_controller.loading.value,
+                      onPressed: 
+                      () {
+                                  if (!formKey.currentState!.validate()) {
+                                    return;
+                                  } 
+                                      else {
+                                 resetpasswordOTP_controller.loading.value=true;
+                                 resetpasswordOTP_controller
+                                      .ResetpasswordOTP_apihit(context);
+                                      _pinPutFocusNode.unfocus();
+                                        formKey.currentState!.save();
+                                  }
+                                  },
+                      text: 'Verify',
+                      margin: EdgeInsets.symmetric(horizontal: 24.h),
+                      buttonStyle: CustomButtonStyles.fillPrimary,
+                    );
+                  }
+                         
+                  ),
+                  SizedBox(height: 24.v),
+                  InkWell(
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:'I don\'t receive a code!',
+                            style: CustomTextStyles.bodyLargeLight,
+                          ),
+                          TextSpan(
+                            text: "Resend",
+                            style: CustomTextStyles.titleMediumPrimary,
+                            
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    onTap: (){
+                      resendOtp();
+                    },
+                  ),
+                
+                ],
+              ),
             ),
           ),
         ),

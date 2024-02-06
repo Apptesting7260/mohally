@@ -42,7 +42,6 @@ class _ForgotState extends State<Forgot> {
             key: _formKey,
             child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
                 SizedBox(height: 45.v),
                 Align(
@@ -96,7 +95,7 @@ class _ForgotState extends State<Forgot> {
       return;
     } else {
       resetpassword_controller.loading.value = true;
-      resetpassword_controller.Resetpassword_apihit(context);
+      resetpassword_controller.resetPasswordApiHit(context);
       _formKey.currentState!.save();
       // Get.to(() => VerificationCodeScreen(
       //       controller: TextEditingController(),
@@ -109,7 +108,7 @@ class _ForgotState extends State<Forgot> {
     return CustomTextFormField(
       validator: (value) {
         if (!isEmail(value!)) {
-          return 'Please enter a valid email or phone number.';
+          return 'Please enter a valid email.';
         }
         return null;
       },

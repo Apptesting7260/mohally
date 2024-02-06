@@ -28,6 +28,7 @@ class CustomSearchView_arabic extends StatefulWidget {
     this.filled = true,
     this.validator,
     this.onChanged, 
+   this.onFieldSubmitted,
  
   }) : super(
           key: key,
@@ -73,6 +74,7 @@ final bool? readOnly;
   final FormFieldValidator<String>? validator;
 
   final Function(String)? onChanged;
+   final Function(String)? onFieldSubmitted;
 
   @override
   State<CustomSearchView_arabic> createState() => _CustomSearchView_arabicState();
@@ -96,6 +98,11 @@ class _CustomSearchView_arabicState extends State<CustomSearchView_arabic> {
         child:
         
          TextFormField(
+             onFieldSubmitted: (String value) {
+            if (widget.onFieldSubmitted != null) {
+              widget.onFieldSubmitted!.call(value);
+            }
+          },
           controller: widget.controller,
           focusNode: widget.focusNode ?? FocusNode(),
           autofocus: widget.autofocus!,
@@ -108,9 +115,10 @@ class _CustomSearchView_arabicState extends State<CustomSearchView_arabic> {
           onChanged: (String value) {
             widget.onChanged!.call(value);
           },
+          
           onTap: (){
              if (widget.enableTap!) {
-              Get.to(SearchHistory_arabic());
+              Get.to(SearchHistoryArabic());
               print('tapingggggggggggggggggggggggg');
             }
           },
@@ -195,6 +203,10 @@ class _CustomSearchView_arabicState extends State<CustomSearchView_arabic> {
               ),
             ),
       );
+
+
+
+      
 }
 
 

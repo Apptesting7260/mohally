@@ -27,7 +27,8 @@ class _ShippingaddressesItemWidget_arabicState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Column(
+      body:
+       Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(18.0),

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:mohally/Arabic/widgets/arabic_review.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -80,25 +81,29 @@ class AddReviewScreen_arabic extends StatelessWidget {
   }
 
   /// Section Widget
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      leadingWidth: 60.h,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20.h,
-          top: 8.v,
-          bottom: 8.v,
-        ),
-      ),
-      title: AppbarSubtitle(
-        text:" إضافة مراجعة",
-        margin: EdgeInsets.only(left: 16.h),
-      ),
-    );
+    return AppBar(
+          title:
+          AppbarSubtitle(
+            text: " إضافة مراجعة",
+            margin: EdgeInsets.only(left: 16),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(top:15, ),
+            child: GestureDetector(
+              onTap: () {
+              Get.offAll(ReviewsScreen_arabic());
+              },
+              child: Container(
+                width: Get.width*.07,
+                height: Get.height*.03,
+                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
+                child: Icon(Icons.arrow_back, )
+                ),
+            ),
+          ),
+        );
   }
 
   /// Section Widget

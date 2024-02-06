@@ -14,6 +14,7 @@ import '../drawer_draweritem/drawer_draweritem.dart';
 
 // ignore_for_file: must_be_immutable
 class HomePageOneTabContainerPage extends StatefulWidget {
+  
   const HomePageOneTabContainerPage({Key? key})
       : super(
           key: key,
@@ -26,6 +27,16 @@ class HomePageOneTabContainerPage extends StatefulWidget {
 
 class HomePageOneTabContainerPageState
     extends State<HomePageOneTabContainerPage> with TickerProviderStateMixin {
+      List<String> title = [
+  'All',
+  'Women',
+  'Men',
+  'Kids',
+  "Jewelry",
+];
+ PageController _pageController = PageController();
+
+  int selectedTabIndex=0;
 
  File imgFile = File("");
 
@@ -121,23 +132,8 @@ class HomePageOneTabContainerPageState
                 ),
               ),
               SizedBox(height: 27.v),
-              _buildTabview(context),
-              Expanded(
-                child: SizedBox(
-                  height: 1417.v,
-                  child: TabBarView(
-                    controller: tabviewController,
-                    children: [
-                      HomePageOnePage(),
-                      HomePageOnePage(),
-                      HomePageOnePage(),
-                      HomePageOnePage(),
-                      HomePageOnePage(),
-                      HomePageOnePage(),
-                    ],
-                  ),
-                ),
-              ),
+             _buildTabview(context),
+             
             ],
           ),
         ),
@@ -220,61 +216,89 @@ class HomePageOneTabContainerPageState
 
   /// Section Widget
   Widget _buildTabview(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        height: 33.v,
-        width: 355.h,
-        child: TabBar(
-          controller: tabviewController,
-          isScrollable: true,
-          labelColor: theme.colorScheme.primary,
-          labelStyle: TextStyle(
-            fontSize: 18.fSize,
-            fontFamily: 'League Spartan',
-            fontWeight: FontWeight.w400,
-          ),
-          unselectedLabelColor: appTheme.gray50001,
-          unselectedLabelStyle: TextStyle(
-            fontSize: 18.fSize,
-            fontFamily: 'League Spartan',
-            fontWeight: FontWeight.w400,
-          ),
-          indicatorColor: theme.colorScheme.primary,
-          tabs: [
-            Tab(
-              child: Text(
-                "_All".tr,
+    return
+    Column(
+      children: [
+        Container(
+              height: Get.height * .05,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: title.length,
+                itemBuilder: (context, index) {
+             bool isSelected = index == selectedTabIndex; // Assuming you have a variable to track the selected tab index
+            
+            return GestureDetector(
+             onTap: () {
+        setState(() {
+          selectedTabIndex = index;
+        });
+          _pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+          },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title[index],
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: isSelected ? Colors.orange : Colors.grey,
+                          fontWeight: FontWeight.w400,
+                          fontFamily:  'Almarai',
+                        ),
+                      ),
+                      SizedBox(height: Get.height*.005,),
+                      if (isSelected)
+                      Container(
+                    width: 60,
+                    height: 2,
+                    decoration:     BoxDecoration(
+                borderRadius: BorderRadius.circular(30), 
+                color: Color(0xffff8300))
+                    ),
+                        SizedBox(width: Get.width*.2,),
+                    ],
+                  ),
+                ),
+              ),
+            );
+                },
               ),
             ),
-            Tab(
-              child: Text(
-                "Women",
+             Container(
+                height: Get.height * 0.6,
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      selectedTabIndex = index;
+                    });
+                  },
+                  children: [
+                    Container(
+                      child:  HomePageOnePage(),
+                    ),
+                     Container(
+                      child:  HomePageOnePage()
+                    ),
+                      Container(
+                      child:  HomePageOnePage(),
+                    ),
+                    Container(
+                      child:  HomePageOnePage(),
+                    ),
+                      Container(
+                      child:  HomePageOnePage(),
+                    ),
+                    // Add more pages as needed
+                  ],
+                ),
               ),
-            ),
-            Tab(
-              child: Text(
-                "Men",
-              ),
-            ),
-            Tab(
-              child: Text(
-                "kids",
-              ),
-            ),
-            Tab(
-              child: Text(
-                "Jewelry",
-              ),
-            ),
-            Tab(
-              child: Text(
-                "Bags",
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
+       
+
   }
 }

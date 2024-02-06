@@ -1,41 +1,56 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/widgets/Address/arabic_shippingaddress.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_edit_address_controller.dart';
+import 'package:mohally/Arabic/Arabic_controllers/user_Address_view_Controller.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/view_models/controller/RemoveAddressController/remove_address_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
-
+import 'package:pinput/pinput.dart';
 // ignore: must_be_immutable
-class EditAddress_arabic extends StatelessWidget {
+class EditAddress_arabic extends StatefulWidget {
   EditAddress_arabic({Key? key})
       : super(
           key: key,
         );
 
-  TextEditingController nameEditTextController = TextEditingController();
+  @override
+  State<EditAddress_arabic> createState() => _EditAddress_arabicState();
+}
 
-  TextEditingController addressEditTextController = TextEditingController();
-
-  TextEditingController cityEditTextController = TextEditingController();
-
-  TextEditingController countryEditTextController = TextEditingController();
-
-  TextEditingController californiaEditTextController = TextEditingController();
-
-  TextEditingController zipcodeEditTextController = TextEditingController();
-
-  TextEditingController group184EditTextController = TextEditingController();
-
-  bool isSelectedSwitch = false;
-
+class _EditAddress_arabicState extends State<EditAddress_arabic> {
+     RemoveAddressController removeAddressController = RemoveAddressController();
+     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+// Createaddress_controller _newAddressController =  Createaddress_controller();
+  Updateaddress_controller _editAddressController =Updateaddress_controller();
+  useraddressviewcontroller useraddressview =useraddressviewcontroller();
+ @override
+  void initState() {
+    super.initState();
+    // Retrieve the passed data
+    Map<String, dynamic>? addressData = Get.arguments;
+    
+    // Check if data is not null
+    if (addressData != null) {
+      _editAddressController.addressid.value = addressData['user_id'] ?? "";
+      _editAddressController.nameEditTextController1.value.text = addressData['tempUserName'] ?? "";
+      _editAddressController.addressEditTextController1.value.text = addressData['address'] ?? "";
+      _editAddressController.countrycontroller.value.text = addressData['country'] ?? "";
+      _editAddressController.cityEditTextController1.value.text = addressData['city'] ?? "";
+      _editAddressController.group184EditTextController1.value.text =addressData['mobile_number']??"";
+      _editAddressController.californiaEditTextController1.value.text =addressData['state']??"";
+       _editAddressController.zipcodeEditTextController1.value.text =addressData['zip_code']??"";
+      // Add other fields as needed
+    }
+  }
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -55,77 +70,80 @@ class EditAddress_arabic extends StatelessWidget {
             ),
           ),
         ),
-        body: SizedBox(
-          width: mediaQueryData.size.width,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: 19.v),
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 20.h,
-                right: 20.h,
-                bottom: 5.v,
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "اسم",
-                      style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+        body: Form(
+          key: _formKey,
+          child: SizedBox(
+            width: mediaQueryData.size.width,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(top: 19.v),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 20.h,
+                  right: 20.h,
+                  bottom: 5.v,
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "اسم",
+                        style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildNameEditText(context),
-                  SizedBox(height: 17.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "عنوان",
-                      style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                    SizedBox(height: 9.v),
+                    _buildNameEditText(context),
+                    SizedBox(height: 17.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "عنوان",
+                        style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildAddressEditText(context),
-                  SizedBox(height: 19.v),
-                  _buildCityRow(context),
-                  SizedBox(height: 19.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "الدولة / الإقليم / المنطقة",
-                      style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                    SizedBox(height: 9.v),
+                    _buildAddressEditText(context),
+                    SizedBox(height: 19.v),
+                    _buildCityRow(context),
+                    SizedBox(height: 19.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "الدولة / الإقليم / المنطقة",
+                        style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 7.v),
-                  _buildCaliforniaEditText(context),
-                  SizedBox(height: 19.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "الرمز البريدي / الرمز البريدي)",
-                      style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                    SizedBox(height: 7.v),
+                    _buildCaliforniaEditText(context),
+                    SizedBox(height: 19.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "الرمز البريدي / الرمز البريدي)",
+                        style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 7.v),
-                  _buildZipcodeEditText(context),
-                  SizedBox(height: 17.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "رقم الهاتف المحمول",
-                      style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                    SizedBox(height: 7.v),
+                    _buildZipcodeEditText(context),
+                    SizedBox(height: 17.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "رقم الهاتف المحمول",
+                        style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildGroup184(context),
-                  SizedBox(height: 20.v),
-                  _buildSaveRow(context),
-                  SizedBox(height: 30.v),
-                  _buildSaveAddressButton(context),
- SizedBox(height: 20.v),
-                  _buildDeletE(context),
-                   SizedBox(height: 30.v),
-                ],
+                    SizedBox(height: 9.v),
+                    _buildGroup184(context),
+                    SizedBox(height: 20.v),
+                    _buildSaveRow(context),
+                    SizedBox(height: 30.v),
+                    _buildSaveAddressButton(context),
+           SizedBox(height: 20.v),
+                    _buildDeletE(context),
+                     SizedBox(height: 30.v),
+                  ],
+                ),
               ),
             ),
           ),
@@ -159,16 +177,33 @@ class EditAddress_arabic extends StatelessWidget {
   /// Section Widget
   Widget _buildNameEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: nameEditTextController,
+      controller: _editAddressController.nameEditTextController1.value,
       hintText: "John Due",
+       validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Name'  ;
+      } 
+          else if (RegExp(r'[0-9]').hasMatch(value)) {
+        // Check if the value contains numbers
+        return ' Name should not contain numbers';
+      }
+return null;
+        }
     );
   }
 
   /// Section Widget
   Widget _buildAddressEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: addressEditTextController,
+      controller:  _editAddressController.addressEditTextController1.value,
       hintText: "3 Newbridge Court",
+      validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Address'  ;
+      }
+return null; 
+          
+        }
     );
   }
 
@@ -176,7 +211,14 @@ class EditAddress_arabic extends StatelessWidget {
   Widget _buildCityEditText(BuildContext context) {
     return CustomTextFormField(
       width: 160.h,
-      controller: cityEditTextController,
+       validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Your City'  ;
+      }
+return null; 
+          
+        },
+      controller:  _editAddressController.cityEditTextController1.value,
       hintText: "ولايات المتحدة",
         hintStyle: TextStyle(fontFamily: 'Almarai', fontSize: 12, fontWeight: FontWeight.w400, ),
       suffix: Container(
@@ -200,35 +242,178 @@ class EditAddress_arabic extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildCountryEditText(BuildContext context) {
-    return CustomTextFormField(
-      width: 160.h,
-      controller: countryEditTextController,
-      hintText: "تشينو هيلز",
-      hintStyle: TextStyle(fontFamily: 'Almarai', fontSize: 12, fontWeight: FontWeight.w400, ),
-      suffix: Container(
-        margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgVectorGray900014x8,
-          height: 4.v,
-          width: 8.h,
+//   Widget _buildCountryEditText(BuildContext context) {
+//     return 
+//  Container(
+//   width: Get.width*.5,
+//    height: Get.height * 0.07,
+//    child: TextFormField(
+//      cursorColor: Colors.black,
+//      controller: _editAddressController.countrycontroller.value,
+//      inputFormatters: [LengthLimitingTextInputFormatter(10)],
+//                validator: (value){
+// if (value!.isEmpty) {
+//           return 'Please Select  Country'  ;
+//       } 
+//         },
+//      showCursor: false,
+//      keyboardType: TextInputType.number,
+//      decoration: InputDecoration(
+//        prefixIcon: CountryCodePicker(
+//          padding: EdgeInsets.only(bottom: 1),
+//          onChanged: (element) => debugPrint(element.toLongString()),
+//          initialSelection: 'US',
+//          countryFilter: [],
+//          showCountryOnly: true,
+//          showOnlyCountryWhenClosed: true,
+//          textStyle: TextStyle(
+// color: Color(0xFF272727),
+// fontSize: 12,
+// fontFamily: 'League Spartan',
+// fontWeight: FontWeight.w400,),
+//          alignLeft: true,
+//     searchDecoration: InputDecoration( enabledBorder: OutlineInputBorder(
+//          borderRadius: BorderRadius.circular(30),
+//          borderSide: BorderSide(
+//            color: theme.colorScheme.onPrimaryContainer,
+//          ),
+//        ),
+//        focusedBorder: OutlineInputBorder(
+//          borderRadius: BorderRadius.circular(25),
+//          borderSide: BorderSide(
+//            color: Colors.black,
+//            width: 1
+//          ),
+//        ),
+       
+//        ),
+//        searchStyle:TextStyle(color:appTheme.orange400 ),
+//        showFlagDialog: true,
+//          showDropDownButton: true, 
+//          showFlag: false,
+//        ),
+       
+//        hintStyle: TextStyle(
+//          fontFamily: 'League Spartan',
+//          color: Colors.black,
+//        ),
+//        fillColor: appTheme.gray100,
+//        filled: true,
+//        border: OutlineInputBorder(
+//          borderRadius: BorderRadius.circular(30),
+//          borderSide: BorderSide(
+//            color: theme.colorScheme.onPrimaryContainer,
+//            width: 1,
+//          ),
+//        ),
+//        enabledBorder: OutlineInputBorder(
+//          borderRadius: BorderRadius.circular(30),
+//          borderSide: BorderSide(
+//            color: theme.colorScheme.onPrimaryContainer,
+//            width: 1,
+//          ),
+//        ),
+//        focusedBorder: OutlineInputBorder(
+//          borderRadius: BorderRadius.circular(25),
+//          borderSide: BorderSide(
+//            color: appTheme.gray300,
+//            width: 1,
+//          ),
+//        ),
+//      ),
+//    ),
+//  );
+
+
+//   }
+Widget _buildCountryEditText(BuildContext context) {
+  return Container(
+    width: Get.width * 0.5,
+    height: Get.height * 0.07,
+    child: TextFormField(
+      cursorColor: Colors.black,
+      controller: _editAddressController.countrycontroller.value,
+      inputFormatters: [LengthLimitingTextInputFormatter(10)],
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Select Country';
+        }
+        return null;
+      },
+      showCursor: false,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        prefixIcon: CountryCodePicker(
+          padding: EdgeInsets.only(bottom: 1),
+          onChanged: (CountryCode countryCode) {
+            // Set the selected country to the controller
+             _editAddressController.countrycontroller.value.text =
+                countryCode.name.toString();
+          },
+          initialSelection: _editAddressController.countrycontroller.value.text,
+          countryFilter: [],
+          showCountryOnly: true,
+          showOnlyCountryWhenClosed: true,
+          textStyle: TextStyle(
+            color: Color(0xFF272727),
+            fontSize: 12,
+            fontFamily: 'League Spartan',
+            fontWeight: FontWeight.w400,
+          ),
+          alignLeft: true,
+          searchDecoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide(
+                color: theme.colorScheme.onPrimaryContainer,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(color: Colors.black, width: 1),
+            ),
+          ),
+          searchStyle: TextStyle(color: appTheme.orange400),
+          showFlagDialog: true,
+          showDropDownButton: true,
+          showFlag: false,
+        ),
+        hintStyle: TextStyle(
+          fontFamily: 'League Spartan',
+          color: Colors.black,
+        ),
+        fillColor: appTheme.gray100,
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: theme.colorScheme.onPrimaryContainer,
+            width: 1,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: theme.colorScheme.onPrimaryContainer,
+            width: 1,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide(
+            color: appTheme.gray300,
+            width: 1,
+          ),
         ),
       ),
-      suffixConstraints: BoxConstraints(
-        maxHeight: 50.v,
-      ),
-      contentPadding: EdgeInsets.only(
-        left: 16.h,
-        top: 17.v,
-        bottom: 17.v,
-        right: 10.v
-      ),
-    );
-  }
+    ),
+  );
+}
+
 
   /// Section Widget
   Widget _buildCityRow(BuildContext context) {
-    return Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
@@ -238,7 +423,7 @@ class EditAddress_arabic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "دولة",
+                  "مدينة",
                   style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
                 ),
                 SizedBox(height: 7.v),
@@ -255,7 +440,7 @@ class EditAddress_arabic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "المدينة",
+                  "دولة",
                   style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
                 ),
                 SizedBox(height: 7.v),
@@ -271,7 +456,14 @@ class EditAddress_arabic extends StatelessWidget {
   /// Section Widget
   Widget _buildCaliforniaEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: californiaEditTextController,
+          validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Your State'  ;
+      }
+return null; 
+          
+        },
+      controller:  _editAddressController.californiaEditTextController1.value,
       hintText: "California",
     );
   }
@@ -279,7 +471,14 @@ class EditAddress_arabic extends StatelessWidget {
   /// Section Widget
   Widget _buildZipcodeEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: zipcodeEditTextController,
+           validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Zipcode'  ;
+      }
+return null; 
+          
+        },
+      controller:  _editAddressController.zipcodeEditTextController1.value,
       hintText: "91709",
     );
   }
@@ -293,8 +492,18 @@ class EditAddress_arabic extends StatelessWidget {
           top: 3.v,
         ),
         child: CustomTextFormField(
-          controller: group184EditTextController,
+          controller:  _editAddressController.group184EditTextController1.value,
           hintText: "1453-987533",
+          validator: (value){
+if (value!.isEmpty) {
+          return 'Please Enter Your Mobile Number'  ;
+      } 
+      else if(_editAddressController.group184EditTextController1.value.length!=10){
+       return "Phone Number Must be of Length 10 ";
+      }
+return null;
+          
+        },
           textInputAction: TextInputAction.done,
         ),
       ),
@@ -341,12 +550,12 @@ class EditAddress_arabic extends StatelessWidget {
             style: theme.textTheme.bodyLarge?.copyWith(fontFamily: 'Almarai'),
           ),
         ),
-        CustomSwitch(
-          value: isSelectedSwitch,
-          onChange: (value) {
-            isSelectedSwitch = value;
-          },
-        ),
+        // CustomSwitch(
+        //   value:  _editAddressController.isAddressActive.value,
+        //   onChange: (value) {
+        //     _editAddressController.toggleAddressStatus();
+        //   },
+        // ),
       ],
     );
   }
@@ -355,8 +564,14 @@ class EditAddress_arabic extends StatelessWidget {
   Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        Get.to(() => ShippingaddressesItemWidget_arabic());
-      },
+          if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+       _editAddressController.loading.value = true;
+       _editAddressController.Updateaddress_apihit();
+       _formKey.currentState!.save();
+    }
+        },
       text: "حفظ العنوان",
       margin: EdgeInsets.only(
         left: 8.h,
@@ -365,14 +580,26 @@ class EditAddress_arabic extends StatelessWidget {
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
   }
+
    Widget _buildDeletE(BuildContext context) {
-    return Container(
-      width: 290,
-height: 35,
-decoration: BoxDecoration(color:Colors.white, border: Border.all(color: Color(0xffff8300)),
-borderRadius: BorderRadius.all(Radius.circular(30))
-),
-child: Center(child: Text('حذف العنوان', style: TextStyle(fontFamily: 'Almarai', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),)),
+    return GestureDetector(
+      onTap: () {
+     
+
+      // Set the addressid to the ID you want to delete
+      removeAddressController.addressid.value = _editAddressController.addressid.value;
+
+      // Call the removeAddress_apiHit function
+      removeAddressController.removeAddress_apiHit();
+      },
+      child: Container(
+      width: 300,
+      height: 45,
+      decoration: BoxDecoration(color:Colors.white, border: Border.all(color: Color(0xffff8300)),
+      borderRadius: BorderRadius.all(Radius.circular(30))
+      ),
+      child: Center(child: Text('حذف العنوان', style: TextStyle(fontFamily: 'Almarai', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),)),
+      ),
     );
   }
 }

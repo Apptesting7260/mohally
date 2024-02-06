@@ -189,9 +189,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 3.v,
-                        bottom: 4.v,
+                         left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Order",
@@ -215,9 +215,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 4.v,
-                        bottom: 3.v,
+                       left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Wishlist",
@@ -227,7 +227,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                   ],
                 ),
               ),
-              SizedBox(height: 23.v),
+              SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
                   Get.to(() => MembershipScreen());
@@ -241,8 +241,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 3.v,
+                         left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Membership",
@@ -252,7 +253,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                   ],
                 ),
               ),
-              SizedBox(height: 19.v),
+              SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
                   Get.to(() => SpinTheWheelOneScreen());
@@ -267,7 +268,8 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Raffle to win",
@@ -292,7 +294,8 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     Padding(
                       padding: EdgeInsets.only(
                         left: 10.h,
-                        top: 3.v,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Privacy Policy",
@@ -313,8 +316,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                       width: 28.h,),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 3.v,
+                         left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Contact Us",
@@ -338,8 +342,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 3.v,
+                         left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Terms and Condition",
@@ -383,7 +388,8 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                   Padding(
                     padding: EdgeInsets.only(
                       left: 10.h,
-                      top: 6.v,
+                        top: 5.v,
+                        bottom: 2.v,
                     ),
                     child: GestureDetector(
                       onTap: (){
@@ -413,8 +419,9 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.h,
-                        top: 4.v,
+                      left: 10.h,
+                        top: 5.v,
+                        bottom: 2.v,
                       ),
                       child: Text(
                         "Logout",

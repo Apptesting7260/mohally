@@ -34,10 +34,20 @@ class Createpass_controller extends GetxController {
 
     };
     print(data);
+
     _api.Createpassapi(data).then((value){
+       print("Message: ${value.message}");
       loading.value = false ;
+      if(value.message == "Password Successfully Updated"){
       Get.offAll(  ()=>LoginScreen() );
       Utils.snackBar(context!, 'Success',"Password Successfully Updated");
+      }
+      else{
+         print("Error during password update: ${value.message}");
+    Utils.snackBar(context!, 'Error', value.message.toString());
+        //  Utils.snackBar(context!, 'Error',value.message.toString());
+      }
+
     }).onError((error, stackTrace){
       loading.value = false ;
       Utils.snackBar(context!,'Failed','Try again');   // error.toString()

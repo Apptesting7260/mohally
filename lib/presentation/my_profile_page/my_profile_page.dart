@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/coupans_offeres/coupan_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
-import 'package:mohally/presentation/tab_screen/tab_bar.dart';
+import 'package:mohally/presentation/splash_screen/splash_screen.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -31,7 +31,7 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-
+final  _controller = Get.put(MyAccountController());
      @override
   void initState() {
     super.initState();
@@ -159,22 +159,33 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "John Due",
-                            style: CustomTextStyles
-                                .headlineSmallLeagueSpartanSemiBold,
-                          ),
+                        Obx((){
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                             "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
+                             // "Name",
+                              style: CustomTextStyles
+                                  .headlineSmallLeagueSpartanSemiBold,
+                            ),
+                          );
+                        }
                         ),
+  
+                  
                         SizedBox(height: 10.v),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "examplejohn@gmail.com",
-                            style: CustomTextStyles.bodyLargeGray50001_3,
-                          ),
+                         Obx((){
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                             "${ _controller.MyAccount.value.userDetails?.email.toString()}",
+                             // "Name",
+                              style:  CustomTextStyles.bodyLargeGray50001_3,
+                            ),
+                          );
+                        }
                         ),
+                       
                         SizedBox(height: 36.v),
                         GestureDetector(
                           onTap: () {
@@ -283,7 +294,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           onPressed: () async {
                             await clearSharedPreferences();
 
-                            Get.offAll(() => ChooseLanguageScreen());
+                           // Get.offAll(() => ChooseLanguageScreen());
                           },
                           text: "Logout",
                           margin: EdgeInsets.symmetric(horizontal: 10.h),
@@ -306,7 +317,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.offAll(TabScreen(index:0));
+          Get.back();
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
@@ -363,7 +374,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-      Get.offAll(() => ChooseLanguageScreen());
+      Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

@@ -27,4 +27,7 @@ class MyAccountController extends GetxController {
       
     });
   }
+    void updateProfileImage(String imageUrl) {
+    MyAccount.value.userDetails?.imageUrl = imageUrl;
+  }
 }

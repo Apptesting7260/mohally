@@ -39,19 +39,23 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
+  void openCamera() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
-      imgFile = File(imgCamera!.path);
+      if (pickedFile != null) {
+        _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
+      }
     });
     Navigator.of(context).pop();
   }
 
   //open camera
-  void openCameraa(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
+  void openGallery() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
-      imgFile = File(imgCamera!.path);
+      if (pickedFile != null) {
+         _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
+      }
     });
     Navigator.of(context).pop();
   }
@@ -59,7 +63,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   void initState() {
      setInitialLocale();
 
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+SchedulerBinding.instance.addPostFrameCallback((_) {
  _controller.fetchMyAccountData();
 
 });
@@ -107,19 +111,21 @@ return GeneralExceptionWidget(onPress: (){},
                     Container(
                       height: height * .2,
                       width: width * .3,
-                      child:_controller.MyAccount.value.userDetails!.imageUrl==null? CircleAvatar(
+                      child:
+                      _controller.MyAccount.value.userDetails!.imageUrl==null? 
+                      CircleAvatar(
                         radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                        backgroundImage: 
+                        NetworkImage(
+                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"
+                            ),
                         backgroundColor: Colors.transparent,
-                      ):CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                           _controller.MyAccount.value.userDetails!.imageUrl.toString()),
-                        backgroundColor: Colors.transparent,
-                      
-                        
-                      ),
+                      )
+                      :CircleAvatar(
+                          radius: 30.0,
+                          backgroundImage: NetworkImage(_controller.MyAccount.value.userDetails!.imageUrl ),
+                          backgroundColor: Colors.transparent,
+                        ),
                     ),
                     CustomIconButton(
                       height: 30.adaptSize,
@@ -138,14 +144,14 @@ return GeneralExceptionWidget(onPress: (){},
                                       GestureDetector(
                                         child: Text("Camera"),
                                         onTap: () {
-                                          openCameraa(ImageSource.camera);
+                                            openCamera();
                                         },
                                       ),
                                       SizedBox(width: 80),
                                       GestureDetector(
                                         child: Text("Gallery"),
                                         onTap: () {
-                                          openCameraa(ImageSource.gallery);
+                                         openGallery();
                                         },
                                       ),
                                     ],
@@ -205,7 +211,6 @@ return GeneralExceptionWidget(onPress: (){},
   Widget _buildFirstName(BuildContext context) {
     return MyAccountTextField(
        hintText: _controller.MyAccount.value.userDetails!.firstName.toString(),
-
     );
   }
   Widget _buildLastName(BuildContext context) {

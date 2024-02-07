@@ -29,6 +29,7 @@ static const String productSearchbyNameApi ='${baseurl}product-search-by-name-ap
 static const String addremoveWishlistApi ='${baseurl}product-add-and-remove-wishlist-api';
 static const String wishlistViewApi ='${baseurl}wishlist-view-list-api';
 static const String seeAllMens ='${baseurl}see-all-main-category-api';
+static const String contactUs='${baseurl}contact-us-api';
 
 
 }

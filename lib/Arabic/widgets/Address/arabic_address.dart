@@ -112,7 +112,7 @@ class _addresses_arabicState
                                   // print(Updateaddress_controllerin.addressid.value);
                                   //     },
                                   onPressed: () async {
-  var result = await Get.to(EditAddress_arabic(), arguments: {
+  var result = await Get.off(EditAddress_arabic(), arguments: {
     'user_id': useraddressview.userList.value.userAddress![index].id.toString(),
     'tempUserName': useraddressview.userList.value.userAddress![index].tempUserName,
     'address': useraddressview.userList.value.userAddress![index].address,

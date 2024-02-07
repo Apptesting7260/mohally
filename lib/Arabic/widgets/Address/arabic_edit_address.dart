@@ -584,11 +584,8 @@ return null;
    Widget _buildDeletE(BuildContext context) {
     return GestureDetector(
       onTap: () {
-     
-
       // Set the addressid to the ID you want to delete
       removeAddressController.addressid.value = _editAddressController.addressid.value;
-
       // Call the removeAddress_apiHit function
       removeAddressController.removeAddress_apiHit();
       },

@@ -101,7 +101,7 @@ class _Default_addressState extends State<Default_address> {
                                   // print(Updateaddress_controllerin.addressid.value);
                                   //     },
                                   onPressed: () async {
-  var result = await Get.to(EditAddress(), arguments: {
+  var result = await Get.off(EditAddress(), arguments: {
     'user_id': viewaddresscontroller.userList.value.userAddress![index].id.toString(),
     'tempUserName': viewaddresscontroller.userList.value.userAddress![index].tempUserName,
     'address': viewaddresscontroller.userList.value.userAddress![index].address,

@@ -41,30 +41,59 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
 
   final imgPicker = ImagePicker();
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
+  // void openCamera(abc) async {
+  //   var imgCamera = await imgPicker.pickImage(source: abc);
+  //   setState(() {
+  //     UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
+  //   });
+  //   Navigator.of(context).pop();
+  // }
+
+  // //open camera
+  // void openCameraa(abc) async {
+  //   var imgCamera = await imgPicker.pickImage(source: abc);
+  //   setState(() {
+  //       UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
+  //     print("image------${ UpdateProfile_Controllerins.imgFile}");
+  //   });
+  //   Navigator.of(context).pop();
+  // }
+
+  void openCamera() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
-      UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
+      if (pickedFile != null) {
+        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+      }
     });
     Navigator.of(context).pop();
   }
 
-  //open camera
-  void openCameraa(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
+  // Open gallery method
+  void openGallery() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
-        UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
-      print("image------${ UpdateProfile_Controllerins.imgFile}");
+      if (pickedFile != null) {
+        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+      }
     });
     Navigator.of(context).pop();
   }
 void initState() {
-    UpdateProfile_Controllerins.firstNameController.value.text=MyAccountControllerins.MyAccount.value.userDetails!.firstName.toString();
-     UpdateProfile_Controllerins.lastNameController.value.text=MyAccountControllerins.MyAccount.value.userDetails!.lastName.toString();
-      UpdateProfile_Controllerins.emailController.value.text=MyAccountControllerins.MyAccount.value.userDetails!.email.toString();
-       UpdateProfile_Controllerins.phoneController.value.text=MyAccountControllerins.MyAccount.value.userDetails!.phone.toString();
-    super.initState();
+  if (MyAccountControllerins.MyAccount.value.userDetails != null) {
+    UpdateProfile_Controllerins.imgFile = MyAccountControllerins.MyAccount.value.userDetails!.imageUrl != null
+        ? File(MyAccountControllerins.MyAccount.value.userDetails!.imageUrl!)
+        : null;
+    UpdateProfile_Controllerins.firstNameController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.firstName ?? '';
+    UpdateProfile_Controllerins.lastNameController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.lastName ?? '';
+    UpdateProfile_Controllerins.emailController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.email ?? '';
+    UpdateProfile_Controllerins.phoneController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.phone ?? '';
   }
+  super.initState();
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -97,7 +126,7 @@ void initState() {
                         ):
                          CircleAvatar(
                           radius: 30.0,
-                          backgroundImage: FileImage(  UpdateProfile_Controllerins.imgFile!),
+                          backgroundImage: FileImage(UpdateProfile_Controllerins.imgFile!),
                           backgroundColor: Colors.transparent,
                         ),
                       ),
@@ -119,7 +148,7 @@ void initState() {
                                           child: Text("Camera"),
                                           onTap: () {
                                             // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            openCameraa(ImageSource.camera);
+                                            openCamera();
                                           },
                                         ),
                                         SizedBox(width: 80),
@@ -127,7 +156,7 @@ void initState() {
                                           child: Text("Gallery"),
                                           onTap: () {
                                             // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            openCameraa(ImageSource.gallery);
+                                            openGallery();
                                           },
                                         ),
                                       ],
@@ -239,14 +268,17 @@ Widget _builNumber(BuildContext context) {
     );
   }
   Widget _buildContinueButton(BuildContext context) {
-    return CustomElevatedButton(
-      onPressed: () {
-       
-        checkvalidate();
-       
-        },
-      text: 'update',
-      buttonStyle: CustomButtonStyles.fillPrimary,
+    return Obx((){
+return CustomElevatedButton(
+  loading: UpdateProfile_Controllerins.loading.value,
+        onPressed: () {
+          checkvalidate();
+          },
+        text: 'update',
+        buttonStyle: CustomButtonStyles.fillPrimary,
+      );
+    }
+      
     );
   }
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -269,13 +301,17 @@ Widget _builNumber(BuildContext context) {
       ),
     );
   }
-   checkvalidate() {
-    print("send");
-    if (_formKey.currentState!.validate()) {print('apihit');
-       UpdateProfile_Controllerins.ProfileApiHit();
-      return;
-    } else {
-     print('data');
-    }
+   checkvalidate() async {
+  print("send");
+  if (_formKey.currentState!.validate()) {
+    UpdateProfile_Controllerins.loading.value = true;
+    print('apihit');
+    await UpdateProfile_Controllerins.ProfileApiHit(); // Await the ProfileApiHit function
+    _formKey.currentState!.save();
+    return;
+  } else {
+    print('data');
   }
+}
+
 }

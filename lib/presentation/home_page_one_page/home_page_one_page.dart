@@ -23,7 +23,6 @@ import '../home_page_one_page/widgets/shippingsection_item_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
-
 // ignore_for_file: must_be_immutable
 class HomePageOnePage extends StatefulWidget {
   const HomePageOnePage({Key? key})
@@ -38,37 +37,17 @@ class HomePageOnePage extends StatefulWidget {
 class HomePageOnePageState extends State<HomePageOnePage>
     with AutomaticKeepAliveClientMixin<HomePageOnePage> {
       bool isProductAddedToWishlist = false;
-
-//    Future<void> loadStatus() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     List<String>? savedList = prefs.getStringList('buttonTappedList');
-//     if (savedList != null) {
-//       setState(() {
-//         isButtonTappedList = savedList.map((str) => str == 'true').toList();
-//       });
-//     }
-//   }
-
-//   // Save the current status to SharedPreferences
-//   Future<void> saveStatus() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     List<String> stringList = isButtonTappedList.map((value) => value.toString()).toList();
-//     prefs.setStringList('buttonTappedList', stringList);
-//   }
-// // Save the current status to SharedPreferences
-
-
-      List<bool> isButtonTappedList = List.generate(8, (index) => false);
+      List<bool> isButtonTappedList = List.generate(100, (index) => false);
     bool  isButtonTapped =false;
 
-    EnglishSingleProductViewController singleProductViewController =EnglishSingleProductViewController();
-   HomeView_controller_English homeView_controller = HomeView_controller_English();
+  EnglishSingleProductViewController singleProductViewController =EnglishSingleProductViewController();
+  HomeView_controller_English homeView_controller = HomeView_controller_English();
   HomeBanner_controller homeBanner_controller = HomeBanner_controller();
   EnglishAdd_remove_wishlistController englishAddRemoveWishlistController =EnglishAdd_remove_wishlistController();
   List<Widget> carouselItems = [
   //  Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
-    Image.asset("assets/images/banner 1.png"),
-    Image.asset("assets/images/banner 1.png")
+  Image.asset("assets/images/banner 1.png"),
+  Image.asset("assets/images/banner 1.png")
   ];
   @override
   void initState() {
@@ -407,32 +386,28 @@ fontWeight: FontWeight.w500,)
                  crossAxisSpacing: 10.h,
           ),
           physics: BouncingScrollPhysics(),
-          itemCount: homeView_controller.userList.value.recommendedProduct?.length ?? 0,
+          itemCount: homeView_controller.userList.value.recommendedProduct?.length,
           itemBuilder: (context, index) {
             return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-                // decoration:BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
-                                              
-           width: Get.width,padding: EdgeInsets.only(left: 10),
-        //    width: 170.adaptSize,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(                       
+                       width: Get.width,padding: EdgeInsets.only(left: 10),
+                    //    width: 170.adaptSize,
             child: Stack(
               alignment: Alignment.topRight,
               children: [
                 CustomImageView(
-                 
                   onTap: () {
-          Englishproductid =
-         homeView_controller.userList.value.recommendedProduct![index].id!.toString();
-        
+                      Englishproductid =
+                     homeView_controller.userList.value.recommendedProduct![index].id!.toString();
             setState(() {
-        Englishproductid;
+                    Englishproductid;
             });
-          Get.to(SinglePageScreen(), 
-          );
-        },
-         fit: BoxFit.cover,
+                      Get.to(SinglePageScreen(), 
+                      );
+                    },
+                     fit: BoxFit.cover,
                   imagePath:"${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
                   // ImageConstant.imgRectangle569,
                   height: 190.adaptSize,
@@ -460,7 +435,7 @@ fontWeight: FontWeight.w500,)
                           //  isButtonTapped = !isButtonTapped;
                            isButtonTappedList[index] =!isButtonTappedList[index];
                        });
-
+            
                         },
                     height: 20.adaptSize,
                     width: 20.adaptSize,
@@ -468,21 +443,21 @@ fontWeight: FontWeight.w500,)
                     decoration: IconButtonStyleHelper.fillWhiteA,
                     alignment: Alignment.topRight,
                     child:CustomImageView(
-        imagePath:  isButtonTappedList[index]
+                    imagePath:  isButtonTappedList[index]
             ? ImageConstant. imgGroup239531// Change this to your tapped image
             :  ImageConstant.imgSearch,    // Default image
-      ),
+                  ),
                   )
-     
-
+                 
+            
                                   
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 12.v),
-          
-           Padding(
+                      ),
+                      SizedBox(height: 12.v),
+                      
+                       Padding(
              padding: const EdgeInsets.only(left: 10),
              child: Container(
                   height: 16.v,
@@ -496,9 +471,9 @@ fontWeight: FontWeight.w500,)
               // fontFamily: 'Almarai'
                        ),),),
                      ),
-           ),
-          SizedBox(height: 5.v),
-          Padding(
+                       ),
+                      SizedBox(height: 5.v),
+                      Padding(
             padding: const EdgeInsets.only(left: 10),
             child: SizedBox(
               width: 131.h,
@@ -512,9 +487,9 @@ fontWeight: FontWeight.w500,)
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 3.v),
-          Padding(
+                      ),
+                      SizedBox(height: 3.v),
+                      Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
@@ -578,8 +553,8 @@ fontWeight: FontWeight.w500,)
             
               ],
             ),
-          ),
-        ],
+                      ),
+                    ],
             );
            
           },

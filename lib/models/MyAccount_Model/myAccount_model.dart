@@ -34,7 +34,7 @@ class UserDetails {
    String ?lastName;
    String ?email;
    String ?phone;
-   String ?imageUrl;
+   var imageUrl;
   
   UserDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];

@@ -192,7 +192,6 @@ Widget _buildWishlistGrid(BuildContext context) {
               itemCount: viewWishlistcontroller.userList.value.wishlistViewList!.length,
               itemBuilder: (context, index) {
                 final wishlistProduct = viewWishlistcontroller.userList.value.wishlistViewList![index];
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

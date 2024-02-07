@@ -61,7 +61,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
   void initState() {
      setInitialLocale();
 
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+  SchedulerBinding.instance.addPostFrameCallback((_) {
  _controller.fetchMyAccountData();
 
 });

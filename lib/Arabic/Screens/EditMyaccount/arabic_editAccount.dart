@@ -257,16 +257,36 @@ Widget _builNumber(BuildContext context) {
     );
   }
   Widget _buildContinueButton(BuildContext context) {
-    return CustomElevatedButton(
-      onPressed: () {
-       
-        checkvalidate();
-       
-        },
-      text: 'تحديث',
-      buttonTextStyle: TextStyle(fontFamily: 'Almarai', color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+    return Obx((){
+return CustomElevatedButton(
+  loading: UpdateProfile_Controllerins.loading.value,
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {print('apihit');
+          UpdateProfile_Controllerins.loading.value=true;
+       UpdateProfile_Controllerins.arabicProfileApiHit();
+      return;
+    } else {
+     print('data');
+    }
+          },
+        text: 'تحديث',
+        buttonTextStyle: TextStyle(fontFamily: 'Almarai', color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
       buttonStyle: CustomButtonStyles.fillPrimary,
+      );
+    }
+      
     );
+  }
+    // return CustomElevatedButton(
+    //   onPressed: () {
+       
+    //     checkvalidate();
+       
+    //     },
+    //   text: 'تحديث',
+    //   buttonTextStyle: TextStyle(fontFamily: 'Almarai', color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+    //   buttonStyle: CustomButtonStyles.fillPrimary,
+    // );
   }
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
@@ -291,13 +311,5 @@ Widget _builNumber(BuildContext context) {
           ),
         );
   }
-   checkvalidate() {
-    print("send");
-    if (_formKey.currentState!.validate()) {print('apihit');
-       UpdateProfile_Controllerins.arabicProfileApiHit();
-      return;
-    } else {
-     print('data');
-    }
-  }
-}
+  
+

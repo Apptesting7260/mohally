@@ -36,7 +36,7 @@ class RemoveAddressController extends GetxController {
       // Clear the addressid after successful deletion
       addressid.value = '';
       // Navigate to the view address screen after successful deletion
-      Get.offAll(addresses_arabic());
+      Get.off(addresses_arabic());
     }
   }).onError((error, stackTrace) {
     print("Delete error: $error");

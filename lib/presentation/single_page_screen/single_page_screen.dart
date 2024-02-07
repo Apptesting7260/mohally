@@ -184,7 +184,7 @@ void initState() {
                   ),
                   SizedBox(height: 32.v),
                   Obx((){
-                      var color = productviewcontroller.userList.value.productView?.productDetails?[0].color ?? 0;
+                      var color = productviewcontroller.userList.value.productView?.productDetails?[0].Color ?? 0;
 return Padding(
                       padding: const EdgeInsets.only(left:15),
                       child: Align(
@@ -505,7 +505,7 @@ return Padding(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"${materialTags?[0].tagTitle}:",
+                    text:"${materialTags?[index].tagTitle}:",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
                   ),
                   TextSpan(
@@ -527,16 +527,15 @@ return Padding(
 }),
 
 Obx(() {
-   var materialTags = productviewcontroller.userList.value.productView?.productCatgories?.tags;
-  var materialsubTags = productviewcontroller.userList.value.productView?.productCatgories?.subtags;
+   
   var details=productviewcontroller.userList.value.productView?.productDetails;
-  int itemCount = productviewcontroller.userList.value.productView?.productCatgories?.subtags?.length ?? 0;
+  int itemCount = productviewcontroller.userList.value.productView?.productDetails?.length ?? 0;
 
   // Calculate the total height needed based on the number of items
  // double totalHeight = itemCount *.50; // Assuming each item has a height of 30.0 (you can adjust this)
 
   return Container(
-    height:itemCount*40.0,
+    height:itemCount*90,
     child: ListView.builder(
       itemCount:productviewcontroller.userList.value.productView?.productDetails?.length ??0,
       itemBuilder: (context, index) {
@@ -546,18 +545,16 @@ Obx(() {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("${materialTags?[1].tagTitle}:",  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),),
-            
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"SizeCapicity:",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    text:"Size:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
                   ),
                   TextSpan(
-                    text: " ${details?[index].sizecapicity}",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    text: " ${details?[index].Size}",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
                   ),
                   
                 ],
@@ -569,12 +566,12 @@ Obx(() {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"color:",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    text:"Color:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
                   ),
                   TextSpan(
-                    text: " ${details?[index].color}",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    text: " ${details?[index].Color}",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
                   ),
                   
                 ],
@@ -587,11 +584,11 @@ Obx(() {
                 children: [
                   TextSpan(
                     text:"Quantity:",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
                   ),
                   TextSpan(
                     text: " ${details?[index].quantity}",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
                   ),
                   
                 ],
@@ -604,11 +601,11 @@ Obx(() {
                 children: [
                   TextSpan(
                     text:"price:",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.grey),
                   ),
                   TextSpan(
                     text: " ${details?[index].price}",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'League Spartan', color: Colors.black),
                   ),
                   
                 ],
@@ -625,7 +622,7 @@ Obx(() {
   );
 }),
 
-             
+               SizedBox(height: 30.v),
                   Padding(
                     padding: EdgeInsets.only(left: 20.h),
                     child: Text(
@@ -633,7 +630,7 @@ Obx(() {
                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, fontFamily: 'League Spartan', color: Color(0xffff8300))
                     ),
                   ),
-               //   SizedBox(height: 10.v),
+                 SizedBox(height: 30.v),
                   CustomImageView(
                    imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
                     height: Get.height*.4,
@@ -641,7 +638,7 @@ Obx(() {
                     alignment: Alignment.center,
                   ),
                   SizedBox(height: 5.v),
-                 //_buildGridRectangle(context),
+                 _buildGridRectangle(context),
                   SizedBox(height: 5.v),
                   CustomImageView(
                     imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
@@ -922,7 +919,7 @@ Widget _buildListWidget(BuildContext context) {
             bool isSelected = index == selectedIndex;
     
             // Access the sizeCapacity from your data model
-            String sizeCapacity = productviewcontroller.userList.value?.productView?.productDetails![index].sizecapicity;
+            String sizeCapacity = productviewcontroller.userList.value.productView?.productDetails![index].Size;
     
             return SizedBox(
               width: 70.h,
@@ -943,7 +940,7 @@ Widget _buildListWidget(BuildContext context) {
                     decoration: BoxDecoration(
                       color: isSelected ? Color(0xffff8300) : Colors.grey[10003],
                       border: Border.all(color: isSelected ? Color(0xffff8300) : Colors.black),
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Center(
                       child: Text(
@@ -1340,49 +1337,55 @@ Widget _buildListWidget(BuildContext context) {
 
   /// Section Widget
   Widget _buildGridRectangle(BuildContext context) {
-    return Obx((){
-      return 
-      Expanded(
-        child: Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: 
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisExtent: Get.height*.3,
-                crossAxisCount: 2,
-                mainAxisSpacing: 5.h,
-                crossAxisSpacing: 5.h,
-              ),
-              physics: NeverScrollableScrollPhysics(),
-              itemCount:productviewcontroller.userList.value.productView?.galleryUrl?.length??0,
-              itemBuilder: (context, index) {
-                return  Align(
-        alignment: Alignment.center,
-        child: CachedNetworkImage(
-          imageUrl: 
-          "${productviewcontroller.userList.value.productView!.galleryUrl.toString()}",
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-       ),
-        
-        
-        // CustomImageView(
-        // imagePath: "${productviewcontroller.userList.value.productView?.galleryUrl.toString()}",
-        //   height: Get.height*.3,
-        //   width:Get.width*.4,
-        // ),
-      );
-          //GridrectangleItemWidget();
-              },
-            ),
-          ),
+    return SizedBox(
+      height: 80.v,
+      child: ListView.separated(
+        padding: EdgeInsets.only(
+          left: 20.h,
+          right: 20.h,
         ),
-      );
-    }
-
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (
+          context,
+          index,
+        ) {
+          return SizedBox(
+            width: Get.width*.04,
+          );
+        },
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return SizedBox(
+      height: 80.adaptSize,
+      width: 80.adaptSize,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CustomImageView(
+            imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+            height: 80.adaptSize,
+            width: 80.adaptSize,
+            radius: BorderRadius.circular(
+              8.h,
+            ),
+            alignment: Alignment.center,
+          ),
+          CustomImageView(
+            imagePath: "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
+            height: 80.adaptSize,
+            width: 80.adaptSize,
+            radius: BorderRadius.circular(
+              5.h,
+            ),
+            alignment: Alignment.center,
+          ),
+        ],
+      ),
+    );
+          
+          // Listrectangle1ItemWidget();
+        },
+      ),
     );
   }
 

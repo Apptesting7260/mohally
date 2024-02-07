@@ -16,6 +16,8 @@ import 'package:mohally/Arabic/widgets/arabic_review.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
+import 'package:mohally/presentation/splash_screen/splash_screen.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +34,7 @@ class MyProfilePage_arabic extends StatefulWidget {
 }
 
 class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
+   final  _controller = Get.put(MyAccountController());
 
      @override
   void initState() {
@@ -80,7 +83,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
             padding: const EdgeInsets.only(top:15, ),
             child: GestureDetector(
               onTap: () {
-                Get.offAll(arabic_TabScreen(index: 0,));
+                Get.back();
               },
               child: Container(
                 width: Get.width*.07,
@@ -176,22 +179,32 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          Align(
+                          Obx((){
+                          return Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "John Due",
+                             "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
+                             // "Name",
                               style: CustomTextStyles
                                   .headlineSmallLeagueSpartanSemiBold,
                             ),
-                          ),
-                          SizedBox(height: 10.v),
-                          Align(
+                          );
+                        }
+                        ),
+  
+                  
+                        SizedBox(height: 10.v),
+                         Obx((){
+                          return Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "examplejohn@gmail.com",
-                              style: CustomTextStyles.bodyLargeGray50001_3,
+                             "${ _controller.MyAccount.value.userDetails?.email.toString()}",
+                             // "Name",
+                              style:  CustomTextStyles.bodyLargeGray50001_3,
                             ),
-                          ),
+                          );
+                        }
+                        ),
                           SizedBox(height: 36.v),
                           GestureDetector(
                             onTap: () {
@@ -299,7 +312,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             onPressed: () async {
                               await clearSharedPreferences();
           
-                              Get.offAll(() => ChooseLanguageScreen());
+                            
                             },
                             text: "تسجيل خروج",
                             margin: EdgeInsets.symmetric(horizontal: 10.h),
@@ -354,7 +367,9 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
 
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
+    
     await prefs.clear();
+      Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

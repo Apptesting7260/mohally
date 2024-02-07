@@ -2,6 +2,7 @@ import 'package:mohally/app_url/url.dart';
 import 'package:mohally/data/network/network_api_services.dart';
 import 'package:mohally/models/Add_Remove_Wishlist_Model/add_remove_wishlish_model.dart';
 import 'package:mohally/models/Add_new_address_Arabic_model/add_new%20address_model.dart';
+import 'package:mohally/models/ContactUsModel/contactus_model.dart';
 import 'package:mohally/models/Create_password_model/create_password_model.dart';
 import 'package:mohally/models/DeleteAccount/DeleteAccountModel.dart';
 import 'package:mohally/models/Edit_address_arabic_model/edit_address_arabic_model.dart';
@@ -185,5 +186,10 @@ class AuthRepository {
    Future<MensSubCategoryModel>MensSubCategoryApi(var data,Map<String, String> header ) async {
     dynamic response = await _apiService.postApi(data, AppUrl.seeAllMens, );print(response);
     return MensSubCategoryModel.fromJson(response);
+  }
+
+  Future<ContactUsModel>contactusApi(var data,Map<String, String> header ) async{
+     dynamic response = await _apiService.postApi(data, AppUrl.contactUs, );print(response);
+      return ContactUsModel.fromJson(response);
   }
 }

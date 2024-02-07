@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/Contactus/contactUs.dart';
 import 'package:mohally/presentation/about_us_screen/about_us.dart';
+import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/payment_screen/payment_screen.dart';
@@ -12,9 +13,9 @@ import 'package:mohally/presentation/spin_the_wheel_one_screen/spin_the_wheel_on
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/presentation/terms_conditions/terms_condition_screen.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/custom_checkbox_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../membership_screen/membership_screen.dart';
 import '../my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import '../wishlist_page/wishlist_page.dart';
@@ -31,6 +32,7 @@ class DrawerDraweritem extends StatefulWidget {
 }
 
 class _DrawerDraweritemState extends State<DrawerDraweritem> {
+  final  _controller = Get.put(MyAccountController());
   @override
   void initState() {
     
@@ -88,15 +90,32 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                 ),
               ),
               SizedBox(height: 7.v),
-              Text(
-                "John Due",
-                style: theme.textTheme.titleLarge,
-              ),
-              SizedBox(height: 5.v),
-              Text(
-                "examplejohn@gmail.com",
-                style: theme.textTheme.bodyMedium,
-              ),
+               Obx((){
+                          return Text(
+                           "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
+                           // "Name",
+                            style:  theme.textTheme.titleLarge,
+                          );
+                        }
+                        ),
+                       SizedBox(height: 5.v),
+                         Obx((){
+                          return Text(
+                           "${ _controller.MyAccount.value.userDetails?.email.toString()}",
+                           // "Name",
+                            style:   theme.textTheme.bodyMedium,
+                          );
+                        }
+                        ),
+              // Text(
+              //   "John Due",
+              //   style: theme.textTheme.titleLarge,
+              // ),
+              // SizedBox(height: 5.v),
+              // Text(
+              //   "examplejohn@gmail.com",
+              //   style: theme.textTheme.bodyMedium,
+              // ),
               SizedBox(height: 36.v),
               GestureDetector(
                 onTap: () {
@@ -408,7 +427,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                 onTap: () async {
                   await clearSharedPreferences();
 
-                  Get.offAll(() => LoginScreen());
+                  // Get.offAll(() => LoginScreen());
                 },
                 child: Row(
                   children: [
@@ -457,7 +476,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
     await prefs.clear();
     prefs.remove("token");
     prefs.remove("selectedLanguage");
-     Get.offAll(() => SplashScreen());
+      Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

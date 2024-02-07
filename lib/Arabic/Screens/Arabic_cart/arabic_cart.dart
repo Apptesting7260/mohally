@@ -1,3 +1,4 @@
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/Payment/arabic_payment_screen.dart';
@@ -25,8 +26,11 @@ class CartPage_arabic extends StatefulWidget {
   State<CartPage_arabic> createState() => _CartPage_arabicState();
 }
 class _CartPage_arabicState extends State<CartPage_arabic> {
+  String selectedSize22 = "Dark Blue/M(38)";
   int counter = 1;
     int counter2 = 1;
+bool Allselected =false;
+bool Allselected2 =false;
   List<String> recomemded_text =
 [
   'مُستَحسَن',
@@ -47,13 +51,11 @@ int selectedTabIndex=0;
   TextEditingController trailRunningJacketByController =
       TextEditingController();
 
-  String radioGroup1 = "";
 
   TextEditingController vectorController = TextEditingController();
 
   TextEditingController group166Controller = TextEditingController();
 
-  String radioGroup2 = "";
 
   TextEditingController addtoCartController = TextEditingController();
 
@@ -75,7 +77,6 @@ int selectedTabIndex=0;
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -165,17 +166,51 @@ int selectedTabIndex=0;
                   SizedBox(height: 15.v),
                   _buildVisaClassic(context),
                   SizedBox(height: 29.v),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20.h),
-                      child: Text(
-                        "رمز الكوبون",
-                        style: theme.textTheme.titleMedium,
+      Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 10.h),
+                          child: Text(
+                          "رمز الكوبون",
+                            style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                          ),
+                        ),
                       ),
-                    ),
+// SizedBox(width: Get.width*.09,),
+                       Container(
+                                             height: 30.v,
+                                             width: 140.h,
+                                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), 
+                                             border: Border.all(color:Colors.black)
+                                             ),
+                                             margin: EdgeInsets.only(left: 23.h),
+                                             child: 
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text('رمز القسيمة الخاص بك',style: theme.textTheme.titleMedium?.copyWith(fontSize: 10), ),
+                                             
+                                           GestureDetector(
+                                            onTap: (){
+showModalBottomSheet(context: context, builder: (context){
+return _buildYourcouponcode(context);
+});
+                                            },
+                                            child: Icon(Icons.keyboard_arrow_up_sharp,weight: 8,))
+                                            ],
+                                          ),
+                       
+                                            ),
+                         
+                        
+                      
+                    ],
                   ),
-                  SizedBox(height: 7.v),
+                  SizedBox(height: 20.v),
                   _buildCouponCode(context),
                   SizedBox(height: 28.v),
                   _buildItemTotal(context),
@@ -515,7 +550,7 @@ int selectedTabIndex=0;
                   //   userFashion: "Wild Yi fashion",
                   // ),
                   SizedBox(height: 9.v),
-                  _buildTrailRunningJacketBy(context),
+                  _buildTrailRunningJacketBy2222(context),
                   SizedBox(height: 9.v),
                   Text(
                     "الجمعة السوداء! ينتهي في 16:19:50:21",
@@ -1106,7 +1141,7 @@ int selectedTabIndex=0;
                GestureDetector(
                   onTap: () {
                     setState(() {
-                      allSelected = !allSelected;
+                      Allselected2 = !Allselected2;
                     });
                   },
                   child: Container(
@@ -1121,7 +1156,7 @@ int selectedTabIndex=0;
                      
                       color: Colors.white,
                     ),
-                    child: allSelected
+                    child: Allselected2
                         ? Center(
                             child: Container(
                            height: Get.height*.02,
@@ -1190,6 +1225,54 @@ int selectedTabIndex=0;
   }
 
 
+
+
+Widget _buildTrailRunningJacketBy2222(BuildContext context) {
+  return Container(
+   
+    child: CustomTextFormField(
+      
+      readOnly: true,
+      width: Get.width*.3,
+      controller: trailRunningJacketByController,
+      //hintText: "Dark Blue/M(38)",
+      hintStyle: CustomTextStyles.bodySmallGray90001,
+      suffix: DropdownButtonHideUnderline(
+        
+        child: DropdownButton<String>(
+          value: selectedSize22,
+          items: ['Dark Blue/M(38)', 'Dark Blue/M(40)', 'Dark Blue/M(42)', 'XXL'].map((String size) {
+          
+            return DropdownMenuItem<String>(
+              
+           
+              value: size,
+              child: Center(child: Text(size, style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),)),
+            );
+          }).toList(),
+          onChanged: (String? newSize) {
+            if (newSize != null) {
+              // Update selected size
+              setState(() {
+                selectedSize22 = newSize;
+              });
+            }
+          },
+        ),
+      ),
+      suffixConstraints: BoxConstraints(
+        maxHeight: 20.v,
+      ),
+      contentPadding: EdgeInsets.only(
+        right: 10.h,
+        top: 5.v,
+        bottom: 5.v,
+      ),
+      borderDecoration: TextFormFieldStyleHelper.fillGray,
+      fillColor: appTheme.gray10003,
+    ),
+  );
+}
   /// Section Widget
   Widget _buildAll(BuildContext context) {
     return Row(
@@ -1212,18 +1295,39 @@ int selectedTabIndex=0;
         
        Row(
 children: [
-  
-          Text('All', style: TextStyle(fontSize: 18, fontFamily: 'Almarai', fontWeight: FontWeight.w400, color: Colors.black),),
-           CustomRadioButton(
-            text: "all",
-            value: "الدفع",
-            groupValue: radioGroup2,
-            padding: EdgeInsets.symmetric(vertical: 1.v),
-            textStyle:  TextStyle(fontSize: 5, fontWeight:FontWeight.w600, color: const Color.fromARGB(255, 255, 255, 255),fontFamily: 'Almarai'),
-            onChange: (value) {
-              radioGroup2 = value;
-            },
-          ),
+           Text('الدفع', style: TextStyle(fontSize: 18,  fontWeight: FontWeight.w400, color: Colors.black, fontFamily: 'Almarai',),),
+               GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Allselected = !Allselected;
+                    });
+                  },
+                  child: Container(
+                  height: Get.height*.03,
+                  width: Get.width*.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 2,
+                        color:  Colors.black,
+                      ),
+                     
+                      color: Colors.white,
+                    ),
+                    child: Allselected
+                        ? Center(
+                            child: Container(
+                           height: Get.height*.02,
+                  width: Get.width*.03,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color:  Colors.black,
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                ),
 ],
        )
         //  Padding(
@@ -1320,94 +1424,93 @@ children: [
           physics: BouncingScrollPhysics(),
           itemCount: homeView_controller.userList.value.recommendedProduct?.length ?? 0,
           itemBuilder: (context, index) {
-            return  Align(
-          alignment: Alignment.centerRight,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.only(left: 20.h),
-            child: IntrinsicWidth(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomImageView(
-                        fit: BoxFit.cover,
-                         imagePath: "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
-                        height: 120.adaptSize,
-                        width: 120.adaptSize,
-                        radius: BorderRadius.circular(
-                          10.h,
-                        ),
+            return  Padding(
+             padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomImageView(
+                      fit: BoxFit.cover,
+                       imagePath: "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
+                      height: 120.adaptSize,
+                      width: 120.adaptSize,
+                      radius: BorderRadius.circular(
+                        10.h,
                       ),
-                      SizedBox(height: 9.v),
-                      Text(
-                         //"${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
-                        "حجر الراين الفاخر....",
-                        style: theme.textTheme.labelLarge?.copyWith(fontFamily: 'Almarai'),
-                      ),
-                      SizedBox(height: 1.v),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 1.v),
-                            child: CustomRatingBar(
-                              initialRating: 5,
-                            ),
+                    ),
+                    SizedBox(height: 9.v),
+                    Text(
+                       //"${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
+                      "حجر الراين الفاخر....",
+                      style: theme.textTheme.labelLarge?.copyWith(fontFamily: 'Almarai'),
+                    ),
+                    SizedBox(height: 1.v),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 1.v),
+                          child: CustomRatingBar(
+                            initialRating: 5,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 4.h),
-                            child: Text(
-                              "(120)",
-                              style: CustomTextStyles.labelMediumGray90001,
-                            ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 4.h),
+                          child: Text(
+                            "(120)",
+                            style: CustomTextStyles.labelMediumGray90001,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 2.v),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "2k+ مُباع",
+                            style: TextStyle(fontSize: 12, color: Colors.grey, fontFamily: 'Almarai'),
+                          ),
+                          TextSpan(
+                            text: " ",
+                          ),
+                          TextSpan(
+                            text: "99\$",
+                            style: 
+                            TextStyle(fontSize: 12, color: Color(0xffff8300), fontFamily: 'Almarai'),
                           ),
                         ],
                       ),
-                      SizedBox(height: 2.v),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "2k+ مُباع",
-                              style: TextStyle(fontSize: 12, color: Colors.grey, fontFamily: 'Almarai'),
-                            ),
-                            TextSpan(
-                              text: " ",
-                            ),
-                            TextSpan(
-                              text: "99\$",
-                              style: 
-                              TextStyle(fontSize: 12, color: Color(0xffff8300), fontFamily: 'Almarai'),
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.left,
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(height: 15.v),
+                    Container(
+                      width: 100.h,
+                      height: 30.v,
+                      // padding: EdgeInsets.symmetric(
+                      //   horizontal: 26.h,
+                      //   vertical: 9.v,
+                      // ),
+                      decoration: AppDecoration.outlineErrorContainer.copyWith(
+                        borderRadius: BorderRadiusStyle.circleBorder35,
                       ),
-                      SizedBox(height: 15.v),
-                      Container(
-                        width: 100.h,
-                        height: 30.v,
-                        // padding: EdgeInsets.symmetric(
-                        //   horizontal: 26.h,
-                        //   vertical: 9.v,
-                        // ),
-                        decoration: AppDecoration.outlineErrorContainer.copyWith(
-                          borderRadius: BorderRadiusStyle.circleBorder35,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Add to Cart",
-                            style: TextStyle(fontSize: 10, color: Colors.black),
-                          ),
+                      child: Center(
+                        child: Text(
+                          "Add to Cart",
+                          style: TextStyle(fontSize: 10, color: Colors.black),
                         ),
                       ),
-                    ],
-                  ),
-                ]
-              )))
-        );
+                    ),
+                  ],
+                ),
+              ]
+                        )
+                      ),
+            );
           },
         ),
            ),
@@ -2038,7 +2141,125 @@ Widget _buildprice_2(
       ],
     );
   }
-  
+  Widget _buildYourcouponcode(BuildContext context){
+  return Container(
+        width: double.infinity,
+                height: MediaQuery.of(context).size.height * 1.5,
+                padding: EdgeInsets.symmetric(vertical: 18.v),
+                decoration: AppDecoration.fillWhiteA.copyWith(
+                  borderRadius: BorderRadiusStyle.customBorderTL30,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 3.v),
+                                child: Text(
+                                "الرموز الترويجية الخاصة بك",
+                                  style: theme.textTheme.titleMedium?.copyWith(fontFamily: 'Almarai'),
+                                ),
+                              ),
+                              CustomImageView(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                imagePath: ImageConstant.imgMaskGroup24x24,
+                                height: 24.adaptSize,
+                                width: 24.adaptSize,
+                              ),
+                            ],
+                          ),
+                        ),
+                        // SizedBox(height: 17.v),
+                        Divider(
+                          thickness: 1,
+                          color: Colors.grey.shade200,
+                        ),
+                        SizedBox(height: 19.v),
+                      ListView.builder(
+            itemCount: 3,
+            itemExtent: 90,
+            shrinkWrap: true,
+            padding: EdgeInsets.all(5),
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(5)),
+                margin: EdgeInsets.symmetric(vertical: 6),
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Stack(
+                        children: [
+                          Image.asset(
+                            "assets/images/bg.png",
+                            fit: BoxFit.cover,
+                          ),
+                          Positioned(
+                            top: 25,
+                            left: 20,
+                            child: Image.asset(
+                              "assets/images/discou.png",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Gap(20),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "عرض شخصي",
+                          style: theme.textTheme.subtitle1?.copyWith(fontFamily: 'Almarai'),
+                        ),
+                        Text(
+                          "mypromocode2020",
+                          style: theme.textTheme.subtitle2?.copyWith(fontFamily: 'Almarai'),
+                        ),
+                      ],
+                    ),
+                    Gap(20),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "باقي 23 يوم",
+                          style: theme.textTheme.bodySmall!
+                              .copyWith(color: Colors.grey.shade400, fontFamily:  'Almarai'),
+                        ),
+                        Gap(5),
+                        CustomElevatedButton(
+                          height: 30.v,
+                          width: 80.h,
+                          text: "يتقدم",
+                          margin: EdgeInsets.only(left: 8.h),
+                          buttonStyle: CustomButtonStyles.fillPrimaryTL15,
+                          buttonTextStyle:
+                              TextStyle(fontFamily: 'Almarai', fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+                    ],
+                  ),
+                ),
+  );
+}
   
   }
 

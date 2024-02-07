@@ -11,9 +11,11 @@ import 'package:mohally/Arabic/Screens/PrivacyPolicy/arabic_privacyPolicy.dart';
 import 'package:mohally/Arabic/Screens/TermsAndCondition/arabic_terms.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/core/utils/size_utils.dart';
+import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/theme/app_decoration.dart';
 import 'package:mohally/theme/theme_helper.dart';
+import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/custom_checkbox_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +32,7 @@ class DrawerDraweritem_arabic extends StatefulWidget {
 }
 
 class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
+  final  _controller = Get.put(MyAccountController());
     @override
   void initState() {
     
@@ -88,15 +91,23 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                 ),
               ),
               SizedBox(height: 7.v),
-              Text(
-                "John Due",
-                style: theme.textTheme.titleLarge,
-              ),
-              SizedBox(height: 5.v),
-              Text(
-                "examplejohn@gmail.com",
-                style: theme.textTheme.bodyMedium,
-              ),
+               Obx((){
+                          return Text(
+                           "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
+                           // "Name",
+                            style:  theme.textTheme.titleLarge,
+                          );
+                        }
+                        ),
+                       SizedBox(height: 5.v),
+                         Obx((){
+                          return Text(
+                           "${ _controller.MyAccount.value.userDetails?.email.toString()}",
+                           // "Name",
+                            style:   theme.textTheme.bodyMedium,
+                          );
+                        }
+                        ),
               SizedBox(height: 36.v),
               GestureDetector(
                 onTap: () {

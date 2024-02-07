@@ -654,7 +654,7 @@ Obx(() {
                   //     textAlign: TextAlign.right,
                   //   ),
                   // ),
-                  SizedBox(height: 13.v),
+                  SizedBox(height: 30.v),
                   Padding(
                     padding: EdgeInsets.only(right: 20.h),
                     child: Text(
@@ -662,7 +662,7 @@ Obx(() {
                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500, fontFamily: 'Almarai', color: Color(0xffff8300))
                     ),
                   ),
-              //    SizedBox(height: 17.v),
+              SizedBox(height: 30.v),
                   CustomImageView(
                     imagePath:  "${productviewcontroller.userList.value.productView?.imageUrl.toString()}",
                     //ImageConstant.imgRectangle569491x375,

@@ -3,8 +3,8 @@ class EnglishProductViewModel {
      this.status,
      this.productView,
   });
-   bool ?status;
-   ProductView ?productView;
+   bool? status;
+   ProductView? productView;
   
   EnglishProductViewModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
@@ -34,10 +34,10 @@ class ProductView {
    var title;
    var slug;
    var description;
-   ProductCatgories? productCatgories;
-   List<ProductDetails>? productDetails;
+  var productCatgories;
+   var productDetails;
    var imageUrl;
-   List<String> ?galleryUrl;
+   var galleryUrl;
   
   ProductView.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -71,7 +71,7 @@ class ProductCatgories {
      this.subtags,
   });
    List<ProductCatgorey>? productCatgorey;
-   List<Tags>? tags;
+   List<Tags> ?tags;
    List<Subtags>? subtags;
   
   ProductCatgories.fromJson(Map<String, dynamic> json){
@@ -158,21 +158,21 @@ class Subtags {
 
 class ProductDetails {
   ProductDetails({
-     this.sizecapicity,
-     this.color,
+     this.Size,
+     this.Color,
      this.sku,
      this.quantity,
      this.price,
   });
-   var sizecapicity;
-   var color;
+   var Size;
+   var Color;
    var sku;
    var quantity;
    var price;
   
   ProductDetails.fromJson(Map<String, dynamic> json){
-    sizecapicity = json['sizecapicity'];
-    color = json['color'];
+    Size = json['Size'];
+    Color = json['Color'];
     sku = json['sku'];
     quantity = json['quantity'];
     price = json['price'];
@@ -180,8 +180,8 @@ class ProductDetails {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['sizecapicity'] = sizecapicity;
-    _data['color'] = color;
+    _data['Size'] = Size;
+    _data['Color'] = Color;
     _data['sku'] = sku;
     _data['quantity'] = quantity;
     _data['price'] = price;

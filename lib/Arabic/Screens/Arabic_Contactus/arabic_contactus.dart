@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_contactUsController.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/theme/custom_text_style.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
@@ -12,6 +13,8 @@ class ContactUs_arabic extends StatefulWidget {
 }
 
 class _ContactUs_arabicState extends State<ContactUs_arabic> {
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ContactUsController _contactUsController =ContactUsController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,43 +24,46 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
           textDirection: TextDirection.rtl,
           child: SingleChildScrollView(
             child: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10,10,10,0),
-                    child: Column(
-                      children: [
-                         Padding(
-                             padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                             child: Container(
-                              height:Get.height*.3,
-                              decoration: BoxDecoration(
-                                color: Colors.black54,
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                image: DecorationImage(image: AssetImage('assets/images/customer2.png'), fit: BoxFit.cover)
-                              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10,10,10,0),
+                      child: Column(
+                        children: [
+                           Padding(
+                               padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                               child: Container(
+                                height:Get.height*.3,
+                                decoration: BoxDecoration(
+                                  color: Colors.black54,
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  image: DecorationImage(image: AssetImage('assets/images/customer2.png'), fit: BoxFit.cover)
+                                ),
+                               ),
                              ),
-                           ),
-                           SizedBox(height: Get.height*.03,),
-                       Text(
-                          "ارسل رسالة ",
-                          style: CustomTextStyles.titleLargeBold,
-                        ),
-                        SizedBox(height: Get.height*.03,),
-                        _buildName(context),
-                       SizedBox(height: Get.height*.02,),
-                        _buildEmail(context),
+                             SizedBox(height: Get.height*.03,),
+                         Text(
+                            "ارسل رسالة ",
+                            style: CustomTextStyles.titleLargeBold,
+                          ),
+                          SizedBox(height: Get.height*.03,),
+                          _buildName(context),
                          SizedBox(height: Get.height*.02,),
-                        _buildMessage(context),
-                          SizedBox(height: Get.height*.02,),
-                        _buildContinueButton(context),
-                       
-                      ],
+                          _buildEmail(context),
+                           SizedBox(height: Get.height*.02,),
+                          _buildMessage(context),
+                            SizedBox(height: Get.height*.02,),
+                          _buildContinueButton(context),
+                         
+                        ],
+                      ),
                     ),
-                  ),
-                    SizedBox(height: Get.height*.03,),
-                    _buildContainer(context),
-                ],
+                      SizedBox(height: Get.height*.03,),
+                      _buildContainer(context),
+                  ],
+                ),
               ))),
         ),
       ),
@@ -94,6 +100,7 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
       hintText: 'أدخل أسمك',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
+       controller: _contactUsController.namecontroller.value,
       
     );
   }
@@ -110,6 +117,7 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
       hintText: 'أدخل بريدك الإلكتروني',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
+         controller: _contactUsController.emailController.value,
       
     );
   }
@@ -126,17 +134,34 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
       hintText: 'اكتب الرسالة',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
+        controller: _contactUsController.messagecontroller.value,
       
     );
   }
-   Widget _buildContinueButton(BuildContext context) {
-    
+
+
+ Widget _buildContinueButton(BuildContext context) {
+  return Obx((){
   return CustomElevatedButton(
+        loading: _contactUsController.loading.value,
+        onPressed: () {
+         {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+       _contactUsController.loading.value = true;
+        _contactUsController.ContactUs_ApiHit(context);
+       _formKey.currentState!.save();
+
+    }
+  }
+        },
         text:'أرسل رسالة',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
     }
-
+    );
+  }
 
 Widget _buildContainer(BuildContext context) {
   return Container(

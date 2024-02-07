@@ -23,7 +23,7 @@ print("$token==========Home=====================t==o==k==e==n=================="
     loading.value = true;
     Map data = {
       "page_no": "1",
-      "per_page": "4",
+      "per_page": "10",
       "language_type":"English"
     };
     var header = {'Authorization': "Bearer $token"};

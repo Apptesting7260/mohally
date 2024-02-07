@@ -642,7 +642,7 @@ HomeView_controller_English homeView_controller = HomeView_controller_English();
                   style: CustomTextStyles.labelLargePrimary?.copyWith(),
                 ),
                 SizedBox(height: 6.v),
-                _buildPrice(
+                _buildprice_2(
                   context,
                    price: "\$99 \$120",
                   one: "1",
@@ -1806,7 +1806,95 @@ return Obx((){
       ],
     );
   }
-
+Widget _buildprice_2(
+    BuildContext context, {
+    required String price,
+    required String one,
+  }) {
+    return SizedBox(
+      width: 221.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 1.v),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "99",
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  TextSpan(
+                    text: " ",
+                  ),
+                  TextSpan(
+                    text: "120",
+                    style: CustomTextStyles.titleSmallGray50001.copyWith(
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ),
+                   Container(
+                             width: 80.h,
+                            height: Get.height*.05,
+                            margin: EdgeInsets.only(left: 14.h),
+                            padding: EdgeInsets.symmetric(vertical: 10.v),
+                            decoration: AppDecoration.fillPrimary.copyWith(
+                              borderRadius: BorderRadiusStyle.circleBorder30,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                              
+                                 CustomImageView(
+                                 onTap: (){
+                                       setState(() {
+                // Increment the counter when "+" is pressed
+                counter++;
+              });
+                                    },
+                                  imagePath: ImageConstant.imgGroup239412WhiteA70002,
+                                  height: 13.adaptSize,
+                                  width: 13.adaptSize,
+                                  margin: EdgeInsets.only(
+                                    top: 2.v,
+                                    bottom: 3.v,
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                     counter.toString(),
+                                    style: CustomTextStyles.titleLargeWhiteA7000220,
+                                  ),
+                                ),
+                                  CustomImageView(
+                                     onTap: (){
+                                    setState(() {
+                // Decrement the counter when "-" is pressed
+                if (counter > 1) {
+                  counter--;
+                }
+              });
+            
+                                  },
+                                    
+                                  imagePath: ImageConstant.imgLine1,
+                                 height: 13.adaptSize,
+                                  width: 13.adaptSize,
+                                  margin: EdgeInsets.symmetric(vertical: 9.v),
+                                ),
+                              ],
+                            ),
+                          ),
+        ],
+      ),
+    );
+  }
   /// Common widget
   Widget _buildPrice(
     BuildContext context, {

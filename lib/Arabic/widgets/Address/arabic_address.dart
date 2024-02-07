@@ -242,7 +242,7 @@ class _addresses_arabicState
 Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        Get.to(() => add_new_Address_arabic());
+        Get.off(() => add_new_Address_arabic());
       },
       text: "إضافة عنوان جديد",
       margin: EdgeInsets.only(

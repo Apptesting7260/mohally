@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
-import 'package:mohally/Arabic/Screens/Arabic_whishlishScreen/arabic_whishlist_widgets.dart';
 import 'package:mohally/Arabic/Screens/Payment/arabic_payment_screen.dart';
 import 'package:mohally/Arabic/widgets/Address/arabic_address.dart';
 import 'package:mohally/Arabic/widgets/arabic_order_confirmed.dart';

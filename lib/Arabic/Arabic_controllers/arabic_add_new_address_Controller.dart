@@ -41,7 +41,7 @@ print(data);
     // print(userid.value);
     _api.arabic_addnewaddressApi(data,header).then((value) {
       loading.value = false;
-      Get.to(() => addresses_arabic());
+      Get.off(() => addresses_arabic());
       // _showVerificationDialog(context);
     }).onError((error, stackTrace) {
       loading.value = false;

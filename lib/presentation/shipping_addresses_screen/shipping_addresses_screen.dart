@@ -224,14 +224,13 @@ class _Default_addressState extends State<Default_address> {
        }
        )
     ));
-          
-      
+
   }
 
   Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        Get.to(() => AddressScreen());
+        Get.off(() => AddressScreen());
       },
       text: "Add New Address",
       margin: EdgeInsets.only(

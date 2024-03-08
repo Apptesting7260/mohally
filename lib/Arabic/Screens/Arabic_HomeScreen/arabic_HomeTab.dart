@@ -5,9 +5,9 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_women.dart';
-import 'package:mohally/Arabic/Screens/NoMoreNotifications/nomorenotification_arabic.dart';
-import 'package:mohally/Arabic/widgets/arabic_customSearchView.dart';
-import 'package:mohally/Arabic/widgets/custom_arabic_drawer.dart';
+import 'package:mohally/Arabic/Screens/Myprofile/Notifications/arabic_notifications.dart';
+import 'package:mohally/Arabic/Screens/widgets/arabic_customSearchView.dart';
+import 'package:mohally/Arabic/Screens/widgets/custom_arabic_drawer.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
 import 'package:mohally/presentation/category_page/category_page.dart';
@@ -16,7 +16,6 @@ import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/routes/app_routes.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_bottom_bar.dart';
-// ignore_for_file: unused_local_variable
 
 class arabic_HomeScreen extends StatefulWidget {
   const arabic_HomeScreen({Key? key}) : super(key: key);
@@ -26,8 +25,7 @@ class arabic_HomeScreen extends StatefulWidget {
 }
 
 class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
-
- File imgFile = File("");
+  File imgFile = File("");
 
   final imgPicker = ImagePicker();
   void openCamera(abc) async {
@@ -49,16 +47,16 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
 
   PageController _pageController = PageController();
 
-  int selectedTabIndex=0;
+  int selectedTabIndex = 0;
   List<String> title = [
-  'الجميع',
-  'نحيف',
-  'رجال',
-  'أطفال',
-  "مجوهرات",
-];
+    'الجميع',
+    'نحيف',
+    'رجال',
+    'أطفال',
+    "مجوهرات",
+  ];
 
-   TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   // @override
@@ -67,109 +65,122 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
   //   // tabviewController = TabController(length: 5, );
   //      // setInitialLocale();
   // }
-   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
       drawer: DrawerDraweritem_arabic(),
-        appBar: _buildAppBar(context),
+      appBar: _buildAppBar(context),
       backgroundColor: Colors.white,
       body: Container(
         height: Get.height,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: Get.height*.04,),
+              SizedBox(
+                height: Get.height * .04,
+              ),
               Center(
-                child: Stack(
-                children: [
+                  child: Stack(children: [
                 CustomSearchView_arabic(
-                 hintText: 'يبحث',
-                 hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+                  hintText: 'يبحث',
+                  hintStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey),
                   readOnly: true,
                   enableTap: true,
                 ),
-                   Positioned(
+                Positioned(
                     top: 20,
                     right: 240,
                     child: GestureDetector(
-                    onTap: (){
-                     File imgFile = File("");
-        
-          final imgPicker = ImagePicker();
-          void openCamera(abc) async {
-            var imgCamera = await imgPicker.pickImage(source: abc);
-            setState(() {
-        imgFile = File(imgCamera!.path);
-            });
-            Navigator.of(context).pop();
-          }
-        
-          //open camera
-          void openCameraa(abc) async {
-            var imgCamera = await imgPicker.pickImage(source: abc);
-            setState(() {
-        imgFile = File(imgCamera!.path);
-            });
-            Navigator.of(context).pop();
-          }
-                      },
-                      
-                      child: Image.asset('assets/images/greycamera.png'))),
-                  
-                  ])),
-                SizedBox(height: Get.height*.04,),
-               Container(
-          height: Get.height * .05,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: title.length,
-            itemBuilder: (context, index) {
-         bool isSelected = index == selectedTabIndex; // Assuming you have a variable to track the selected tab index
-        
-        return GestureDetector(
-         onTap: () {
-    setState(() {
-      selectedTabIndex = index;
-    });
-      _pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-  },
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title[index],
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isSelected ? Colors.orange : Colors.grey,
-                      fontWeight: FontWeight.w400,
-                      fontFamily:  'Almarai',
-                    ),
-                  ),
-                  SizedBox(height: Get.height*.005,),
-                  if (isSelected)
-                  Container(
-                width: 60,
-                height: 2,
-                decoration:     BoxDecoration(
-            borderRadius: BorderRadius.circular(30), 
-            color: Color(0xffff8300))
-                ),
-                    SizedBox(width: Get.width*.2,),
-                ],
+                        onTap: () {
+                          File imgFile = File("");
+
+                          final imgPicker = ImagePicker();
+                          void openCamera(abc) async {
+                            var imgCamera =
+                                await imgPicker.pickImage(source: abc);
+                            setState(() {
+                              imgFile = File(imgCamera!.path);
+                            });
+                            Navigator.of(context).pop();
+                          }
+
+                          //open camera
+                          void openCameraa(abc) async {
+                            var imgCamera =
+                                await imgPicker.pickImage(source: abc);
+                            setState(() {
+                              imgFile = File(imgCamera!.path);
+                            });
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: Image.asset('assets/images/greycamera.png'))),
+              ])),
+              SizedBox(
+                height: Get.height * .04,
               ),
-            ),
-          ),
-        );
-            },
-          ),
-        ),
-        Container(
+              Container(
+                height: Get.height * .05,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: title.length,
+                  itemBuilder: (context, index) {
+                    bool isSelected = index ==
+                        selectedTabIndex; // Assuming you have a variable to track the selected tab index
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedTabIndex = index;
+                        });
+                        _pageController.animateToPage(index,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOut);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                title[index],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color:
+                                      isSelected ? Colors.orange : Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Almarai',
+                                ),
+                              ),
+                              SizedBox(
+                                height: Get.height * .005,
+                              ),
+                              if (isSelected)
+                                Container(
+                                    width: 60,
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Color(0xffff8300))),
+                              SizedBox(
+                                width: Get.width * .2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Container(
                 height: Get.height * 0.6,
                 child: PageView(
                   controller: _pageController,
@@ -179,26 +190,18 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
                     });
                   },
                   children: [
-                    Container(
-                      child: content_of_all()
-                    ),
-                     Container(
-                      child: content_of_women()
-                    ),
-                      Container(
-                      child: content_of_women()
-                    ),
-                    Container(
-                      child: content_of_women()
-                    ),
-                      Container(
-                      child: content_of_women()
-                    ),
+                    Container(child: content_of_all()),
+                    Container(child: content_of_women()),
+                    Container(child: content_of_women()),
+                    Container(child: content_of_women()),
+                    Container(child: content_of_women()),
                     // Add more pages as needed
                   ],
                 ),
               ),
-        SizedBox(height: Get.height*.5,),
+              SizedBox(
+                height: Get.height * .5,
+              ),
             ],
           ),
         ),
@@ -206,14 +209,17 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
     );
   }
 
- Widget _buildBottomBar(BuildContext context) {
+  Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
         Navigator.pushNamed(
             navigatorKey.currentContext!, getCurrentRoute(type));
-      }, bottomTapped: (){}, bottomSelectedIndex: 0,
+      },
+      bottomTapped: () {},
+      bottomSelectedIndex: 0,
     );
   }
+
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Home:
@@ -248,60 +254,57 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
         return DefaultWidget();
     }
   }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-
-    
       actions: [
         GestureDetector(
-        onTap: () {
-           _scaffoldKey.currentState?.openDrawer();
-        },
-        child:Container(
-          height: 40.adaptSize,
-          width: 40.adaptSize,
-          child: Image.asset(
-            "assets/images/Menu.png",
-          ),
-          margin: EdgeInsets.only(
-            left: 20.h,
-            top: 8.v,
-            bottom: 8.v,
+          onTap: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+          child: Container(
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            child: Image.asset(
+              "assets/images/Menu.png",
+            ),
+            margin: EdgeInsets.only(
+              left: 20.h,
+              top: 8.v,
+              bottom: 8.v,
+            ),
           ),
         ),
-      ),
-
       ],
-     leadingWidth: 80.h,
-      leading:        Container(
-          height: 40.adaptSize,
-          width: 40.adaptSize,
-          margin: EdgeInsets.symmetric(
-            horizontal: 20.h,
-            vertical: 8.v,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgGroup239397,
-                height: 40.adaptSize,
-                width: 40.adaptSize,
-                alignment: Alignment.center,
-              ),
-              CustomImageView(
-                imagePath: ImageConstant.imgNotification1Primary,
-                height: 20.adaptSize,
-                width: 20.adaptSize,
-                alignment: Alignment.center,
-                  onTap: () {
-                Get.to(No_More_Notifications_arabic());
+      leadingWidth: 80.h,
+      leading: Container(
+        height: 40.adaptSize,
+        width: 40.adaptSize,
+        margin: EdgeInsets.symmetric(
+          horizontal: 20.h,
+          vertical: 8.v,
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomImageView(
+              imagePath: ImageConstant.imgGroup239397,
+              height: 40.adaptSize,
+              width: 40.adaptSize,
+              alignment: Alignment.center,
+            ),
+            CustomImageView(
+              imagePath: ImageConstant.imgNotification1Primary,
+              height: 20.adaptSize,
+              width: 20.adaptSize,
+              alignment: Alignment.center,
+              onTap: () {
+                Get.to(NotificationsOneScreen_arabic());
               },
             ),
           ],
         ),
-      ) ,
+      ),
     );
   }
-  
 }

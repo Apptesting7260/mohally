@@ -17,19 +17,16 @@ class HomeView_controller_English extends GetxController {
   RxBool loading = false.obs;
   void homeview_apihit() async {
     final sp = await SharedPreferences.getInstance();
- String token = sp.getString('token').toString();
+    String token = sp.getString('token').toString();
 
-print("$token==========Home=====================t==o==k==e==n==================");
+    print(
+        "$token==========Home=====================t==o==k==e==n==================");
     loading.value = true;
-    Map data = {
-      "page_no": "1",
-      "per_page": "10",
-      "language_type":"English"
-    };
+    Map data = {"page_no": "1", "per_page": "100", "language_type": "English"};
     var header = {'Authorization': "Bearer $token"};
     _api.english_homepageapi(data, header).then((value) {
       setRxRequestStatus(Status.COMPLETED);
-      setUserList(value );
+      setUserList(value);
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
       loading.value = false;
@@ -44,5 +41,4 @@ print("$token==========Home=====================t==o==k==e==n=================="
       // error.toString()
     });
   }
-
 }

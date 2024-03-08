@@ -29,7 +29,6 @@ class LoginScreen_arabic extends StatefulWidget {
 }
 
 class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
-  
   arabic_Login_controller login_controller = Get.put(arabic_Login_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -66,12 +65,14 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
               child: Column(
                 children: [
                   SizedBox(height: 36.v),
-                  Text(
-                    "تسجيل الدخول",
-                 
-                    style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 26)
-                    // theme.textTheme.headlineLarge,
-                  ),
+                  Text("تسجيل الدخول",
+                      style: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26)
+                      // theme.textTheme.headlineLarge,
+                      ),
                   SizedBox(height: 15.v),
                   Container(
                     width: 268.h,
@@ -80,34 +81,36 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                       right: 23.h,
                     ),
                     child: Text(
-                     'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
-
-                      maxLines: 3,
-                      
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Almarai', fontWeight: FontWeight.w400, fontSize: 16)
-                    ),
+                        'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Almarai',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16)),
                   ),
                   SizedBox(height: 40.v),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                    'رقم الجوال أو البريد الإلكتروني',
-                     style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18)
-                    
-                    ),
-                    
+                    child: Text('رقم الجوال أو البريد الإلكتروني',
+                        style: TextStyle(
+                            fontFamily: 'Almarai',
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18)),
                   ),
                   SizedBox(height: 9.v),
                   _buildMobileNumber(context),
                   SizedBox(height: 9.v),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                    'كلمة المرور',
-                       style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18)
-                    ),
+                    child: Text('كلمة المرور',
+                        style: TextStyle(
+                            fontFamily: 'Almarai',
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18)),
                   ),
                   SizedBox(height: 9.v),
                   _buildPassword(context),
@@ -120,8 +123,11 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                     },
                     child: Center(
                       child: Text(
-'هل نسيت كلمة السر',
-                     style: TextStyle(fontFamily: 'Almarai', fontWeight: FontWeight.w400, fontSize: 14)
+                        'هل نسيت كلمة السر',
+                        style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14)
                             .copyWith(color: Color(0xffFF8300)),
                       ),
                     ),
@@ -129,7 +135,11 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                   SizedBox(height: 27.v),
                   Text(
                     'أو',
-                  style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 18),
+                    style: TextStyle(
+                        fontFamily: 'Almarai',
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18),
                   ),
                   SizedBox(height: 27.v),
                   _buildContinueWithGoogleButton(context),
@@ -143,29 +153,40 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                     padding: EdgeInsets.only(top: 5),
                     margin: EdgeInsets.symmetric(horizontal: 10.h),
                     child: RichText(
-                      
                       text: TextSpan(
-                        
                         children: [
                           TextSpan(
                             text: 'من خلال الاستمرار، فإنك توافق على لدينا',
-                              style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12),
+                            style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
                           ),
                           TextSpan(
-                            text: 'شروط الاستخدام',
-                  
-                            style:TextStyle(fontFamily: 'Almarai', color: Color(0xffff8300), fontWeight: FontWeight.w400, fontSize: 12,  )
-                          
-                          ),
-                        
+                              text: 'شروط الاستخدام',
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Color(0xffff8300),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                              )),
                           TextSpan(
-                            text:'  و',
-                            style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12),
+                            text: '  و',
+                            style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
                           ),
                           TextSpan(
-                            text: '.سياسة الخصوصية وملفات تعريف الارتباط',
-                           style:TextStyle(fontFamily: 'Almarai', color: Color(0xffff8300), fontWeight: FontWeight.w400, fontSize: 12, )
-                          ),
+                              text: '.سياسة الخصوصية وملفات تعريف الارتباط',
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Color(0xffff8300),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                              )),
                         ],
                       ),
                       textAlign: TextAlign.center,
@@ -176,9 +197,12 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text:'ليس لديك حساب بعد؟',
-
-                          style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12),
+                          text: 'ليس لديك حساب بعد؟',
+                          style: TextStyle(
+                              fontFamily: 'Almarai',
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
                         ),
                         TextSpan(
                           text: " ",
@@ -190,9 +214,12 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
                               // Handle the tap gesture
                               print('TextSpan tapped!');
                             },
-                          text:'اصنع واحدا',
-
-                        style: TextStyle(fontFamily: 'Almarai',color: Color(0xffff8300), fontWeight: FontWeight.w400, fontSize: 12),
+                          text: 'اصنع واحدا',
+                          style: TextStyle(
+                              fontFamily: 'Almarai',
+                              color: Color(0xffff8300),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12),
                         ),
                       ],
                     ),
@@ -213,20 +240,18 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
       validator: (value) {
         if (!isEmail(value!) && !isPhone(value)) {
           return 'الرجاء إدخال بريد إلكتروني أو رقم هاتف صالح.';
-
         }
         return null;
       },
-     autofocus: false,
+      autofocus: false,
       controller: login_controller.emailController.value,
-      hintText:'أدخل رقم الجوال أو البريد الإلكتروني',
-      hintStyle: TextStyle(fontFamily:'Almarai'),
+      hintText: 'أدخل رقم الجوال أو البريد الإلكتروني',
+      hintStyle: TextStyle(fontFamily: 'Almarai'),
 
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
-    
+
       hintTextDirection: TextDirection.ltr, // Set hint text alignment
-    
     );
   }
 
@@ -236,86 +261,76 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
       validator: (value) {
         if (value!.isEmpty) {
           return 'الرجاء إدخال كلمة المرور';
-        } 
-        else if(login_controller.passwordController.value.length<6){
+        } else if (login_controller.passwordController.value.length < 6) {
           return 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل. ';
-        }
-        else {
+        } else {
           return null;
         }
       },
       autofocus: false,
       controller: login_controller.passwordController.value,
-      hintText: '      ادخل رقمك السري'  ,
-      hintStyle: TextStyle(fontFamily:'Almarai'),
-
+      hintText: '      ادخل رقمك السري',
+      hintStyle: TextStyle(fontFamily: 'Almarai'),
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       suffix: IconButton(
-          onPressed: () {
-            setState(() {
-              _passwordVisible = !_passwordVisible;
-            });
-          },
-          icon: Icon(
-            _passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-          ),
-          color:  Color(0xffff8300),
-          ),
-
-      // suffix: Container(
-      //   margin: EdgeInsets.fromLTRB(12.h, 13.v, 16.h, 13.v),
-      //   child: CustomImageView(
-      //     imagePath: ImageConstant.imgIconEye,
-      //     height: 24.adaptSize,
-      //     width: 24.adaptSize,
-      //   ),
-      // ),
+        onPressed: () {
+          setState(() {
+            _passwordVisible = !_passwordVisible;
+          });
+        },
+        icon: Icon(
+          _passwordVisible
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
+        ),
+        color: Color(0xffff8300),
+      ),
       suffixConstraints: BoxConstraints(
         maxHeight: 50.v,
       ),
-      contentPadding: EdgeInsets.only(
-        left: 20.h,
-        top: 17.v,
-        bottom: 17.v,
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 15.h,
+        vertical: 17.v,
       ),
     );
   }
 
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
-    return Obx((){
-  return CustomElevatedButton(
+    return Obx(() {
+      return CustomElevatedButton(
         loading: login_controller.loading.value,
         onPressed: () {
-        
           // Get.to(()=>VerificationCodeScreen
           //   (controller:TextEditingController() ,pinPutFocusNode:FocusNode() ,)
           // );
           // Get.to(() => TabScreen(index: 0));
-         {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    } else {
-       login_controller.loading.value = true;
-        login_controller.arabic_Login_apihit(context);
-       _formKey.currentState!.save();
-
-    }
-  }
+          {
+            if (!_formKey.currentState!.validate()) {
+              return;
+            } else {
+              login_controller.loading.value = true;
+              login_controller.arabic_Login_apihit(context);
+              _formKey.currentState!.save();
+            }
+          }
         },
-        buttonTextStyle: TextStyle( fontFamily:'Almarai', color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+        buttonTextStyle: TextStyle(
+            fontFamily: 'Almarai',
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 18),
         text: 'يكمل',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
-    }
-    );
+    });
   }
 
   /// Section Widget
   Widget _buildContinueWithGoogleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text:'تابع مع جوجل  ',
+      text: 'تابع مع جوجل  ',
       leftIcon: Container(
         margin: EdgeInsets.only(left: 10.h),
         child: CustomImageView(
@@ -324,7 +339,11 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
           width: 20.adaptSize,
         ),
       ),
-         buttonTextStyle: TextStyle( fontFamily:'Almarai',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
+      buttonTextStyle: TextStyle(
+          fontFamily: 'Almarai',
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w400),
       buttonStyle: CustomButtonStyles.outlineGray,
     );
   }
@@ -332,7 +351,7 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
   /// Section Widget
   Widget _buildContinueWithFacebookButton(BuildContext context) {
     return CustomOutlinedButton(
-      text: '   تواصل مع الفيسبوك' ,
+      text: '   تواصل مع الفيسبوك',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 35.h),
         child: CustomImageView(
@@ -341,7 +360,11 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
           width: 20.adaptSize,
         ),
       ),
-        buttonTextStyle: TextStyle( fontFamily:'Almarai',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
+      buttonTextStyle: TextStyle(
+          fontFamily: 'Almarai',
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w400),
       buttonStyle: CustomButtonStyles.outlineGray,
     );
   }
@@ -349,7 +372,7 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
   /// Section Widget
   Widget _buildContinueWithAppleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text:'  تواصل مع التفاح',
+      text: '  تواصل مع التفاح',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 5.h),
         child: CustomImageView(
@@ -358,14 +381,17 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
           width: 16.h,
         ),
       ),
-      buttonTextStyle: TextStyle( fontFamily:'Almarai',color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
+      buttonTextStyle: TextStyle(
+          fontFamily: 'Almarai',
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w400),
       buttonStyle: CustomButtonStyles.outlineGray,
     );
   }
 
   checkvalidate() {
     print("_send".tr);
- 
   }
   // CrossAxisAlignment getCrossAxisAlignment(BuildContext context) {
   //   // Check if the current locale is Arabic

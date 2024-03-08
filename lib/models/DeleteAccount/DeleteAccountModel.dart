@@ -1,12 +1,12 @@
 class DeleteAccountModel {
   DeleteAccountModel({
-     this.status,
-     this.message,
+    this.status,
+    this.message,
   });
   bool? status;
   String? message;
-  
-  DeleteAccountModel.fromJson(Map<String, dynamic> json){
+
+  DeleteAccountModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

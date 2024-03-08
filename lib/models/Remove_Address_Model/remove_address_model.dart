@@ -1,12 +1,12 @@
 class RemoveAddressModel {
   RemoveAddressModel({
-     this.status,
-     this.message,
+    this.status,
+    this.message,
   });
-   bool ?status;
-   String? message;
-  
-  RemoveAddressModel.fromJson(Map<String, dynamic> json){
+  bool? status;
+  String? message;
+
+  RemoveAddressModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

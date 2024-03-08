@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
-import 'package:mohally/presentation/home_page_tab_container_screen/home_page_tab_container_screen.dart';
+import 'package:mohally/presentation/home_page_one_tab_container_page/home_page_one_tab_container_page.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
@@ -52,7 +52,7 @@ class _TabScreenState extends State<TabScreen> {
               physics: const NeverScrollableScrollPhysics(),
               onPageChanged: (index) => pageChanged(index),
               children: [
-                HomePageTabContainerScreen(),
+                HomePageOneTabContainerPage(),
                 CategoryScreen(),
                 WishlistPage(),
                 CartPage(),

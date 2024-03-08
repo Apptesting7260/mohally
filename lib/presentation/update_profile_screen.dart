@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
+import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
@@ -26,10 +25,10 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  final  MyAccountControllerins = Get.put(MyAccountController());
- final  UpdateProfile_Controllerins  = Get.put(UpdateProfile_Controller());
+  final MyAccountControllerins = Get.put(MyAccountController());
+  final UpdateProfile_Controllerins = Get.put(UpdateProfile_Controller());
   bool isEmail(String input) => EmailValidator.validate(input);
- GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //  void _submit() {
   //   final isValid = _formKey.currentState!.validate();
   //   if (!isValid) {
@@ -38,7 +37,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   //   UpdateProfile_Controllerins.updateprofile_apihit();
   //   _formKey.currentState!.save();
   // }
-
 
   final imgPicker = ImagePicker();
   // void openCamera(abc) async {
@@ -63,7 +61,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+        //UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
       }
     });
     Navigator.of(context).pop();
@@ -71,28 +69,31 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   // Open gallery method
   void openGallery() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+        //  UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
       }
     });
     Navigator.of(context).pop();
   }
-void initState() {
-  if (MyAccountControllerins.MyAccount.value.userDetails != null) {
-    UpdateProfile_Controllerins.imgFile = MyAccountControllerins.MyAccount.value.userDetails!.imageUrl != null
-        ? File(MyAccountControllerins.MyAccount.value.userDetails!.imageUrl!)
-        : null;
-    UpdateProfile_Controllerins.firstNameController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.firstName ?? '';
-    UpdateProfile_Controllerins.lastNameController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.lastName ?? '';
-    UpdateProfile_Controllerins.emailController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.email ?? '';
-    UpdateProfile_Controllerins.phoneController.value.text = MyAccountControllerins.MyAccount.value.userDetails!.phone ?? '';
+
+  void initState() {
+    // if (MyAccountControllerins.MyAccount.value.userDetails != null) {
+    //   UpdateProfile_Controllerins.imgFile = MyAccountControllerins.MyAccount.value.userDetails!.imageUrl != null
+    //       ? File(MyAccountControllerins.MyAccount.value.userDetails!.imageUrl!)
+    //       : null;
+    super.initState();
+    UpdateProfile_Controllerins.firstNameController.value.text =
+        MyAccountControllerins.MyAccount.value.userDetails!.firstName ?? '';
+    UpdateProfile_Controllerins.lastNameController.value.text =
+        MyAccountControllerins.MyAccount.value.userDetails!.lastName ?? '';
+    UpdateProfile_Controllerins.emailController.value.text =
+        MyAccountControllerins.MyAccount.value.userDetails!.email ?? '';
+    UpdateProfile_Controllerins.phoneController.value.text =
+        MyAccountControllerins.MyAccount.value.userDetails!.phone ?? '';
   }
-  super.initState();
-}
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +119,20 @@ void initState() {
                       Container(
                         height: height * .2,
                         width: width * .3,
-                        child:  UpdateProfile_Controllerins.imgFile.toString()=="null"? CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                          backgroundColor: Colors.transparent,
-                        ):
-                         CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: FileImage(UpdateProfile_Controllerins.imgFile!),
-                          backgroundColor: Colors.transparent,
-                        ),
+                        child: UpdateProfile_Controllerins.imgFile.toString() ==
+                                "null"
+                            ? CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage: NetworkImage(
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                backgroundColor: Colors.transparent,
+                              )
+                            : CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage: FileImage(
+                                    UpdateProfile_Controllerins.imgFile!),
+                                backgroundColor: Colors.transparent,
+                              ),
                       ),
                       CustomIconButton(
                         height: 30.adaptSize,
@@ -186,7 +190,6 @@ void initState() {
               SizedBox(height: 9.v),
               _buildLastName(context),
               SizedBox(height: 17.v),
-        
               Text(
                 "Email",
                 style: theme.textTheme.titleMedium,
@@ -201,7 +204,6 @@ void initState() {
               SizedBox(height: 9.v),
               _builNumber(context),
               SizedBox(height: 17.v),
-            
               _buildContinueButton(context),
               SizedBox(height: 109.v),
             ],
@@ -213,7 +215,7 @@ void initState() {
 
   Widget _buildFirstName(BuildContext context) {
     return CustomTextFormField(
-         controller: UpdateProfile_Controllerins.firstNameController.value,
+      controller: UpdateProfile_Controllerins.firstNameController.value,
       validator: (value) {
         if (value!.isEmpty) {
           return "Enter Your First Name";
@@ -224,11 +226,12 @@ void initState() {
       hintText: "Your First Name",
     );
   }
+
   Widget _buildLastName(BuildContext context) {
     return CustomTextFormField(
-         controller: UpdateProfile_Controllerins.lastNameController.value,
+      controller: UpdateProfile_Controllerins.lastNameController.value,
       validator: (value) {
-        if (value!.isEmpty&&value.length<3) {
+        if (value!.isEmpty && value.length < 3) {
           return "Enter Last Name";
         } else {
           return null;
@@ -240,7 +243,7 @@ void initState() {
 
   Widget _buildEmail(BuildContext context) {
     return CustomTextFormField(
-         controller: UpdateProfile_Controllerins.emailController.value,
+      controller: UpdateProfile_Controllerins.emailController.value,
       validator: (value) {
         if (!isEmail(value!)) {
           return 'valid valid Email';
@@ -252,13 +255,11 @@ void initState() {
     );
   }
 
-  
-Widget _builNumber(BuildContext context) {
+  Widget _builNumber(BuildContext context) {
     return CustomTextFormField(
-    
-         controller: UpdateProfile_Controllerins.phoneController.value,
+      controller: UpdateProfile_Controllerins.phoneController.value,
       validator: (value) {
-        if (value!.isEmpty && value.length==10) {
+        if (value!.isEmpty && value.length == 10) {
           return 'enter valid mobile number';
         } else {
           return null;
@@ -267,25 +268,26 @@ Widget _builNumber(BuildContext context) {
       hintText: 'enter your number',
     );
   }
+
   Widget _buildContinueButton(BuildContext context) {
-    return Obx((){
-return CustomElevatedButton(
-  loading: UpdateProfile_Controllerins.loading.value,
+    return Obx(() {
+      return CustomElevatedButton(
+        loading: UpdateProfile_Controllerins.loading.value,
         onPressed: () {
           checkvalidate();
-          },
+        },
         text: 'update',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
-    }
-      
-    );
+    });
   }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
+          Get.off(MyAccountScreen());
           Get.back();
         },
         imagePath: ImageConstant.imgBack,
@@ -301,17 +303,18 @@ return CustomElevatedButton(
       ),
     );
   }
-   checkvalidate() async {
-  print("send");
-  if (_formKey.currentState!.validate()) {
-    UpdateProfile_Controllerins.loading.value = true;
-    print('apihit');
-    await UpdateProfile_Controllerins.ProfileApiHit(); // Await the ProfileApiHit function
-    _formKey.currentState!.save();
-    return;
-  } else {
-    print('data');
-  }
-}
 
+  checkvalidate() async {
+    print("send");
+    if (_formKey.currentState!.validate()) {
+      UpdateProfile_Controllerins.loading.value = true;
+      print('apihit');
+      await UpdateProfile_Controllerins
+          .ProfileApiHit(); // Await the ProfileApiHit function
+      _formKey.currentState!.save();
+      return;
+    } else {
+      print('data');
+    }
+  }
 }

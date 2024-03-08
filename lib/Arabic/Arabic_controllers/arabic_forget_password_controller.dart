@@ -10,18 +10,20 @@ import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? varificationemail;
+
 class arabic_Resetpassword_controller extends GetxController {
-final _api = AuthRepository();
-final emailController = TextEditingController().obs;
-RxBool loading = false.obs;
-RxString error = ''.obs;
-RxString statusOfApi = ''.obs;
-final forgetpasswordModel = ResetpasswordModel().obs;
-final rxRequestStatus = Status.LOADING.obs;
-void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-void setaccountdetails(ResetpasswordModel value) => forgetpasswordModel.value = value;
-void setError(String value) => error.value = value;
- Future<void> arabic_forget_password(BuildContext context) async {
+  final _api = AuthRepository();
+  final emailController = TextEditingController().obs;
+  RxBool loading = false.obs;
+  RxString error = ''.obs;
+  RxString statusOfApi = ''.obs;
+  final forgetpasswordModel = ResetpasswordModel().obs;
+  final rxRequestStatus = Status.LOADING.obs;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  void setaccountdetails(ResetpasswordModel value) =>
+      forgetpasswordModel.value = value;
+  void setError(String value) => error.value = value;
+  Future<void> arabic_forget_password(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
@@ -42,10 +44,10 @@ void setError(String value) => error.value = value;
 
         // Pass the email to OtpVerification
         Get.to(VerificationCodeScreen_arabic(
-emailText: varificationemail,
-controller: TextEditingController(),
-pinPutFocusNode: FocusNode(),
-));
+          emailText: varificationemail,
+          controller: TextEditingController(),
+          pinPutFocusNode: FocusNode(),
+        ));
       } else {
         Utils.snackBar(context, 'Login', value.message.toString());
         print("Error Message: ${value.message}");
@@ -56,7 +58,8 @@ pinPutFocusNode: FocusNode(),
       return; // error.toString()
     });
   }
- Future<bool> resendOtp(String email, String language) async {
+
+  Future<bool> resendOtp(String email, String language) async {
     try {
       loading.value = true;
 

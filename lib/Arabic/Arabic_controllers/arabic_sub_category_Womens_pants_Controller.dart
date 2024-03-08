@@ -15,23 +15,19 @@ class SubMensCategoriesController extends GetxController {
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   void SubMensApihit() async {
-  
     loading.value = true;
-    Map data = {
-      "language_type":"Arabic",
-      "cat_id":"44"
-    };
-     final sp = await SharedPreferences.getInstance();
+    Map data = {"language_type": "Arabic", "cat_id": "44"};
+    final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
     var header = {'Authorization': "Bearer $token"};
-    _api.arabicsubcategoriesApi(data,header).then((value) {
+    _api.arabicsubcategoriesApi(data, header).then((value) {
       setRxRequestStatus(Status.COMPLETED);
-      setUserList(value );
+      setUserList(value);
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
       loading.value = false;
     }).onError((error, stackTrace) {
-      print("=====Home====Page======Error======");
+      print("=====SubMensCategoriesController======Error======");
       print(error.toString());
       print(stackTrace.toString());
       loading.value = false;
@@ -40,5 +36,4 @@ class SubMensCategoriesController extends GetxController {
       // error.toString()
     });
   }
-
 }

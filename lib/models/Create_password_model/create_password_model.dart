@@ -1,12 +1,12 @@
 class CreatepassModel {
   CreatepassModel({
-  this.status,
-  this.message,
+    this.status,
+    this.message,
   });
-   bool? status;
-   String? message;
+  bool? status;
+  String? message;
 
-  CreatepassModel.fromJson(Map<String, dynamic> json){
+  CreatepassModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

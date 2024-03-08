@@ -31,19 +31,32 @@ class AddNewCardScreen_arabic extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar:AppBar(
-          title: Text('إضافة بطاقة جديدة', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),),
+        appBar: AppBar(
+          title: Text(
+            'إضافة بطاقة جديدة',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Almarai',
+            ),
+          ),
           leading: Padding(
-            padding: const EdgeInsets.only(top:15, ),
+            padding: const EdgeInsets.only(
+              top: 15,
+            ),
             child: GestureDetector(
               onTap: () {
                 Get.back();
               },
               child: Container(
-                width: Get.width*.07,
-                height: Get.height*.03,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(Icons.arrow_back, )),
+                  width: Get.width * .07,
+                  height: Get.height * .03,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(90, 158, 158, 158)),
+                  child: Icon(
+                    Icons.arrow_back,
+                  )),
             ),
           ),
         ),
@@ -192,7 +205,7 @@ class AddNewCardScreen_arabic extends StatelessWidget {
     return CustomTextFormField(
       width: 160.h,
       controller: mMYYYYController,
-      hintText:  'MM/YYYY',
+      hintText: 'MM/YYYY',
     );
   }
 
@@ -218,7 +231,7 @@ class AddNewCardScreen_arabic extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                   "EXP",
+                  "EXP",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 10.v),
@@ -227,15 +240,17 @@ class AddNewCardScreen_arabic extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: Get.width*.02,),
+        SizedBox(
+          width: Get.width * .02,
+        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 7.h),
-            child:Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                   "CVV",
+                  "CVV",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 10.v),
@@ -254,7 +269,11 @@ class AddNewCardScreen_arabic extends StatelessWidget {
       text: "إضافة بطاقة",
       margin: EdgeInsets.symmetric(horizontal: 10.h),
       buttonStyle: CustomButtonStyles.fillPrimary,
-      buttonTextStyle: TextStyle(fontFamily: 'Almarai', fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+      buttonTextStyle: TextStyle(
+          fontFamily: 'Almarai',
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.white),
     );
   }
 }

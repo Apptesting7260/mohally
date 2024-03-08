@@ -1,12 +1,12 @@
 class ResetpassOTPModel {
   ResetpassOTPModel({
-     this.status,
-     this.message,
+    this.status,
+    this.message,
   });
- bool ?status;
- String? message;
+  bool? status;
+  String? message;
 
-  ResetpassOTPModel.fromJson(Map<String, dynamic> json){
+  ResetpassOTPModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

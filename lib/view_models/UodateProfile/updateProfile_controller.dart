@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
-import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 var response;
 
 class UpdateProfile_Controller extends GetxController {
-  final _api = AuthRepository();
+  // final _api = AuthRepository();
   final firstNameController = TextEditingController().obs;
   final lastNameController = TextEditingController().obs;
   final phoneController = TextEditingController().obs;
@@ -22,7 +20,7 @@ class UpdateProfile_Controller extends GetxController {
   final emailFocusNode = FocusNode().obs;
   RxBool loading = false.obs;
   File? imgFile;
-  final ImagePicker _imgPicker = ImagePicker();
+  //final ImagePicker _imgPicker = ImagePicker();
 
   MyAccountController MyAccountControllerin = MyAccountController();
 
@@ -32,9 +30,11 @@ class UpdateProfile_Controller extends GetxController {
     try {
       loading.value = true; // Set loading to true before making the API call
 
-      var url = Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
+      var url =
+          Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
       var request = http.MultipartRequest('POST', url);
-      if (imgFile != null) { // Check if imgFile is not null
+      if (imgFile != null) {
+        // Check if imgFile is not null
         var fileStream = http.ByteStream(imgFile!.openRead());
         var length = await imgFile!.length();
         var multipartFile = http.MultipartFile('pro_img', fileStream, length,
@@ -46,7 +46,7 @@ class UpdateProfile_Controller extends GetxController {
       request.fields['first_name'] = firstNameController.value.text;
       request.fields['last_name'] = lastNameController.value.text;
       request.fields['phone'] = phoneController.value.text;
-      request.fields['new_pro_img'] = imgFile.toString();
+      //request.fields['new_pro_img'] = imgFile.toString();
       request.headers['Authorization'] = "Bearer ${sp.getString("token")}";
 
       // Send the request and get the response
@@ -64,9 +64,10 @@ class UpdateProfile_Controller extends GetxController {
       }
     } catch (e) {
       print(e);
-      Utils2.snackBar('Failed', 'Error occurred while uploading file: $e');
+      Utils2.snackBar('Failed', '$e');
     } finally {
-      loading.value = false; // Set loading back to false after handling the response
+      loading.value =
+          false; // Set loading back to false after handling the response
     }
   }
 }

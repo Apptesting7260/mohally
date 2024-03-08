@@ -1,12 +1,12 @@
 class ContactUsModel {
   ContactUsModel({
-     this.status,
-     this.message,
+    this.status,
+    this.message,
   });
-   bool? status;
-   String? message;
-  
-  ContactUsModel.fromJson(Map<String, dynamic> json){
+  bool? status;
+  String? message;
+
+  ContactUsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

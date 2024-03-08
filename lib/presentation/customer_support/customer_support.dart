@@ -23,19 +23,19 @@ class CustomerSupport extends StatefulWidget {
 }
 
 class _CustomerSupportState extends State<CustomerSupport> {
-String? htmlresponse;
+  String? htmlresponse;
 
-@override
+  @override
   void initState() {
     super.initState();
- fetchData();
+    fetchData();
   }
-fetchData() async {
-    var request = http.MultipartRequest('POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
-    request.fields.addAll({
-      'page_name': 'customer-support',
-      'language_type': 'English'
-    });
+
+  fetchData() async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
+    request.fields
+        .addAll({'page_name': 'customer-support', 'language_type': 'English'});
 
     http.StreamedResponse response = await request.send();
 
@@ -48,31 +48,36 @@ fetchData() async {
       print(response.reasonPhrase);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
-    return  Scaffold(
-      appBar: _buildAppBar(context),
-      body: htmlresponse==null?Center(child: CircularProgressIndicator()):
-      
-   Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: Container(height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,child: SingleChildScrollView(
-       child: Column(
-         children: [HtmlWidget(
-                  '''
+    return SafeArea(
+      child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: htmlresponse == null
+              ? Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        HtmlWidget(
+                          '''
           <!-- Your HTML content goes here -->
          $htmlresponse
-                  ''',
-                ),
-          
-           ] ),
-     ),),
-   )
- 
+                    ''',
+                        ),
+                      ]),
+                    ),
+                  ),
+                )),
     );
   }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
@@ -93,5 +98,4 @@ fetchData() async {
       ),
     );
   }
-
 }

@@ -1,12 +1,12 @@
-class PrivacypolicyModel  {
-  PrivacypolicyModel ({
+class PrivacypolicyModel {
+  PrivacypolicyModel({
     required this.status,
     required this.pagecontent,
   });
   late final bool status;
   late final Pagecontent pagecontent;
-  
-  PrivacypolicyModel .fromJson(Map<String, dynamic> json){
+
+  PrivacypolicyModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     pagecontent = Pagecontent.fromJson(json['pagecontent']);
   }
@@ -30,8 +30,8 @@ class Pagecontent {
   late final String contents;
   late final String images;
   late final List<String> imageUrl;
-  
-  Pagecontent.fromJson(Map<String, dynamic> json){
+
+  Pagecontent.fromJson(Map<String, dynamic> json) {
     heading = json['heading'];
     contents = json['contents'];
     images = json['images'];

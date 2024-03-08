@@ -18,21 +18,20 @@ class VerificationCodeScreen_arabic extends StatefulWidget {
   final FocusNode? pinPutFocusNode;
   final TextEditingController? controller;
   VerificationCodeScreen_arabic(
-      {Key? key,
-       this.controller,
-       this.emailText,
-       this.pinPutFocusNode})
+      {Key? key, this.controller, this.emailText, this.pinPutFocusNode})
       : super(
           key: key,
         );
 
   @override
-  State<VerificationCodeScreen_arabic> createState() => _VerificationCodeScreen_arabicState();
+  State<VerificationCodeScreen_arabic> createState() =>
+      _VerificationCodeScreen_arabicState();
 }
 
-class _VerificationCodeScreen_arabicState extends State<VerificationCodeScreen_arabic> {
-arabic_Resetpassword_controller resend = Get.put(arabic_Resetpassword_controller());
-
+class _VerificationCodeScreen_arabicState
+    extends State<VerificationCodeScreen_arabic> {
+  arabic_Resetpassword_controller resend =
+      Get.put(arabic_Resetpassword_controller());
 
   arabic_ResetpasswordOTP_controller resetpasswordOTP_controller =
       Get.put(arabic_ResetpasswordOTP_controller());
@@ -54,32 +53,32 @@ arabic_Resetpassword_controller resend = Get.put(arabic_Resetpassword_controller
       }
     });
   }
-void resendOtp() async {
-  try {
-     resetpasswordOTP_controller.loading.value = true;
-    // Get the email from the widget
-    String? email = widget.emailText;
- SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String language = prefs.getString('selectedLanguage') ?? "";
-    // Call the resendOtp method from the controller
-    bool success = await resend.resendOtp(email!,language );
-    // Show a snackbar based on the response
-    if (success) {
-      Utils.snackBar(context ,'Success', 'OTP resend successfully');
-       resetpasswordOTP_controller.pinController.value.clear();
+  void resendOtp() async {
+    try {
+      resetpasswordOTP_controller.loading.value = true;
+      // Get the email from the widget
+      String? email = widget.emailText;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      String language = prefs.getString('selectedLanguage') ?? "";
+      // Call the resendOtp method from the controller
+      bool success = await resend.resendOtp(email!, language);
+      // Show a snackbar based on the response
+      if (success) {
+        Utils.snackBar(context, 'Success', 'OTP resend successfully');
+        resetpasswordOTP_controller.pinController.value.clear();
         resetpasswordOTP_controller.loading.value = false;
-
-    } else {
-      Utils.snackBar(context ,'Error', 'Failed to resend OTP');
-       resetpasswordOTP_controller.loading.value = false;
-
+      } else {
+        Utils.snackBar(context, 'Error', 'Failed to resend OTP');
+        resetpasswordOTP_controller.loading.value = false;
+      }
+    } catch (error) {
+      print("Error: $error");
+      Utils2.snackBar('Error', 'Failed to resend OTP');
     }
-  } catch (error) {
-    print("Error: $error");
-    Utils2.snackBar('Error', 'Failed to resend OTP');
   }
-}
+
   @override
   void initState() {
     resetpasswordOTP_controller.pinController.value.clear();
@@ -100,13 +99,11 @@ void resendOtp() async {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     final defaultPinTheme = PinTheme(
-      
       width: 52,
       height: 50,
       textStyle: TextStyle(
           fontSize: 20, color: Color(0xffFF8300), fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        
         border: Border.all(color: Color(0xffFF8300)),
         borderRadius: BorderRadius.circular(30),
       ),
@@ -123,34 +120,36 @@ void resendOtp() async {
               vertical: 45.v,
             ),
             child: Form(
-             
               key: formKey,
               child: Column(
                 children: [
                   SizedBox(height: 10.v),
-                  Text(
-                   'رمز التحقق',
-                  style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 26)
-                  ),
+                  Text('رمز التحقق',
+                      style: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26)),
                   SizedBox(height: 19.v),
                   RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text:'الرجاء كتابة رمز التحقق المرسل إليه',
-                            style: TextStyle(fontFamily: 'Almarai', color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16)
+                            text: 'الرجاء كتابة رمز التحقق المرسل إليه',
+                            style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                        TextSpan(
+                          text: '\n',
                         ),
                         TextSpan(
-                          text:'\n',
-                           
-                        ),
-                        TextSpan(
-                          text:'\n',
-                           
+                          text: '\n',
                         ),
                         TextSpan(
                           text: varificationemail,
-                style: CustomTextStyles.titleMediumPrimary16_1,
+                          style: CustomTextStyles.titleMediumPrimary16_1,
                           //CustomTextStyles.titleMediumPrimary16_1,
                         ),
                       ],
@@ -169,11 +168,12 @@ void resendOtp() async {
                   //   ),
                   // ),
                   Pinput(
-                     validator:  (value) {
+                    validator: (value) {
                       if (value!.isEmpty) {
                         return "حقل OTP مطلوب.";
                       }
-                      return null; },
+                      return null;
+                    },
                     length: 6,
                     autofocus: true,
                     useNativeKeyboard: true,
@@ -185,65 +185,77 @@ void resendOtp() async {
                     submittedPinTheme: defaultPinTheme,
                     focusedPinTheme: defaultPinTheme,
                     followingPinTheme: defaultPinTheme,
-                    errorTextStyle: TextStyle(fontWeight: FontWeight.w500, fontFamily: 'Almarai', fontSize: 10, color: Colors.red),
+                    errorTextStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Almarai',
+                        fontSize: 10,
+                        color: Colors.red),
                   ),
                   SizedBox(height: 20.v),
-                  Obx((){
+                  Obx(() {
                     return CustomElevatedButton(
                       loading: resetpasswordOTP_controller.loading.value,
-                      onPressed: 
-                      () {
-                                  if (!formKey.currentState!.validate()) {
-                                    return;
-                                  } else {
-                                 resetpasswordOTP_controller.loading.value=true;
-                                 resetpasswordOTP_controller
-                                      .arabic_ResetpasswordOTP_apihit(context);
-                                      _pinPutFocusNode.unfocus();
-                                        formKey.currentState!.save();
-                                  }
-                                  },
+                      onPressed: () {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        } else {
+                          resetpasswordOTP_controller.loading.value = true;
+                          resetpasswordOTP_controller
+                              .arabic_ResetpasswordOTP_apihit(context);
+                          _pinPutFocusNode.unfocus();
+                          formKey.currentState!.save();
+                        }
+                      },
                       text: 'يؤكد',
                       margin: EdgeInsets.symmetric(horizontal: 24.h),
                       buttonStyle: CustomButtonStyles.fillPrimary,
-                      buttonTextStyle: TextStyle( fontFamily:'Almarai', color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+                      buttonTextStyle: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18),
                     );
-                  }
-              
-                  ),
+                  }),
                   SizedBox(height: 24.v),
                   InkWell(
                     child: RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text:'لا أتلقى رمزًا!',
-                            style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16)
-                          ),
+                              text: 'لا أتلقى رمزًا!',
+                              style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16)),
                           TextSpan(
-                            text: "إعادة إرسال",
-                             style: TextStyle(fontFamily: 'Almarai', color:  Color(0xffff8300), fontWeight: FontWeight.w400, fontSize: 16)
-                            // !waitOtpShow.value == true
-                            //     ? "Resend"
-                            //     : waitOtp.value.toString(),
-                            // style: CustomTextStyles.titleMediumPrimary,
-                            // recognizer: TapGestureRecognizer()
-                            //   ..onTap = waitOtpShow.value == true
-                            //       ? () {}
-                            //       : () {
-                            //           waitOtp.value = 60;
-                            //           resetpasswordOTP_controller
-                            //               .arabic_ResetpasswordOTP_apihit();
-                            //
-                            //           waitOtpUpdate();
-                            //         }
-                            
-                          ),
+                              text: "إعادة إرسال",
+                              style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Color(0xffff8300),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16)
+                              // !waitOtpShow.value == true
+                              //     ? "Resend"
+                              //     : waitOtp.value.toString(),
+                              // style: CustomTextStyles.titleMediumPrimary,
+                              // recognizer: TapGestureRecognizer()
+                              //   ..onTap = waitOtpShow.value == true
+                              //       ? () {}
+                              //       : () {
+                              //           waitOtp.value = 60;
+                              //           resetpasswordOTP_controller
+                              //               .arabic_ResetpasswordOTP_apihit();
+                              //
+                              //           waitOtpUpdate();
+                              //         }
+
+                              ),
                         ],
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    onTap: (){
+                    onTap: () {
                       resendOtp();
                     },
                   ),
@@ -312,8 +324,8 @@ void resendOtp() async {
         height: 80.0,
         child: Center(
           child: Text(
-           'تم إرسال الدبوس. قيمة:$pin'.tr,
-          
+            'تم إرسال الدبوس. قيمة:$pin'.tr,
+
             // style:  TextStyle(fontSize: 25.0,),
           ),
         ),

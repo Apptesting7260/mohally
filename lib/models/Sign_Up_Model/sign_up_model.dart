@@ -1,12 +1,12 @@
 class SignUpModel {
   SignUpModel({
-     this.status,
-     this.message,
+    this.status,
+    this.message,
   });
-  bool ?status;
+  bool? status;
   String? message;
-  
-  SignUpModel.fromJson(Map<String, dynamic> json){
+
+  SignUpModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }

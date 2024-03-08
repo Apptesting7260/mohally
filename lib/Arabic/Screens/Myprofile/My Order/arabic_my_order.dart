@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myorder_Processing.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myorder_cancelled.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabuc_myorder_delievered.dart';
-import 'package:mohally/Arabic/Screens/Myprofile/my_profile_arabic.dart';
 import 'package:mohally/core/app_export.dart';
 
 class MyOrdersTab_arabic extends StatefulWidget {
@@ -13,8 +12,7 @@ class MyOrdersTab_arabic extends StatefulWidget {
         );
 
   @override
-  MyOrdersTab_arabicState createState() =>
-      MyOrdersTab_arabicState();
+  MyOrdersTab_arabicState createState() => MyOrdersTab_arabicState();
 }
 
 class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
@@ -33,20 +31,32 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
 
     return SafeArea(
       child: Scaffold(
-        appBar: 
-         AppBar(
-          title: Text("طلباتي", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),),
+        appBar: AppBar(
+          title: Text(
+            "طلباتي",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Almarai',
+            ),
+          ),
           leading: Padding(
-            padding: const EdgeInsets.only(top:15, ),
+            padding: const EdgeInsets.only(
+              top: 15,
+            ),
             child: GestureDetector(
               onTap: () {
                 Get.back();
               },
               child: Container(
-                width: Get.width*.07,
-                height: Get.height*.03,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(Icons.arrow_back, )),
+                  width: Get.width * .07,
+                  height: Get.height * .03,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(90, 158, 158, 158)),
+                  child: Icon(
+                    Icons.arrow_back,
+                  )),
             ),
           ),
         ),
@@ -79,7 +89,7 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
   }
 
   /// Section Widget
- 
+
   /// Section Widget
   Widget _buildTabview(BuildContext context) {
     return Container(
@@ -111,12 +121,12 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
         tabs: [
           Tab(
             child: Text(
-              "       تم التوصيل"       ,
+              "       تم التوصيل",
             ),
           ),
           Tab(
             child: Text(
-              "      يعالج         "  ,
+              "      يعالج         ",
             ),
           ),
           Tab(

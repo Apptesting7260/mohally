@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/LanguageSwitchEnglishScreen/switchLanguageScreen.dart';
 import 'package:mohally/presentation/coupans_offeres/coupan_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -31,12 +33,14 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-final  _controller = Get.put(MyAccountController());
-     @override
+  final _controller = Get.put(MyAccountController());
+  @override
   void initState() {
+    _controller.fetchMyAccountData();
     super.initState();
     //    setInitialLocale();
   }
+
   //   void setInitialLocale() {
   //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
   //     Get.updateLocale(Locale('ar', 'DZ'));
@@ -73,7 +77,6 @@ final  _controller = Get.put(MyAccountController());
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(context),
-
         body: Container(
           width: double.maxFinite,
           decoration: AppDecoration.fillWhiteA,
@@ -112,7 +115,7 @@ final  _controller = Get.put(MyAccountController());
                                   child: CircleAvatar(
                                     radius: 30.0,
                                     backgroundImage: NetworkImage(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
                                     backgroundColor: Colors.transparent,
                                   ),
                                 ),
@@ -159,37 +162,34 @@ final  _controller = Get.put(MyAccountController());
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        Obx((){
+                        Obx(() {
                           return Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                             "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
-                             // "Name",
+                              "${_controller.MyAccount.value.userDetails?.firstName.toString()}",
+                              // "Name",
                               style: CustomTextStyles
                                   .headlineSmallLeagueSpartanSemiBold,
                             ),
                           );
-                        }
-                        ),
-  
-                  
+                        }),
+
                         SizedBox(height: 10.v),
-                         Obx((){
+                        Obx(() {
                           return Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                             "${ _controller.MyAccount.value.userDetails?.email.toString()}",
-                             // "Name",
-                              style:  CustomTextStyles.bodyLargeGray50001_3,
+                              "${_controller.MyAccount.value.userDetails?.email.toString()}",
+                              // "Name",
+                              style: CustomTextStyles.bodyLargeGray50001_3,
                             ),
                           );
-                        }
-                        ),
-                       
+                        }),
+
                         SizedBox(height: 36.v),
                         GestureDetector(
                           onTap: () {
-                            Get.to(()=>MyAccountScreen());
+                            Get.to(() => MyAccountScreen());
                           },
                           child: _buildMessageOne(
                             context,
@@ -236,7 +236,7 @@ final  _controller = Get.put(MyAccountController());
                             userMessage: "Coupon offers",
                           ),
                         ),
-                      
+
                         // _buildMessageOne(
                         //   context,
                         //   userImage: ImageConstant.imgShop1,
@@ -251,8 +251,7 @@ final  _controller = Get.put(MyAccountController());
                         SizedBox(height: 26.v),
                         GestureDetector(
                           onTap: () {
-                            // Get.to(() => AddressScreen());
-                                  Get.to(() => Default_address());
+                            Get.to(() => Default_address());
                           },
                           child: _buildMessageOne(
                             context,
@@ -273,8 +272,19 @@ final  _controller = Get.put(MyAccountController());
                         ),
                         SizedBox(height: 26.v),
                         GestureDetector(
-                          onTap: (){
-                            Get.to(()=>CustomerSupport());
+                          onTap: () {
+                            Get.to(() => EnglishLanguageSwitch());
+                          },
+                          child: _buildMessageOne(
+                            context,
+                            userImage: 'assets/images/lang2.png',
+                            userMessage: "Language ",
+                          ),
+                        ),
+                        SizedBox(height: 26.v),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => CustomerSupport());
                           },
                           child: _buildMessageOne(
                             context,
@@ -287,14 +297,14 @@ final  _controller = Get.put(MyAccountController());
                         _buildMessageOne(
                           context,
                           userImage: ImageConstant.imgSettingPrimary,
-                          userMessage:  "Settings",
+                          userMessage: "Settings",
                         ),
                         SizedBox(height: 40.v),
                         CustomElevatedButton(
                           onPressed: () async {
                             await clearSharedPreferences();
 
-                           // Get.offAll(() => ChooseLanguageScreen());
+                            // Get.offAll(() => ChooseLanguageScreen());
                           },
                           text: "Logout",
                           margin: EdgeInsets.symmetric(horizontal: 10.h),
@@ -305,19 +315,19 @@ final  _controller = Get.put(MyAccountController());
                   ),
                 ),
               ),
-              
             ],
           ),
         ),
       ),
     );
   }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.back();
+          Get.offAll(TabScreen(index: 0));
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
@@ -346,6 +356,7 @@ final  _controller = Get.put(MyAccountController());
           imagePath: userImage,
           height: 25.adaptSize,
           width: 25.adaptSize,
+          color: Color(0xffff8300),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -374,7 +385,7 @@ final  _controller = Get.put(MyAccountController());
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-      Get.offAll(() => SplashScreen());
+    Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

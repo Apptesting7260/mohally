@@ -14,12 +14,12 @@ import '../../../data/response/status.dart';
 String? varificationemail;
 
 class UserVerify_controller extends GetxController {
-   Signup_controller signup_controller = Get.put(Signup_controller());
+  Signup_controller signup_controller = Get.put(Signup_controller());
   final _api = AuthRepository();
-  RxBool verified =  false.obs;
+  RxBool verified = false.obs;
 
-var userList = UserVerifyModel().obs;
-   RxString error = ''.obs;
+  var userList = UserVerifyModel().obs;
+  RxString error = ''.obs;
 
   // void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value;
   void setUserList(UserVerifyModel _value) => userList.value = _value;
@@ -29,34 +29,29 @@ var userList = UserVerifyModel().obs;
   RxString statusOfApi = ''.obs;
 
   void UserVerify_apihit(String phone) async {
-   SharedPreferences prefs = await SharedPreferences.getInstance();
-     String lang= prefs.getString('selectedLanguage').toString();
-     print("${prefs.getString('selectedLanguage').toString()}==========lang");
-  print("otp send1");
-  print(phone);
-  loading.value = true;
-  Map data = {
-    'mobile': phone,
-    'type': "mobile",
-    'language_type':lang
-  };
-  await _api.Verifyphoneapi(data).then((value) {
-    statusOfApi.value = value.status.toString();
-    setUserList(value);
-    loading.value = false;
-    if (value.message == "Otp Verifed Successfully.") {
-      Utils2.snackBar('Success', 'OTP verified successfully');
-      // If you want to show a different message, replace the line above with:
-      // Utils2.snackBar('Success', 'OTP sent to your email.');
-      Get.offAll(HomeBanner());
-    } else {
-      Utils2.snackBar('Success', value.message.toString());
-    }
-  }).onError((error, stackTrace) {
-    print("Error: $error");
-    loading.value = false;
-    Utils2.snackBar('Failed', 'Please check OTP');
-  });
-}
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String lang = prefs.getString('selectedLanguage').toString();
+    print("${prefs.getString('selectedLanguage').toString()}==========lang");
+    print("otp send1");
+    print(phone);
+    loading.value = true;
+    Map data = {'mobile': phone, 'type': "mobile", 'language_type': lang};
+    await _api.Verifyphoneapi(data).then((value) {
+      statusOfApi.value = value.status.toString();
+      setUserList(value);
+      loading.value = false;
+      // if (value.message == "Otp Verifed Successfully.") {
+      //   Utils2.snackBar('Success', 'OTP verified successfully');
+      //   // If you want to show a different message, replace the line above with:
+      //   // Utils2.snackBar('Success', 'OTP sent to your email.');
+      //   Get.offAll(HomeBanner());
+      // } else {
+      //   Utils2.snackBar('Success', value.message.toString());
+      // }
+    }).onError((error, stackTrace) {
+      print("Error: $error");
+      loading.value = false;
+      Utils2.snackBar('Failed', 'Please check OTP');
+    });
+  }
 }

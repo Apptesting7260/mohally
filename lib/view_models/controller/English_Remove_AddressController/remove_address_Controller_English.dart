@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/widgets/Address/arabic_address.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/Remove_Address_Model/remove_address_model.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
@@ -19,33 +18,32 @@ class EnglishRemoveAddressController extends GetxController {
   void setUserList(RemoveAddressModel value) => userList.value = value;
   void setError(String value) => error.value = value;
 
- void EnglishremoveAddress_apiHit() async {
-  loading.value = true;
-  Map data = {
-    "addres_id": addressid.value,
-  };
-  final sp = await SharedPreferences.getInstance();
-  String token = sp.getString('token').toString();
-  var header = {'Authorization': "Bearer $token"};
+  void EnglishremoveAddress_apiHit() async {
+    loading.value = true;
+    Map data = {
+      "addres_id": addressid.value,
+    };
+    final sp = await SharedPreferences.getInstance();
+    String token = sp.getString('token').toString();
+    var header = {'Authorization': "Bearer $token"};
 
-  _api.removeAddressApi(data, header).then((value) {
-    print("Delete successful");
-    setRxRequestStatus(Status.COMPLETED);
+    _api.removeAddressApi(data, header).then((value) {
+      print("Delete successful");
+      setRxRequestStatus(Status.COMPLETED);
 
-    loading.value = false;
-    if (value.message == "Address Successfully Removed") {
-      // Clear the addressid after successful deletion
-      addressid.value = '';
-      // Navigate to the view address screen after successful deletion
-      Get.off(Default_address());
-    }
-  }).onError((error, stackTrace) {
-    print("Delete error: $error");
-    print(stackTrace.toString());
-    loading.value = false;
-    setError(error.toString());
-    setRxRequestStatus(Status.ERROR);
-  });
-}
-
+      loading.value = false;
+      if (value.message == "Address Successfully Removed") {
+        // Clear the addressid after successful deletion
+        addressid.value = '';
+        // Navigate to the view address screen after successful deletion
+        Get.off(Default_address());
+      }
+    }).onError((error, stackTrace) {
+      print("Delete error: $error");
+      print(stackTrace.toString());
+      loading.value = false;
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+    });
+  }
 }

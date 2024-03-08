@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:mohally/view_models/controller/AddressViewController/address_view_controller.dart';
 import 'package:mohally/view_models/controller/EditAddressController/update_address_controller.dart';
 import 'package:mohally/view_models/controller/English_Remove_AddressController/remove_address_Controller_English.dart';
-import 'package:mohally/view_models/controller/RemoveAddressController/remove_address_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -26,30 +24,41 @@ class EditAddress extends StatefulWidget {
 }
 
 class _EditAddressState extends State<EditAddress> {
-       EnglishRemoveAddressController removeAddressController = EnglishRemoveAddressController();
-   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  EnglishUpdateaddress_controller  _editAddressController =EnglishUpdateaddress_controller();
-   Englishuseraddressviewcontroller useraddressview =Englishuseraddressviewcontroller();
+  EnglishRemoveAddressController removeAddressController =
+      EnglishRemoveAddressController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  EnglishUpdateaddress_controller _editAddressController =
+      EnglishUpdateaddress_controller();
+  Englishuseraddressviewcontroller useraddressview =
+      Englishuseraddressviewcontroller();
 
- @override
+  @override
   void initState() {
     super.initState();
     // Retrieve the passed data
     Map<String, dynamic>? addressData = Get.arguments;
-    
+
     // Check if data is not null
     if (addressData != null) {
       _editAddressController.addressid.value = addressData['user_id'] ?? "";
-      _editAddressController.nameEditTextController1.value.text = addressData['tempUserName'] ?? "";
-      _editAddressController.addressEditTextController1.value.text = addressData['address'] ?? "";
-      _editAddressController.countrycontroller.value.text = addressData['country'] ?? "";
-      _editAddressController.cityEditTextController1.value.text = addressData['city'] ?? "";
-      _editAddressController.group184EditTextController1.value.text =addressData['mobile_number']??"";
-      _editAddressController.californiaEditTextController1.value.text =addressData['state']??"";
-       _editAddressController.zipcodeEditTextController1.value.text =addressData['zip_code']??"";
+      _editAddressController.nameEditTextController1.value.text =
+          addressData['tempUserName'] ?? "";
+      _editAddressController.addressEditTextController1.value.text =
+          addressData['address'] ?? "";
+      _editAddressController.countrycontroller.value.text =
+          addressData['country'] ?? "";
+      _editAddressController.cityEditTextController1.value.text =
+          addressData['city'] ?? "";
+      _editAddressController.group184EditTextController1.value.text =
+          addressData['mobile_number'] ?? "";
+      _editAddressController.californiaEditTextController1.value.text =
+          addressData['state'] ?? "";
+      _editAddressController.zipcodeEditTextController1.value.text =
+          addressData['zip_code'] ?? "";
       // Add other fields as needed
     }
   }
+
   bool isSelectedSwitch = true;
 
   @override
@@ -60,18 +69,30 @@ class _EditAddressState extends State<EditAddress> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(' Shipping Address', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,),),
+          title: Text(
+            ' Shipping Address',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           leading: Padding(
-            padding: const EdgeInsets.only(top:15, ),
+            padding: const EdgeInsets.only(
+              top: 15,
+            ),
             child: GestureDetector(
               onTap: () {
                 Get.back();
               },
               child: Container(
-                width: Get.width*.07,
-                height: Get.height*.03,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(Icons.arrow_back, )),
+                  width: Get.width * .07,
+                  height: Get.height * .03,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(90, 158, 158, 158)),
+                  child: Icon(
+                    Icons.arrow_back,
+                  )),
             ),
           ),
         ),
@@ -143,9 +164,9 @@ class _EditAddressState extends State<EditAddress> {
                     _buildSaveRow(context),
                     SizedBox(height: 30.v),
                     _buildSaveAddressButton(context),
-                         SizedBox(height: 20.v),
+                    SizedBox(height: 20.v),
                     _buildDeletE(context),
-                     SizedBox(height: Get.height*.1),
+                    SizedBox(height: Get.height * .1),
                   ],
                 ),
               ),
@@ -179,52 +200,51 @@ class _EditAddressState extends State<EditAddress> {
   }
 
   /// Section Widget
-   Widget _buildNameEditText(BuildContext context) {
+  Widget _buildNameEditText(BuildContext context) {
     return CustomTextFormField(
-      controller: _editAddressController.nameEditTextController1.value,
-      hintText: "John Due",
-       validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Name'  ;
-      } 
-          else if (RegExp(r'[0-9]').hasMatch(value)) {
-        // Check if the value contains numbers
-        return ' Name should not contain numbers';
-      }
-return null;
-        }
-    );
+        controller: _editAddressController.nameEditTextController1.value,
+        hintText: "John Due",
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please Enter Name';
+          } else if (RegExp(r'[0-9]').hasMatch(value)) {
+            // Check if the value contains numbers
+            return ' Name should not contain numbers';
+          }
+          return null;
+        });
   }
 
   /// Section Widget
   Widget _buildAddressEditText(BuildContext context) {
     return CustomTextFormField(
-      controller:  _editAddressController.addressEditTextController1.value,
-      hintText: "3 Newbridge Court",
-      validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Address'  ;
-      }
-return null; 
-          
-        }
-    );
+        controller: _editAddressController.addressEditTextController1.value,
+        hintText: "3 Newbridge Court",
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please Enter Address';
+          }
+          return null;
+        });
   }
 
   /// Section Widget
   Widget _buildCityEditText(BuildContext context) {
     return CustomTextFormField(
       width: 160.h,
-    validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Your City'  ;
-      }
-return null; 
-          
-        },
-      controller:  _editAddressController.cityEditTextController1.value,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Enter Your City';
+        }
+        return null;
+      },
+      controller: _editAddressController.cityEditTextController1.value,
       hintText: "Chino Hills",
-        hintStyle: TextStyle(fontFamily: 'Almarai', fontSize: 12, fontWeight: FontWeight.w400, ),
+      hintStyle: TextStyle(
+        fontFamily: 'Almarai',
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
       suffix: Container(
         margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
         child: CustomImageView(
@@ -236,12 +256,8 @@ return null;
       suffixConstraints: BoxConstraints(
         maxHeight: 50.v,
       ),
-      contentPadding: EdgeInsets.only(
-        left: 17.h,
-        top: 17.v,
-        bottom: 17.v,
-        right: 10.v
-      ),
+      contentPadding:
+          EdgeInsets.only(left: 17.h, top: 17.v, bottom: 17.v, right: 10.v),
     );
   }
 
@@ -257,7 +273,11 @@ return null;
         return null;
       },
       hintText: "United States",
-      hintStyle: TextStyle(fontFamily: 'Almarai', fontSize: 12, fontWeight: FontWeight.w400, ),
+      hintStyle: TextStyle(
+        fontFamily: 'Almarai',
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
       suffix: Container(
         margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
         child: CustomImageView(
@@ -269,12 +289,8 @@ return null;
       suffixConstraints: BoxConstraints(
         maxHeight: 50.v,
       ),
-      contentPadding: EdgeInsets.only(
-        left: 16.h,
-        top: 17.v,
-        bottom: 17.v,
-        right: 10.v
-      ),
+      contentPadding:
+          EdgeInsets.only(left: 16.h, top: 17.v, bottom: 17.v, right: 10.v),
     );
   }
 
@@ -299,7 +315,9 @@ return null;
             ),
           ),
         ),
-        SizedBox(width: Get.width*.02,),
+        SizedBox(
+          width: Get.width * .02,
+        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 7.h),
@@ -323,14 +341,13 @@ return null;
   /// Section Widget
   Widget _buildCaliforniaEditText(BuildContext context) {
     return CustomTextFormField(
-          validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Your State'  ;
-      }
-return null; 
-          
-        },
-      controller:  _editAddressController.californiaEditTextController1.value,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Enter Your State';
+        }
+        return null;
+      },
+      controller: _editAddressController.californiaEditTextController1.value,
       hintText: "California",
     );
   }
@@ -338,14 +355,13 @@ return null;
   /// Section Widget
   Widget _buildZipcodeEditText(BuildContext context) {
     return CustomTextFormField(
-           validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Zipcode'  ;
-      }
-return null; 
-          
-        },
-      controller:  _editAddressController.zipcodeEditTextController1.value,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please Enter Zipcode';
+        }
+        return null;
+      },
+      controller: _editAddressController.zipcodeEditTextController1.value,
       hintText: "91709",
     );
   }
@@ -359,18 +375,18 @@ return null;
           top: 3.v,
         ),
         child: CustomTextFormField(
-     controller:  _editAddressController.group184EditTextController1.value,
+          controller: _editAddressController.group184EditTextController1.value,
           hintText: "1453-987533",
-          validator: (value){
-if (value!.isEmpty) {
-          return 'Please Enter Your Mobile Number'  ;
-      } 
-      else if(_editAddressController.group184EditTextController1.value.length!=10){
-       return "Phone Number Must be of Length 10 ";
-      }
-return null;
-          
-        },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Please Enter Your Mobile Number';
+            } else if (_editAddressController
+                    .group184EditTextController1.value.length !=
+                10) {
+              return "Phone Number Must be of Length 10 ";
+            }
+            return null;
+          },
           textInputAction: TextInputAction.done,
         ),
       ),
@@ -430,15 +446,15 @@ return null;
   /// Section Widget
   Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
-       onPressed: () {
-          if (!_formKey.currentState!.validate()) {
-      return;
-    } else {
-       _editAddressController.loading.value = true;
-       _editAddressController.Updateaddress_apihit();
-       _formKey.currentState!.save();
-    }
-        },
+      onPressed: () {
+        if (!_formKey.currentState!.validate()) {
+          return;
+        } else {
+          _editAddressController.loading.value = true;
+          _editAddressController.Updateaddress_apihit();
+          _formKey.currentState!.save();
+        }
+      },
       text: "Save Address",
       margin: EdgeInsets.only(
         left: 8.h,
@@ -448,27 +464,31 @@ return null;
     );
   }
 
-  
-     Widget _buildDeletE(BuildContext context) {
+  Widget _buildDeletE(BuildContext context) {
     return GestureDetector(
       onTap: () {
-     
+        // Set the addressid to the ID you want to delete
+        removeAddressController.addressid.value =
+            _editAddressController.addressid.value;
 
-      // Set the addressid to the ID you want to delete
-      removeAddressController.addressid.value = _editAddressController.addressid.value;
-
-      // Call the removeAddress_apiHit function
-      removeAddressController.EnglishremoveAddress_apiHit();
+        // Call the removeAddress_apiHit function
+        removeAddressController.EnglishremoveAddress_apiHit();
       },
       child: Container(
-        width: 300,
-      height: 45,
-      decoration: BoxDecoration(color:Colors.white, border: Border.all(color: Color(0xffff8300)),
-      borderRadius: BorderRadius.all(Radius.circular(30))
-      ),
-      child: Center(child: Text('Delete Address', style: TextStyle(fontFamily: 'Almarai', fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),)),
+          width: 300,
+          height: 45,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Color(0xffff8300)),
+              borderRadius: BorderRadius.all(Radius.circular(30))),
+          child: Center(
+            child: Text('Delete Address',
+                style: TextStyle(
+                    fontFamily: 'Almarai',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black)),
+          )),
     );
-  
   }
-  
 }

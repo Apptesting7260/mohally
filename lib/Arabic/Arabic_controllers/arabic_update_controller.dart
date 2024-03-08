@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/MyAccount/arabic_myaccount.dart';
 import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 var response;
 
 class arabic_UpdateProfile_Controller extends GetxController {
@@ -20,61 +21,55 @@ class arabic_UpdateProfile_Controller extends GetxController {
   final countryController = TextEditingController().obs;
   final emailFocusNode = FocusNode().obs;
   RxBool loading = false.obs;
-  File? imgFile ;
+  File? imgFile;
 
-
-MyAccountController MyAccountControllerin= MyAccountController();
+  MyAccountController MyAccountControllerin = MyAccountController();
   Future<void> arabicProfileApiHit() async {
-final sp = await SharedPreferences.getInstance();
+    final sp = await SharedPreferences.getInstance();
 
-loading.value = true;
-try {
-  
-  var url = Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
-  var request = http.MultipartRequest('POST', url);
+    loading.value = true;
+    try {
+      var url =
+          Uri.parse('https://urlsdemo.net/mohally/api/user-profile-update-api');
+      var request = http.MultipartRequest('POST', url);
 
-  
-  if (imgFile == null) {
+      if (imgFile == null) {
+      } else {
+        print("object");
+        var fileStream = http.ByteStream(imgFile!.openRead());
+        var length = await imgFile!.length();
+        var multipartFile = http.MultipartFile('pro_img', fileStream, length,
+            filename: imgFile!.path.split('/').last);
+        request.files.add(multipartFile);
+        print(imgFile);
+      }
 
-  } else {
-print("object");
-var fileStream = http.ByteStream(imgFile!.openRead());
-var length = await imgFile!.length();
-var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-filename: imgFile!.path.split('/').last);
-request.files.add(multipartFile);
-print(imgFile);
+      // Add other text fields to the request+
+      request.fields['first_name'] = firstNameController.value.text;
+      request.fields['last_name'] = lastNameController.value.text;
+      request.fields['phone'] = phoneController.value.text;
+
+      request.headers['Authorization'] = "Bearer ${sp.getString("token")}";
+
+      // Send the request and get the response
+      response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
+      print(responseBody);
+      // Check the response status
+      if (response.statusCode == 200) {
+        Utils2.snackBar('Success', 'Edit Successfully');
+        Get.off(MyAccountScreen_arabic());
+
+        loading.value = false;
+      } else {
+        print('Failed to upload file. Status code: ${response.statusCode}');
+        loading.value = false;
+      }
+    } catch (e) {
+      loading.value = false;
+      print(response);
+      Utils2.snackBar('Failed', 'Error occurred while uploading file: $e');
+    }
   }
-
-  // Add other text fields to the request+
-  request.fields['first_name'] = firstNameController.value.text;
-  request.fields['last_name'] = lastNameController.value.text;
-  request.fields['phone'] = phoneController.value.text;
-
-  request.headers['Authorization'] =
-  "Bearer ${sp.getString("token")}";
-  
-
-  // Send the request and get the response
-  response = await request.send();
-  var responseBody = await response.stream.bytesToString();
-
-  print(responseBody);
-  // Check the response status
-  if (response.statusCode == 200) {
-   Utils2.snackBar('Success', 'Edit Successfully');Get.off(MyAccountScreen_arabic());
-
- 
-loading.value = false;
-
-  } else {
-print('Failed to upload file. Status code: ${response.statusCode}');
-loading.value = false;
-  }
-} catch (e) {
-  loading.value = false;
-  print(response);
-Utils2.snackBar('Failed','Error occurred while uploading file: $e');
-}
-}
 }

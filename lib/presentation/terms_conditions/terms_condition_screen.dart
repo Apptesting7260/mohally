@@ -28,18 +28,18 @@ class TermsConditions extends StatefulWidget {
 
 class _TermsConditionsState extends State<TermsConditions> {
   late Future<String> TermsandConditions;
-   @override
+  @override
   void initState() {
     super.initState();
- fetchData();
+    fetchData();
   }
-String? htmlresponse;
-fetchData() async {
-    var request = http.MultipartRequest('POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
-    request.fields.addAll({
-      'page_name': 'terms-and-conditions',
-      'language_type': 'English'
-    });
+
+  String? htmlresponse;
+  fetchData() async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
+    request.fields.addAll(
+        {'page_name': 'terms-and-conditions', 'language_type': 'English'});
 
     http.StreamedResponse response = await request.send();
 
@@ -52,50 +52,54 @@ fetchData() async {
       print(response.reasonPhrase);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: htmlresponse==null?Center(child: CircularProgressIndicator()):
-      
-   Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: Container(height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,child: SingleChildScrollView(
-       child: Column(
-         children: [HtmlWidget(
-                  '''
+    return SafeArea(
+      child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: htmlresponse == null
+              ? Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        HtmlWidget(
+                          '''
           <!-- Your HTML content goes here -->
          $htmlresponse
-                  ''',
-                ),
-          
-           ] ),
-     ),),
-   )
- 
+                    ''',
+                        ),
+                      ]),
+                    ),
+                  ),
+                )),
     );
   }
 }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
+PreferredSizeWidget _buildAppBar(BuildContext context) {
+  return CustomAppBar(
+    leadingWidth: 60,
+    leading: AppbarLeadingIconbuttonTwo(
+      onTap: () {
+        Get.back();
+      },
+      imagePath: ImageConstant.imgBack,
+      margin: EdgeInsets.only(
+        left: 20,
+        top: 8,
+        bottom: 8,
       ),
-      title: AppbarSubtitle(
-        text: 't_and_c'.tr,
-        margin: EdgeInsets.only(left: 16),
-      ),
-    );
-  }
+    ),
+    title: AppbarSubtitle(
+      text: "Terms And Conditions",
+      margin: EdgeInsets.only(left: 16),
+    ),
+  );
+}

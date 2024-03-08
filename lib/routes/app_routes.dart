@@ -7,7 +7,7 @@ import 'package:mohally/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:mohally/presentation/verification_code_screen/verification_code_screen.dart';
 import 'package:mohally/presentation/home_page_one_container_screen/home_page_one_container_screen.dart';
 import 'package:mohally/presentation/search_screen/search_screen.dart';
-import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/presentation/add_review_screen/add_review_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
@@ -17,7 +17,6 @@ import 'package:mohally/presentation/add_new_card_screen/add_new_card_screen.dar
 import 'package:mohally/presentation/order_confirmed_screen/order_confirmed_screen.dart';
 import 'package:mohally/presentation/my_orders_three_screen/my_orders_three_screen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
-import 'package:mohally/presentation/notifications_screen/notifications_screen.dart';
 import 'package:mohally/presentation/notifications_one_screen/notifications_one_screen.dart';
 import 'package:mohally/presentation/spin_the_wheel_one_screen/spin_the_wheel_one_screen.dart';
 import 'package:mohally/presentation/membership_screen/membership_screen.dart';
@@ -45,7 +44,7 @@ class AppRoutes {
   static const String homePageOneTabContainerPage =
       '/home_page_one_tab_container_page';
 
-        static const String arabichomePageOneTabContainerPage =
+  static const String arabichomePageOneTabContainerPage =
       '/arabic_home_page_one_tab_container_page';
 
   static const String homePageOneContainerScreen =
@@ -112,19 +111,19 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static Map<String, WidgetBuilder> routes = {
-   
     splashScreen: (context) => SplashScreen(),
     welcomeScreen: (context) => WelcomeScreen(),
     chooseLanguageScreen: (context) => ChooseLanguageScreen(),
     loginScreen: (context) => LoginScreen(),
     signUpScreen: (context) => SignUpScreen(),
-    verificationCodeScreen: (context) => VerificationCodeScreen(emailText:"" ,
+    verificationCodeScreen: (context) => VerificationCodeScreen(
+          emailText: "",
           controller: TextEditingController(),
           pinPutFocusNode: FocusNode(),
         ),
     homePageOneContainerScreen: (context) => HomePageOneContainerScreen(),
     searchScreen: (context) => SearchScreen(),
-    singlePageScreen: (context) => SinglePageScreen(),
+    singlePageScreen: (context) => ShirtsandTopsSingleView(),
     reviewsScreen: (context) => ReviewsScreen(),
     addReviewScreen: (context) => AddReviewScreen(),
     shippingAddressesScreen: (context) => Default_address(),
@@ -134,7 +133,7 @@ class AppRoutes {
     orderConfirmedScreen: (context) => OrderConfirmedScreen(),
     myOrdersThreeScreen: (context) => MyOrdersThreeScreen(),
     myOrdersTabContainerScreen: (context) => MyOrdersTabContainerScreen(),
-    notificationsScreen: (context) => NotificationsScreen(),
+    notificationsScreen: (context) => NotificationsOneScreen(),
     notificationsOneScreen: (context) => NotificationsOneScreen(),
     spinTheWheelOneScreen: (context) => SpinTheWheelOneScreen(),
     membershipScreen: (context) => MembershipScreen(),

@@ -7,7 +7,6 @@ import 'package:mohally/theme/custom_button_style.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
-
 class Forgot_arabic extends StatefulWidget {
   const Forgot_arabic({Key? key})
       : super(
@@ -19,7 +18,8 @@ class Forgot_arabic extends StatefulWidget {
 }
 
 class _Forgot_arabicState extends State<Forgot_arabic> {
-  arabic_Resetpassword_controller resetpassword_controller = Get.put(arabic_Resetpassword_controller());
+  arabic_Resetpassword_controller resetpassword_controller =
+      Get.put(arabic_Resetpassword_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isEmail(String input) => EmailValidator.validate(input);
@@ -42,10 +42,12 @@ class _Forgot_arabicState extends State<Forgot_arabic> {
                 SizedBox(height: 45.v),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                  "هل نسيت كلمة السر",
-                style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 26)
-                  ),
+                  child: Text("هل نسيت كلمة السر",
+                      style: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26)),
                 ),
                 SizedBox(height: 15.v),
                 Align(
@@ -57,20 +59,25 @@ class _Forgot_arabicState extends State<Forgot_arabic> {
                       right: 23.h,
                     ),
                     child: Text(
-                     'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                     style: TextStyle(fontFamily: 'Almarai', color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 16)
-                    ),
+                        'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Almarai',
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16)),
                   ),
                 ),
                 SizedBox(height: 41.v),
                 SizedBox(height: 17.v),
-                Text(
-                 'بريد إلكتروني',
-                 style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18)
-                ),
+                Text('بريد إلكتروني',
+                    style: TextStyle(
+                        fontFamily: 'Almarai',
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18)),
                 SizedBox(height: 9.v),
                 _buildEmail(context),
                 SizedBox(height: 20.v),
@@ -102,11 +109,11 @@ class _Forgot_arabicState extends State<Forgot_arabic> {
     return CustomTextFormField(
       validator: (value) {
         if (!isEmail(value!)) {
-          return'الرجاء إدخال بريد إلكتروني أو رقم هاتف صالح.';
+          return 'الرجاء إدخال بريد إلكتروني أو رقم هاتف صالح.';
         }
         return null;
       },
-      controller:resetpassword_controller .emailController.value,
+      controller: resetpassword_controller.emailController.value,
       hintText: 'أدخل بريدك الإلكتروني',
       hintStyle: TextStyle(fontFamily: 'Almarai'),
       textInputType: TextInputType.emailAddress,
@@ -114,9 +121,9 @@ class _Forgot_arabicState extends State<Forgot_arabic> {
   }
 
   Widget _buildContinueButton(BuildContext context) {
-    return Obx((){
-return CustomElevatedButton(
-        loading:resetpassword_controller.loading.value,
+    return Obx(() {
+      return CustomElevatedButton(
+        loading: resetpassword_controller.loading.value,
         onPressed: () {
           // Get.to(() => VerificationCodeScreen(
           //       controller: TextEditingController(),
@@ -125,11 +132,13 @@ return CustomElevatedButton(
           checkvalidate();
         },
         text: 'يكمل',
-         buttonTextStyle: TextStyle( fontFamily:'Almarai', color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+        buttonTextStyle: TextStyle(
+            fontFamily: 'Almarai',
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 18),
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
-    }
-      
-    );
+    });
   }
 }

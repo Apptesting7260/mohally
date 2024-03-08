@@ -1,5 +1,5 @@
 // ignore_for_file: unused_import
-import 'dart:ffi';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +24,8 @@ class Forgot extends StatefulWidget {
 }
 
 class _ForgotState extends State<Forgot> {
-  Resetpassword_controller resetpassword_controller = Get.put(Resetpassword_controller());
+  Resetpassword_controller resetpassword_controller =
+      Get.put(Resetpassword_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isEmail(String input) => EmailValidator.validate(input);
@@ -47,7 +48,7 @@ class _ForgotState extends State<Forgot> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                  "Forgot Password",
+                    "Forgot Password",
                     style: theme.textTheme.headlineLarge,
                   ),
                 ),
@@ -61,7 +62,7 @@ class _ForgotState extends State<Forgot> {
                       right: 23.h,
                     ),
                     child: Text(
-                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -74,7 +75,7 @@ class _ForgotState extends State<Forgot> {
                 SizedBox(height: 41.v),
                 SizedBox(height: 17.v),
                 Text(
-                 'Email',
+                  'Email',
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 9.v),
@@ -112,16 +113,16 @@ class _ForgotState extends State<Forgot> {
         }
         return null;
       },
-      controller:resetpassword_controller .emailController.value,
-      hintText:'Enter your email',
+      controller: resetpassword_controller.emailController.value,
+      hintText: 'Enter your email',
       textInputType: TextInputType.emailAddress,
     );
   }
 
   Widget _buildContinueButton(BuildContext context) {
-    return Obx((){
-return CustomElevatedButton(
-        loading:resetpassword_controller.loading.value,
+    return Obx(() {
+      return CustomElevatedButton(
+        loading: resetpassword_controller.loading.value,
         onPressed: () {
           // Get.to(() => VerificationCodeScreen(
           //       controller: TextEditingController(),
@@ -129,11 +130,9 @@ return CustomElevatedButton(
           //     ));
           checkvalidate();
         },
-        text:'Continue',
+        text: 'Continue',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
-    }
-      
-    );
+    });
   }
 }

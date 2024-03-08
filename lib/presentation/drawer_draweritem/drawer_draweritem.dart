@@ -36,7 +36,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
   @override
   void initState() {
     
-
+ _controller.fetchMyAccountData();
     // Ensure that the initial locale is set when the screen initializes
     setInitialLocale();
 

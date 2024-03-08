@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ void main() {
   ///Please update theme as per your need if required.
   ThemeHelper().changeTheme('primary');
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'mohally',
       debugShowCheckedModeBanner: false,
       locale: Locale('en', 'US'),
-     translations: Language_message(),
+      //  translations: Language_message(),
       fallbackLocale: Locale('en', 'US'),
       initialRoute: AppRoutes.splashScreen,
       routes: AppRoutes.routes,
@@ -106,7 +104,7 @@ class MyApp extends StatelessWidget {
       // ],
       // localizationsDelegates: [
       //   CountryLocalizations.delegate,
-      
+
       // ],
     );
   }

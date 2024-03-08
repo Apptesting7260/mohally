@@ -31,16 +31,16 @@ class MyButton extends StatelessWidget {
       width: width ?? 295,
       height: height ?? 56,
       child: ElevatedButton(
-        onPressed: onTap,
-        child: Center(
+          onPressed: onTap,
+          child: Center(
             child: loading
-              ? LoadingAnimationWidget.staggeredDotsWave(
-                  
-                  size: 30,  color: Colors.white,
-                )
-              : Text(title),
-                  ),
-        style: ElevatedButton.styleFrom(
+                ? LoadingAnimationWidget.staggeredDotsWave(
+                    size: 30,
+                    color: Colors.white,
+                  )
+                : Text(title),
+          ),
+          style: ElevatedButton.styleFrom(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(30),
@@ -49,10 +49,10 @@ class MyButton extends StatelessWidget {
             alignment: Alignment.center,
             textStyle: style ??
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            onPrimary: textColor ??
-                Theme.of(context).buttonTheme.colorScheme?.onSecondary,
-            primary: bgColor),
-      ),
+            // onPrimary: textColor ??
+            //     Theme.of(context).buttonTheme.colorScheme?.onSecondary,
+            // primary: bgColor),
+          )),
     );
   }
 }

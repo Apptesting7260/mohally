@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -36,121 +37,46 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
   void initState() {
     super.initState();
     tabviewController = TabController(length: 5, vsync: this);
-   // setInitialLocale();
+    // setInitialLocale();
   }
-  // void setInitialLocale() {
-  //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-  //     Get.updateLocale(Locale('ar', 'DZ'));
-  //   } else {
-  //     Get.updateLocale(Locale('en', 'US'));
-  //   }
-  // }
 
-  // @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: SizedBox(
-          width: double.maxFinite,
+        body: SingleChildScrollView(
           child: Column(
             children: [
-              // SizedBox(height: 20.v),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 20.h),
-              //   child: CustomSearchView(
-              //     controller: searchController,
-              //     hintText: "Search",
-              //   ),
-              // ),
-              // SizedBox(height: 25.v),
-              // _buildTabview(context),
-              Expanded(
-                child: SizedBox(
-                  height: 1026.v,
-                  child: TabBarView(
-                    controller: tabviewController,
-                    children: [
-                      HomePageOneTabContainerPage(),
-                      // HomePageOneTabContainerPage(),
-                      // HomePageOneTabContainerPage(),
-                      // HomePageOneTabContainerPage(),
-                      // HomePageOneTabContainerPage(),
-                    ],
-                  ),
+              Container(
+                height: Get.height,
+                child: TabBarView(
+                  controller: tabviewController,
+                  children: [
+                    // HomePageOneTabContainerPage(),
+                    // HomePageOneTabContainerPage(),
+                    // HomePageOneTabContainerPage(),
+                    // HomePageOneTabContainerPage(),
+                    // HomePageOneTabContainerPage(),
+                  ],
                 ),
               ),
             ],
           ),
         ),
-        // bottomNavigationBar: _buildBottomBar(context),
       ),
     );
   }
 
-  /// Section Widget
-  // Widget _buildTabview(BuildContext context) {
-  //   return 
-  //   Container(
-  //     height: 25.v,
-  //     width: 311.h,
-  //     margin: EdgeInsets.only(left: 26.h),
-  //     child: TabBar(
-  //       controller: tabviewController,
-  //       labelPadding: EdgeInsets.zero,
-  //       labelColor: theme.colorScheme.primary,
-  //       labelStyle: TextStyle(
-  //         fontSize: 15.fSize,
-  //         fontFamily: 'Inter',
-  //         fontWeight: FontWeight.w600,
-  //       ),
-  //       unselectedLabelColor: appTheme.gray50001,
-  //       unselectedLabelStyle: TextStyle(
-  //         fontSize: 15.fSize,
-  //         fontFamily: 'Inter',
-  //         fontWeight: FontWeight.w500,
-  //       ),
-  //       indicatorColor: theme.colorScheme.primary,
-  //       tabs: [
-  //         Tab(
-  //           child: Text(
-  //             "All",
-  //           ),
-  //         ),
-  //         Tab(
-  //           child: Text(
-  //             "Women",
-  //           ),
-  //         ),
-  //         Tab(
-  //           child: Text(
-  //             "Men",
-  //           ),
-  //         ),
-  //         Tab(
-  //           child: Text(
-  //             "kids",
-  //           ),
-  //         ),
-  //         Tab(
-  //           child: Text(
-  //             "Jewelry",
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  /// Section Widget
   Widget _buildBottomBar(BuildContext context) {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
         Navigator.pushNamed(
             navigatorKey.currentContext!, getCurrentRoute(type));
-      }, bottomTapped: (){}, bottomSelectedIndex: 0,
+      },
+      bottomTapped: () {},
+      bottomSelectedIndex: 0,
     );
   }
 

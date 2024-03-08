@@ -8,7 +8,6 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/data/app_exceptions.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/update_profile_screen.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
 import 'package:mohally/view_models/controller/DeleteAccountController/delete_account_controller.dart';
@@ -32,8 +31,8 @@ class MyAccountScreen extends StatefulWidget {
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
   final DeleteAccountIns = Get.put(DeleteAccountController());
-  final  UpdateProfile_Controllerins  = Get.put(UpdateProfile_Controller());
-   final  _controller = Get.put(MyAccountController());
+  final UpdateProfile_Controllerins = Get.put(UpdateProfile_Controller());
+  final _controller = Get.put(MyAccountController());
   bool isEmail(String input) => EmailValidator.validate(input);
 
   File imgFile = File("");
@@ -43,7 +42,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
+        // _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
       }
     });
     Navigator.of(context).pop();
@@ -51,24 +50,26 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
   //open camera
   void openGallery() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-         _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
+        //   _controller.MyAccount.value.userDetails!.imageUrl = File(pickedFile.path);
       }
     });
     Navigator.of(context).pop();
   }
+
   @override
   void initState() {
-     setInitialLocale();
+    setInitialLocale();
 
-SchedulerBinding.instance.addPostFrameCallback((_) {
- _controller.fetchMyAccountData();
-
-});
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _controller.fetchMyAccountData();
+    });
     super.initState();
   }
+
   void setInitialLocale() {
     if (Get.locale == null || Get.locale?.languageCode == 'ar') {
       Get.updateLocale(Locale('ar', 'DZ'));
@@ -76,160 +77,192 @@ SchedulerBinding.instance.addPostFrameCallback((_) {
       Get.updateLocale(Locale('en', 'US'));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar:
-      
-      _buildAppBar(context),
-      body: Obx(() {
-
-        if(_controller.rxRequestStatus.value==Status.LOADING){
-          return Center(child: CircularProgressIndicator(  color: Colors.pink,));
-        }else if(_controller.rxRequestStatus.value==Status.ERROR){
-return GeneralExceptionWidget(onPress: (){},
-             
-            );
-        }else{
-          return
-    
-      Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: ListView(
-          children: [
-            SizedBox(height: 33),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: 120.adaptSize,
-                width: 120.adaptSize,
-                child: Stack(
-                  alignment: Alignment.bottomRight,
+    return SafeArea(
+      child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: Obx(() {
+            if (_controller.rxRequestStatus.value == Status.LOADING) {
+              return Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            } else if (_controller.rxRequestStatus.value == Status.ERROR) {
+              return Scaffold(
+                  body: Center(
+                      child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/error2.png',
+                  ),
+                  Text(
+                    "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                        color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
+                  ),
+                ],
+              )));
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: ListView(
                   children: [
-                    Container(
-                      height: height * .2,
-                      width: width * .3,
-                      child:
-                      _controller.MyAccount.value.userDetails!.imageUrl==null? 
-                      CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: 
-                        NetworkImage(
-                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"
+                    SizedBox(height: 33),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        height: 120.adaptSize,
+                        width: 120.adaptSize,
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              height: height * .2,
+                              width: width * .3,
+                              child: _controller.MyAccount.value.userDetails!
+                                          .imageUrl ==
+                                      null
+                                  ? CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: NetworkImage(
+                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                      backgroundColor: Colors.transparent,
+                                    )
+                                  : CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: NetworkImage(_controller
+                                          .MyAccount
+                                          .value
+                                          .userDetails!
+                                          .imageUrl),
+                                      backgroundColor: Colors.transparent,
+                                    ),
                             ),
-                        backgroundColor: Colors.transparent,
-                      )
-                      :CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(_controller.MyAccount.value.userDetails!.imageUrl ),
-                          backgroundColor: Colors.transparent,
+                            CustomIconButton(
+                              height: 30.adaptSize,
+                              width: 30.adaptSize,
+                              padding: EdgeInsets.all(8.h),
+                              alignment: Alignment.bottomRight,
+                              child: CustomImageView(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Choose"),
+                                          content: Row(
+                                            children: [
+                                              GestureDetector(
+                                                child: Text("Camera"),
+                                                onTap: () {
+                                                  openCamera();
+                                                },
+                                              ),
+                                              SizedBox(width: 80),
+                                              GestureDetector(
+                                                child: Text("Gallery"),
+                                                onTap: () {
+                                                  openGallery();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                                imagePath: ImageConstant.imgCamera1WhiteA70002,
+                              ),
+                            ),
+                          ],
                         ),
-                    ),
-                    CustomIconButton(
-                      height: 30.adaptSize,
-                      width: 30.adaptSize,
-                      padding: EdgeInsets.all(8.h),
-                      alignment: Alignment.bottomRight,
-                      child: CustomImageView(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Choose"),
-                                  content: Row(
-                                    children: [
-                                      GestureDetector(
-                                        child: Text("Camera"),
-                                        onTap: () {
-                                            openCamera();
-                                        },
-                                      ),
-                                      SizedBox(width: 80),
-                                      GestureDetector(
-                                        child: Text("Gallery"),
-                                        onTap: () {
-                                         openGallery();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              });
-                        },
-                        imagePath: ImageConstant.imgCamera1WhiteA70002,
                       ),
                     ),
+                    SizedBox(height: 9.v),
+                    Text(
+                      "First Name",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildFirstName(context),
+                    SizedBox(height: 9.v),
+                    Text(
+                      "Last Name",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildLastName(context),
+                    SizedBox(height: 17.v),
+                    Text(
+                      "Email",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildEmail(context),
+                    SizedBox(height: 17.v),
+                    Text(
+                      'Mobile Number',
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(height: 9.v),
+                    MyAccountTextField(
+                      hintText: _controller.MyAccount.value.userDetails!.phone
+                          .toString(),
+                    ),
+                    SizedBox(height: 17.v),
+                    Text(
+                      'Country',
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(height: 9.v),
+                    MyAccountTextField(
+                      hintText: _controller.MyAccount.value.userDetails!.country
+                          .toString(),
+                    ),
+                    SizedBox(height: 30.v),
+                    _buildContinueButton(context),
+                    SizedBox(height: 109.v),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(height: 9.v),
-            Text(
-              "First Name",
-              style: theme.textTheme.titleMedium,
-            ),
-            SizedBox(height: 9.v),
-            _buildFirstName(context),
-            SizedBox(height: 9.v),
-            Text(
-              "Last Name",
-              style: theme.textTheme.titleMedium,
-            ),
-            SizedBox(height: 9.v),
-            _buildLastName(context),
-            SizedBox(height: 17.v),
-
-            Text(
-              "Email",
-              style: theme.textTheme.titleMedium,
-            ),
-            SizedBox(height: 9.v),
-            _buildEmail(context),
-            SizedBox(height: 17.v),
-            Text(
-             'Mobile Number',
-              style: theme.textTheme.titleMedium,
-            ),
-            SizedBox(height: 9.v),
-            MyAccountTextField(
-
-               hintText: _controller.MyAccount.value.userDetails!.phone.toString(),
-
-            ),
-            SizedBox(height: 30.v),
-             _buildContinueButton(context),
-            SizedBox(height: 109.v),
-          ],
-        ),
-      );
-  }}));
+              );
+            }
+          })),
+    );
   }
 
   Widget _buildFirstName(BuildContext context) {
     return MyAccountTextField(
-       hintText: _controller.MyAccount.value.userDetails!.firstName.toString(),
+      hintText: _controller.MyAccount.value.userDetails!.firstName.toString(),
     );
   }
+
   Widget _buildLastName(BuildContext context) {
     return MyAccountTextField(
-       hintText: _controller.MyAccount.value.userDetails!.lastName.toString(),
-
+      hintText: _controller.MyAccount.value.userDetails!.lastName.toString(),
     );
   }
 
   Widget _buildEmail(BuildContext context) {
     return MyAccountTextField(
-       hintText: _controller.MyAccount.value.userDetails!.email.toString(),
+      hintText: _controller.MyAccount.value.userDetails!.email.toString(),
     );
   }
-Widget _buildContinueButton(BuildContext context) {
+
+  Widget _buildCountry(BuildContext context) {
+    return MyAccountTextField(
+      hintText: _controller.MyAccount.value.userDetails!.country.toString(),
+    );
+  }
+
+  Widget _buildContinueButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
         DeleteAccountIns.deleteUserData();
-        },
+      },
       text: "Delete Account",
       buttonStyle: CustomButtonStyles.fillPrimary,
     );
@@ -237,11 +270,10 @@ Widget _buildContinueButton(BuildContext context) {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      
       leadingWidth: 50,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.offAll(MyProfilePage());
+          Get.back();
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
@@ -256,28 +288,29 @@ Widget _buildContinueButton(BuildContext context) {
             text: "My Account",
             margin: EdgeInsets.only(left: 16),
           ),
-SizedBox(width: Get.width*.3,),
-           Padding(
-             padding: const EdgeInsets.only(right: 10),
-             child: CustomElevatedButton(
-                              height: 28.v,
-                              width: 56.h,
-                              text: "Edit",
-                              leftIcon: Container(
-                                margin: EdgeInsets.only(right: 4.h),
-                                child: CustomImageView(
-                                  imagePath: ImageConstant.imgEditWhiteA70002,
-                                  height: 12.adaptSize,
-                                  width: 12.adaptSize,
-                                ),
-                              ),
-                              onPressed: () {
-                                 Get.to(UpdateProfileScreen());
-                              },
-                              buttonTextStyle:
-                                  CustomTextStyles.bodySmallWhiteA70002,
-                            ),
-           ),
+          SizedBox(
+            width: Get.width * .3,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: CustomElevatedButton(
+              height: 28.v,
+              width: 56.h,
+              text: "Edit",
+              leftIcon: Container(
+                margin: EdgeInsets.only(right: 4.h),
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgEditWhiteA70002,
+                  height: 12.adaptSize,
+                  width: 12.adaptSize,
+                ),
+              ),
+              onPressed: () {
+                Get.to(UpdateProfileScreen());
+              },
+              buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
+            ),
+          ),
         ],
       ),
     );

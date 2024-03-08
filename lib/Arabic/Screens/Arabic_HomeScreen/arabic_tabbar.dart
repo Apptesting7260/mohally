@@ -6,8 +6,9 @@ import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_HomeTab.dart';
 import 'package:mohally/Arabic/Screens/Arabic_cart/arabic_cart.dart';
 import 'package:mohally/Arabic/Screens/Arabic_whishlishScreen/arabic_whishlish.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/my_profile_arabic.dart';
-import 'package:mohally/Arabic/widgets/BottomBar/arabic_custom_bottom_bar.dart';
+import 'package:mohally/Arabic/Screens/widgets/BottomBar/arabic_custom_bottom_bar.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
+
 class arabic_TabScreen extends StatefulWidget {
   final int index;
 
@@ -31,15 +32,16 @@ class _arabic_TabScreenState extends State<arabic_TabScreen> {
     _controller.fetchMyAccountData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
         key: drawerKey,
-        body: Directionality(
-           textDirection: TextDirection.rtl,
-          child: SafeArea(
+        body: SafeArea(
+          child: Directionality(
+            textDirection: TextDirection.rtl,
             child: GestureDetector(
               onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
               child: PageView(

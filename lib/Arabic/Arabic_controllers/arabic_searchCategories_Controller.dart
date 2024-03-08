@@ -15,28 +15,28 @@ class SearchCategories_Controller extends GetxController {
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   void Search_Categories() async {
-  loading.value = true;
-  Map data = {
-    "main_cat_name": "رجال",
-    "language_type": "Arabic",
-  };
-  final sp = await SharedPreferences.getInstance();
-  String token = sp.getString('token').toString();
-  var header = {'Authorization': "Bearer $token"};
-  
-  try {
-    var value = await _api.searchcategoriesApi(data, header);
-    print('API Response: $value');
-    setRxRequestStatus(Status.COMPLETED);
-    setUserList(value);
-    loading.value = false;
-  } catch (error, stackTrace) {
-    print("=====Search====Page======Error======");
-    print(error.toString());
-    print(stackTrace.toString());
-    loading.value = false;
-    setError(error.toString());
-    setRxRequestStatus(Status.ERROR);
+    loading.value = true;
+    Map data = {
+      "main_cat_name": "رجال",
+      "language_type": "Arabic",
+    };
+    final sp = await SharedPreferences.getInstance();
+    String token = sp.getString('token').toString();
+    var header = {'Authorization': "Bearer $token"};
+
+    try {
+      var value = await _api.searchcategoriesApi(data, header);
+      print('API Response: $value');
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+      loading.value = false;
+    } catch (error, stackTrace) {
+      print("=====SearchCategories_Controller======Error======");
+      print(error.toString());
+      print(stackTrace.toString());
+      loading.value = false;
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+    }
   }
-}
 }

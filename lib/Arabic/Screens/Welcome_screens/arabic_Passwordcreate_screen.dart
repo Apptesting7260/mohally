@@ -25,7 +25,7 @@ class _CreatePassword_arabicState extends State<CreatePassword_arabic> {
     if (!isValid) {
       return;
     }
-    arabic_createpass_controller.loading.value=true;
+    arabic_createpass_controller.loading.value = true;
     arabic_createpass_controller.arabic_Createpass_apihit(context);
     _formKey.currentState!.save();
   }
@@ -74,37 +74,41 @@ class _CreatePassword_arabicState extends State<CreatePassword_arabic> {
               children: [
                 SizedBox(height: height * 0.01),
                 Center(
-                  child: Text(
-                    "إنشاء كلمة المرور",
-                    style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.bold, fontSize: 26)
-                  ),
+                  child: Text("إنشاء كلمة المرور",
+                      style: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26)),
                 ),
                 SizedBox(height: height * 0.001),
                 Center(
-                  child: Text(
-                    'الرجاء إنشاء كلمة مرور جديدة',
-                    textAlign: TextAlign.center,
-                  
-                          style: TextStyle(fontFamily: 'Almarai', color: Color(0xff9796A1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,)
-                  ),
+                  child: Text('الرجاء إنشاء كلمة مرور جديدة',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Almarai',
+                        color: Color(0xff9796A1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                      )),
                 ),
                 SizedBox(height: height * 0.05),
-                Text(
-                 "كلمة المرور الجديدة",
-                   style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18)
-                ),
+                Text("كلمة المرور الجديدة",
+                    style: TextStyle(
+                        fontFamily: 'Almarai',
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18)),
                 SizedBox(height: height * 0.005),
                 TextFormField(
-                  controller: arabic_createpass_controller.passwordController.value,
+                  controller:
+                      arabic_createpass_controller.passwordController.value,
                   //passwordController,
                   obscureText: passwordVisible,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       hintText: " أدخل كلمة المرور".tr,
-                      
                       hintStyle:
                           Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontSize: 14,
@@ -149,14 +153,16 @@ class _CreatePassword_arabicState extends State<CreatePassword_arabic> {
                   textInputAction: TextInputAction.done,
                 ),
                 SizedBox(height: height * 0.02),
-                Text(
-                  "تأكيد كلمة المرور",
-                   style: TextStyle(fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18)
-                ),
+                Text("تأكيد كلمة المرور",
+                    style: TextStyle(
+                        fontFamily: 'Almarai',
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18)),
                 SizedBox(height: height * 0.005),
                 TextFormField(
-                  controller:
-                      arabic_createpass_controller.confirmpasswordController.value,
+                  controller: arabic_createpass_controller
+                      .confirmpasswordController.value,
                   obscureText: confirmpasswordVisible,
                   decoration: InputDecoration(
                       filled: true,
@@ -198,9 +204,10 @@ class _CreatePassword_arabicState extends State<CreatePassword_arabic> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return'أدخل تأكيد كلمة المرور الصالحة';
+                      return 'أدخل تأكيد كلمة المرور الصالحة';
                     }
-                    if (arabic_createpass_controller.passwordController.value.text !=
+                    if (arabic_createpass_controller
+                            .passwordController.value.text !=
                         arabic_createpass_controller
                             .confirmpasswordController.value.text) {
                       return 'كلمة السر غير مطابقة';
@@ -214,25 +221,23 @@ class _CreatePassword_arabicState extends State<CreatePassword_arabic> {
                 Center(
                   child: Obx(() {
                     return CustomElevatedButton(
-                      loading: arabic_createpass_controller.loading.value ,
+                        loading: arabic_createpass_controller.loading.value,
                         text: 'يكمل'.tr,
-                          buttonTextStyle: TextStyle( fontFamily:'Almarai', color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+                        buttonTextStyle: TextStyle(
+                            fontFamily: 'Almarai',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18),
                         buttonStyle: CustomButtonStyles.fillPrimary,
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) 
-                          {
+                          if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             _submit();
                           }
                         },
                         height: height * .07,
-                        width: width * 0.5
-                        );
-                  }
-
-                  
-                    
-                  ),
+                        width: width * 0.5);
+                  }),
                 ),
               ],
             ),

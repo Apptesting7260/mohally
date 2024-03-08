@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/single_page_screen/single_page_screen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
@@ -15,8 +15,7 @@ class HomepagesectionItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
@@ -121,9 +120,10 @@ class HomepagesectionItemWidget extends StatelessWidget {
                 left: 58.h,
                 top: 3.v,
               ),
-              child: CustomIconButton(onTap: (){
-                Get.to(()=>SinglePageScreen());
-              },
+              child: CustomIconButton(
+                onTap: () {
+                  Get.to(() => ShirtsandTopsSingleView());
+                },
                 height: 30.adaptSize,
                 width: 30.adaptSize,
                 padding: EdgeInsets.all(6.h),

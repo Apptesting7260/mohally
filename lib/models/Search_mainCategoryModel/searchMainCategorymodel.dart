@@ -7,13 +7,13 @@ class Search_MainCategory_Model {
   bool? status;
   List<SearchMainCat>? searchMainCat;
 
-Search_MainCategory_Model.fromJson(Map<String, dynamic> json) {
-  status = json['status'];
-  final searchMainCatList = json['search_main_cat'] as List<dynamic>?;
+  Search_MainCategory_Model.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    final searchMainCatList = json['search_main_cat'] as List<dynamic>?;
 
-  searchMainCat = searchMainCatList?.map((e) => SearchMainCat.fromJson(e)).toList() ?? [];
-}
-
+    searchMainCat =
+        searchMainCatList?.map((e) => SearchMainCat.fromJson(e)).toList() ?? [];
+  }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

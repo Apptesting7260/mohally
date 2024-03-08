@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_searchproductByNameController.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -23,15 +21,15 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-   SearchProductByName_Controller _searchProductByName_Controller =SearchProductByName_Controller();
+  //SearchProductByName_Controller _searchProductByName_Controller =SearchProductByName_Controller();
 
-     FocusNode _searchFocusNode = FocusNode();
-         @override
+  FocusNode _searchFocusNode = FocusNode();
+  @override
   void initState() {
     super.initState();
     _loadSearchHistory();
     // _searchProductByName_Controller.Search_Product_By_Name_ApiHit();
-     _searchFocusNode = FocusNode();
+    _searchFocusNode = FocusNode();
   }
 
   void _loadSearchHistory() async {
@@ -45,8 +43,8 @@ class _SearchScreenState extends State<SearchScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList('searchHistory', searchHistory.toList());
   }
-  
-    Set<String> searchHistory = {};
+
+  Set<String> searchHistory = {};
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
@@ -66,6 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
     Navigator.of(context).pop();
   }
+
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -73,84 +72,102 @@ class _SearchScreenState extends State<SearchScreen> {
     mediaQueryData = MediaQuery.of(context);
 
     return SafeArea(
-      child: Scaffold(
-
-        resizeToAvoidBottomInset: false,
-        appBar: _buildAppBar(context),
-        body: 
-      //   Obx((){
-      //       if (
-      //   //searchcategories_controller.rxRequestStatus.value == Status.LOADING &&
-      //   _searchProductByName_Controller.rxRequestStatus.value==Status.LOADING) {
-      //   return const Scaffold(
-      //     body: Center(child: CircularProgressIndicator()),
-      //   );
-      // }  else {
-      //    return 
-         Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.h,
-              vertical: 25.v,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-            
-                Center(
-                  child: Stack(
-                    children: [
-                      CustomSearchView(
-                        controller: searchController,
-                        readOnly: false,
-                        enableTap: false,
-                        hintText: "Search Category",
-                           onFieldSubmitted: (query) => _handleSearch(query),
-                             focusNode: _searchFocusNode,
-                      ),
-                      Positioned(
-                    top: 20,
-                    left: 240,
-                    child: GestureDetector(
-                      onTap: (){
-                         showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Color(0xFFFF8300),
-                                    title: Text("Choose" ,style: TextStyle( fontFamily: 'League Spartan', color: Colors.black, fontWeight: FontWeight.w400),),
-                                    content: Row(
-                                      children: [
-                                        GestureDetector(
-                                          child: Text("Camera", style: TextStyle( fontFamily: 'League Spartan', color: Colors.white,fontSize:18),),
-                                          onTap: () {
-                                            openCameraa(ImageSource.camera);
-                                          },
-                                        ),
-                                        SizedBox(width: 80),
-                                        GestureDetector(
-                                          child: Text("Gallery", style: TextStyle( fontFamily: 'League Spartan', color: Colors.white, fontSize:18)),
-                                          onTap: () {
-                                            openCameraa(ImageSource.gallery);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
-                      },
-                      child: Image.asset('assets/images/greycamera.png'))),
-                    ],
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: _buildAppBar(context),
+            body:
+                //   Obx((){
+                //       if (
+                //   //searchcategories_controller.rxRequestStatus.value == Status.LOADING &&
+                //   _searchProductByName_Controller.rxRequestStatus.value==Status.LOADING) {
+                //   return const Scaffold(
+                //     body: Center(child: CircularProgressIndicator()),
+                //   );
+                // }  else {
+                //    return
+                Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.h,
+                vertical: 25.v,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Stack(
+                      children: [
+                        CustomSearchView(
+                          controller: searchController,
+                          readOnly: false,
+                          enableTap: false,
+                          hintText: "Search Category",
+                          onFieldSubmitted: (query) => _handleSearch(query),
+                          focusNode: _searchFocusNode,
+                        ),
+                        Positioned(
+                            top: 20,
+                            left: 240,
+                            child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: Color(0xFFFF8300),
+                                          title: Text(
+                                            "Choose",
+                                            style: TextStyle(
+                                                fontFamily: 'League Spartan',
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          content: Row(
+                                            children: [
+                                              GestureDetector(
+                                                child: Text(
+                                                  "Camera",
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'League Spartan',
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
+                                                onTap: () {
+                                                  openCameraa(
+                                                      ImageSource.camera);
+                                                },
+                                              ),
+                                              SizedBox(width: 80),
+                                              GestureDetector(
+                                                child: Text("Gallery",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'League Spartan',
+                                                        color: Colors.white,
+                                                        fontSize: 18)),
+                                                onTap: () {
+                                                  openCameraa(
+                                                      ImageSource.gallery);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: Image.asset(
+                                    'assets/images/greycamera.png'))),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 26.v),
-                _buildRecentSearchedRow(context),
-                SizedBox(height: 29.v),
-                Text(
+                  SizedBox(height: 26.v),
+                  _buildRecentSearchedRow(context),
+                  SizedBox(height: 29.v),
+                  Text(
                     "Popular right now",
                     style: CustomTextStyles.titleMedium16,
                   ),
-
 
 //                   _searchProductByName_Controller.userList.value.products == null ||
 //             _searchProductByName_Controller.userList.value.products!.isEmpty
@@ -197,28 +214,26 @@ class _SearchScreenState extends State<SearchScreen> {
 //                                         );
 //                                       },
 //   )),
-                _buildVectorChipView(context),
-                SizedBox(height: 5.v),
-              ],
-            ),
-          )
-      )
-    );
-        }
-        
-    //     ),
-    //   ),
-    // );
-  void _handleSearch(String query) {
-  if (query.isNotEmpty) {
-    setState(() {
-      searchHistory.add(query);
-      searchController.clear(); // Clear the search field
-    });
-    _saveSearchHistory(); // Save the search history
-    _searchFocusNode.unfocus(); // Remove focus from the search field
+                  _buildVectorChipView(context),
+                  SizedBox(height: 5.v),
+                ],
+              ),
+            )));
   }
-}
+
+  //     ),
+  //   ),
+  // );
+  void _handleSearch(String query) {
+    if (query.isNotEmpty) {
+      setState(() {
+        searchHistory.add(query);
+        searchController.clear(); // Clear the search field
+      });
+      _saveSearchHistory(); // Save the search history
+      _searchFocusNode.unfocus(); // Remove focus from the search field
+    }
+  }
 
   /// Section Widget
   Widget _buildRecentSearchedRow(BuildContext context) {
@@ -237,61 +252,57 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               CustomImageView(
-                onTap:(){
-                          setState(() {
+                onTap: () {
+                  setState(() {
                     searchHistory.clear(); // Remove the search history entry
                   });
-                      },
+                },
                 imagePath: ImageConstant.imgDelete1,
                 height: 18.adaptSize,
                 width: 18.adaptSize,
               ),
             ],
           ),
-        SizedBox(height: Get.height * 0.04),
-         Wrap(
-  runAlignment: WrapAlignment.center,
-          
-          runSpacing: 8.0,
-          children: searchHistory.map((query) {
-            return _buildSearchHistoryContainer(query);
-          }).toList(),
-        ),
-
+          SizedBox(height: Get.height * 0.04),
+          Wrap(
+            runAlignment: WrapAlignment.center,
+            runSpacing: 8.0,
+            children: searchHistory.map((query) {
+              return _buildSearchHistoryContainer(query);
+            }).toList(),
+          ),
         ],
       ),
     );
-
   }
- Widget _buildSearchHistoryContainer(String query) {
 
+  Widget _buildSearchHistoryContainer(String query) {
     return Expanded(
       child: Container(
-height: Get.height*.05,
-      margin: EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Color.fromARGB(28, 158, 158, 158),
-      ),
-      child: 
-       Center(
-         child: Padding(
-           padding: const EdgeInsets.fromLTRB(10,0,10,0),
-           child: Text(
-            query,
-            style: TextStyle(
-              fontFamily: 'Almarai',
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color:  Color(0xff8f959e),
+          height: Get.height * .05,
+          margin: EdgeInsets.symmetric(vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: Color.fromARGB(28, 158, 158, 158),
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Text(
+                query,
+                style: TextStyle(
+                  fontFamily: 'Almarai',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xff8f959e),
+                ),
+              ),
             ),
-               ),
-         ),
-       )
-         ),
+          )),
     );
   }
-   PreferredSizeWidget _buildAppBar(BuildContext context) {
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
@@ -311,8 +322,8 @@ height: Get.height*.05,
       ),
     );
   }
+
   /// Section Widget
- 
 
   /// Section Widget
   Widget _buildVectorChipView(BuildContext context) {

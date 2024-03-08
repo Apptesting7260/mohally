@@ -17,26 +17,25 @@ class useraddressviewcontroller extends GetxController {
   void UseraddressView_apihit() async {
     loading.value = true;
     Map data = {
-      "language_type":"Arabic",
+      "language_type": "Arabic",
     };
-     final sp = await SharedPreferences.getInstance();
+    final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
-     var header = {'Authorization': "Bearer $token"};
-  _api.userAddressviewApi(data, header).then((value) {
-    print("UseraddressView_apihit successful");
-    setRxRequestStatus(Status.COMPLETED);
-    setUserList(value);
-    print("${value.userAddress!.length}===useraddresslength");
-    print('printing UserAddress View Value ');
-    print(value);
-    loading.value = false;
-  }).onError((error, stackTrace) {
-    print("UseraddressView_apihit error: $error");
-    print(stackTrace.toString());
-    loading.value = false;
-    setError(error.toString());
-    setRxRequestStatus(Status.ERROR);
-  });
+    var header = {'Authorization': "Bearer $token"};
+    _api.userAddressviewApi(data, header).then((value) {
+      print("UseraddressView_apihit successful");
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+      print("${value.userAddress!.length}===useraddresslength");
+      print('printing UserAddress View Value ');
+      print(value);
+      loading.value = false;
+    }).onError((error, stackTrace) {
+      print("UseraddressView_apihit error: $error");
+      print(stackTrace.toString());
+      loading.value = false;
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+    });
   }
-
 }

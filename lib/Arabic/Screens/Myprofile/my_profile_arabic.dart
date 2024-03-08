@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mohally/Arabic/Screens/ArabicLanguageSwitchScreen/arabic_language_switch_screen.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_HomeTab.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/Arabic/Screens/CustomerSupport/arabic_customersupport.dart';
@@ -11,8 +12,8 @@ import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/arabic_my_order.dart
 import 'package:mohally/Arabic/Screens/Myprofile/MyCoupons/arabic_coupons.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/Notifications/arabic_notifications.dart';
 import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_login_screen.dart';
-import 'package:mohally/Arabic/widgets/Address/arabic_address.dart';
-import 'package:mohally/Arabic/widgets/arabic_review.dart';
+import 'package:mohally/Arabic/Screens/Address/arabic_address.dart';
+import 'package:mohally/Arabic/Screens/ReviewScreen/arabic_review.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
@@ -34,20 +35,23 @@ class MyProfilePage_arabic extends StatefulWidget {
 }
 
 class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
-   final  _controller = Get.put(MyAccountController());
+  final _controller = Get.put(MyAccountController());
 
-     @override
+  @override
   void initState() {
     super.initState();
-        setInitialLocale();
+    _controller.fetchMyAccountData();
+    setInitialLocale();
   }
-    void setInitialLocale() {
+
+  void setInitialLocale() {
     if (Get.locale == null || Get.locale?.languageCode == 'ar') {
       Get.updateLocale(Locale('ar', 'DZ'));
     } else {
       Get.updateLocale(Locale('en', 'US'));
     }
   }
+
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
@@ -77,19 +81,35 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Align(alignment: Alignment.centerRight,
-         child :Text( "ملفي", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Almarai', ),)),
+          title: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "ملفي",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Almarai',
+                ),
+              )),
           leading: Padding(
-            padding: const EdgeInsets.only(top:15, ),
+            padding: const EdgeInsets.only(
+              top: 15,
+            ),
             child: GestureDetector(
               onTap: () {
-                Get.back();
+                Get.offAll(arabic_TabScreen(
+                  index: 0,
+                ));
               },
               child: Container(
-                width: Get.width*.07,
-                height: Get.height*.03,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(Icons.arrow_back, )),
+                  width: Get.width * .07,
+                  height: Get.height * .03,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(90, 158, 158, 158)),
+                  child: Icon(
+                    Icons.arrow_back,
+                  )),
             ),
           ),
         ),
@@ -148,26 +168,50 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                    backgroundColor: Color(0xFFFF8300),
-                                    title: Text("يختار" , textAlign:TextAlign.right, style:TextStyle( fontFamily: 'Almarai', color: Colors.black, fontWeight: FontWeight.w400),),
-                                    content: Row(
-                                      children: [
-                                        GestureDetector(
-                                          child: Text("آلة تصوير", style: TextStyle( fontFamily: 'Almarai', color: Colors.white,fontSize:16),),
-                                          onTap: () {
-                                            openCameraa(ImageSource.camera);
-                                          },
-                                        ),
-                                        SizedBox(width: 80),
-                                        GestureDetector(
-                                          child: Text("صالة عرض", style: TextStyle( fontFamily: 'Almarai', color: Colors.white, fontSize:16)),
-                                          onTap: () {
-                                            openCameraa(ImageSource.gallery);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                                backgroundColor:
+                                                    Color(0xFFFF8300),
+                                                title: Text(
+                                                  "يختار",
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontFamily: 'Almarai',
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                content: Row(
+                                                  children: [
+                                                    GestureDetector(
+                                                      child: Text(
+                                                        "آلة تصوير",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Almarai',
+                                                            color: Colors.white,
+                                                            fontSize: 16),
+                                                      ),
+                                                      onTap: () {
+                                                        openCameraa(
+                                                            ImageSource.camera);
+                                                      },
+                                                    ),
+                                                    SizedBox(width: 80),
+                                                    GestureDetector(
+                                                      child: Text("صالة عرض",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Almarai',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 16)),
+                                                      onTap: () {
+                                                        openCameraa(ImageSource
+                                                            .gallery);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
                                             });
                                       },
                                       imagePath:
@@ -179,36 +223,33 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          Obx((){
-                          return Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                             "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
-                             // "Name",
-                              style: CustomTextStyles
-                                  .headlineSmallLeagueSpartanSemiBold,
-                            ),
-                          );
-                        }
-                        ),
-  
-                  
-                        SizedBox(height: 10.v),
-                         Obx((){
-                          return Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                             "${ _controller.MyAccount.value.userDetails?.email.toString()}",
-                             // "Name",
-                              style:  CustomTextStyles.bodyLargeGray50001_3,
-                            ),
-                          );
-                        }
-                        ),
+                          Obx(() {
+                            return Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${_controller.MyAccount.value.userDetails?.firstName.toString()}",
+                                // "Name",
+                                style: CustomTextStyles
+                                    .headlineSmallLeagueSpartanSemiBold,
+                              ),
+                            );
+                          }),
+
+                          SizedBox(height: 10.v),
+                          Obx(() {
+                            return Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${_controller.MyAccount.value.userDetails?.email.toString()}",
+                                // "Name",
+                                style: CustomTextStyles.bodyLargeGray50001_3,
+                              ),
+                            );
+                          }),
                           SizedBox(height: 36.v),
                           GestureDetector(
                             onTap: () {
-                              Get.to(()=>MyAccountScreen_arabic());
+                              Get.to(() => MyAccountScreen_arabic());
                             },
                             child: _buildMessageOne(
                               context,
@@ -255,17 +296,23 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                               userMessage: "عروض القسيمة",
                             ),
                           ),
-                       
+
                           // _buildMessageOne(
                           //   context,
                           //   userImage: ImageConstant.imgShop1,
                           //   userMessage: "Followed_shops".tr,
                           // ),
                           SizedBox(height: 26.v),
-                          _buildMessageOne(
-                            context,
-                            userImage: ImageConstant.imgHistory1,
-                            userMessage: "تاريخ التصفح",
+                          GestureDetector(
+                            onTap: () {
+                              //  Locationtest();
+                              // Get.to(() => Locationtest());
+                            },
+                            child: _buildMessageOne(
+                              context,
+                              userImage: ImageConstant.imgHistory1,
+                              userMessage: "تاريخ التصفح",
+                            ),
                           ),
                           SizedBox(height: 26.v),
                           GestureDetector(
@@ -291,8 +338,19 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                           ),
                           SizedBox(height: 26.v),
                           GestureDetector(
-                            onTap: (){
-                              Get.to(()=>CustomerSupport_arabic());
+                            onTap: () {
+                              Get.to(() => ArabicLanguageSwitch());
+                            },
+                            child: _buildMessageOne(
+                              context,
+                              userImage: 'assets/images/lang2.png',
+                              userMessage: "لغة ",
+                            ),
+                          ),
+                          SizedBox(height: 26.v),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => CustomerSupport_arabic());
                             },
                             child: _buildMessageOne(
                               context,
@@ -301,18 +359,16 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-          
+
                           _buildMessageOne(
                             context,
                             userImage: ImageConstant.imgSettingPrimary,
-                            userMessage:  "إعدادات",
+                            userMessage: "إعدادات",
                           ),
                           SizedBox(height: 40.v),
                           CustomElevatedButton(
                             onPressed: () async {
                               await clearSharedPreferences();
-          
-                            
                             },
                             text: "تسجيل خروج",
                             margin: EdgeInsets.symmetric(horizontal: 10.h),
@@ -323,7 +379,6 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),
@@ -331,7 +386,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
       ),
     );
   }
- 
+
   /// Common widget
   Widget _buildMessageOne(
     BuildContext context, {
@@ -345,6 +400,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
           imagePath: userImage,
           height: 25.adaptSize,
           width: 25.adaptSize,
+          color: Color(0xffff8300),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -367,9 +423,9 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
 
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     await prefs.clear();
-      Get.offAll(() => SplashScreen());
+    Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

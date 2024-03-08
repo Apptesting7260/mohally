@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/utils/Utils.dart';
@@ -22,7 +21,8 @@ class Resetpassword_controller extends GetxController {
   final rxRequestStatus = Status.LOADING.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-  void setAccountDetails(ResetpasswordModel value) => forgetpasswordModel.value = value;
+  void setAccountDetails(ResetpasswordModel value) =>
+      forgetpasswordModel.value = value;
   void setError(String value) => error.value = value;
 
   Future<void> resetPasswordApiHit(BuildContext context) async {
@@ -51,7 +51,7 @@ class Resetpassword_controller extends GetxController {
           pinPutFocusNode: FocusNode(),
         ));
       } else {
-         Utils.snackBar(context,"Error", value.message.toString());
+        Utils.snackBar(context, "Error", value.message.toString());
       }
     }).onError((error, stackTrace) {
       loading.value = false;

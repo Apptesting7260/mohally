@@ -1,28 +1,23 @@
-class CategoriesModelEnglish {
-  CategoriesModelEnglish({
+class CategoryByNameModel {
+  CategoryByNameModel({
     this.status,
     this.seeAllMainCategory,
   });
-
   bool? status;
   List<SeeAllMainCategory>? seeAllMainCategory;
 
-  CategoriesModelEnglish.fromJson(Map<String, dynamic> json) {
+  CategoryByNameModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    
-    // Check for null before mapping the list
-    if (json['see_all_main_category'] != null) {
-      seeAllMainCategory = List.from(json['see_all_main_category'])
-          .map((e) => SeeAllMainCategory.fromJson(e))
-          .toList();
-    }
+    seeAllMainCategory = List.from(json['see_all_main_category'])
+        .map((e) => SeeAllMainCategory.fromJson(e))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['see_all_main_category'] =
-        seeAllMainCategory?.map((e) => e.toJson()).toList();
+        seeAllMainCategory!.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -33,7 +28,6 @@ class SeeAllMainCategory {
     this.categoryName,
     this.imageUrl,
   });
-
   int? id;
   String? categoryName;
   String? imageUrl;

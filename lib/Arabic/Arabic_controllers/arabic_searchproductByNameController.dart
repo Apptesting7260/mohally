@@ -14,28 +14,28 @@ class SearchProductByName_Controller extends GetxController {
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   void Search_Product_By_Name_ApiHit() async {
-  loading.value = true;
-  Map data = {
-    "pro_name": "و",
-    "language_type": "Arabic",
-  };
-  final sp = await SharedPreferences.getInstance();
-  String token = sp.getString('token').toString();
-  var header = {'Authorization': "Bearer $token"};
-  
-  try {
-    var value = await _api.ProductSearchbyNameApi(data, header);
-    print('API Response: $value');
-    setRxRequestStatus(Status.COMPLETED);
-    setUserList(value);
-    loading.value = false;
-  } catch (error, stackTrace) {
-    print("=====Search====Product=======Page======Error======");
-    print(error.toString());
-    print(stackTrace.toString());
-    loading.value = false;
-    setError(error.toString());
-    setRxRequestStatus(Status.ERROR);
+    loading.value = true;
+    Map data = {
+      "pro_name": "و",
+      "language_type": "Arabic",
+    };
+    final sp = await SharedPreferences.getInstance();
+    String token = sp.getString('token').toString();
+    var header = {'Authorization': "Bearer $token"};
+
+    try {
+      var value = await _api.ProductSearchbyNameApi(data, header);
+      print('API Response: $value');
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+      loading.value = false;
+    } catch (error, stackTrace) {
+      print("=====SearchProductByName_Controller=======Page======Error======");
+      print(error.toString());
+      print(stackTrace.toString());
+      loading.value = false;
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+    }
   }
-}
 }

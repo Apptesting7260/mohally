@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/EnglishDeleteCartModel/English_deleteCartModel.dart';
@@ -17,16 +19,17 @@ class DeleteCartCartController extends GetxController {
   void setUserList(EnglishDeleteCartModel value) => userList.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
-  List<String> selectedCartIds = [];
+  RxList selectedCartIds = [].obs;
 
-  void deleteCartApiHit(String? deleteCartId) async {
-    if (deleteCartId != null) {
-      selectedCartIds.add(deleteCartId.toString());
-    }
-
+  void deleteCartApiHit(List ids) async {
+    //   if (deleteCartId != null) {
+    //     selectedCartIds.add(deleteCartId);
+    //   }
+    print(ids);
     loading.value = true;
     Map data = {
-      "cart_id[]": "86", // Pass the list of cart IDs directly
+      "cart_id": ids.toString(),
+      //json.encode(deleteCartId),
       "language_type": "English",
     };
     final sp = await SharedPreferences.getInstance();
@@ -37,16 +40,12 @@ class DeleteCartCartController extends GetxController {
       print("Delete Cart successful");
       setRxRequestStatus(Status.COMPLETED);
 
-      // Check the status key in the response
       if (value.status == true) {
         print(value.message);
         Get.offAll(() => TabScreen(index: 0));
-        // Product successfully added to wishlist
         setUserList(value);
       } else {
-        // Handle the case where the status is false
         print(value.message);
-        // You might want to perform additional actions based on your requirements
       }
       print('deletecart Value ');
       print(value);

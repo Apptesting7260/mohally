@@ -41,6 +41,7 @@ import 'package:mohally/models/ContactUsModel/contactus_model.dart';
 import 'package:mohally/models/Create_password_model/create_password_model.dart';
 import 'package:mohally/models/DeleteAccount/DeleteAccountModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicEditaddressmodel/edit_address_arabic_model.dart';
+import 'package:mohally/models/PlaceOrderModel/placeorderModel.dart';
 import 'package:mohally/models/ProductByCatList/productbycatlistModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecCameraSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecHeadphonessubcatmodel.dart';
@@ -692,5 +693,15 @@ class AuthRepository {
       default:
         throw Exception('Unexpected condition');
     }
+  }
+
+  Future<PlaceOrderModel> PlaceOrderApi(
+      var data, Map<String, String> header) async {
+    dynamic response = await _apiService.postApi(
+      data,
+      AppUrl.placeorder,
+    );
+    print(response);
+    return PlaceOrderModel.fromJson(response);
   }
 }

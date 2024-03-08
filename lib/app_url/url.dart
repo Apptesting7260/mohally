@@ -44,4 +44,5 @@ class AppUrl {
       '${baseurl}product-by-category-list-api';
   static const String cartProductQtyUpdate =
       '${baseurl}cart-product-quantity-update';
+  static const String placeorder = '${baseurl}order-save';
 }

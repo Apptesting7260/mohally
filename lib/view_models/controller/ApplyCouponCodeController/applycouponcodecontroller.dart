@@ -6,9 +6,13 @@ import 'package:mohally/models/CouponCodeApply/applyCouponCodeModel.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String? Arabic_Add_remove_productid;
+String? CouponId;
+String? TotalAmount;
+String? discountprice;
+String? totalpriceafterdiscount;
+String? couponidforcheckout;
 
-class ArabicAdd_remove_wishlistController extends GetxController {
+class CouponCodeApplyController extends GetxController {
   final _api = AuthRepository();
 
   final rxRequestStatus = Status.LOADING.obs;
@@ -18,11 +22,11 @@ class ArabicAdd_remove_wishlistController extends GetxController {
   void setUserList(CouponCodeApplyModel value) => userList.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
-  void AddRemoveWishlish_apihit(BuildContext context) async {
+  void applyCoupon_apihit(BuildContext context) async {
     loading.value = true;
     Map data = {
-      "coupon_id": Arabic_Add_remove_productid.toString(),
-      "total_amount": "Arabic",
+      "coupon_id": CouponId.toString(),
+      "total_amount": TotalAmount.toString(),
     };
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
@@ -31,13 +35,16 @@ class ArabicAdd_remove_wishlistController extends GetxController {
     _api.CouponCodeApplyApi(data, header).then((value) {
       setRxRequestStatus(Status.COMPLETED);
       if (value.status == true) {
-        Utils.snackBar(context, 'Success', value.message.toString());
+        Get.back();
       } else {}
-
+      discountprice = value.discountPrice.toString();
+      totalpriceafterdiscount = value.totalPrice.toString();
+      couponidforcheckout = value.couponid.toString();
+      print("========dis${discountprice}");
       print(value);
       loading.value = false;
     }).onError((error, stackTrace) {
-      print("Apply CouponCode: $error");
+      print("Apply CouponCode error: $error");
       print(stackTrace.toString());
       loading.value = false;
       setError(error.toString());

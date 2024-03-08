@@ -1521,28 +1521,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -2130,28 +2137,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -2750,28 +2764,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -3359,28 +3380,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -3977,28 +4005,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -4606,28 +4641,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -5224,28 +5266,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -5853,28 +5902,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -6471,28 +6527,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -7080,28 +7143,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -7626,28 +7696,35 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                     // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(
-                                        color: tappedList[index]
-                                            ? Colors.orange
-                                            : Colors.black,
-                                        width: 2,
-                                      ),
-                                      color: tappedList[index]
-                                          ? Colors.orange
-                                          : Colors.transparent,
-                                    ),
+                                        borderRadius: BorderRadius.circular(35),
+                                        border: Border.all(
+                                          color:
+                                              // tappedList[index]
+                                              // ?
+                                              Colors.orange,
+                                          // : Colors.black,
+                                          width: 2,
+                                        ),
+                                        color:
+                                            //tappedList[index]
+                                            //?
+                                            Colors.orange
+                                        // : Colors.transparent,
+                                        ),
                                     child: Center(
                                       child: Text(
-                                        tappedList[index]
-                                            ? "Already in cart"
-                                            : "Add to cart",
+                                        // tappedList[index]
+                                        // ?
+                                        "Add to cart",
+                                        // : "Already in cart",
                                         style: TextStyle(
-                                          fontSize: 18,
-                                          color: tappedList[index]
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
+                                            fontSize: 18,
+                                            color:
+                                                // tappedList[index]
+                                                //  ?
+                                                Colors.white
+                                            // : Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ),

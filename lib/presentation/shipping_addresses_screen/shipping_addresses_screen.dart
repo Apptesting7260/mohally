@@ -13,6 +13,10 @@ import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+String? addressId;
+RxString addressname = "".obs;
+String? addressIndexId;
+
 class Default_address extends StatefulWidget {
   const Default_address({Key? key})
       : super(
@@ -24,6 +28,8 @@ class Default_address extends StatefulWidget {
 }
 
 class _Default_addressState extends State<Default_address> {
+  List<bool> isSelectedList = List.generate(10, (index) => false);
+
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final RefreshController _refreshController = RefreshController();
   Englishuseraddressviewcontroller viewaddresscontroller =
@@ -242,7 +248,7 @@ class _Default_addressState extends State<Default_address> {
                                                 Container(
                                                   width: 239.h,
                                                   margin: EdgeInsets.only(
-                                                    left: 10.h,
+                                                    // left: 10.h,
                                                     right: 10.h,
                                                   ),
                                                   child: Text(
@@ -266,7 +272,7 @@ class _Default_addressState extends State<Default_address> {
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      color: Colors.black,
+                                                      color: Colors.grey,
                                                       fontFamily: 'Almarai',
                                                     )),
                                                 Text(
@@ -277,7 +283,7 @@ class _Default_addressState extends State<Default_address> {
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      color: Colors.black,
+                                                      color: Colors.grey,
                                                       fontFamily: 'Almarai',
                                                     )),
                                                 Text(
@@ -288,45 +294,79 @@ class _Default_addressState extends State<Default_address> {
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      color: Colors.black,
+                                                      color: Colors.grey,
                                                       fontFamily: 'Almarai',
                                                     )),
                                                 SizedBox(height: 1.v),
-                                                //          Padding(
-                                                //   padding: EdgeInsets.only(left: 10.h),
-                                                //   child: Row(
-                                                //     children: [
-                                                //       Checkbox(
-                                                //         checkColor: Colors.white,
-                                                //         fillColor: MaterialStatePropertyAll(Color(0xffff8300)),
-                                                //         activeColor: Color(0xffff8300),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 10.h),
+                                                  child: Row(
+                                                    children: [
+                                                      Checkbox(
+                                                        checkColor:
+                                                            Colors.white,
+                                                        fillColor:
+                                                            MaterialStatePropertyAll(
+                                                                Color(
+                                                                    0xffff8300)),
+                                                        activeColor:
+                                                            Color(0xffff8300),
+                                                        value: isChecked,
+                                                        onChanged:
+                                                            (bool? value) {
+                                                          setState(() {
+                                                            isChecked =
+                                                                !isChecked;
+                                                          });
+                                                          addressId =
+                                                              viewaddresscontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .userAddress?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString();
+                                                          addressname.value =
+                                                              viewaddresscontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .userAddress?[
+                                                                      index]
+                                                                  .address;
+                                                          addressIndexId =
+                                                              viewaddresscontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .userAddress?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString();
 
-                                                //        value: isChecked,
-                                                //   onChanged: (bool? value) {
-                                                //     setState(() {
-                                                //       isChecked = value ?? false;
-                                                //     });
-                                                //   },
-                                                //       ),
-                                                //       Padding(
-                                                //         padding: EdgeInsets.only(
-                                                // left: 6.h,
-                                                // top: 3.v,
-                                                //         ),
-                                                //         child: Text(
-                                                // "استخدم كعنوان الشحن",
-                                                // style: TextStyle(
-                                                //   fontSize: 14,
-                                                //   fontWeight: FontWeight.w400,
-                                                //   color: Colors.black,
-                                                //   fontFamily: 'Almarai',
-                                                // ),
-                                                //         ),
-                                                //       ),
-                                                //     ],
-                                                //   ),
-                                                // ),
-
+                                                          print(addressIndexId);
+                                                          print(addressId =
+                                                              addressId);
+                                                        },
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          left: 6.h,
+                                                          top: 3.v,
+                                                        ),
+                                                        child: Text(
+                                                          "Use As Shipping Address",
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                                 SizedBox(height: 10.v),
                                               ],
                                             ),

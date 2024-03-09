@@ -10,6 +10,7 @@ import 'package:mohally/presentation/category_page/category_page.dart';
 import 'package:mohally/presentation/drawer_draweritem/drawer_draweritem.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishMensContent/HomeMensViewScreen.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/home_page_one_page.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishWomensHomeSceen/homeWomensScreen.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/routes/app_routes.dart';
@@ -33,7 +34,7 @@ class _HomePageOneTabContainerPageState
     'Men',
     'Women',
     'Kids',
-    "Jewelry",
+    // "Jewelry",
   ];
   PageController _pageController = PageController();
 
@@ -211,9 +212,9 @@ class _HomePageOneTabContainerPageState
                     children: [
                       Container(child: HomePageOnePage()),
                       Container(child: HomePageMensSectionView()),
-                      Container(child: HomePageMensSectionView()),
-                      Container(child: HomePageMensSectionView()),
-                      Container(child: HomePageMensSectionView()),
+                      Container(child: WomensHomeScreen()),
+                      Container(child: WomensHomeScreen()),
+                      // Container(child: WomensHomeScreen()),
                       // Add more pages as needed
                     ],
                   ),

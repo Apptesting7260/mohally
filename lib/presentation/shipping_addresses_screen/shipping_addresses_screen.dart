@@ -5,6 +5,7 @@ import 'package:mohally/presentation/address_screen/address_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/edit_address.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/widgets/default_user_address_detail.dart';
 import 'package:mohally/view_models/controller/AddressViewController/address_view_controller.dart';
+import 'package:mohally/view_models/controller/PlaceOrderController/paceOrderController.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -28,6 +29,7 @@ class Default_address extends StatefulWidget {
 }
 
 class _Default_addressState extends State<Default_address> {
+  PlaceOrdercontroller placeordercontroller = PlaceOrdercontroller();
   List<bool> isSelectedList = List.generate(10, (index) => false);
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -303,22 +305,36 @@ class _Default_addressState extends State<Default_address> {
                                                       left: 10.h),
                                                   child: Row(
                                                     children: [
-                                                      Checkbox(
-                                                        checkColor:
-                                                            Colors.white,
-                                                        fillColor:
-                                                            MaterialStatePropertyAll(
-                                                                Color(
-                                                                    0xffff8300)),
-                                                        activeColor:
-                                                            Color(0xffff8300),
-                                                        value: isChecked,
-                                                        onChanged:
-                                                            (bool? value) {
+                                                      GestureDetector(
+                                                        onTap: () {
                                                           setState(() {
-                                                            isChecked =
-                                                                !isChecked;
+                                                            isSelectedList[
+                                                                    index] =
+                                                                !isSelectedList[
+                                                                    index];
                                                           });
+                                                          if (isSelectedList[
+                                                              index]) {
+                                                            addressIndexId =
+                                                                viewaddresscontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .userAddress?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString();
+                                                            addressname.value =
+                                                                viewaddresscontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .userAddress?[
+                                                                        index]
+                                                                    .address;
+                                                          } else {
+                                                            addressIndexId =
+                                                                null;
+                                                          }
+
                                                           addressId =
                                                               viewaddresscontroller
                                                                   .userList
@@ -342,11 +358,39 @@ class _Default_addressState extends State<Default_address> {
                                                                       index]
                                                                   .id
                                                                   .toString();
-
                                                           print(addressIndexId);
-                                                          print(addressId =
-                                                              addressId);
                                                         },
+                                                        child: Container(
+                                                          height:
+                                                              Get.height * .02,
+                                                          width:
+                                                              Get.width * .04,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape: BoxShape
+                                                                .rectangle,
+                                                            border: Border.all(
+                                                              width: 2,
+                                                              color: Color(
+                                                                  0xffff8300),
+                                                            ),
+                                                            color: Colors.white,
+                                                          ),
+                                                          child: isSelectedList[
+                                                                  index]
+                                                              ? Center(
+                                                                  child: Icon(
+                                                                  Icons.check,
+                                                                  size: 10,
+                                                                  weight:
+                                                                      Checkbox
+                                                                          .width,
+                                                                )
+                                                                  //   ),
+                                                                  // ),
+                                                                  )
+                                                              : null,
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:

@@ -31,7 +31,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   Login_controller login_controller = Get.put(Login_controller());
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -52,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
- ThemeData theme = Theme.of(context);
+    ThemeData theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -82,7 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                       maxLines: 3,
-                      
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: CustomTextStyles.bodyLargeGray50001_3.copyWith(
@@ -94,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                     'Mobile Number or Email',
+                      'Mobile Number or Email',
                       style: theme.textTheme.titleMedium,
                     ),
                   ),
@@ -129,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 27.v),
                   Text(
-                  'Or',
+                    'Or',
                     style: CustomTextStyles.titleMediumMedium_1,
                   ),
                   SizedBox(height: 27.v),
@@ -153,19 +151,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Terms of Use',
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
-                              // decoration: TextDecoration.underline,
-                            ),
+                                    // decoration: TextDecoration.underline,
+                                    ),
                           ),
                           TextSpan(
-                            text:  '  and',
+                            text: '  and',
                             style: CustomTextStyles.bodyMediumJostGray90001,
                           ),
                           TextSpan(
                             text: '\nPrivacy & Cookie Policy.',
                             style:
                                 CustomTextStyles.titleSmallJostPrimary.copyWith(
-                              // decoration: TextDecoration.underline,
-                            ),
+                                    // decoration: TextDecoration.underline,
+                                    ),
                           ),
                         ],
                       ),
@@ -177,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text:'You don\'t have an account yet ?',
+                          text: 'You don\'t have an account yet ?',
                           style: CustomTextStyles.bodyMediumGray90001Light,
                         ),
                         TextSpan(
@@ -220,7 +218,6 @@ class _LoginScreenState extends State<LoginScreen> {
       hintText: 'Enter mobile number or email',
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.emailAddress,
-      
     );
   }
 
@@ -230,11 +227,9 @@ class _LoginScreenState extends State<LoginScreen> {
       validator: (value) {
         if (value!.isEmpty) {
           return 'Please Enter Password';
-        }  else if(login_controller.passwordController.value.length<6){
+        } else if (login_controller.passwordController.value.length < 6) {
           return 'The password must be at least 6 characters. ';
-        }
-        
-        else {
+        } else {
           return null;
         }
       },
@@ -244,15 +239,18 @@ class _LoginScreenState extends State<LoginScreen> {
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       suffix: IconButton(
-          onPressed: () {
-            setState(() {
-              _passwordVisible = !_passwordVisible;
-            });
-          },
-             icon: Icon(
-            _passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-          ),
-          color:  Color(0xffff8300),),
+        onPressed: () {
+          setState(() {
+            _passwordVisible = !_passwordVisible;
+          });
+        },
+        icon: Icon(
+          _passwordVisible
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
+        ),
+        color: Color(0xffff8300),
+      ),
 
       // suffix: Container(
       //   margin: EdgeInsets.fromLTRB(12.h, 13.v, 16.h, 13.v),
@@ -275,26 +273,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   /// Section Widget
   Widget _buildContinueButton(BuildContext context) {
-    return Obx((){
-  return CustomElevatedButton(
+    return Obx(() {
+      return CustomElevatedButton(
         loading: login_controller.loading.value,
         onPressed: () {
-         {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    } else {
-       login_controller.loading.value = true;
-        login_controller.Login_apihit(context);
-       _formKey.currentState!.save();
-
-    }
-  }
+          {
+            if (!_formKey.currentState!.validate()) {
+              return;
+            } else {
+              login_controller.loading.value = true;
+              login_controller.Login_apihit(context);
+              _formKey.currentState!.save();
+            }
+          }
         },
-        text:'Continue',
+        text: 'Continue',
         buttonStyle: CustomButtonStyles.fillPrimary,
       );
-    }
-    );
+    });
   }
 
   /// Section Widget
@@ -332,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Section Widget
   Widget _buildContinueWithAppleButton(BuildContext context) {
     return CustomOutlinedButton(
-      text:'continue with apple',
+      text: 'continue with apple',
       leftIcon: Container(
         margin: EdgeInsets.only(right: 17.h),
         child: CustomImageView(
@@ -347,7 +343,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   checkvalidate() {
     print("_send".tr);
- 
   }
   // CrossAxisAlignment getCrossAxisAlignment(BuildContext context) {
   //   // Check if the current locale is Arabic

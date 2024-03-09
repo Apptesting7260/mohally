@@ -23,122 +23,145 @@ class ReviewsScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: mediaQueryData.size.width,
+          appBar: _buildAppBar(context),
+          body: Container(
+            height: Get.height,
+            width: Get.width,
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(top: 19.v),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 19.h),
+                padding: const EdgeInsets.only(top: 250, bottom: 250),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildAddReviewRow(context),
-                    SizedBox(height: 25.v),
-                    _buildRonaldRichards(
-                      context,
-                      userName: "Ronald Richards",
-                      userClockText: "13 Sep, 2020",
+                    CustomImageView(
+                      imagePath: ImageConstant.imgRateReview1,
+                      height: 100.adaptSize,
+                      width: 100.adaptSize,
+                      color: Color(0xffff8300),
                     ),
-                    SizedBox(height: 20.v),
-                    CustomRatingBar(
-                      initialRating: 3,
-                      itemSize: 14,
-                    ),
-                    SizedBox(height: 8.v),
-                    SizedBox(
-                      width: 138.h,
-                      child: Text(
-                        "Purchase : Black/L(40)\nOverall : True to size",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyles.bodyMedium15.copyWith(
-                          height: 1.33,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 4.v),
-                    Container(
-                      width: 322.h,
-                      margin: EdgeInsets.only(right: 13.h),
-                      child: Text(
-                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyles.bodyMediumGray9000115.copyWith(
-                          height: 1.33,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 13.v),
-                    _buildPhotosList(context),
-                    SizedBox(height: 20.v),
-                    _buildShareOne(
-                      context,
-                      share: "Share",
-                      helpfulTwo: "Helpful (2)",
-                    ),
-                    SizedBox(height: 20.v),
-                    Divider(thickness: 1,
-                      color:Colors.grey.shade200,
-                    ),
-                    SizedBox(height: 20.v),
-                    _buildRonaldRichards(
-                      context,
-                      userName: "Ronald Richards",
-                      userClockText: "13 Sep, 2020",
-                    ),
-                    SizedBox(height: 20.v),
-                    CustomRatingBar(
-                      initialRating: 3,
-                      itemSize: 14,
-                    ),
-                    SizedBox(height: 8.v),
-                    SizedBox(
-                      width: 138.h,
-                      child: Text(
-                        "Purchase : Black/L(40)\nOverall : True to size",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyles.bodyMedium15.copyWith(
-                          height: 1.33,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 4.v),
-                    Container(
-                      width: 322.h,
-                      margin: EdgeInsets.only(right: 13.h),
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyles.bodyMediumGray9000115.copyWith(
-                          height: 1.33,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 13.v),
-                    _buildShareOne(
-                      context,
-                      share: "Share",
-                      helpfulTwo: "Helpful",
-                    ),
-                    SizedBox(height: 20.v),
-                    Divider(thickness: 1,
-                      color:Colors.grey.shade200,
-                    ),
-                    SizedBox(height: 20.v),
-                    _buildReviewsStack(context),                    SizedBox(height: 60.v),
-
+                    Text('No reviews are available at the moment !')
                   ],
                 ),
               ),
             ),
+          )
+
+          //  SingleChildScrollView(
+          //   child: SizedBox(
+          //     width: mediaQueryData.size.width,
+          //     child: SingleChildScrollView(
+          //       padding: EdgeInsets.only(top: 19.v),
+          //       child: Padding(
+          //         padding: EdgeInsets.symmetric(horizontal: 19.h),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             _buildAddReviewRow(context),
+          //             SizedBox(height: 25.v),
+          //             _buildRonaldRichards(
+          //               context,
+          //               userName: "Ronald Richards",
+          //               userClockText: "13 Sep, 2020",
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             CustomRatingBar(
+          //               initialRating: 3,
+          //               itemSize: 14,
+          //             ),
+          //             SizedBox(height: 8.v),
+          //             SizedBox(
+          //               width: 138.h,
+          //               child: Text(
+          //                 "Purchase : Black/L(40)\nOverall : True to size",
+          //                 maxLines: 2,
+          //                 overflow: TextOverflow.ellipsis,
+          //                 style: CustomTextStyles.bodyMedium15.copyWith(
+          //                   height: 1.33,
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(height: 4.v),
+          //             Container(
+          //               width: 322.h,
+          //               margin: EdgeInsets.only(right: 13.h),
+          //               child: Text(
+          //                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          //                 maxLines: 4,
+          //                 overflow: TextOverflow.ellipsis,
+          //                 style: CustomTextStyles.bodyMediumGray9000115.copyWith(
+          //                   height: 1.33,
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(height: 13.v),
+          //             _buildPhotosList(context),
+          //             SizedBox(height: 20.v),
+          //             _buildShareOne(
+          //               context,
+          //               share: "Share",
+          //               helpfulTwo: "Helpful (2)",
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             Divider(thickness: 1,
+          //               color:Colors.grey.shade200,
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             _buildRonaldRichards(
+          //               context,
+          //               userName: "Ronald Richards",
+          //               userClockText: "13 Sep, 2020",
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             CustomRatingBar(
+          //               initialRating: 3,
+          //               itemSize: 14,
+          //             ),
+          //             SizedBox(height: 8.v),
+          //             SizedBox(
+          //               width: 138.h,
+          //               child: Text(
+          //                 "Purchase : Black/L(40)\nOverall : True to size",
+          //                 maxLines: 2,
+          //                 overflow: TextOverflow.ellipsis,
+          //                 style: CustomTextStyles.bodyMedium15.copyWith(
+          //                   height: 1.33,
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(height: 4.v),
+          //             Container(
+          //               width: 322.h,
+          //               margin: EdgeInsets.only(right: 13.h),
+          //               child: Text(
+          //                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque malesuada eget vitae Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+          //                 maxLines: 4,
+          //                 overflow: TextOverflow.ellipsis,
+          //                 style: CustomTextStyles.bodyMediumGray9000115.copyWith(
+          //                   height: 1.33,
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(height: 13.v),
+          //             _buildShareOne(
+          //               context,
+          //               share: "Share",
+          //               helpfulTwo: "Helpful",
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             Divider(thickness: 1,
+          //               color:Colors.grey.shade200,
+          //             ),
+          //             SizedBox(height: 20.v),
+          //             _buildReviewsStack(context),                    SizedBox(height: 60.v),
+
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           ),
-        ),
-      ),
     );
   }
 

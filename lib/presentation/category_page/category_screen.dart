@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,12 +58,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
     'Mens Clothing',
     'Electronics',
     'Mens Shoes',
-    'Womens Shoes',
     'Womens Clothing',
-    'Mens Shoes',
+    'Kids Clothing',
+    'Jewelery',
     'Womens Shoes',
     'Mens Shoes',
-    'Womens Shoes',
     'Womens Clothing',
     'Mens Shoes',
     'Womens Shoes',
@@ -90,12 +90,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
     Navigator.of(context).pop();
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   homeView_controller.homeview_apihit();
+  //   setInitialLocale();
+  //   _categoryByName.SeeAll_apiHit();
+  // }
   @override
   void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      homeView_controller.homeview_apihit();
+      setInitialLocale();
+      _categoryByName.SeeAll_apiHit();
+    });
     super.initState();
-    homeView_controller.homeview_apihit();
-    setInitialLocale();
-    _categoryByName.SeeAll_apiHit();
   }
 
   void setInitialLocale() {

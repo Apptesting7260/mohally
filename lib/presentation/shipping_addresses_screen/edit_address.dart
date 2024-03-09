@@ -67,7 +67,7 @@ class _EditAddressState extends State<EditAddress> {
 
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(
             ' Shipping Address',
@@ -96,17 +96,14 @@ class _EditAddressState extends State<EditAddress> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: SizedBox(
-              width: mediaQueryData.size.width,
+        body: Form(
+          key: _formKey,
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(
-                  left: 20.h,
-                  right: 20.h,
-                  bottom: 5.v,
-                ),
+                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Column(
                   children: [
                     Align(
@@ -166,7 +163,7 @@ class _EditAddressState extends State<EditAddress> {
                     _buildSaveAddressButton(context),
                     SizedBox(height: 20.v),
                     _buildDeletE(context),
-                    SizedBox(height: Get.height * .1),
+                    SizedBox(height: Get.height * .05),
                   ],
                 ),
               ),
@@ -239,25 +236,25 @@ class _EditAddressState extends State<EditAddress> {
         return null;
       },
       controller: _editAddressController.cityEditTextController1.value,
-      hintText: "Chino Hills",
+      hintText: "Enter Your City",
       hintStyle: TextStyle(
         fontFamily: 'Almarai',
         fontSize: 12,
         fontWeight: FontWeight.w400,
       ),
-      suffix: Container(
-        margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgVectorGray900014x8,
-          height: 4.v,
-          width: 8.h,
-        ),
-      ),
-      suffixConstraints: BoxConstraints(
-        maxHeight: 50.v,
-      ),
-      contentPadding:
-          EdgeInsets.only(left: 17.h, top: 17.v, bottom: 17.v, right: 10.v),
+      // suffix: Container(
+      //   margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
+      //   child: CustomImageView(
+      //     imagePath: ImageConstant.imgVectorGray900014x8,
+      //     height: 4.v,
+      //     width: 8.h,
+      //   ),
+      // ),
+      // suffixConstraints: BoxConstraints(
+      //   maxHeight: 50.v,
+      // ),
+      // contentPadding:
+      //     EdgeInsets.only(left: 17.h, top: 17.v, bottom: 17.v, right: 10.v),
     );
   }
 
@@ -268,29 +265,29 @@ class _EditAddressState extends State<EditAddress> {
       controller: _editAddressController.countrycontroller.value,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please Select Country';
+          return 'Please Enter Your  Country';
         }
         return null;
       },
-      hintText: "United States",
+      hintText: "Enter Your Country",
       hintStyle: TextStyle(
         fontFamily: 'Almarai',
         fontSize: 12,
         fontWeight: FontWeight.w400,
       ),
-      suffix: Container(
-        margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgVectorGray900014x8,
-          height: 4.v,
-          width: 8.h,
-        ),
-      ),
-      suffixConstraints: BoxConstraints(
-        maxHeight: 50.v,
-      ),
-      contentPadding:
-          EdgeInsets.only(left: 16.h, top: 17.v, bottom: 17.v, right: 10.v),
+      // suffix: Container(
+      //   margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
+      //   child: CustomImageView(
+      //     imagePath: ImageConstant.imgVectorGray900014x8,
+      //     height: 4.v,
+      //     width: 8.h,
+      //   ),
+      // ),
+      // suffixConstraints: BoxConstraints(
+      //   maxHeight: 50.v,
+      // ),
+      // contentPadding:
+      //     EdgeInsets.only(left: 16.h, top: 17.v, bottom: 17.v, right: 10.v),
     );
   }
 

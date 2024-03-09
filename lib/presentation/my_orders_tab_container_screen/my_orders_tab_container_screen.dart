@@ -35,29 +35,57 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
 
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: SizedBox(
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 22.v),
-              _buildTabview(context),
-              SizedBox(
-                height: 658.v,
-                child: TabBarView(
-                  controller: tabviewController,
+          appBar: _buildAppBar(context),
+          body: Container(
+            height: Get.height,
+            width: Get.width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 250, bottom: 250),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    MyOrdersPage(),
-                    MyOrdersOnePage(),
-                    MyOrdersTwoPage(),
+                    CustomImageView(
+                      imagePath: ImageConstant.imgBag,
+                      height: 100.adaptSize,
+                      width: 100.adaptSize,
+                      color: Color(0xffff8300),
+                    ),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    Center(
+                      child: Text(
+                          'Looks like you haven\'t placed any orders yet. \nStart exploring our products to find something you love !'),
+                    )
                   ],
                 ),
               ),
-            ],
+            ),
+          )
+          // SizedBox(
+          //   width: double.maxFinite,
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       SizedBox(height: 22.v),
+          //       _buildTabview(context),
+          //       SizedBox(
+          //         height: 658.v,
+          //         child: TabBarView(
+          //           controller: tabviewController,
+          //           children: [
+          //             MyOrdersPage(),
+          //             MyOrdersOnePage(),
+          //             MyOrdersTwoPage(),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           ),
-        ),
-      ),
     );
   }
 

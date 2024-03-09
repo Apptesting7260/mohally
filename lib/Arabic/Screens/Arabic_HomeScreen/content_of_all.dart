@@ -779,133 +779,133 @@ class _content_of_allState extends State<content_of_all> {
                         top: 3.v,
                       ),
                       child: CustomIconButton(
-                        onTap: () async {
-                          String? arMainCatId = homeView_controller.userList
-                              .value.recommendedProduct?[index].mainCategoryId
-                              .toString();
-                          String? arproductId = homeView_controller
-                              .userList.value.recommendedProduct?[index].id
-                              ?.toString();
+                        // onTap: () async {
+                        //   String? arMainCatId = homeView_controller.userList
+                        //       .value.recommendedProduct?[index].mainCategoryId
+                        //       .toString();
+                        //   String? arproductId = homeView_controller
+                        //       .userList.value.recommendedProduct?[index].id
+                        //       ?.toString();
 
-                          setState(() {
-                            MainCatId = arMainCatId;
-                            productid = arproductId;
-                          });
-                          print("$productid==");
-                          print("$arMainCatId==");
-                          if (arMainCatId == "153") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartmensShirt(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "154") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartmensBottoms(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "155") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartmensJacket(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "156") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartmensActiveWear(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "174") {
-                            // Call the API before showing the modal bottom sheet
-                            productviewcontroller.Single_ProductApiHit();
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) {
-                                return _buildAddtocartmensShoes_view(
-                                    context, arMainCatId, arproductId);
-                              },
-                            );
-                          }
-                          // else if (arMainCatId == "174") {
-                          //   // Call the API without awaiting it
-                          //   SingleProductViewController()
-                          //       .Single_ProductApiHit();
+                        //   setState(() {
+                        //     MainCatId = arMainCatId;
+                        //     productid = arproductId;
+                        //   });
+                        //   print("$productid==");
+                        //   print("$arMainCatId==");
+                        //   if (arMainCatId == "153") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartmensShirt(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "154") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartmensBottoms(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "155") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartmensJacket(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "156") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartmensActiveWear(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "174") {
+                        //     // Call the API before showing the modal bottom sheet
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //     showModalBottomSheet(
+                        //       context: context,
+                        //       isScrollControlled: true,
+                        //       builder: (context) {
+                        //         return _buildAddtocartmensShoes_view(
+                        //             context, arMainCatId, arproductId);
+                        //       },
+                        //     );
+                        //   }
+                        //   // else if (arMainCatId == "174") {
+                        //   //   // Call the API without awaiting it
+                        //   //   SingleProductViewController()
+                        //   //       .Single_ProductApiHit();
 
-                          //   // Show the modal bottom sheet after a delay to ensure the API call has finished
-                          //   Future.delayed(Duration(seconds: 2), () {
-                          //     showModalBottomSheet(
-                          //       context: context,
-                          //       isScrollControlled: true,
-                          //       builder: (context) {
-                          //         return _buildAddtocartmensShoes_view(
-                          //             context, arMainCatId, arproductId);
-                          //       },
-                          //     );
-                          //   });
-                          // }
-                          else if (arMainCatId == "166") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartelectronicsPhone(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "170") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartelectronicsLaptop(
-                                      context, arMainCatId, arproductId);
-                                });
+                        //   //   // Show the modal bottom sheet after a delay to ensure the API call has finished
+                        //   //   Future.delayed(Duration(seconds: 2), () {
+                        //   //     showModalBottomSheet(
+                        //   //       context: context,
+                        //   //       isScrollControlled: true,
+                        //   //       builder: (context) {
+                        //   //         return _buildAddtocartmensShoes_view(
+                        //   //             context, arMainCatId, arproductId);
+                        //   //       },
+                        //   //     );
+                        //   //   });
+                        //   // }
+                        //   else if (arMainCatId == "166") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartelectronicsPhone(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "170") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartelectronicsLaptop(
+                        //               context, arMainCatId, arproductId);
+                        //         });
 
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "171") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartelectronicsHeadphones(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "172") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartelectronicsCamera(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          } else if (arMainCatId == "173") {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return _buildAddtocartelectronicsWarable(
-                                      context, arMainCatId, arproductId);
-                                });
-                            productviewcontroller.Single_ProductApiHit();
-                          }
-                        },
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "171") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartelectronicsHeadphones(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "172") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartelectronicsCamera(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   } else if (arMainCatId == "173") {
+                        //     showModalBottomSheet(
+                        //         context: context,
+                        //         isScrollControlled: true,
+                        //         builder: (context) {
+                        //           return _buildAddtocartelectronicsWarable(
+                        //               context, arMainCatId, arproductId);
+                        //         });
+                        //     productviewcontroller.Single_ProductApiHit();
+                        //   }
+                        // },
                         height: 30.adaptSize,
                         width: 30.adaptSize,
                         padding: EdgeInsets.all(6.h),

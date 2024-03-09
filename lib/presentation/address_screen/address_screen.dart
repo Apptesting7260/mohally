@@ -35,86 +35,77 @@ class _AddressScreenState extends State<AddressScreen> {
 
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
         body: Form(
           key: _formKey,
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 20.h,
-                        right: 20.h,
-                        bottom: 5.v,
-                      ),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Name",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(height: 9.v),
-                          _buildNameEditText(context),
-                          SizedBox(height: 17.v),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Address",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(height: 9.v),
-                          _buildAddressEditText(context),
-                          SizedBox(height: 19.v),
-                          _buildCityRow(context),
-                          SizedBox(height: 19.v),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "State/Province/Region",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(height: 7.v),
-                          _buildCaliforniaEditText(context),
-                          SizedBox(height: 19.v),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Zip Code (Postal Code)",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(height: 7.v),
-                          _buildZipcodeEditText(context),
-                          SizedBox(height: 17.v),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Mobile Number",
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(height: 9.v),
-                          _buildGroup184EditText(context),
-                          SizedBox(height: 20.v),
-                          _buildSaveRow(context),
-                          SizedBox(height: 30.v),
-                          _buildSaveAddressButton(context),
-                          SizedBox(height: 30.v),
-                        ],
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Name",
+                        style: theme.textTheme.titleMedium,
                       ),
                     ),
-                  ),
+                    SizedBox(height: 9.v),
+                    _buildNameEditText(context),
+                    SizedBox(height: 17.v),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Address",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildAddressEditText(context),
+                    SizedBox(height: 19.v),
+                    _buildCityRow(context),
+                    SizedBox(height: 19.v),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "State/Province/Region",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 7.v),
+                    _buildCaliforniaEditText(context),
+                    SizedBox(height: 19.v),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Zip Code (Postal Code)",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 7.v),
+                    _buildZipcodeEditText(context),
+                    SizedBox(height: 17.v),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Mobile Number",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildGroup184EditText(context),
+                    SizedBox(height: 20.v),
+                    _buildSaveRow(context),
+                    SizedBox(height: 30.v),
+                    _buildSaveAddressButton(context),
+                    SizedBox(height: Get.height * .05),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -182,28 +173,28 @@ class _AddressScreenState extends State<AddressScreen> {
       width: 160.h,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please Select Country';
+          return 'Please Enter Your City';
         }
         return null;
       },
       controller: _newAddressController.cityEditTextController.value,
-      hintText: "Chino Hills",
-      suffix: Container(
-        margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgVectorGray900014x8,
-          height: 4.v,
-          width: 8.h,
-        ),
-      ),
-      suffixConstraints: BoxConstraints(
-        maxHeight: 50.v,
-      ),
-      contentPadding: EdgeInsets.only(
-        left: 17.h,
-        top: 17.v,
-        bottom: 17.v,
-      ),
+      hintText: "Enter Your City",
+      // suffix: Container(
+      //   margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
+      //   child: CustomImageView(
+      //     imagePath: ImageConstant.imgVectorGray900014x8,
+      //     height: 4.v,
+      //     width: 8.h,
+      //   ),
+      // ),
+      // suffixConstraints: BoxConstraints(
+      //   maxHeight: 50.v,
+      // ),
+      // contentPadding: EdgeInsets.only(
+      //   left: 17.h,
+      //   top: 17.v,
+      //   bottom: 17.v,
+      // ),
     );
   }
 
@@ -213,28 +204,28 @@ class _AddressScreenState extends State<AddressScreen> {
       width: 160.h,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please Select Country';
+          return 'Please Enter Your Country';
         }
         return null;
       },
       controller: _newAddressController.countrycontroller.value,
-      hintText: "United States",
-      suffix: Container(
-        margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgVectorGray900014x8,
-          height: 4.v,
-          width: 8.h,
-        ),
-      ),
-      suffixConstraints: BoxConstraints(
-        maxHeight: 50.v,
-      ),
-      contentPadding: EdgeInsets.only(
-        left: 16.h,
-        top: 17.v,
-        bottom: 17.v,
-      ),
+      hintText: "Enter Your Country",
+      // suffix: Container(
+      //   margin: EdgeInsets.fromLTRB(30.h, 23.v, 17.h, 23.v),
+      //   child: CustomImageView(
+      //     imagePath: ImageConstant.imgVectorGray900014x8,
+      //     height: 4.v,
+      //     width: 8.h,
+      //   ),
+      // ),
+      // suffixConstraints: BoxConstraints(
+      //   maxHeight: 50.v,
+      // ),
+      // contentPadding: EdgeInsets.only(
+      //   left: 16.h,
+      //   top: 17.v,
+      //   bottom: 17.v,
+      // ),
     );
   }
 

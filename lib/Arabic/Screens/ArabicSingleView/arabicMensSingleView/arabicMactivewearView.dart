@@ -1463,19 +1463,19 @@ class _ArabicMensActivewearSingleShViewScreenState
             buttonTextStyle: CustomTextStyles.titleMediumWhiteA70002,
             alignment: Alignment.center,
             onPressed: () {
-              Arabiccartproductid = productviewcontroller
-                  .wearable_userlist.value.productView?.id
-                  .toString();
-              ArabicAddtocartColor = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[0].ColorId
-                  .toString();
-              ArabicAddtocartprice = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[index].price
-                  .toString();
-              ArabicAddtocartModelId = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[0].ModelId
-                  .toString();
-              arabic_addtocart_controller().addtocart_Apihit(context);
+              // Arabiccartproductid = productviewcontroller
+              //     .wearable_userlist.value.productView?.id
+              //     .toString();
+              // ArabicAddtocartColor = productviewcontroller.wearable_userlist
+              //     .value.productView?.productDetails?.details?[0].ColorId
+              //     .toString();
+              // ArabicAddtocartprice = productviewcontroller.wearable_userlist
+              //     .value.productView?.productDetails?.details?[index].price
+              //     .toString();
+              // ArabicAddtocartModelId = productviewcontroller.wearable_userlist
+              //     .value.productView?.productDetails?.details?[0].ModelId
+              //     .toString();
+              // arabic_addtocart_controller().addtocart_Apihit(context);
             },
           );
         },
@@ -2834,44 +2834,44 @@ class _ArabicMensActivewearSingleShViewScreenState
                                         tappedList[index] = !tappedList[
                                             index]; // Toggle tapped state for this item
                                       });
-                                      if (tappedList[index]) {
-                                        Arabiccartproductid =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
-                                        ArabicAddtocartprice =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
-                                        arabic_addtocart_controller()
-                                            .addtocart_Apihit(context);
-                                      }
+                                      // if (tappedList[index]) {
+                                      //   Arabiccartproductid =
+                                      //       productviewcontroller
+                                      //           .ShirtandTops_userlist
+                                      //           .value
+                                      //           .productView
+                                      //           ?.id
+                                      //           .toString();
+                                      //   ArabicAddtocartColor =
+                                      //       productviewcontroller
+                                      //           .ShirtandTops_userlist
+                                      //           .value
+                                      //           .productView
+                                      //           ?.productDetails
+                                      //           ?.details?[0]
+                                      //           .ColorId
+                                      //           .toString();
+                                      //   ArabicAddtocartprice =
+                                      //       productviewcontroller
+                                      //           .ShirtandTops_userlist
+                                      //           .value
+                                      //           .productView
+                                      //           ?.productDetails
+                                      //           ?.details?[index]
+                                      //           .price
+                                      //           .toString();
+                                      //   ArabicAddtocartSize =
+                                      //       productviewcontroller
+                                      //           .ShirtandTops_userlist
+                                      //           .value
+                                      //           .productView
+                                      //           ?.productDetails
+                                      //           ?.details?[0]
+                                      //           .SizeId
+                                      //           .toString();
+                                      //   arabic_addtocart_controller()
+                                      //       .addtocart_Apihit(context);
+                                      // }
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(

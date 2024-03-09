@@ -4,6 +4,17 @@ import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.da
 import 'package:mohally/Arabic/Arabic_controllers/arabic_CategoryBynameController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEcameraview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEheadphonesView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicElaptopview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEphoneSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEwearableView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMBootsSingleViewScreen.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMBottomSingleview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMFormalSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMJacketSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMShirtSingleViewScreen.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMactivewearView.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryElectronics.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryHealthandWellness.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryHomeliving.dart';
@@ -278,19 +289,39 @@ class _content_of_womenState extends State<content_of_women> {
                               productid = ProductId;
                             });
                             print("$productid==");
-                            print("$productid==");
-                            // if (arabicMainCatId == "133") {
-                            //   Get.to(SinglePageScreen_arabic());
-                            // } else if (arabicMainCatId == "134") {
-                            //   Get.to(ElectricityViewSinglePageScreen_arabic());
-                            // } else if (arabicMainCatId == "135") {
-                            //   Get.to(HomeLivingSinglePageScreen_arabic());
-                            // } else if (arabicMainCatId == "136") {
-                            //   Get.to(
-                            //       HealthAndWellnessSinglePageScreen_arabic());
-                            // } else {
-                            //   print('not found ');
-                            // }
+                            print("$arabicMainCatId==");
+                            if (arabicMainCatId == "153") {
+                              Get.to(ArabicMensSingleShirtViewScreen());
+                              print(
+                                  "$arabicMainCatId===========Mens Appearl main category id ");
+                            } else if (arabicMainCatId == "154") {
+                              Get.to(ArabicMensBottomSingleShViewScreen());
+                            } else if (arabicMainCatId == "155") {
+                              Get.to(ArabicMensJacketSingleShViewScreen());
+                            } else if (arabicMainCatId == "156") {
+                              Get.to(ArabicMensActivewearSingleShViewScreen());
+                            } else if (arabicMainCatId == "157") {
+                              Get.to(ArabicMensFormalsSingleShViewScreen());
+                            } else if (arabicMainCatId == "174") {
+                              Get.to(ArabicMensShoesSingleShViewScreen());
+                            } else if (arabicMainCatId == "166") {
+                              Get.to(
+                                  ArabicElectronicsPhoneSingleShViewScreen());
+                            } else if (arabicMainCatId == "170") {
+                              Get.to(
+                                  ArabicElectronicsLaptopsSingleShViewScreen());
+                            } else if (arabicMainCatId == "171") {
+                              Get.to(
+                                  ArabicElectronicsHeadphonesSingleShViewScreen());
+                            } else if (arabicMainCatId == "172") {
+                              Get.to(
+                                  ArabicElectronicsCameraSingleShViewScreen());
+                            } else if (arabicMainCatId == "173") {
+                              Get.to(
+                                  ArabicElectronicswearableSingleShViewScreen());
+                            } else {
+                              print('not found ');
+                            }
                           },
                           height: 190.adaptSize,
                           width: 190.adaptSize,

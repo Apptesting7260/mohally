@@ -49,6 +49,7 @@ import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
 String? totalAmount;
+RxString couponcodeee = "".obs;
 
 // ignore_for_file: must_be_immutable
 class CartPage extends StatefulWidget {
@@ -104,6 +105,21 @@ class _CartPageState extends State<CartPage> {
 
   TextEditingController addtoCartController = TextEditingController();
   EnglishViewCart _viewcartcontroller = EnglishViewCart();
+  bool _refreshing = false;
+
+  Future<void> _refresh() async {
+    setState(() {
+      _refreshing = true;
+    });
+
+    // Simulate a refresh delay
+    await Future.delayed(Duration(seconds: 1));
+
+    setState(() {
+      _refreshing = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -111,6 +127,7 @@ class _CartPageState extends State<CartPage> {
     // homeView_controller.homeview_apihit();
     _viewcartcontroller.Viewcart_apihit();
     homeView_controller.homeview_apihit();
+    _couponCodeController.fetchMycouponData();
   }
 
   void setInitialLocale() {
@@ -426,9 +443,11 @@ class _CartPageState extends State<CartPage> {
                                               .userList.value.totalPrice
                                               .toString();
                                         });
+
                                         placeordercontroller.Placeorderapihit(
-                                            DeleteCartCartControlleri
-                                                .selectedCartIds);
+                                            placeordercontroller
+                                                .selectedCartIds,
+                                            context);
                                       },
                                       child: Text('Checkout',
                                           style: TextStyle(
@@ -438,6 +457,67 @@ class _CartPageState extends State<CartPage> {
                                           )),
                                     ))),
                               ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              //   child: Container(
+                              //     height: 40.v,
+                              //     width: 100.h,
+                              //     decoration: BoxDecoration(
+                              //       color: Color(0xffff8300),
+                              //       borderRadius:
+                              //           BorderRadius.all(Radius.circular(20)),
+                              //       border:
+                              //           Border.all(color: Color(0xffff8300)),
+                              //     ),
+                              //     child: Center(
+                              //       child: GestureDetector(
+                              //         onTap: () {
+                              //           print(
+                              //               "address_id: $address_id"); // Debugging statement
+                              //           if (address_id == null) {
+                              //             print(
+                              //                 "Address ID is null."); // Debugging statement
+                              //             Utils.snackBar(context, 'Failed',
+                              //                 'Please select a delivery address to proceed with checkout');
+                              //             return;
+                              //           }
+                              //           print(
+                              //               "addressIndexId: $addressIndexId"); // Debugging statement
+                              //           setState(() {
+                              //             couponid = couponidforcheckout;
+                              //             address_id =
+                              //                 addressIndexId.toString();
+                              //             itemdiscountAmount = discountprice;
+                              //             subtotalamount = _viewcartcontroller
+                              //                 .userList.value.subTotalPrice
+                              //                 .toString();
+                              //             totalamount = _viewcartcontroller
+                              //                 .userList.value.totalPrice
+                              //                 .toString();
+                              //           });
+                              //           print(
+                              //               "Before calling Placeorderapihit."); // Debugging statement
+                              //           placeordercontroller.Placeorderapihit(
+                              //               placeordercontroller
+                              //                   .selectedCartIds,
+                              //               context);
+                              //           print(
+                              //               "After calling Placeorderapihit."); // Debugging statement
+                              //         },
+                              //         child: Text(
+                              //           'Checkout',
+                              //           style: TextStyle(
+                              //             fontSize: 14,
+                              //             fontWeight: FontWeight.w600,
+                              //             color: Colors.white,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+
                               // Padding(
                               //   padding:
                               //       const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -723,9 +803,17 @@ class _CartPageState extends State<CartPage> {
                                 // DeleteCartCartControlleri.selectedCartIds.addIf()
 
                                 if (!DeleteCartCartControlleri.selectedCartIds
-                                    .contains(_viewcartcontroller
-                                        .userList.value.viewCart?[index].id
-                                        .toString())) {
+                                        .contains(_viewcartcontroller
+                                            .userList.value.viewCart?[index].id
+                                            .toString()) ||
+                                    !placeordercontroller.selectedCartIds
+                                        .contains(_viewcartcontroller
+                                            .userList.value.viewCart?[index].id
+                                            .toString())) {
+                                  placeordercontroller.selectedCartIds.add(
+                                      _viewcartcontroller
+                                          .userList.value.viewCart?[index].id
+                                          .toString());
                                   DeleteCartCartControlleri.selectedCartIds.add(
                                       _viewcartcontroller
                                           .userList.value.viewCart?[index].id
@@ -733,6 +821,10 @@ class _CartPageState extends State<CartPage> {
                                   print(DeleteCartCartControlleri
                                       .selectedCartIds);
                                 } else {
+                                  placeordercontroller.selectedCartIds.remove(
+                                      _viewcartcontroller
+                                          .userList.value.viewCart?[index].id
+                                          .toString());
                                   DeleteCartCartControlleri.selectedCartIds
                                       .remove(_viewcartcontroller
                                           .userList.value.viewCart?[index].id
@@ -1070,10 +1162,10 @@ class _CartPageState extends State<CartPage> {
   /// Section Widget
   Widget _buildNewbridgeCourt(BuildContext context) {
     return Obx(() {
-      if (addressname.value == "") {
+      if (addressname.value == "" || addressIndexId == null) {
         return Center(
             child: Text(
-          'Please Select Address',
+          'Please Go and Select Address',
           style: TextStyle(color: Colors.red),
         ));
       } else {
@@ -1312,7 +1404,9 @@ class _CartPageState extends State<CartPage> {
                   padding: EdgeInsets.only(top: 4.v),
                   child: CustomTextFormField(
                     controller: group166Controller,
-                    hintText: "Enter coupon code here",
+                    hintText: couponcodeee.value.isNotEmpty
+                        ? couponcodeee.value
+                        : "Enter coupon code here",
                     hintStyle: CustomTextStyles.bodyLargeOnError_1,
                     readOnly: true,
                   ),
@@ -1325,17 +1419,40 @@ class _CartPageState extends State<CartPage> {
                   right: 2.h,
                 ),
                 child: GestureDetector(
+                  // onTap: () {
+                  //   if (_couponCodeController
+                  //               .couponlist.value.availableCoupon ==
+                  //           [] ||
+                  //       _couponCodeController
+                  //               .couponlist.value.availableCoupon ==
+                  //           "") {
+                  //     return Utils.snackBar(context, 'Oops! ',
+                  //         "Looks like there are no coupons available at the moment.\n Check back later for exciting offers!");
+                  //   } else {
+                  //     showModalBottomSheet(
+                  //         context: context,
+                  //         isScrollControlled: true,
+                  //         builder: (context) {
+                  //           return _openCouponList(context);
+                  //         });
+                  //   }
+                  // },
                   onTap: () {
-                    _couponCodeController.fetchMycouponData();
-                    showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) {
-                          return _openCouponList(context);
-                        });
+                    if (_couponCodeController
+                        .couponlist.value.availableCoupon!.isEmpty) {
+                      Utils.snackBar(context, 'Oops! ',
+                          "Looks like there are no coupons available at the moment.\n Check back later for exciting offers!");
+                    } else {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return _openCouponList(context);
+                          });
+                    }
                   },
                   child: Text(
-                    "Apply",
+                    couponcodeee.value.isNotEmpty ? "Applied" : "Apply",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -1363,124 +1480,152 @@ class _CartPageState extends State<CartPage> {
         decoration: AppDecoration.fillWhiteA.copyWith(
           borderRadius: BorderRadiusStyle.customBorderTL30,
         ),
-        child: Column(
+        child:
+            // _couponCodeController.couponlist.value.availableCoupon == "" ||
+            //         _couponCodeController.couponlist.value.availableCoupon ==
+            //             null ||
+            //         _couponCodeController.couponlist.value.availableCoupon == []
+            //     ? Column(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           // Image.asset('assets/images/nocoupon.png'),
+            //           Text(
+            //             "No Coupon Available",
+            //             style: theme.textTheme.headlineMedium?.copyWith(
+            //                 color: Color.fromARGB(73, 0, 0, 0), fontSize: 20),
+            //           ),
+            //         ],
+            //       )
+            Column(
           children: [
-            Obx(() {
-              if (_couponCodeController.couponlist.value.availableCoupon ==
-                  null) {
-                return Center(
-                  child: Text('No coupon found '),
-                );
-              } else {
-                return ListView.builder(
-                    itemCount: _couponCodeController
-                            .couponlist.value.availableCoupon?.length ??
-                        0,
-                    itemExtent: 90,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(5),
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: Get.height * .15,
-                        width: Get.width * .5,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(52, 158, 158, 158),
-                            borderRadius: BorderRadius.circular(10)),
-                        margin: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+            // Obx(() {
+            //   if (_couponCodeController.couponlist.value.availableCoupon ==
+            //           null ||
+            //       _couponCodeController.couponlist.value.availableCoupon ==
+            //           "") {
+            //     return Center(
+            //         child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Image.asset('assets/images/nocoupon.png'),
+            //         Text(
+            //           "No Coupon Available",
+            //           style: theme.textTheme.headlineMedium?.copyWith(
+            //               color: Color.fromARGB(73, 0, 0, 0), fontSize: 20),
+            //         ),
+            //       ],
+            //     ));
+            // } else {
+            ListView.builder(
+                itemCount: _couponCodeController
+                        .couponlist.value.availableCoupon?.length ??
+                    0,
+                itemExtent: 90,
+                shrinkWrap: true,
+                padding: EdgeInsets.all(5),
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: Get.height * .15,
+                    width: Get.width * .5,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(52, 158, 158, 158),
+                        borderRadius: BorderRadius.circular(10)),
+                    margin: EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: Get.height * .15,
+                          width: Get.width * .2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                topLeft: Radius.circular(10)),
+                            color: Color(0xffff8300),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${_couponCodeController.couponlist.value.availableCoupon?[index].amount}",
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(color: Colors.white, fontSize: 45),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: Get.width * .06,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: Get.height * .15,
-                              width: Get.width * .2,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    topLeft: Radius.circular(10)),
-                                color: Color(0xffff8300),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "${_couponCodeController.couponlist.value.availableCoupon?[index].amount}",
-                                  style: theme.textTheme.headlineMedium
-                                      ?.copyWith(
-                                          color: Colors.white, fontSize: 45),
-                                ),
-                              ),
+                            Text(
+                              "${_couponCodeController.couponlist.value.availableCoupon?[index].type}",
+                              style: theme.textTheme.subtitle1,
                             ),
-                            SizedBox(
-                              width: Get.width * .06,
+                            Text(
+                              "${_couponCodeController.couponlist.value.availableCoupon?[index].code}",
+                              style: theme.textTheme.subtitle2,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${_couponCodeController.couponlist.value.availableCoupon?[index].type}",
-                                  style: theme.textTheme.subtitle1,
-                                ),
-                                Text(
-                                  "${_couponCodeController.couponlist.value.availableCoupon?[index].code}",
-                                  style: theme.textTheme.subtitle2,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: Get.width * .08,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Expire At: ${_couponCodeController.couponlist.value.availableCoupon?[index].expireAt}",
-                                  style: theme.textTheme.bodySmall!
-                                      .copyWith(color: Colors.grey.shade400),
-                                ),
-                                Gap(5),
-                                CustomElevatedButton(
-                                  height: 40.v,
-                                  width: 100.h,
-                                  text: "Apply",
-                                  margin: EdgeInsets.only(left: 8.h),
-                                  buttonStyle:
-                                      CustomButtonStyles.fillPrimaryTL15,
-                                  buttonTextStyle:
-                                      CustomTextStyles.labelLargeWhiteA70002_1,
-                                  onPressed: () {
-                                    String? couponid = _couponCodeController
-                                        .couponlist
-                                        .value
-                                        .availableCoupon![index]
-                                        .id
-                                        .toString();
-                                    String? totalAmount = _viewcartcontroller
-                                        .userList.value.subTotalPrice
-                                        .toString();
-                                    print(couponid);
-                                    print(totalAmount);
-                                    setState(() {
-                                      CouponId = couponid;
-                                      TotalAmount = totalAmount;
-                                      Timer(Duration(seconds: 3), () {
-                                        setState(() {
-                                          discountprice;
-                                        });
-                                      });
-                                    });
-
-                                    CouponCodeApplyController()
-                                        .applyCoupon_apihit(context);
-                                  },
-                                )
-                              ],
-                            )
                           ],
                         ),
-                      );
-                    });
-              }
-            }),
+                        SizedBox(
+                          width: Get.width * .08,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Expire At: ${_couponCodeController.couponlist.value.availableCoupon?[index].expireAt}",
+                              style: theme.textTheme.bodySmall!
+                                  .copyWith(color: Colors.grey.shade400),
+                            ),
+                            Gap(5),
+                            CustomElevatedButton(
+                              height: 40.v,
+                              width: 100.h,
+                              text: "Apply",
+                              margin: EdgeInsets.only(left: 8.h),
+                              buttonStyle: CustomButtonStyles.fillPrimaryTL15,
+                              buttonTextStyle:
+                                  CustomTextStyles.labelLargeWhiteA70002_1,
+                              onPressed: () {
+                                String? couponid = _couponCodeController
+                                    .couponlist.value.availableCoupon![index].id
+                                    .toString();
+                                String? totalAmount = _viewcartcontroller
+                                    .userList.value.subTotalPrice
+                                    .toString();
+                                couponcodeee.value = _couponCodeController
+                                    .couponlist
+                                    .value
+                                    .availableCoupon?[index]
+                                    .code;
+
+                                print(couponid);
+                                print(totalAmount);
+                                setState(() {
+                                  CouponId = couponid;
+                                  TotalAmount = totalAmount;
+                                  Timer(Duration(seconds: 3), () {
+                                    setState(() {
+                                      discountprice;
+                                    });
+                                  });
+                                });
+
+                                CouponCodeApplyController()
+                                    .applyCoupon_apihit(context);
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                })
+            //   }
+            // }),
           ],
         ),
       ),

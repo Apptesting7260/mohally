@@ -7,6 +7,7 @@ import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/PlaceOrderModel/placeorderModel.dart';
 import 'package:mohally/models/Sign_Up_Model/sign_up_model.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
+import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,13 +34,24 @@ class PlaceOrdercontroller extends GetxController {
 
   void setError(String value) => error.value = value;
   RxList selectedCartIds = [].obs;
+
   Future<void> Placeorderapihit(List ids, BuildContext context) async {
+    if (addressIndexId == null || address_id!.isEmpty) {
+      Utils.snackBar(context, 'Failed',
+          'Please select a delivery address to proceed with checkout');
+      return;
+    } else if (ids.isEmpty) {
+      Utils.snackBar(context, 'Failed',
+          'Before proceeding to checkout, please select Products');
+      return;
+    }
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     loading.value = true;
     Map data = {
-      "cart_id[]": ids.toString().replaceAll(RegExp(r'[\[\]]'), ''),
+      "cart_id": ids.toString(),
       "coupon_id": couponid.toString(),
       "address_id": address_id.toString(),
       "sub_total_amount": subtotalamount.toString(),
@@ -63,7 +75,7 @@ class PlaceOrdercontroller extends GetxController {
         Utils.snackBar(context, 'Success', value.message.toString());
         //  varificationemail = emailController.value.text;
       } else {
-        // Utils.snackBar(context, 'Failed', value.message.toString());
+        Utils.snackBar(context, 'Failed', value.message.toString());
       }
     }).onError((error, stackTrace) {
       print('order place error $error');

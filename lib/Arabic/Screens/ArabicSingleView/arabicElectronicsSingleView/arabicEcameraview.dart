@@ -1461,21 +1461,21 @@ class _ArabicElectronicsCameraSingleShViewScreenState
             buttonStyle: CustomButtonStyles.outlinePrimaryTL25,
             buttonTextStyle: CustomTextStyles.titleMediumWhiteA70002,
             alignment: Alignment.center,
-            onPressed: () {
-              Arabiccartproductid = productviewcontroller
-                  .wearable_userlist.value.productView?.id
-                  .toString();
-              ArabicAddtocartColor = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[0].ColorId
-                  .toString();
-              ArabicAddtocartprice = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[index].price
-                  .toString();
-              ArabicAddtocartModelId = productviewcontroller.wearable_userlist
-                  .value.productView?.productDetails?.details?[0].ModelId
-                  .toString();
-              arabic_addtocart_controller().addtocart_Apihit(context);
-            },
+            // onPressed: () {
+            //   Arabiccartproductid = productviewcontroller
+            //       .wearable_userlist.value.productView?.id
+            //       .toString();
+            //   ArabicAddtocartColor = productviewcontroller.wearable_userlist
+            //       .value.productView?.productDetails?.details?[0].ColorId
+            //       .toString();
+            //   ArabicAddtocartprice = productviewcontroller.wearable_userlist
+            //       .value.productView?.productDetails?.details?[index].price
+            //       .toString();
+            //   ArabicAddtocartModelId = productviewcontroller.wearable_userlist
+            //       .value.productView?.productDetails?.details?[0].ModelId
+            //       .toString();
+            //   arabic_addtocart_controller().addtocart_Apihit(context);
+            // },
           );
         },
       ),

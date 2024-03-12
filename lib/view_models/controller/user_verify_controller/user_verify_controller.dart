@@ -51,7 +51,7 @@ class UserVerify_controller extends GetxController {
     }).onError((error, stackTrace) {
       print("Error: $error");
       loading.value = false;
-      Utils2.snackBar('Failed', 'Please check OTP');
+      //  Utils2.snackBar('Failed', 'Please check OTP');
     });
   }
 }

@@ -101,8 +101,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       homeView_controller.homeview_apihit();
-      setInitialLocale();
       _categoryByName.SeeAll_apiHit();
+      setInitialLocale();
     });
     super.initState();
   }
@@ -431,84 +431,80 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ),
                                         ),
                                       ),
-                                      Obx(() {
-                                        if (_categoryByName
-                                                .rxRequestStatus.value ==
-                                            Status.LOADING) {
-                                          return const Scaffold(
-                                            body: Center(
-                                                child:
-                                                    CircularProgressIndicator()),
-                                          );
-                                        } else if (_categoryByName
-                                                .rxRequestStatus.value ==
-                                            Status.ERROR) {
-                                          return Scaffold(
-                                              body: Center(
-                                                  child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/error2.png',
-                                              ),
-                                              Text(
-                                                "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
-                                                style: theme
-                                                    .textTheme.headlineMedium
-                                                    ?.copyWith(
-                                                        color: Color.fromARGB(
-                                                            73, 0, 0, 0),
-                                                        fontSize: 12),
-                                              ),
-                                            ],
-                                          )));
-                                        } else {
-                                          return _mensCategory(context);
-                                        }
-                                      }),
-                                      // NoProductFound(),
-                                      Obx(() {
-                                        if (_categoryByName
-                                                .rxRequestStatus.value ==
-                                            Status.LOADING) {
-                                          return const Scaffold(
-                                            body: Center(
-                                                child:
-                                                    CircularProgressIndicator()),
-                                          );
-                                        } else if (_categoryByName
-                                                .rxRequestStatus.value ==
-                                            Status.ERROR) {
-                                          return Scaffold(
-                                              body: Center(
-                                                  child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/error2.png',
-                                              ),
-                                              Text(
-                                                "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
-                                                style: theme
-                                                    .textTheme.headlineMedium
-                                                    ?.copyWith(
-                                                        color: Color.fromARGB(
-                                                            73, 0, 0, 0),
-                                                        fontSize: 12),
-                                              ),
-                                            ],
-                                          )));
-                                        } else {
-                                          return _electronicsCategory(context);
-                                        }
-                                      }),
-                                      // NoProductFound(),
+                                      // Obx(() {
+                                      //   if (_categoryByName
+                                      //           .rxRequestStatus.value ==
+                                      //       Status.LOADING) {
+                                      //     return Center(
+                                      //         child:
+                                      //             CircularProgressIndicator());
+                                      //   } else if (_categoryByName
+                                      //           .rxRequestStatus.value ==
+                                      //       Status.ERROR) {
+                                      //     return Center(
+                                      //         child: Column(
+                                      //       mainAxisAlignment:
+                                      //           MainAxisAlignment.center,
+                                      //       crossAxisAlignment:
+                                      //           CrossAxisAlignment.center,
+                                      //       children: [
+                                      //         Image.asset(
+                                      //           'assets/images/error2.png',
+                                      //         ),
+                                      //         Text(
+                                      //           "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                                      //           style: theme
+                                      //               .textTheme.headlineMedium
+                                      //               ?.copyWith(
+                                      //                   color: Color.fromARGB(
+                                      //                       73, 0, 0, 0),
+                                      //                   fontSize: 12),
+                                      //         ),
+                                      //       ],
+                                      //     ));
+                                      //   } else {
+                                      //     return _mensCategory(context);
+                                      //   }
+                                      // }),
+
+                                      NoProductFound(),
+
+                                      // Obx(() {
+                                      //   if (_categoryByName
+                                      //           .rxRequestStatus.value ==
+                                      //       Status.LOADING) {
+                                      //     return Center(
+                                      //         child:
+                                      //             CircularProgressIndicator());
+                                      //   } else if (_categoryByName
+                                      //           .rxRequestStatus.value ==
+                                      //       Status.ERROR) {
+                                      //     return Center(
+                                      //         child: Column(
+                                      //       mainAxisAlignment:
+                                      //           MainAxisAlignment.center,
+                                      //       crossAxisAlignment:
+                                      //           CrossAxisAlignment.center,
+                                      //       children: [
+                                      //         Image.asset(
+                                      //           'assets/images/error2.png',
+                                      //         ),
+                                      //         Text(
+                                      //           "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                                      //           style: theme
+                                      //               .textTheme.headlineMedium
+                                      //               ?.copyWith(
+                                      //                   color: Color.fromARGB(
+                                      //                       73, 0, 0, 0),
+                                      //                   fontSize: 12),
+                                      //         ),
+                                      //       ],
+                                      //     ));
+                                      //   } else {
+                                      //     return _electronicsCategory(context);
+                                      //   }
+                                      // }),
+                                      NoProductFound(),
                                       NoProductFound(),
                                       NoProductFound(),
                                       NoProductFound(),
@@ -532,96 +528,102 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget _mensCategory(BuildContext context) {
-    return _categoryByName.userList.value.seeAllMainCategory == null ||
-            _categoryByName.userList.value.seeAllMainCategory?.length == 0
-        ? Center(child: NoProductFound())
-        : Container(
-            color: Colors.white,
-            child: Center(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                    mainAxisExtent: Get.height * .2,
-                  ),
-                  itemCount: _categoryByName
-                          .userList.value.seeAllMainCategory?.length ??
-                      0,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            submainCatId = _categoryByName
-                                .userList.value.seeAllMainCategory![index].id
-                                .toString();
+    return Obx(() {
+      if (_categoryByName.userList.value.seeAllMainCategory == Status.LOADING) {
+        return Center(child: CircularProgressIndicator());
+      } else {
+        return _categoryByName.userList.value.seeAllMainCategory == null ||
+                _categoryByName.userList.value.seeAllMainCategory?.length == 0
+            ? Center(child: NoProductFound())
+            : Container(
+                color: Colors.white,
+                child: Center(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        mainAxisExtent: Get.height * .2,
+                      ),
+                      itemCount: _categoryByName
+                              .userList.value.seeAllMainCategory?.length ??
+                          0,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                submainCatId = _categoryByName.userList.value
+                                    .seeAllMainCategory![index].id
+                                    .toString();
 
-                            setState(() {
-                              EnglishproductbyCatId = submainCatId;
-                            });
-                            print("$EnglishproductbyCatId==");
-                            if (submainCatId == "153") {
-                              Get.to(SubCat_Mens_ShirtsView());
-                              print(
-                                  "$submainCatId===========Mens Appearl main category id ");
-                            } else if (submainCatId == "154") {
-                              Get.to(SubCat_Mens_Bottoms());
-                            } else if (submainCatId == "155") {
-                              Get.to(SubCat_Mens_jacket());
-                            } else if (submainCatId == "156") {
-                              Get.to(SubCat_Mens_activewear());
-                            } else if (submainCatId == "157") {
-                              Get.to(SubCat_Mens_formals());
-                            } else if (submainCatId == "174") {
-                              Get.to(SubCat_Mens_shoes());
-                            } else if (submainCatId == "166") {
-                              Get.to(SubCat_Electronics_smartphone());
-                            } else if (submainCatId == "170") {
-                              Get.to(SubCat_Electronics_laptops());
-                            } else if (submainCatId == "171") {
-                              Get.to(SubCat_Electronics_headphones());
-                            } else if (submainCatId == "172") {
-                              Get.to(SubCat_Electronics_camera());
-                            } else if (submainCatId == "173") {
-                              Get.to(SubCat_Electronics_wearable());
-                            } else {
-                              print('not found ');
-                            }
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(38.0),
-                            child: Image.network(
-                              "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                              height: 68,
-                              width: 68,
-                              fit: BoxFit.cover,
+                                setState(() {
+                                  EnglishproductbyCatId = submainCatId;
+                                });
+                                print("$EnglishproductbyCatId==");
+                                if (submainCatId == "153") {
+                                  Get.to(SubCat_Mens_ShirtsView());
+                                  print(
+                                      "$submainCatId===========Mens Appearl main category id ");
+                                } else if (submainCatId == "154") {
+                                  Get.to(SubCat_Mens_Bottoms());
+                                } else if (submainCatId == "155") {
+                                  Get.to(SubCat_Mens_jacket());
+                                } else if (submainCatId == "156") {
+                                  Get.to(SubCat_Mens_activewear());
+                                } else if (submainCatId == "157") {
+                                  Get.to(SubCat_Mens_formals());
+                                } else if (submainCatId == "174") {
+                                  Get.to(SubCat_Mens_shoes());
+                                } else if (submainCatId == "166") {
+                                  Get.to(SubCat_Electronics_smartphone());
+                                } else if (submainCatId == "170") {
+                                  Get.to(SubCat_Electronics_laptops());
+                                } else if (submainCatId == "171") {
+                                  Get.to(SubCat_Electronics_headphones());
+                                } else if (submainCatId == "172") {
+                                  Get.to(SubCat_Electronics_camera());
+                                } else if (submainCatId == "173") {
+                                  Get.to(SubCat_Electronics_wearable());
+                                } else {
+                                  print('not found ');
+                                }
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(38.0),
+                                child: Image.network(
+                                  "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                  height: 68,
+                                  width: 68,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 5.v),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                              "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
-                              style: TextStyle(
-                                color: Color(0xFF272727),
-                                fontSize: 12,
-                                fontFamily: 'League Spartan',
-                                fontWeight: FontWeight.w500,
-                              )),
-                        )
-                      ],
-                    );
-                  },
+                            SizedBox(height: 5.v),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                  "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                  style: TextStyle(
+                                    color: Color(0xFF272727),
+                                    fontSize: 12,
+                                    fontFamily: 'League Spartan',
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
+              );
+      }
+    });
   }
 
   Widget _electronicsCategory(BuildContext context) {

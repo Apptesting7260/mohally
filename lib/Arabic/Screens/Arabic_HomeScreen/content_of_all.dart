@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,13 +27,19 @@ import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_category.dar
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_product_found.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/view_models/controller/Home_Banner_Controller/home_banner_controller.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/HomeController.dart';
+import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 
 String? arabicMainCatId;
+String? sizeid;
+String? colorId;
+String? color;
+String? size1;
 
 class content_of_all extends StatefulWidget {
   const content_of_all({Key? key}) : super(key: key);
@@ -51,13 +59,16 @@ class _content_of_allState extends State<content_of_all> {
   HomeView_controller homeView_controller = HomeView_controller();
   SingleProductViewController productviewcontroller =
       SingleProductViewController();
+
+  RxInt selectedImageIndex = 0.obs;
+  RxString selectedImageUrl = ''.obs;
   @override
   void initState() {
     super.initState();
     //homeBanner_controller.homeBanner_apihit();
     homeBanner_controller.homeBanner_apihit();
     homeView_controller.homeview_apihit();
-    productviewcontroller.Single_ProductApiHit();
+    // productviewcontroller.Single_ProductApiHit();
   }
 
   // int _currentPage = 0;
@@ -90,6 +101,9 @@ class _content_of_allState extends State<content_of_all> {
     "assets/images/img_ellipse_1.png",
     "assets/images/img_ellipse_1.png",
   ];
+  RxString selectedcolored = "".obs;
+  RxInt selectedcolorIndex = (-1).obs;
+  RxInt selectedSizeIndex = (-1).obs;
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -396,9 +410,6 @@ class _content_of_allState extends State<content_of_all> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                // onTap: () {
-                                //   _navigateaftertapped(context, index);
-                                // },
                                 onTap: () {
                                   arabicMainCatId = homeView_controller
                                       .userList.value.categoryData?[index].id!
@@ -453,41 +464,7 @@ class _content_of_allState extends State<content_of_all> {
               SizedBox(
                 height: Get.height * .05,
               ),
-              //    Container(
-              //     height: Get.height * .05,
-              //     child: ListView.builder(
-              //   scrollDirection: Axis.horizontal,
-              //   itemCount: title.length,
-              //   itemBuilder: (context, index) {
-              //  bool isSelected = index == selectedTabIndex; // Assuming you have a variable to track the selected tab index
 
-              //     return Padding(
-              //       padding: EdgeInsets.symmetric(horizontal: 8.0),
-              //       child: Center(
-              //         child: Column(
-              //           mainAxisSize: MainAxisSize.min,
-              //           children: [
-              //             Text(
-              //               recomemded_text[index],
-              //               style: TextStyle(
-              //                 fontSize: 16,
-              //                 color: isSelected ? Colors.black : Colors.grey,
-              //                 fontWeight: isSelected ? FontWeight.bold:FontWeight.w400 ,
-              //                 fontFamily:  'Almarai',
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //     ),
-              //   )
-              //  Padding(
-              //    padding: const EdgeInsets.only(right:20),
-              //    child: arabic_HomepagesectionItemWidget()
-
-              //  ),
               _buildHomePageSection(context),
             ]),
           ),
@@ -779,133 +756,190 @@ class _content_of_allState extends State<content_of_all> {
                         top: 3.v,
                       ),
                       child: CustomIconButton(
-                        // onTap: () async {
-                        //   String? arMainCatId = homeView_controller.userList
-                        //       .value.recommendedProduct?[index].mainCategoryId
-                        //       .toString();
-                        //   String? arproductId = homeView_controller
-                        //       .userList.value.recommendedProduct?[index].id
-                        //       ?.toString();
+                        onTap: () async {
+                          arabicMainCatId = homeView_controller.userList.value
+                              .recommendedProduct?[index].mainCategoryId
+                              .toString();
+                          String? arproductId = homeView_controller
+                              .userList.value.recommendedProduct?[index].id
+                              ?.toString();
 
-                        //   setState(() {
-                        //     MainCatId = arMainCatId;
-                        //     productid = arproductId;
-                        //   });
-                        //   print("$productid==");
-                        //   print("$arMainCatId==");
-                        //   if (arMainCatId == "153") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartmensShirt(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "154") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartmensBottoms(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "155") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartmensJacket(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "156") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartmensActiveWear(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "174") {
-                        //     // Call the API before showing the modal bottom sheet
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //     showModalBottomSheet(
-                        //       context: context,
-                        //       isScrollControlled: true,
-                        //       builder: (context) {
-                        //         return _buildAddtocartmensShoes_view(
-                        //             context, arMainCatId, arproductId);
-                        //       },
-                        //     );
-                        //   }
-                        //   // else if (arMainCatId == "174") {
-                        //   //   // Call the API without awaiting it
-                        //   //   SingleProductViewController()
-                        //   //       .Single_ProductApiHit();
-
-                        //   //   // Show the modal bottom sheet after a delay to ensure the API call has finished
-                        //   //   Future.delayed(Duration(seconds: 2), () {
-                        //   //     showModalBottomSheet(
-                        //   //       context: context,
-                        //   //       isScrollControlled: true,
-                        //   //       builder: (context) {
-                        //   //         return _buildAddtocartmensShoes_view(
-                        //   //             context, arMainCatId, arproductId);
-                        //   //       },
-                        //   //     );
-                        //   //   });
-                        //   // }
-                        //   else if (arMainCatId == "166") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartelectronicsPhone(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "170") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartelectronicsLaptop(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "171") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartelectronicsHeadphones(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "172") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartelectronicsCamera(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   } else if (arMainCatId == "173") {
-                        //     showModalBottomSheet(
-                        //         context: context,
-                        //         isScrollControlled: true,
-                        //         builder: (context) {
-                        //           return _buildAddtocartelectronicsWarable(
-                        //               context, arMainCatId, arproductId);
-                        //         });
-                        //     productviewcontroller.Single_ProductApiHit();
-                        //   }
-                        // },
+                          setState(() {
+                            MainCatId = arabicMainCatId;
+                            productid = arproductId;
+                          });
+                          print("$productid==");
+                          print("$arabicMainCatId==");
+                          if (arabicMainCatId == "153") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensShirt(context,
+                                          arabicMainCatId, arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "154") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensBottoms(context,
+                                          arabicMainCatId, arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "155") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensJacket(context,
+                                          arabicMainCatId, arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "156") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensActiveWear(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "157") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensFormals(context,
+                                          arabicMainCatId, arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "174") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartmensShoes_view(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "166") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartelectronicsPhone(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "170") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartelectronicsLaptop(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "171") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartelectronicsHeadphones(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "172") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartelectronicsCamera(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          } else if (arabicMainCatId == "173") {
+                            productviewcontroller.Single_ProductApiHit();
+                            Timer(Duration(seconds: 2), () {
+                              if (productviewcontroller.rxRequestStatus.value ==
+                                  Status.COMPLETED) {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return _buildAddtocartelectronicsWarable(
+                                          context,
+                                          arabicMainCatId,
+                                          arproductId);
+                                    });
+                              }
+                            });
+                          }
+                        },
                         height: 30.adaptSize,
                         width: 30.adaptSize,
                         padding: EdgeInsets.all(6.h),
@@ -974,212 +1008,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .ShirtandTops_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .ShirtandTops_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.ShirtandTops_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.ShirtandTops_userlist.value.productView?.aTitle.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.ShirtandTops_userlist.value.productView?.aTitle.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.ShirtandTops_userlist.value.productView?.aDescription.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.ShirtandTops_userlist.value.productView?.aDescription.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .ShirtandTops_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .ShirtandTops_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -1192,7 +1199,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -1200,15 +1207,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .ShirtandTops_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1217,86 +1231,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .ShirtandTops_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .ShirtandTops_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .ShirtandTops_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.ShirtandTops_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -1325,70 +1262,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .ShirtandTops_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .ShirtandTops_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .ShirtandTops_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -1401,149 +1337,289 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .ShirtandTops_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .ShirtandTops_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .ShirtandTops_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
 
-                            // Container(
-                            //   height: Get.height * .1,
-                            //   child: ListView.builder(
-                            //     itemCount: _viewcartcontroller
-                            //             .userList.value.viewCart?.length ??
-                            //         0,
-                            //     itemBuilder: (BuildContext context, int index) {
-                            //        _viewcartcontroller.userList.value
-                            //               .viewCart![index].totalQty.value =
-                            //           _viewcartcontroller.userList.value
-                            //               .viewCart![index].totalQuantity;
-                            //       return Row(
-                            //         children: [
-                            //           Padding(
-                            //             padding: EdgeInsets.only(
-                            //               top: 13.v,
-                            //               bottom: 9.v,
-                            //             ),
-                            //             child: Text(
-                            //               "Qty",
-                            //               style: theme.textTheme.titleMedium,
-                            //             ),
-                            //           ),
-                            //           Padding(
-                            //             padding: const EdgeInsets.only(right: 15),
-                            //             child: Container(
-                            //               width: Get.width * .2,
-                            //               height: Get.height * .04,
-                            //               decoration:
-                            //                   AppDecoration.fillPrimary.copyWith(
-                            //                 borderRadius:
-                            //                     BorderRadiusStyle.circleBorder30,
-                            //               ),
-                            //               child: Row(
-                            //                 mainAxisAlignment:
-                            //                     MainAxisAlignment.spaceAround,
-                            //                 crossAxisAlignment:
-                            //                     CrossAxisAlignment.center,
-                            //                 children: [
-                            //                   GestureDetector(
-                            //                     onTap: () {
-                            //                       CartId = _viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .id
-                            //                           .toString();
-                            //                       // Decrement the counter when "-" is pressed
-                            //                       _viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .totalQty
-                            //                           .value -= 1;
-                            //                       print(_viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .totalQty
-                            //                           .value);
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .ShirtandTops_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .ShirtandTops_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
 
-                            //                       CartProductQtyIncrementCartcontroller()
-                            //                           .addtocart_Apihit(context,
-                            //                               index, "decrement");
-                            //                     },
-                            //                     child: Icon(
-                            //                       Icons.remove,
-                            //                       color: Colors.white,
-                            //                       size: 15,
-                            //                     ),
-                            //                   ),
-                            //                   Center(
-                            //                       child: Text(
-                            //                     _viewcartcontroller.userList.value
-                            //                         .viewCart![index].totalQty.value
-                            //                         .toString(),
-                            //                     style: theme.textTheme.bodyMedium
-                            //                         ?.copyWith(color: Colors.white),
-                            //                   )),
-                            //                   GestureDetector(
-                            //                     onTap: () {
-                            //                       CartId = _viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .id
-                            //                           .toString();
-                            //                       // Increment the counter when "+" is pressed
-                            //                       _viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .totalQty
-                            //                           .value += 1;
-                            //                       print(_viewcartcontroller
-                            //                           .userList
-                            //                           .value
-                            //                           .viewCart![index]
-                            //                           .totalQty
-                            //                           .value);
-
-                            //                       CartProductQtyIncrementCartcontroller()
-                            //                           .addtocart_Apihit(context,
-                            //                               index, "increment");
-                            //                     },
-                            //                     child: Icon(
-                            //                       Icons.add,
-                            //                       color: Colors.white,
-                            //                       size: 15,
-                            //                     ),
-                            //                   ),
-                            //                 ],
-                            //               ),
-                            //             ),
-                            //           )
-                            //         ],
-                            //       );
-                            //     },
-                            //   ),
-                            // ),
-
-                            // SizedBox(
-                            //   height: Get.height * .04,
-                            // ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid = productviewcontroller
+                                                        .ShirtandTops_userlist
+                                                        .value
+                                                        .productView
+                                                        ?.productDetails
+                                                        ?.details?[index]
+                                                        .SizeId
+                                                        .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .ShirtandTops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .ShirtandTops_userlist
@@ -1552,14 +1628,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .ShirtandTops_userlist
@@ -1569,15 +1638,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -1589,44 +1650,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -1662,212 +1721,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .jacket_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .jacket_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.jacket_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.jacket_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.jacket_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.jacket_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.jacket_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.jacket_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.jacket_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.jacket_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .jacket_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .jacket_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -1880,7 +1912,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -1888,15 +1920,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .jacket_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1905,86 +1944,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .jacket_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .jacket_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .jacket_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.jacket_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -2013,70 +1975,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .jacket_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .jacket_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .jacket_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -2089,100 +2050,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .jacket_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .jacket_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: Get.height * .04,
-                            // ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .jacket_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .jacket_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .jacket_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .jacket_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .jacket_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .jacket_userlist
@@ -2191,14 +2342,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .jacket_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .jacket_userlist
@@ -2208,15 +2352,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .jacket_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -2228,44 +2364,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -2301,212 +2435,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .activewear_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .activewear_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.activewear_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.activewear_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.activewear_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.activewear_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.activewear_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .activewear_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .activewear_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -2519,7 +2626,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -2527,15 +2634,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .activewear_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -2544,86 +2658,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .activewear_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .activewear_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .activewear_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.activewear_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -2652,70 +2689,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .activewear_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .activewear_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .activewear_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -2728,100 +2764,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .activewear_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .activewear_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .activewear_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .activewear_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .activewear_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .activewear_userlist
@@ -2830,14 +3056,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .activewear_userlist
@@ -2847,15 +3066,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -2867,44 +3078,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -2940,212 +3149,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .formal_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .formal_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.formal_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.formal_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.formal_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.formal_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.formal_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.formal_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.formal_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.formal_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .formal_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .formal_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -3158,7 +3340,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -3166,15 +3348,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .formal_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -3183,86 +3372,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .formal_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .formal_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .formal_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.formal_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -3291,70 +3403,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .formal_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .formal_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .formal_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -3367,100 +3478,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .formal_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .formal_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .formal_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .formal_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .formal_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .formal_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .formal_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .formal_userlist
@@ -3469,14 +3770,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .formal_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .formal_userlist
@@ -3486,15 +3780,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .formal_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -3506,44 +3792,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -3579,212 +3863,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .wearable_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .wearable_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.wearable_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.wearable_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.wearable_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.wearable_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.wearable_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.wearable_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.wearable_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.wearable_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .wearable_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .2,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .wearable_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -3797,7 +4054,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -3805,15 +4062,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .wearable_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -3822,86 +4086,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .wearable_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .wearable_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .wearable_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Model;
-                                  // var size2 = productviewcontroller.wearable_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
-                                      SizedBox(height: 11.v),
+                                      SizedBox(height: Get.height * .02),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -3930,70 +4117,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .wearable_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .wearable_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .wearable_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -4006,100 +4192,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .wearable_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .wearable_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .wearable_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Model;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .wearable_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .wearable_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Model ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .wearable_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .ModelId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .wearable_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .wearable_userlist
@@ -4108,14 +4484,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .wearable_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .wearable_userlist
@@ -4125,23 +4494,8 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        //ArabicAddtocartSize = productviewcontroller
-                                        //     .wearable_userlist
-                                        //     .value
-                                        //     .productView
-                                        //     ?.productDetails
-                                        //     ?.details?[0]
-                                        //     .SizeId
-                                        //     .toString();
                                         ArabicAddtocartModelId =
-                                            productviewcontroller
-                                                .wearable_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ModelId
-                                                .toString();
+                                            sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -4153,44 +4507,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "Add to cart ",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -4226,212 +4578,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .smartphone_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .smartphone_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.smartphone_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.smartphone_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.smartphone_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.smartphone_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.smartphone_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.smartphone_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.smartphone_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.smartphone_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .smartphone_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .smartphone_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -4444,7 +4769,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -4452,15 +4777,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .smartphone_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -4469,86 +4801,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .smartphone_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .smartphone_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .smartphone_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.smartphone_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -4577,70 +4832,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .smartphone_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .smartphone_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .smartphone_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -4653,100 +4907,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .smartphone_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .smartphone_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .smartphone_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Model;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .smartphone_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .smartphone_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Model ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .smartphone_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .ModelId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .smartphone_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .smartphone_userlist
@@ -4755,14 +5199,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .smartphone_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .smartphone_userlist
@@ -4772,24 +5209,8 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .smartphone_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
                                         ArabicAddtocartModelId =
-                                            productviewcontroller
-                                                .smartphone_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ModelId
-                                                .toString();
+                                            sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -4801,44 +5222,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -4874,212 +5293,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .camera_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .camera_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.camera_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.camera_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.camera_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.camera_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.camera_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.camera_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.camera_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.camera_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .camera_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .camera_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -5092,7 +5484,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -5100,15 +5492,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .camera_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -5117,86 +5516,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .camera_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .camera_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .camera_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Model;
-                                  // var size2 = productviewcontroller.camera_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -5225,70 +5547,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .camera_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .camera_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .camera_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -5301,100 +5622,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .camera_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .camera_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .camera_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Model;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .camera_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .camera_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Model ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .camera_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .ModelId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .camera_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartModelId =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .camera_userlist
@@ -5403,14 +5914,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .camera_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .camera_userlist
@@ -5420,23 +5924,8 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        //ArabicAddtocartSize = productviewcontroller
-                                        //     .camera_userlist
-                                        //     .value
-                                        //     .productView
-                                        //     ?.productDetails
-                                        //     ?.details?[0]
-                                        //     .SizeId
-                                        //     .toString();
                                         ArabicAddtocartModelId =
-                                            productviewcontroller
-                                                .camera_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ModelId
-                                                .toString();
+                                            sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -5448,44 +5937,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -5521,212 +6008,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .headphones_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .headphones_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.headphones_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.headphones_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.headphones_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.headphones_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.headphones_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.headphones_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.headphones_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.headphones_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .headphones_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .headphones_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -5739,7 +6199,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -5747,15 +6207,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .headphones_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -5764,86 +6231,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .headphones_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .headphones_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .headphones_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Model;
-                                  // var size2 = productviewcontroller.headphones_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -5872,70 +6262,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .headphones_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .headphones_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .headphones_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -5948,100 +6337,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .headphones_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .headphones_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .headphones_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Model;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .headphones_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .headphones_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Model ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .headphones_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .ModelId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .headphones_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .headphones_userlist
@@ -6050,14 +6629,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .headphones_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .headphones_userlist
@@ -6067,23 +6639,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        //ArabicAddtocartSize = productviewcontroller
-                                        //     .headphones_userlist
-                                        //     .value
-                                        //     .productView
-                                        //     ?.productDetails
-                                        //     ?.details?[0]
-                                        //     .SizeId
-                                        //     .toString();
-                                        ArabicAddtocartModelId =
-                                            productviewcontroller
-                                                .headphones_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ModelId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -6095,44 +6651,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -6168,212 +6722,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .laptops_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .laptops_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.laptops_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.laptops_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.laptops_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.laptops_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.laptops_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.laptops_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.laptops_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.laptops_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .laptops_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .laptops_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -6386,7 +6913,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -6394,15 +6921,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .laptops_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -6411,86 +6945,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .laptops_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .laptops_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .laptops_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.laptops_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -6519,70 +6976,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .laptops_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .laptops_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .laptops_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -6595,100 +7051,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .laptops_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .laptops_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .laptops_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .laptops_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .laptops_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .laptops_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Model');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .laptops_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .laptops_userlist
@@ -6697,14 +7343,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .laptops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .laptops_userlist
@@ -6714,24 +7353,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .laptops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
-                                        ArabicAddtocartModelId =
-                                            productviewcontroller
-                                                .laptops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ModelId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -6743,44 +7365,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -6816,212 +7436,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .Bottom_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .Bottom_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.Bottom_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.Bottom_userlist.value.productView?.title.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.Bottom_userlist.value.productView?.title.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.Bottom_userlist.value.productView?.description.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.Bottom_userlist.value.productView?.description.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.Bottom_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.Bottom_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.Bottom_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .Bottom_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .Bottom_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -7034,7 +7627,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -7042,15 +7635,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .Bottom_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -7059,86 +7659,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .Bottom_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .Bottom_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .Bottom_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.Bottom_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -7167,70 +7690,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .Bottom_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .Bottom_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .Bottom_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -7243,100 +7765,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .Bottom_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .Bottom_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(left: 10.h),
-                            //   child: Row(
-                            //     children: [
-                            //       Padding(
-                            //         padding: EdgeInsets.only(
-                            //           top: 13.v,
-                            //           bottom: 9.v,
-                            //         ),
-                            //         child: Text(
-                            //           "Qty",
-                            //           style: theme.textTheme.titleMedium,
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 15),
-                            //         child: Container(
-                            //           width: 100.h,
-                            //           height: Get.height * .05,
-                            //           margin: EdgeInsets.only(left: 14.h),
-                            //           padding: EdgeInsets.symmetric(vertical: 10.v),
-                            //           decoration:
-                            //               AppDecoration.fillPrimary.copyWith(
-                            //             borderRadius:
-                            //                 BorderRadiusStyle.circleBorder30,
-                            //           ),
-                            //           child: Row(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Increment the counter when "+" is pressed
-                            //                     counter++;
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant
-                            //                     .imgGroup239412WhiteA70002,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin: EdgeInsets.only(
-                            //                   top: 2.v,
-                            //                   bottom: 3.v,
-                            //                 ),
-                            //               ),
-                            //               Text(
-                            //                 counter.toString(),
-                            //                 style: CustomTextStyles
-                            //                     .titleLargeWhiteA7000220,
-                            //               ),
-                            //               CustomImageView(
-                            //                 onTap: () {
-                            //                   setState(() {
-                            //                     // Decrement the counter when "-" is pressed
-                            //                     if (counter > 1) {
-                            //                       counter--;
-                            //                     }
-                            //                   });
-                            //                 },
-                            //                 imagePath: ImageConstant.imgLine1,
-                            //                 height: 13.adaptSize,
-                            //                 width: 13.adaptSize,
-                            //                 margin:
-                            //                     EdgeInsets.symmetric(vertical: 9.v),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: Get.height * .04,
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .Bottom_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
+
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .Bottom_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .Bottom_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .Bottom_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .Bottom_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .Bottom_userlist
@@ -7345,14 +8057,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .Bottom_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .Bottom_userlist
@@ -7362,15 +8067,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .Bottom_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -7382,44 +8079,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -7455,212 +8150,185 @@ class _content_of_allState extends State<content_of_all> {
     } else {
       return Container(
         constraints: BoxConstraints(maxHeight: 700),
-        child: Expanded(
-          child: Container(
-            height: double.infinity,
-            constraints: BoxConstraints.expand(),
-            padding: EdgeInsets.symmetric(vertical: 18.v),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.customBorderTL30,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, left: 10),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          height: double.infinity,
+          constraints: BoxConstraints.expand(),
+          padding: EdgeInsets.symmetric(vertical: 18.v),
+          decoration: AppDecoration.fillWhiteA.copyWith(
+            borderRadius: BorderRadiusStyle.customBorderTL30,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "أضف إلى السلة",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3.v),
-                            child: Text(
-                              "Add to cart",
-                              style: theme.textTheme.titleMedium?.copyWith(),
-                            ),
-                          ),
-                          CustomImageView(
-                            onTap: () {
-                              Get.back();
-                            },
-                            imagePath: ImageConstant.imgMaskGroup24x24,
-                            height: 24.adaptSize,
-                            width: 24.adaptSize,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey.shade200,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
+                          Obx(
+                            () => Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productviewcontroller
-                                          .mensshoes_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String imageUrl = productviewcontroller
-                                            .mensshoes_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          height: Get.height * .4,
-                                          width: Get.width,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 504.v,
-                                            width: Get.width,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        )
-                                      ],
-                                    );
-                                  },
+                                child: CustomImageView(
+                                  fit: BoxFit.cover,
+                                  imagePath: selectedImageUrl.value.isNotEmpty
+                                      ? selectedImageUrl.value
+                                      : "${productviewcontroller.mensshoes_userlist.value.productView!.imageUrl.toString()}",
+                                  height: 504.v,
+                                  width: Get.width,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                "${productviewcontroller.mensshoes_userlist.value.productView?.aTitle.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 14.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.mensshoes_userlist.value.productView?.aTitle.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 12.v),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                                //  "${productviewcontroller.mensshoes_userlist.value.productView?.aDescription.toString()}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'League Spartan',
-                                ),
+                          ),
+                          SizedBox(height: 12.v),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                              "${productviewcontroller.mensshoes_userlist.value.productView?.aDescription.toString()}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'League Spartan',
                               ),
                             ),
-                            SizedBox(height: 14.v),
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(left: 10.h),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        '${productviewcontroller.mensshoes_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                    style: CustomTextStyles
-                                                        .titleLargePrimary,
-                                                  ),
-                                                  TextSpan(
-                                                    text: " ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: " \$120",
-                                                    style: CustomTextStyles
-                                                        .titleMediumGray50001
-                                                        .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(width: Get.width * .02),
-                                            Container(
-                                              width: 63,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Color.fromARGB(
-                                                    36, 206, 117, 147),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "-20% off",
-                                                  style: TextStyle(
-                                                    color: Color(0xffff8300),
-                                                    fontSize: 9,
-                                                    fontFamily:
-                                                        'League Spartan',
+                          ),
+                          SizedBox(height: 14.v),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: 10.h),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${productviewcontroller.mensshoes_userlist.value.productView!.productDetails!.details?[index].price}',
+                                                  style: CustomTextStyles
+                                                      .titleLargePrimary,
+                                                ),
+                                                TextSpan(
+                                                  text: " ",
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      // '${productviewcontroller.mensshoes_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                      " \$120",
+                                                  style: CustomTextStyles
+                                                      .titleMediumGray50001
+                                                      .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(width: Get.width * .02),
+                                          Container(
+                                            width: 63,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Color.fromARGB(
+                                                  36, 206, 117, 147),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "-20% off",
+                                                style: TextStyle(
+                                                  color: Color(0xffff8300),
+                                                  fontSize: 9,
+                                                  fontFamily: 'League Spartan',
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                            Container(
-                              height: Get.height * .03,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var color = productviewcontroller
-                                      .mensshoes_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Color;
-                                  if (color == null) {
-                                    return Text('');
-                                  }
+                          ),
+                          Container(
+                            height: Get.height * .1,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                color = productviewcontroller
+                                    .mensshoes_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Color;
+                                if (color == null) {
+                                  return Text('');
+                                } else {
                                   return Column(
                                     children: [
                                       // SizedBox(height: 11.v),
@@ -7673,7 +8341,7 @@ class _content_of_allState extends State<content_of_all> {
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color:",
+                                                    text: "Color: ",
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -7681,15 +8349,22 @@ class _content_of_allState extends State<content_of_all> {
                                                     ),
                                                   ),
                                                   TextSpan(
-                                                    text: "  ",
-                                                  ),
-                                                  TextSpan(
-                                                    text: '$color',
+                                                    text: selectedcolored
+                                                            .value.isNotEmpty
+                                                        ? selectedcolored.value
+                                                        : productviewcontroller
+                                                            .mensshoes_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color,
                                                     style: theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
-                                                            fontSize: 18,
-                                                            color: Colors.grey),
+                                                      fontSize: 18,
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -7698,86 +8373,9 @@ class _content_of_allState extends State<content_of_all> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 11.v),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    right: 23.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .mensshoes_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .mensshoes_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
-                            Container(
-                              height: Get.height * .15,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var size1 = productviewcontroller
-                                      .mensshoes_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details?[index]
-                                      .Size;
-                                  // var size2 = productviewcontroller.mensshoes_userlist.value
-                                  //     .productView?.productDetails?.details?[index].Size;
-                                  if (size1 == null) {
-                                    return Text('');
-                                  }
-                                  return Column(
-                                    children: [
-                                      SizedBox(height: 27.v),
-                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
+
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -7806,70 +8404,69 @@ class _content_of_allState extends State<content_of_all> {
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                if (index < 0 ||
-                                                    index >=
-                                                        (productviewcontroller
-                                                                .mensshoes_userlist
-                                                                .value
-                                                                .productView!
-                                                                .productDetails
-                                                                ?.details!
-                                                                .length ??
-                                                            0)) {
-                                                  // Check if index is out of bounds
-                                                  return Container(); // Return an empty container or any other widget as needed
-                                                }
+                                                String selectedcolorname =
+                                                    productviewcontroller
+                                                            .mensshoes_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .Color ??
+                                                        "";
 
-                                                bool isSelected =
-                                                    index == selectedIndex;
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
+                                                      // setState(() {
+                                                      selectedcolored.value =
+                                                          selectedcolorname;
+                                                      selectedcolorIndex.value =
+                                                          index;
+                                                      colorId =
+                                                          productviewcontroller
+                                                              .mensshoes_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .ColorId
+                                                              .toString();
+                                                      // selectedIndex = index;
+                                                      // selectedColor = selectedcolor;
+                                                      // });
+                                                      print(selectedcolorIndex);
                                                     },
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Container(
-                                                        width:
-                                                            70.0, // Adjust this width as needed
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              17.0, // Adjust this padding as needed
-                                                          vertical:
-                                                              8.0, // Adjust this padding as needed
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: isSelected
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : Colors
-                                                                  .grey[10003],
-                                                          border: Border.all(
-                                                              color: isSelected
-                                                                  ? Color(
-                                                                      0xffff8300)
-                                                                  : Colors
-                                                                      .black),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$size1',
-                                                            style: TextStyle(
-                                                              color: isSelected
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 10.0,
+                                                    child: Obx(
+                                                      () => Center(
+                                                        child: Container(
+                                                          width: 70.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: selectedcolorIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20), // Adjust the border radius as needed
+                                                          ),
+                                                          padding: EdgeInsets.all(
+                                                              8), // Adjust the padding as needed
+                                                          child: Center(
+                                                            child: Text(
+                                                              '$selectedcolorname',
+                                                              style: TextStyle(
+                                                                color: selectedcolorIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -7882,25 +8479,290 @@ class _content_of_allState extends State<content_of_all> {
                                           ),
                                         ),
                                       ),
-                                      // SizedBox(height: 27.v),
                                     ],
                                   );
-                                },
+                                }
+                              },
+                            ),
+                          ),
+                          Obx(
+                            () => Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 60.v,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.only(
+                                    left: 20.h,
+                                    //right: 10.h,
+                                  ),
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    return SizedBox(
+                                      width: 8.h,
+                                    );
+                                  },
+                                  itemCount: productviewcontroller
+                                          .mensshoes_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    String imageUrl = productviewcontroller
+                                            .mensshoes_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl?[index] ??
+                                        '';
+                                    return GestureDetector(
+                                      onTap: () {
+                                        selectedImageUrl.value = imageUrl;
+                                        selectedImageIndex.value = index;
+                                        print(selectedImageIndex);
+                                      },
+                                      child: SizedBox(
+                                        width: 60.h,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: CustomImageView(
+                                            fit: BoxFit.cover,
+                                            imagePath: "$imageUrl",
+                                            height: 60.adaptSize,
+                                            width: 60.adaptSize,
+                                            radius: BorderRadius.circular(
+                                              6.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
+                          ),
+                          Container(
+                            height: Get.height * .15,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                size1 = productviewcontroller
+                                    .mensshoes_userlist
+                                    .value
+                                    .productView
+                                    ?.productDetails
+                                    ?.details?[index]
+                                    .Size;
 
-                            Container(
-                              height: Get.height * .1,
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
+                                if (size1 == null) {
+                                  return Text('');
+                                }
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 27.v),
+                                    _buildRowSize(context),
+                                    SizedBox(height: 11.v),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          height: 35.v,
+                                          child: ListView.separated(
+                                            padding:
+                                                EdgeInsets.only(left: 20.h),
+                                            scrollDirection: Axis.horizontal,
+                                            separatorBuilder: (
+                                              context,
+                                              index,
+                                            ) {
+                                              return SizedBox(
+                                                width: 10.h,
+                                              );
+                                            },
+                                            itemCount: productviewcontroller
+                                                    .mensshoes_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details!
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              String selectedsizename =
+                                                  productviewcontroller
+                                                          .mensshoes_userlist
+                                                          .value
+                                                          .productView
+                                                          ?.productDetails
+                                                          ?.details?[index]
+                                                          .Size ??
+                                                      "";
+
+                                              return SizedBox(
+                                                width: 70.h,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    selectedSizeIndex.value =
+                                                        index;
+                                                    sizeid =
+                                                        productviewcontroller
+                                                            .mensshoes_userlist
+                                                            .value
+                                                            .productView
+                                                            ?.productDetails
+                                                            ?.details?[index]
+                                                            .SizeId
+                                                            .toString();
+                                                    // print(selectedSizeIndex);
+                                                  },
+                                                  child: Center(
+                                                    child: Obx(
+                                                      () => Container(
+                                                        width: 70.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: selectedSizeIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  20), // Adjust the border radius as needed
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            8), // Adjust the padding as needed
+                                                        child: Center(
+                                                          child: Text(
+                                                            '$selectedsizename',
+                                                            style: TextStyle(
+                                                              color: selectedSizeIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: Get.height * .07,
+                            child: ListView.builder(
+                              itemCount: 1,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        tappedList[index] = !tappedList[
-                                            index]; // Toggle tapped state for this item
-                                      });
-                                      if (tappedList[index]) {
+                                      if (color != null && size1 != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Size');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (size1 != null) {
+                                        if (sizeid == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else if (color != null) {
+                                        if (colorId == null) {
+                                          Utils.snackBar(context, 'Failed',
+                                              'Please Select Color');
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .mensshoes_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      } else {
                                         Arabiccartproductid =
                                             productviewcontroller
                                                 .mensshoes_userlist
@@ -7909,14 +8771,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.id
                                                 .toString();
                                         ArabicAddtocartColor =
-                                            productviewcontroller
-                                                .mensshoes_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .ColorId
-                                                .toString();
+                                            colorId.toString();
                                         ArabicAddtocartprice =
                                             productviewcontroller
                                                 .mensshoes_userlist
@@ -7926,15 +8781,7 @@ class _content_of_allState extends State<content_of_all> {
                                                 ?.details?[index]
                                                 .price
                                                 .toString();
-                                        ArabicAddtocartSize =
-                                            productviewcontroller
-                                                .mensshoes_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[0]
-                                                .SizeId
-                                                .toString();
+                                        ArabicAddtocartSize = sizeid.toString();
                                         arabic_addtocart_controller()
                                             .addtocart_Apihit(context);
                                       }
@@ -7946,44 +8793,42 @@ class _content_of_allState extends State<content_of_all> {
                                         // width: Get.width * .4,
                                         height: Get.height * .06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color: tappedList[index]
-                                                ? Colors.orange
-                                                : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color: tappedList[index]
-                                              ? Colors.orange
-                                              : Colors.transparent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tappedList[index]
-                                                ? "Already in cart"
-                                                : "Add to cart",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: tappedList[index]
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 2,
                                             ),
-                                          ),
-                                        ),
+                                            color: Colors.orange),
+                                        child: arabic_addtocart_controller()
+                                                    .loading
+                                                    .value ==
+                                                false
+                                            ? Center(
+                                                child: Text(
+                                                  "أضف إلى السلة",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            )
-                            // SizedBox(height: Get.height * .04),
-                          ],
-                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -44,114 +44,117 @@ class _add_new_Address_arabicState extends State<add_new_Address_arabic> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text(
-            'إضافة عنوان جديد',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Almarai',
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(
+              'إضافة عنوان جديد',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Almarai',
+              ),
+            ),
+            leading: Padding(
+              padding: const EdgeInsets.only(
+                top: 15,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  Get.offAll(() => addresses_arabic());
+                },
+                child: Container(
+                    width: Get.width * .07,
+                    height: Get.height * .03,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromARGB(90, 158, 158, 158)),
+                    child: Icon(
+                      Icons.arrow_back,
+                    )),
+              ),
             ),
           ),
-          leading: Padding(
-            padding: const EdgeInsets.only(
-              top: 15,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                Get.offAll(() => addresses_arabic());
-              },
-              child: Container(
-                  width: Get.width * .07,
-                  height: Get.height * .03,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color.fromARGB(90, 158, 158, 158)),
-                  child: Icon(
-                    Icons.arrow_back,
-                  )),
-            ),
-          ),
-        ),
-        body: Form(
-          key: _formKey,
-          child: SizedBox(
-            width: mediaQueryData.size.width,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(top: 19.v),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 20.h,
-                  right: 20.h,
-                  bottom: 5.v,
-                ),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "اسم",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
+          body: Form(
+            key: _formKey,
+            child: SizedBox(
+              width: mediaQueryData.size.width,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(top: 19.v),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 20.h,
+                    right: 20.h,
+                    bottom: 5.v,
+                  ),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "اسم",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontFamily: 'Almarai'),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 9.v),
-                    _buildNameEditText(context),
-                    SizedBox(height: 17.v),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "عنوان",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
+                      SizedBox(height: 9.v),
+                      _buildNameEditText(context),
+                      SizedBox(height: 17.v),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "عنوان",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontFamily: 'Almarai'),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 9.v),
-                    _buildAddressEditText(context),
-                    SizedBox(height: 19.v),
-                    _buildCityRow(context),
-                    SizedBox(height: 19.v),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "الدولة / الإقليم / المنطقة",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
+                      SizedBox(height: 9.v),
+                      _buildAddressEditText(context),
+                      SizedBox(height: 19.v),
+                      _buildCityRow(context),
+                      SizedBox(height: 19.v),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "الدولة / الإقليم / المنطقة",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontFamily: 'Almarai'),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 7.v),
-                    _buildCaliforniaEditText(context),
-                    SizedBox(height: 19.v),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "الرمز البريدي / الرمز البريدي)",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
+                      SizedBox(height: 7.v),
+                      _buildCaliforniaEditText(context),
+                      SizedBox(height: 19.v),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "الرمز البريدي / الرمز البريدي)",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontFamily: 'Almarai'),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 7.v),
-                    _buildZipcodeEditText(context),
-                    SizedBox(height: 17.v),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "رقم الهاتف المحمول",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
+                      SizedBox(height: 7.v),
+                      _buildZipcodeEditText(context),
+                      SizedBox(height: 17.v),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "رقم الهاتف المحمول",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontFamily: 'Almarai'),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 9.v),
-                    // _buildGroup184(context),
-                    SizedBox(height: 9.v),
-                    _mobilenumberfield(context),
-                    // _buildSaveRow(context),
-                    SizedBox(height: 30.v),
-                    _buildSaveAddressButton(context),
-                    SizedBox(height: 20.v),
-                  ],
+                      SizedBox(height: 9.v),
+                      // _buildGroup184(context),
+                      SizedBox(height: 9.v),
+                      _mobilenumberfield(context),
+                      // _buildSaveRow(context),
+                      SizedBox(height: 30.v),
+                      _buildSaveAddressButton(context),
+                      SizedBox(height: 20.v),
+                    ],
+                  ),
                 ),
               ),
             ),

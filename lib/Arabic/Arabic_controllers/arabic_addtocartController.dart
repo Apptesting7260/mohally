@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicAddtoCartModel/ArabicaddtocartModel.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/models/EnglishAdd_to_cart_Model/EnglishaddtocartModel.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +13,7 @@ String? ArabicAddtocartColor;
 String? ArabicAddtocartSize;
 String? ArabicAddtocartprice;
 String? ArabicAddtocartModelId;
+Map<String, String> productDetails = {};
 
 class arabic_addtocart_controller extends GetxController {
   final _api = AuthRepository();
@@ -35,8 +35,6 @@ class arabic_addtocart_controller extends GetxController {
     String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
-    Map<String, String> productDetails = {};
-
     addIfNotNull(productDetails, 'Color', ArabicAddtocartColor?.toString());
     addIfNotNull(productDetails, 'Size', ArabicAddtocartSize?.toString());
     addIfNotNull(
@@ -50,12 +48,13 @@ class arabic_addtocart_controller extends GetxController {
       'price': ArabicAddtocartprice.toString(),
       'coupon': "".toString(),
       'product_details': json.encode(productDetails), // Encode the map to JSON
-      'language_type': 'English'
+      'language_type': 'Arabic'
     };
 
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
     var header = {'Authorization': "Bearer $token"};
+
     _api.arabic_AddtocartApi(data, header).then((value) {
       loading.value = false;
       print(data);

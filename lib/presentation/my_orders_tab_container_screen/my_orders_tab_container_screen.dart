@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/MyOrder_Widgets/my_orders_page.dart';
+import 'package:mohally/presentation/MyOrder_Widgets/widgets/myorderslist_item_widget.dart';
 import 'package:mohally/presentation/my_orders_one_page/my_orders_one_page.dart';
 import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart';
+import 'package:mohally/view_models/controller/OrderStatusController/orderstatuscontroller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -40,52 +42,94 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
             height: Get.height,
             width: Get.width,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 250, bottom: 250),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomImageView(
-                      imagePath: ImageConstant.imgBag,
-                      height: 100.adaptSize,
-                      width: 100.adaptSize,
-                      color: Color(0xffff8300),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 22.v),
+                  _buildTabview(context),
+                  SizedBox(
+                    height: 658.v,
+                    child: TabBarView(
+                      controller: tabviewController,
+                      children: [
+                        MyOrdersPage(),
+                        MyOrdersOnePage(),
+                        MyOrdersTwoPage(),
+                      ],
                     ),
-                    SizedBox(
-                      height: Get.height * .02,
-                    ),
-                    Center(
-                      child: Text(
-                          'Looks like you haven\'t placed any orders yet. \nStart exploring our products to find something you love !'),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 250, bottom: 250),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       CustomImageView(
+              //         imagePath: ImageConstant.imgBag,
+              //         height: 100.adaptSize,
+              //         width: 100.adaptSize,
+              //         color: Color(0xffff8300),
+              //       ),
+              //       SizedBox(
+              //         height: Get.height * .02,
+              //       ),
+              //       Center(
+              //         child: Text(
+              //             'Looks like you haven\'t placed any orders yet. \nStart exploring our products to find something you love !'),
+              //       )
+              //     ],
+              //   ),
+              // ),
             ),
           )
           // SizedBox(
           //   width: double.maxFinite,
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       SizedBox(height: 22.v),
-          //       _buildTabview(context),
-          //       SizedBox(
-          //         height: 658.v,
-          //         child: TabBarView(
-          //           controller: tabviewController,
-          //           children: [
-          //             MyOrdersPage(),
-          //             MyOrdersOnePage(),
-          //             MyOrdersTwoPage(),
-          //           ],
-          //         ),
+          // child: Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     SizedBox(height: 22.v),
+          //     _buildTabview(context),
+          //     SizedBox(
+          //       height: 658.v,
+          //       child: TabBarView(
+          //         controller: tabviewController,
+          //         children: [
+          //           MyOrdersPage(),
+          //           MyOrdersOnePage(),
+          //           MyOrdersTwoPage(),
+          //         ],
           //       ),
-          //     ],
-          //   ),
+          //     ),
+          //   ],
+          // ),
           // ),
           ),
+    );
+  }
+
+  Widget _buildMyOrdersList(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.h),
+        child: ListView.separated(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          separatorBuilder: (
+            context,
+            index,
+          ) {
+            return SizedBox(
+              height: 15.v,
+            );
+          },
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return MyorderslistItemWidget();
+          },
+        ),
+      ),
     );
   }
 
@@ -127,9 +171,9 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
   /// Section Widget
   Widget _buildTabview(BuildContext context) {
     return Container(
-      height: 30.v,
-      width: 320.h,
-      margin: EdgeInsets.only(left: 20.h),
+      height: Get.height * .05,
+      width: Get.width,
+      // margin: EdgeInsets.only(left: 20.h),
       child: TabBar(
         controller: tabviewController,
         // labelPadding: EdgeInsets.only(left: 5,right: 5),
@@ -154,18 +198,24 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
         ),
         tabs: [
           Tab(
-            child: Text(
-              "Delivered",
+            child: Center(
+              child: Text(
+                "Delivered",
+              ),
             ),
           ),
           Tab(
-            child: Text(
-              "Processing",
+            child: Center(
+              child: Text(
+                "Processing",
+              ),
             ),
           ),
           Tab(
-            child: Text(
-              "Cancelled",
+            child: Center(
+              child: Text(
+                "Cancelled",
+              ),
             ),
           ),
         ],

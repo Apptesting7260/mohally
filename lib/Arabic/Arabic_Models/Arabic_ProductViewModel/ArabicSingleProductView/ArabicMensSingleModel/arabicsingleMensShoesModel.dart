@@ -33,7 +33,7 @@ class ProductView {
     this.productType,
     this.aTitle,
     this.slug,
-    // this.aDescription,
+    this.aDescription,
     this.productCatgories,
     this.productDetails,
     this.imageUrl,
@@ -43,7 +43,7 @@ class ProductView {
   var productType;
   var aTitle;
   var slug;
-  // var aDescription;
+  var aDescription;
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
   var imageUrl;
@@ -67,7 +67,7 @@ class ProductView {
     _data['product_type'] = productType;
     _data['a_title'] = aTitle;
     _data['slug'] = slug;
-    // _data['a_description'] = aDescription;
+    _data['a_description'] = aDescription;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();
     _data['image_url'] = imageUrl;

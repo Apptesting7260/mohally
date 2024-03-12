@@ -93,8 +93,8 @@ class HomePageOnePageState extends State<HomePageOnePage>
   EnglishAdd_remove_wishlistController englishAddRemoveWishlistController =
       EnglishAdd_remove_wishlistController();
   RxString selectedcolored = "".obs;
-  RxInt selectedcolorIndex = 0.obs;
-  RxInt selectedSizeIndex = 0.obs;
+  RxInt selectedcolorIndex = (-1).obs;
+  RxInt selectedSizeIndex = (-1).obs;
   // int selectedIndex = -1;
   List<Widget> carouselItems = [
     //  Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
@@ -284,37 +284,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                     SizedBox(height: 29.v),
                     _buildCategorySection(context),
                     SizedBox(height: 19.v),
-                    // GridView.builder(
-                    //   shrinkWrap: true,
-                    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //       // mainAxisExtent: 90.v,
-                    //       crossAxisCount: 4,
-                    //       mainAxisSpacing: 10.h,
-                    //       crossAxisSpacing: 10.h,
-                    //       mainAxisExtent: Get.height * .2),
-                    //   physics: BouncingScrollPhysics(),
-                    //   itemCount: 8,
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return Column(
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [
-                    //         Container(
-                    //             height: 70,
-                    //             width: 70,
-                    //             child: Image.asset(
-                    //               "assets/images/img_mask_group_60x56.png",
-                    //               fit: BoxFit.cover,
-                    //             )),
-                    //         SizedBox(height: 2.v),
-                    //         Center(
-                    //             child: Text(
-                    //           "Electronics",
-                    //           style: theme.textTheme.bodySmall,
-                    //         ))
-                    //       ],
-                    //     );
-                    //   },
-                    // ),
+
                     homeView_controller.userList.value.categoryData == null ||
                             homeView_controller
                                     .userList.value.categoryData?.length ==
@@ -977,23 +947,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                           child: Container(
                             height: Get.height * .4,
                             width: Get.width,
-                            child:
-                                //  ListView.builder(
-                                //   physics: ScrollPhysics(),
-                                //   scrollDirection: Axis.horizontal,
-                                //   itemCount: productviewcontroller.mensshoes_userlist
-                                //           .value.productView?.galleryUrl?.length ??
-                                //       0,
-                                //   itemBuilder: (BuildContext context, int index) {
-                                //     // String imageUrl = productviewcontroller
-                                //     //         .mensshoes_userlist
-                                //     //         .value
-                                //     //         .productView
-                                //     //         ?.galleryUrl?[index] ??
-                                //     //     '';
-                                //     return Row(
-                                //       children: [
-                                Container(
+                            child: Container(
                               height: Get.height * .4,
                               width: Get.width,
                               child: CustomImageView(
@@ -1118,7 +1072,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .ShirtandTops_userlist
                                 .value
                                 .productView
@@ -1343,15 +1297,14 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .ShirtandTops_userlist
                                 .value
                                 .productView
                                 ?.productDetails
                                 ?.details?[index]
                                 .Size;
-                            // var size2 = productviewcontroller.ShirtandTops_userlist.value
-                            //     .productView?.productDetails?.details?[index].Size;
+
                             if (size1 == null) {
                               return Text('');
                             }
@@ -1467,45 +1420,89 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .ShirtandTops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .ShirtandTops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -1525,7 +1522,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -1810,7 +1806,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .jacket_userlist
                                 .value
                                 .productView
@@ -2031,7 +2027,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .jacket_userlist
                                 .value
                                 .productView
@@ -2155,45 +2151,80 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .jacket_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .jacket_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.jacket_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .jacket_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.jacket_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .jacket_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.jacket_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .jacket_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -2210,7 +2241,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -2495,7 +2525,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .activewear_userlist
                                 .value
                                 .productView
@@ -2720,7 +2750,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .activewear_userlist
                                 .value
                                 .productView
@@ -2844,45 +2874,89 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -2902,7 +2976,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -3408,7 +3481,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .formal_userlist
                                 .value
                                 .productView
@@ -3532,45 +3605,80 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .formal_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .formal_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.formal_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .formal_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.formal_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .formal_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.formal_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .formal_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -3587,7 +3695,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -3872,7 +3979,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .wearable_userlist
                                 .value
                                 .productView
@@ -4205,6 +4312,9 @@ class HomePageOnePageState extends State<HomePageOnePage>
                           },
                         ),
                       ),
+                      // SizedBox(
+                      //   height: Get.height * .04,
+                      // ),
 
                       SizedBox(
                         height: Get.height * .04,
@@ -4217,45 +4327,92 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .wearable_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .wearable_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .wearable_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -4271,8 +4428,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             ?.details?[index]
                                             .price
                                             .toString();
-                                    EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
+                                    EnglishAddtocartModelId = sizeid.toString();
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -4557,7 +4713,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .smartphone_userlist
                                 .value
                                 .productView
@@ -4782,7 +4938,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .smartphone_userlist
                                 .value
                                 .productView
@@ -4906,45 +5062,92 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .smartphone_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .smartphone_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .smartphone_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -4963,8 +5166,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             ?.details?[index]
                                             .price
                                             .toString();
-                                    EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
+                                    EnglishAddtocartModelId = sizeid.toString();
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -5249,7 +5451,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .camera_userlist
                                 .value
                                 .productView
@@ -5470,7 +5672,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .camera_userlist
                                 .value
                                 .productView
@@ -5594,45 +5796,83 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .camera_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .camera_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.camera_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .camera_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.camera_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .camera_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.camera_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .camera_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -5648,8 +5888,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             ?.details?[index]
                                             .price
                                             .toString();
-                                    EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
+                                    EnglishAddtocartModelId = sizeid.toString();
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -5934,7 +6173,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .headphones_userlist
                                 .value
                                 .productView
@@ -6159,7 +6398,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .headphones_userlist
                                 .value
                                 .productView
@@ -6283,45 +6522,92 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .headphones_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .headphones_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .headphones_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartModelId =
+                                          sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -6340,8 +6626,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             ?.details?[index]
                                             .price
                                             .toString();
-                                    EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
+                                    EnglishAddtocartModelId = sizeid.toString();
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -6626,7 +6911,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .laptops_userlist
                                 .value
                                 .productView
@@ -6847,7 +7132,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .laptops_userlist
                                 .value
                                 .productView
@@ -6971,45 +7256,80 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .laptops_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .laptops_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.laptops_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .laptops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.laptops_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .laptops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.laptops_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .laptops_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -7026,7 +7346,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -7311,7 +7630,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .Bottom_userlist
                                 .value
                                 .productView
@@ -7532,7 +7851,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .Bottom_userlist
                                 .value
                                 .productView
@@ -7656,45 +7975,80 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .Bottom_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .Bottom_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.Bottom_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .Bottom_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Model');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.Bottom_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .Bottom_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller.Bottom_userlist
+                                              .value.productView?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .Bottom_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -7711,7 +8065,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -7996,7 +8349,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var color = productviewcontroller
+                            color = productviewcontroller
                                 .mensshoes_userlist
                                 .value
                                 .productView
@@ -8221,7 +8574,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
                         child: ListView.builder(
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
-                            var size1 = productviewcontroller
+                            size1 = productviewcontroller
                                 .mensshoes_userlist
                                 .value
                                 .productView
@@ -8345,45 +8698,89 @@ class HomePageOnePageState extends State<HomePageOnePage>
                             return Obx(
                               () => GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    tappedList[index] = !tappedList[
-                                        index]; // Toggle tapped state for this item
-                                  });
-                                  if (tappedList[index]) {
-                                    if (color != null && size1 != null) {
-                                      if (sizeid != null && colorId != null) {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .mensshoes_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            colorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .mensshoes_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        EnglishAddtocartSize =
-                                            sizeid.toString();
-                                        // AddToCartcontroller().loading.value = true;
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                      } else {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select size');
-                                        } else if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please select color');
-                                        }
-                                      }
+                                  if (color != null && size1 != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (size1 != null) {
+                                    if (sizeid == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Size');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
+                                    }
+                                  } else if (color != null) {
+                                    if (colorId == null) {
+                                      Utils.snackBar(context, 'Failed',
+                                          'Please Select Color');
+                                    } else {
+                                      Englishcartproductid =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.id
+                                              .toString();
+                                      EnglishAddtocartColor =
+                                          colorId.toString();
+                                      EnglishAddtocartprice =
+                                          productviewcontroller
+                                              .mensshoes_userlist
+                                              .value
+                                              .productView
+                                              ?.productDetails
+                                              ?.details?[index]
+                                              .price
+                                              .toString();
+                                      EnglishAddtocartSize = sizeid.toString();
+                                      AddToCartcontrollerin.addtocart_Apihit(
+                                          context);
                                     }
                                   } else {
                                     Englishcartproductid = productviewcontroller
@@ -8403,7 +8800,6 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                             .price
                                             .toString();
                                     EnglishAddtocartSize = sizeid.toString();
-                                    // AddToCartcontroller().loading.value = true;
                                     AddToCartcontrollerin.addtocart_Apihit(
                                         context);
                                   }
@@ -8412,41 +8808,23 @@ class HomePageOnePageState extends State<HomePageOnePage>
                                   padding:
                                       const EdgeInsets.fromLTRB(45, 0, 45, 0),
                                   child: Container(
-                                    // width: Get.width * .4,
                                     height: Get.height * .06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(35),
                                         border: Border.all(
-                                          color:
-                                              // tappedList[index]
-                                              // ?
-                                              Colors.orange,
-                                          // : Colors.black,
+                                          color: Colors.orange,
                                           width: 2,
                                         ),
-                                        color:
-                                            //tappedList[index]
-                                            //?
-                                            Colors.orange
-                                        // : Colors.transparent,
-                                        ),
+                                        color: Colors.orange),
                                     child: AddToCartcontrollerin
                                                 .loading.value ==
                                             false
                                         ? Center(
                                             child: Text(
-                                              // tappedList[index]
-                                              // ?
                                               "Add to cart",
-                                              // : "Already in cart",
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  color:
-                                                      // tappedList[index]
-                                                      //  ?
-                                                      Colors.white
-                                                  // : Colors.black,
-                                                  ),
+                                                  color: Colors.white),
                                             ),
                                           )
                                         : Center(
@@ -8647,7 +9025,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
   //     child: ListView.builder(
   //       itemCount: 1,
   //       itemBuilder: (BuildContext context, int index) {
-  //         var size1 = productviewcontroller.userList.value.productView
+  //        size1 = productviewcontroller.userList.value.productView
   //             ?.productDetails?.details?[index].Clothssize;
   //         // var size2 = productviewcontroller.userList.value
   //         //     .productView?.productDetails?.details?[index].Size;
@@ -8863,7 +9241,7 @@ class HomePageOnePageState extends State<HomePageOnePage>
   //     child: ListView.builder(
   //       itemCount: 1,
   //       itemBuilder: (BuildContext context, int index) {
-  //         var color = productviewcontroller.home_living_userlist.value
+  //          color = productviewcontroller.home_living_userlist.value
   //             .productView?.productDetails?.details?[index].Color;
   //         if (color == null) {
   //           return Text('');

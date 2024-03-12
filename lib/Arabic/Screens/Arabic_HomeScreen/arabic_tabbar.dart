@@ -85,28 +85,18 @@ class _arabic_TabScreenState extends State<arabic_TabScreen> {
 
   Future<bool> _onWillPop() async {
     if (bottomSelectedIndex != 1) {
-      setState(
-        () {
-          pageController!.jumpTo(0);
-        },
-      );
-      return false;
-    } else if (bottomSelectedIndex == 1) {
-      setState(
-        () {
-          pageController!.jumpTo(1);
-        },
-      );
-      return false;
-    }
-    DateTime now = DateTime.now();
-    if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
-      currentBackPressTime = now;
+      bottomTapped(1); // Change the tab to index 1 (CategoryScreen_arabic)
       return false;
     } else {
-      SystemNavigator.pop();
+      DateTime now = DateTime.now();
+      if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
+        currentBackPressTime = now;
+        return false;
+      } else {
+        SystemNavigator.pop();
+        return true;
+      }
     }
-    return true;
   }
 
   void goAtLikeTab() {

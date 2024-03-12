@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_men.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_women.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/Notifications/arabic_notifications.dart';
 import 'package:mohally/Arabic/Screens/widgets/arabic_customSearchView.dart';
@@ -191,10 +192,10 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
                   },
                   children: [
                     Container(child: content_of_all()),
+                    Container(child: content_of_men()),
                     Container(child: content_of_women()),
-                    Container(child: content_of_women()),
-                    Container(child: content_of_women()),
-                    Container(child: content_of_women()),
+                    Container(child: content_of_men()),
+                    Container(child: content_of_men()),
                     // Add more pages as needed
                   ],
                 ),

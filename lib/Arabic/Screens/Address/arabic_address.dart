@@ -5,9 +5,15 @@ import 'package:mohally/Arabic/Arabic_controllers/user_Address_view_Controller.d
 import 'package:mohally/Arabic/Screens/Address/arabic_add_new_address.dart';
 import 'package:mohally/Arabic/Screens/Address/arabic_default_user_address_details.dart';
 import 'package:mohally/Arabic/Screens/Address/arabic_edit_address.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
+
+String? arabicaddressId;
+RxString arabicaddressname = "".obs;
+String? arabicaddressIndexId;
 
 // ignore: must_be_immutable
 class addresses_arabic extends StatefulWidget {
@@ -21,6 +27,8 @@ class addresses_arabic extends StatefulWidget {
 }
 
 class _addresses_arabicState extends State<addresses_arabic> {
+  List<bool> isSelectedList = List.generate(10, (index) => false);
+
   @override
   void initState() {
     super.initState();
@@ -264,6 +272,97 @@ class _addresses_arabicState extends State<addresses_arabic> {
                                               fontFamily: 'Almarai',
                                             )),
                                         SizedBox(height: 1.v),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 10.h),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "استخدم كعنوان الشحن",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black,
+                                                    fontFamily: 'Almarai'),
+                                              ),
+                                              SizedBox(
+                                                width: Get.width * .01,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isSelectedList[index] =
+                                                        !isSelectedList[index];
+                                                  });
+                                                  if (isSelectedList[index]) {
+                                                    arabicaddressIndexId =
+                                                        useraddressview
+                                                            .userList
+                                                            .value
+                                                            .userAddress?[index]
+                                                            .id
+                                                            .toString();
+                                                    arabicaddressname.value =
+                                                        useraddressview
+                                                            .userList
+                                                            .value
+                                                            .userAddress?[index]
+                                                            .address;
+                                                  } else {
+                                                    arabicaddressIndexId = null;
+                                                  }
+
+                                                  arabicaddressId =
+                                                      useraddressview
+                                                          .userList
+                                                          .value
+                                                          .userAddress?[index]
+                                                          .id
+                                                          .toString();
+                                                  arabicaddressname.value =
+                                                      useraddressview
+                                                          .userList
+                                                          .value
+                                                          .userAddress?[index]
+                                                          .address;
+                                                  arabicaddressIndexId =
+                                                      useraddressview
+                                                          .userList
+                                                          .value
+                                                          .userAddress?[index]
+                                                          .id
+                                                          .toString();
+                                                  print(arabicaddressIndexId);
+                                                  Get.offAll(arabic_TabScreen(
+                                                      index: 3));
+                                                },
+                                                child: Container(
+                                                  height: Get.height * .02,
+                                                  width: Get.width * .04,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: Color(0xffff8300),
+                                                    ),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: isSelectedList[index]
+                                                      ? Center(
+                                                          child: Icon(
+                                                          Icons.check,
+                                                          size: 10,
+                                                          weight:
+                                                              Checkbox.width,
+                                                        )
+                                                          //   ),
+                                                          // ),
+                                                          )
+                                                      : null,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         //          Padding(
                                         //   padding: EdgeInsets.only(left: 10.h),
                                         //   child: Row(

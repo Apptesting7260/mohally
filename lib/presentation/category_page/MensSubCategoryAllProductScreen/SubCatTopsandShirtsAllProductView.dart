@@ -162,52 +162,53 @@ class _SubCat_Mens_ShirtsViewState extends State<SubCat_Mens_ShirtsView> {
                               children: [
                                 CustomImageView(
                                   onTap: () {
-                                    submainCatId = homeView_controller
-                                        .userList
+                                    mainCatId = _productbycatid_controller
+                                        .ShirtandTops_userlist
                                         .value
-                                        .recommendedProduct?[index]
+                                        .productByCategory?[index]
                                         .mainCategoryId!
                                         .toString();
-                                    String? productId = homeView_controller
-                                        .userList
-                                        .value
-                                        .recommendedProduct?[index]
-                                        .id!
-                                        .toString();
+                                    String? productId =
+                                        _productbycatid_controller
+                                            .ShirtandTops_userlist
+                                            .value
+                                            .productByCategory?[index]
+                                            .id!
+                                            .toString();
 
                                     setState(() {
                                       Englishproductid = productId;
-                                      EnglishMainCatId = subMainCat;
+                                      EnglishMainCatId = mainCatId;
                                     });
                                     print("$Englishproductid==");
-                                    if (subMainCat == "153") {
+                                    if (mainCatId == "153") {
                                       Get.to(ShirtsandTopsSingleView());
                                       print(
-                                          "$subMainCat===========Mens Appearl main category id ");
-                                    } else if (subMainCat == "154") {
+                                          "$mainCatId===========Mens Appearl main category id ");
+                                    } else if (mainCatId == "154") {
                                       Get.to(SinglePageScreen_Bottoms());
-                                    } else if (subMainCat == "155") {
+                                    } else if (mainCatId == "155") {
                                       Get.to(SinglePageScreen_mens_Jacket());
-                                    } else if (subMainCat == "156") {
+                                    } else if (mainCatId == "156") {
                                       Get.to(
                                           SinglePageScreen_mens_activewear());
-                                    } else if (subMainCat == "157") {
+                                    } else if (mainCatId == "157") {
                                       Get.to(SinglePageScreen_Mens_Formals());
-                                    } else if (subMainCat == "174") {
+                                    } else if (mainCatId == "174") {
                                       Get.to(SinglePageScreen_Mens_Shoes());
-                                    } else if (subMainCat == "166") {
+                                    } else if (mainCatId == "166") {
                                       Get.to(
                                           SinglePageScreen_Electronics_Smartphones());
-                                    } else if (subMainCat == "170") {
+                                    } else if (mainCatId == "170") {
                                       Get.to(
                                           SinglePageScreen_Electronics_Laptops());
-                                    } else if (subMainCat == "171") {
+                                    } else if (mainCatId == "171") {
                                       Get.to(
                                           SinglePageScreen_Electronics_AudioHeadphones());
-                                    } else if (subMainCat == "172") {
+                                    } else if (mainCatId == "172") {
                                       Get.to(
                                           SinglePageScreen_Electronics_Camera());
-                                    } else if (subMainCat == "173") {
+                                    } else if (mainCatId == "173") {
                                       Get.to(
                                           SinglePageScreen_Electronics_wearable());
                                     } else {
@@ -8178,7 +8179,6 @@ class _SubCat_Mens_ShirtsViewState extends State<SubCat_Mens_ShirtsView> {
       );
     }
   }
-
 
   Widget _buildRowSize(BuildContext context) {
     return Align(

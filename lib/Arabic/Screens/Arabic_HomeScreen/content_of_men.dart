@@ -26,7 +26,7 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/view_models/controller/Home_controller.dart/HomeControllerPage3.dart';
+import 'package:mohally/view_models/controller/Home_controller.dart/HomeControllerPage2Controller.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 
@@ -35,14 +35,14 @@ String? colorId;
 String? color;
 String? size1;
 
-class content_of_women extends StatefulWidget {
-  const content_of_women({Key? key}) : super(key: key);
+class content_of_men extends StatefulWidget {
+  const content_of_men({Key? key}) : super(key: key);
 
   @override
-  State<content_of_women> createState() => _content_of_womenState();
+  State<content_of_men> createState() => _content_of_menState();
 }
 
-class _content_of_womenState extends State<content_of_women> {
+class _content_of_menState extends State<content_of_men> {
   SingleProductViewController productviewcontroller =
       SingleProductViewController();
   int selectedTabIndex = 0;
@@ -75,8 +75,8 @@ class _content_of_womenState extends State<content_of_women> {
     "assets/images/img_ellipse_1.png",
     "assets/images/img_ellipse_1.png",
   ];
-  ArabicHomeView_controllerpage3 homeView_controller =
-      ArabicHomeView_controllerpage3();
+  ArabicHomeView_controllerpage2 homeView_controller =
+      ArabicHomeView_controllerpage2();
   @override
   void initState() {
     super.initState();

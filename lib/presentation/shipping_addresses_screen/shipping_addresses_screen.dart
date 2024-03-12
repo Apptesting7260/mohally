@@ -4,6 +4,7 @@ import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/address_screen/address_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/edit_address.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/widgets/default_user_address_detail.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/view_models/controller/AddressViewController/address_view_controller.dart';
 import 'package:mohally/view_models/controller/PlaceOrderController/paceOrderController.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
@@ -359,6 +360,8 @@ class _Default_addressState extends State<Default_address> {
                                                                   .id
                                                                   .toString();
                                                           print(addressIndexId);
+                                                          // Get.offAll(TabScreen(
+                                                          //     index: 3));
                                                         },
                                                         child: Container(
                                                           height:

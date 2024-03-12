@@ -45,4 +45,5 @@ class AppUrl {
   static const String cartProductQtyUpdate =
       '${baseurl}cart-product-quantity-update';
   static const String placeorder = '${baseurl}order-save';
+  static const String orderstatus = '${baseurl}get-orders';
 }

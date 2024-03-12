@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/EnglishDeleteCartModel/English_deleteCartModel.dart';
@@ -11,7 +9,6 @@ String? deleteCartId;
 
 class DeleteCartCartController extends GetxController {
   final AuthRepository _api = AuthRepository();
-
   final rxRequestStatus = Status.LOADING.obs;
   final userList = EnglishDeleteCartModel().obs;
   RxString error = ''.obs;
@@ -20,7 +17,6 @@ class DeleteCartCartController extends GetxController {
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   RxList selectedCartIds = [].obs;
-
   void deleteCartApiHit(List ids) async {
     //   if (deleteCartId != null) {
     //     selectedCartIds.add(deleteCartId);
@@ -35,14 +31,12 @@ class DeleteCartCartController extends GetxController {
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
     var header = {'Authorization': "Bearer $token"};
-
     _api.deletecartApi(data, header).then((value) {
       print("Delete Cart successful");
       setRxRequestStatus(Status.COMPLETED);
-
       if (value.status == true) {
         print(value.message);
-        Get.offAll(() => TabScreen(index: 0));
+        Get.offAll(() => TabScreen(index: 3));
         setUserList(value);
       } else {
         print(value.message);

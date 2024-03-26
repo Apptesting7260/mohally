@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCatElectronics.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCatHomeandLivingModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCatHomeWomensModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCatMens.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCathealthAndwellness.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -19,15 +19,15 @@ class categorybyNameController extends GetxController {
   final userList = arabic_subcatMens().obs;
   final healthwellnss_userlist = ArabicSubCaHealthandWellnessModel().obs;
   final electronics_userlist = ArabicSubCatElectronicsModel().obs;
-  final home_living_userlist = ArabicSubCatHomeandLivingModel().obs;
+  final womens_userlist = ArabicSubCatWomensModel().obs;
   // final userList = Rx<dynamic>(null);
   void mensApparelModel(arabic_subcatMens value) => userList.value = value;
   void health_wellnessModel(ArabicSubCaHealthandWellnessModel value) =>
       healthwellnss_userlist.value = value;
   void electronics_model(ArabicSubCatElectronicsModel value) =>
       electronics_userlist.value = value;
-  void home_living_model(ArabicSubCatHomeandLivingModel value) =>
-      home_living_userlist.value = value;
+  void womens_model(ArabicSubCatWomensModel value) =>
+      womens_userlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -47,10 +47,9 @@ class categorybyNameController extends GetxController {
           return mensApparelModel(value);
         case "134":
           return electronics_model(value);
-        case "135":
-          return home_living_model(value);
-        case "136":
-          return health_wellnessModel(value);
+        case "175":
+          return womens_model(value);
+
         default:
           throw Exception('Unexpected condition');
       }

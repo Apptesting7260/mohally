@@ -39,17 +39,17 @@ class Utils {
             title: Text(title),
             content: Text(message),
             actions: <Widget>[
-              Container(
-                height: Get.height * .06,
-                width: Get.width * .3,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    color: Colors.white),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: Get.height * .06,
+                  width: Get.width * .3,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      color: Colors.white),
+                  child: Center(
                     child: Text(
                       'Ok',
                       style: TextStyle(

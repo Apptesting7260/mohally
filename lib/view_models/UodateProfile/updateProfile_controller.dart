@@ -35,18 +35,21 @@ class UpdateProfile_Controller extends GetxController {
       var request = http.MultipartRequest('POST', url);
       if (imgFile != null) {
         // Check if imgFile is not null
+        print("===imggg${imgFile}");
         var fileStream = http.ByteStream(imgFile!.openRead());
         var length = await imgFile!.length();
-        var multipartFile = http.MultipartFile('pro_img', fileStream, length,
+        var multipartFile = http.MultipartFile(
+            'new_pro_img', fileStream, length,
             filename: imgFile!.path.split('/').last);
         request.files.add(multipartFile);
+        print("==mul${multipartFile.filename}");
       }
 
       // Add other text fields to the request
       request.fields['first_name'] = firstNameController.value.text;
       request.fields['last_name'] = lastNameController.value.text;
       request.fields['phone'] = phoneController.value.text;
-      //request.fields['new_pro_img'] = imgFile.toString();
+      // request.fields['new_pro_img'] = imgFile.toString();
       request.headers['Authorization'] = "Bearer ${sp.getString("token")}";
 
       // Send the request and get the response
@@ -57,10 +60,12 @@ class UpdateProfile_Controller extends GetxController {
       print(responseBody);
       // Check the response status
       if (response.statusCode == 200) {
-        Utils2.snackBar('Success', 'Edit Successfully');
+        // Get.back();
         Get.off(MyAccountScreen());
+
+        Utils2.snackBar('Success', 'Edit Successfully');
       } else {
-        print('Failed to upload file. Status code: ${response.statusCode}');
+        Utils2.snackBar('Failed', '');
       }
     } catch (e) {
       print(e);

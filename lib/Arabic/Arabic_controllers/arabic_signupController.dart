@@ -52,14 +52,46 @@ class arabic_Signup_controller extends GetxController {
 
       if (value.message == "User SignUp Successfully") {
 //varificationemail = emailController.value.text;
-        Get.offAll(() => LoginScreen_arabic());
+        Get.offAll(() => arabic_TabScreen(index: 0));
       } else {
         Utils.snackBar(context, 'Failed', value.message.toString());
       }
+      saveData(
+        token: value.token.toString(),
+        message: value.message.toString(),
+        status: value.status.toString(),
+      );
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;
       Utils.snackBar(context, 'Failed', error.toString()); // error.toString()
     });
+  }
+
+  Future<void> saveData({
+    required String token,
+    required String message,
+    required String status,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('token', token);
+    prefs.setString('status', status);
+    prefs.setString('message', message);
+
+// similarly, save username and password if needed
+    print("Successfullly stored data in sp");
+  }
+
+// Function to retrieve data
+  Future<Map<String, dynamic>> retrieveData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return {
+      'token': prefs.getString('token'),
+      'status': prefs.getString('status'),
+      'message': prefs.getString('message'),
+// similarly, retrieve username and password if needed
+    };
   }
 }

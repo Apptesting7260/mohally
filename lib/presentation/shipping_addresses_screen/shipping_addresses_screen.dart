@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/address_screen/address_screen.dart';
+import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/edit_address.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/widgets/default_user_address_detail.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
@@ -216,6 +217,13 @@ class _Default_addressState extends State<Default_address> {
                                                                         .userAddress![
                                                                             index]
                                                                         .mobileNumber,
+                                                                'primary_address_status':
+                                                                    viewaddresscontroller
+                                                                        .userList
+                                                                        .value
+                                                                        .userAddress![
+                                                                            index]
+                                                                        .primaryAddressStatus
                                                                 // Add other fields as needed
                                                               });
 
@@ -438,7 +446,7 @@ class _Default_addressState extends State<Default_address> {
   Widget _buildSaveAddressButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        Get.off(() => AddressScreen());
+        Get.to(() => AddressScreen());
       },
       text: "Add New Address",
       margin: EdgeInsets.only(

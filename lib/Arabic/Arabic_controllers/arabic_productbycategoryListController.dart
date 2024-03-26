@@ -1,18 +1,19 @@
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_ElecsubcatPhoneModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatCameraModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatHeadphoneModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatLaptopModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatWearableModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabicMenssubcatProductView/arabic_menSubCatFormalsModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabicMenssubcatProductView/arabic_mensShoeSubCatModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabicMenssubcatProductView/arabic_menssubcatActivewearModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabicMenssubcatProductView/arabic_shirtSubCatModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabicMenssubcatProductView/arabic_subcatBoottomModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_MensSubcategoryProductView/arabic_mensSubcatJacketModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/ArabicSubCatWomensProductViewModel/arabicWomensSubCatDressProductView.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/ArabicSubCatWomensProductViewModel/arabicWomensSubCatTopsProductViewModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_ElecsubcatPhoneModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatCameraModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatHeadphoneModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatLaptopModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatWearableModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabicMenssubcatProductView/arabic_menSubCatFormalsModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabicMenssubcatProductView/arabic_mensShoeSubCatModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabicMenssubcatProductView/arabic_menssubcatActivewearModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabicMenssubcatProductView/arabic_shirtSubCatModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabicMenssubcatProductView/arabic_subcatBoottomModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/arabic_mensSubcatJacketModel.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryMensScreen.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/widgets/SubCategoriesMens.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +35,8 @@ class ProductsByCatIdListControllerarabic extends GetxController {
   final headphones_userlist = ArabicsubcatHeadphoneModel().obs;
   final camera_userlist = ArabicelecsubcatCameraModel().obs;
   final wearable_userlist = ArabicelecsubcatWearableModel().obs;
+  final womens_dressUserlist = ArabicWomensDressesProductViewModel().obs;
+  final womens_topUserlist = ArabicWomensTopsProductViewModel().obs;
   // final userList = Rx<dynamic>(null);
   void shirtandTopsModel(ArabicShirtsSubcatviewModel value) =>
       ShirtandTops_userlist.value = value;
@@ -57,6 +60,10 @@ class ProductsByCatIdListControllerarabic extends GetxController {
       camera_userlist.value = value;
   void wearableModel(ArabicelecsubcatWearableModel value) =>
       wearable_userlist.value = value;
+  void womensDressModel(ArabicWomensDressesProductViewModel value) =>
+      womens_dressUserlist.value = value;
+  void womenstopModel(ArabicWomensTopsProductViewModel value) =>
+      womens_topUserlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -95,6 +102,10 @@ class ProductsByCatIdListControllerarabic extends GetxController {
           return cameraModel(value);
         case "173":
           return wearableModel(value);
+        case "177":
+          return womenstopModel(value);
+        case "176":
+          return womensDressModel(value);
         default:
           throw Exception('Unexpected condition');
       }

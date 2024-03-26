@@ -48,7 +48,8 @@ class _DefaultAddressViewState extends State<DefaultAddressView> {
           setState(() {
             address1 =
                 "${placemark.name}, ${placemark.subLocality},${placemark.locality},  ";
-            address2 = "${placemark.postalCode},${placemark.administrativeArea},";
+            address2 =
+                "${placemark.postalCode},${placemark.administrativeArea},";
             address3 = "${placemark.country}";
             isLoading = false;
           });
@@ -80,92 +81,90 @@ class _DefaultAddressViewState extends State<DefaultAddressView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              decoration: AppDecoration.fillGray.copyWith(
-                color: Color(0xffFF8300),
-                borderRadius: BorderRadiusStyle.roundedBorder15,
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10.0),
+        decoration: AppDecoration.fillGray.copyWith(
+          color: Color(0xffFF8300),
+          borderRadius: BorderRadiusStyle.roundedBorder15,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 8.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [],
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 8.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                       
-                      ],
-                    ),
-                  ),
-                  
-                  SizedBox(height: 12.v),
-                  isLoading
-        ? Center(child: CircularProgressIndicator(color: Colors.white,))
-        : 
-                  Padding(
-                    padding: const EdgeInsets.only(left:8 ),
+            ),
+            SizedBox(height: 12.v),
+            isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ))
+                : Padding(
+                    padding: const EdgeInsets.only(left: 8),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Text(
-                            _controller.MyAccount.value.userDetails!.firstName
-                                .toString(),
-                            style: theme.textTheme.titleMedium?.copyWith(
-                                color: Colors.white),
-                          ),
                         Text(
-                      "${_controller.MyAccount.value.userDetails!.phone.toString()}",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontFamily: 'League Spartan',
-                      ),
+                          _controller.MyAccount.value.userDetails!.firstName
+                              .toString(),
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          "${_controller.MyAccount.value.userDetails!.phone.toString()}",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontFamily: 'League Spartan',
+                          ),
+                        ),
+                        Text(
+                          "$address1",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontFamily: 'League Spartan',
+                          ),
+                        ),
+                        Text(
+                          "$address2",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontFamily: 'League Spartan',
+                          ),
+                        ),
+                        Text(
+                          "$address3",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontFamily: 'League Spartan',
+                          ),
+                        ),
+                      ],
                     ),
-                      Text(
-                      "$address1",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontFamily: 'League Spartan',
-                      ),
-                    ),
-                    Text(
-                      "$address2",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontFamily: 'League Spartan',
-                      ),
-                    ),
-                    Text(
-                      "$address3",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontFamily: 'League Spartan',
-                      ),
-                    ),
-                    
-                    ],),
                   ),
-                
-                  SizedBox(height: 1.v),
-                  SizedBox(height: 10.v),
-                ],
-              ),
-            ),
-          );
+            SizedBox(height: 1.v),
+            SizedBox(height: 10.v),
+          ],
+        ),
+      ),
+    );
   }
 }

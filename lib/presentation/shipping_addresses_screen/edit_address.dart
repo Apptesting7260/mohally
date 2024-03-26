@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
@@ -55,6 +56,9 @@ class _EditAddressState extends State<EditAddress> {
           addressData['state'] ?? "";
       _editAddressController.zipcodeEditTextController1.value.text =
           addressData['zip_code'] ?? "";
+      _editAddressController.isAddressPrimary.value =
+          addressData['primary_address_status'] == 'true';
+
       // Add other fields as needed
     }
   }
@@ -430,10 +434,12 @@ class _EditAddressState extends State<EditAddress> {
             style: theme.textTheme.bodyLarge,
           ),
         ),
-        CustomSwitch(
-          value: isSelectedSwitch,
-          onChange: (value) {
-            isSelectedSwitch = value;
+        CupertinoSwitch(
+          value: _editAddressController.isAddressPrimary.value,
+          onChanged: (value) {
+            setState(() {
+              _editAddressController.isAddressPrimary.value = value;
+            });
           },
         ),
       ],

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../data/response/status.dart';
 
 class EnglishUpdateaddress_controller extends GetxController {
@@ -19,12 +18,15 @@ class EnglishUpdateaddress_controller extends GetxController {
   final countrycontroller = TextEditingController().obs;
   final zipcodeEditTextController1 = TextEditingController().obs;
   final group184EditTextController1 = TextEditingController().obs;
-  RxString addressid=''.obs;
+  var isAddressPrimary = false.obs;
+
+  RxString addressid = ''.obs;
 
   Future<void> Updateaddress_apihit() async {
     loading.value = true;
+
     Map data = {
-      'address_id':addressid.value,
+      'address_id': addressid.value,
       'user_name': nameEditTextController1.value.text,
       'address': addressEditTextController1.value.text,
       'city': cityEditTextController1.value.text,
@@ -32,17 +34,17 @@ class EnglishUpdateaddress_controller extends GetxController {
       'state': californiaEditTextController1.value.text,
       'zip_code': zipcodeEditTextController1.value.text,
       'mobile_number': group184EditTextController1.value.text,
-      'address_status': 'active',
-      'language_type':'Arabic'
+      'address_status': isAddressPrimary.value.toString(),
+      'language_type': 'English'
     };
-    
+
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
-     var header = {'Authorization': "Bearer $token"};
+    var header = {'Authorization': "Bearer $token"};
     print(data);
-      _api.arabic_editnewaddress(data,header).then((value) {
-       loading.value = false;
-        Get.back(result: true);
+    _api.arabic_editnewaddress(data, header).then((value) {
+      loading.value = false;
+      Get.back(result: true);
     }).onError((error, stackTrace) {
       loading.value = false;
       Utils2.snackBar('Retry', 'Try Again'); // error.toString()

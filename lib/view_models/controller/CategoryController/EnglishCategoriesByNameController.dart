@@ -2,9 +2,8 @@ import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/SubCategories/subcategories_electronicsModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_healthandwellnessModel.dart';
-import 'package:mohally/models/SubCategories/subcategories_homeandlivingModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_mensModel.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/home_page_one_page.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,18 +15,15 @@ class CategoriesByNameControllerEnglish extends GetxController {
   RxString error = ''.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   final userList = EnglishMensSubCategoryModel().obs;
-  final healthwellnss_userlist = SubHealthandWellnessModel().obs;
+  final Womens_userlist = EnglishSubCatWomensModel().obs;
   final electronics_userlist = SubElectronicsCategoryModel().obs;
-  final home_living_userlist = SubHomeAndLivingCategoryModel().obs;
-  // final userList = Rx<dynamic>(null);
   void mensApparelModel(EnglishMensSubCategoryModel value) =>
       userList.value = value;
-  void health_wellnessModel(SubHealthandWellnessModel value) =>
-      healthwellnss_userlist.value = value;
+  void WomensModel(EnglishSubCatWomensModel value) =>
+      Womens_userlist.value = value;
   void electronics_model(SubElectronicsCategoryModel value) =>
       electronics_userlist.value = value;
-  void home_living_model(SubHomeAndLivingCategoryModel value) =>
-      home_living_userlist.value = value;
+
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -48,10 +44,9 @@ class CategoriesByNameControllerEnglish extends GetxController {
           return mensApparelModel(value);
         case "134":
           return electronics_model(value);
-        case "135":
-          return home_living_model(value);
-        case "136":
-          return health_wellnessModel(value);
+        case "175":
+          return WomensModel(value);
+
         default:
           throw Exception('Unexpected condition');
       }

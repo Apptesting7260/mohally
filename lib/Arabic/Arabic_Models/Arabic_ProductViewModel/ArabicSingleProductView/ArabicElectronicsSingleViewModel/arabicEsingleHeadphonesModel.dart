@@ -141,23 +141,23 @@ class Item {
 class ProductCatgorey {
   ProductCatgorey({
     this.id,
-    this.categoryName,
+    this.aCategoryName,
     this.imageUrl,
   });
   var id;
-  var categoryName;
+  var aCategoryName;
   var imageUrl;
 
   ProductCatgorey.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    categoryName = json['a_category_name'];
+    aCategoryName = json['a_category_name'];
     imageUrl = json['image_url'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
-    _data['a_category_name'] = categoryName;
+    _data['a_category_name'] = aCategoryName;
     _data['image_url'] = imageUrl;
     return _data;
   }
@@ -185,48 +185,48 @@ class Details {
   Details({
     this.Color,
     this.ColorId,
-    this.Items,
-    this.ItemsId,
     this.Model,
     this.ModelId,
+    this.Items,
+    this.ItemsId,
+    this.sku,
+    this.skuId,
     this.totalQuantity,
     this.totalQuantityId,
     this.price,
     this.priceId,
-    this.sku,
-    this.skuId,
     this.productPrice,
     this.productPriceId,
   });
   var Color;
   var ColorId;
-  var Items;
-  var ItemsId;
   var Model;
   var ModelId;
+  var Items;
+  var ItemsId;
+  var sku;
+  var skuId;
   var totalQuantity;
   var totalQuantityId;
   var price;
   var priceId;
-  var sku;
-  var skuId;
   var productPrice;
   var productPriceId;
 
   Details.fromJson(Map<String, dynamic> json) {
-    Color = null;
-    ColorId = null;
+    Color = json['Color'];
+    ColorId = json['Color_id'];
+    Model = json['Model'];
+    ModelId = json['Model_id'];
     Items = null;
     ItemsId = null;
-    Model = null;
-    ModelId = null;
+    sku = json['sku'];
+    skuId = null;
     totalQuantity = json['total_quantity'];
     totalQuantityId = null;
     price = json['price'];
     priceId = null;
-    sku = null;
-    skuId = null;
-    productPrice = json['product_price'];
+    productPrice = null;
     productPriceId = null;
   }
 
@@ -234,16 +234,16 @@ class Details {
     final _data = <String, dynamic>{};
     _data['Color'] = Color;
     _data['Color_id'] = ColorId;
-    _data['Items'] = Items;
-    _data['Items_id'] = ItemsId;
     _data['Model'] = Model;
     _data['Model_id'] = ModelId;
+    _data['Items'] = Items;
+    _data['Items_id'] = ItemsId;
+    _data['sku'] = sku;
+    _data['sku_id'] = skuId;
     _data['total_quantity'] = totalQuantity;
     _data['total_quantity_id'] = totalQuantityId;
     _data['price'] = price;
     _data['price_id'] = priceId;
-    _data['sku'] = sku;
-    _data['sku_id'] = skuId;
     _data['product_price'] = productPrice;
     _data['product_price_id'] = productPriceId;
     return _data;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,55 +40,50 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   //   _formKey.currentState!.save();
   // }
 
-  final imgPicker = ImagePicker();
-  // void openCamera(abc) async {
-  //   var imgCamera = await imgPicker.pickImage(source: abc);
+  // final imgPicker = ImagePicker();
+
+  // void openCamera() async {
+  //   final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
   //   setState(() {
-  //     UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
+  //     if (pickedFile != null) {
+  //       //UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+  //     }
   //   });
   //   Navigator.of(context).pop();
   // }
 
-  // //open camera
-  // void openCameraa(abc) async {
-  //   var imgCamera = await imgPicker.pickImage(source: abc);
+  // // Open gallery method
+  // void openGallery() async {
+  //   final pickedFile =
+  //       await ImagePicker().getImage(source: ImageSource.gallery);
   //   setState(() {
-  //       UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
-  //     print("image------${ UpdateProfile_Controllerins.imgFile}");
+  //     if (pickedFile != null) {
+  //       //  UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+  //     }
   //   });
   //   Navigator.of(context).pop();
   // }
+  final picker = ImagePicker();
+  // File imgFile = File("");
+  Future getImage(ImageSource source) async {
+    final pickedFile = await picker.getImage(source: source);
 
-  void openCamera() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        //UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+        print("====file${UpdateProfile_Controllerins.imgFile}");
+      } else {
+        print('No image selected.');
       }
     });
-    Navigator.of(context).pop();
-  }
-
-  // Open gallery method
-  void openGallery() async {
-    final pickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        //  UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
-      }
-    });
-    Navigator.of(context).pop();
   }
 
   void initState() {
-    // if (MyAccountControllerins.MyAccount.value.userDetails != null) {
-    //   UpdateProfile_Controllerins.imgFile = MyAccountControllerins.MyAccount.value.userDetails!.imageUrl != null
-    //       ? File(MyAccountControllerins.MyAccount.value.userDetails!.imageUrl!)
-    //       : null;
     super.initState();
+    // UpdateProfile_Controllerins.imgFile =
+    //     MyAccountControllerins.MyAccount.value.userDetails!.imageUrl;
     UpdateProfile_Controllerins.firstNameController.value.text =
-        MyAccountControllerins.MyAccount.value.userDetails!.firstName ?? '';
+        MyAccountControllerins.MyAccount.value.userDetails?.firstName ?? '';
     UpdateProfile_Controllerins.lastNameController.value.text =
         MyAccountControllerins.MyAccount.value.userDetails!.lastName ?? '';
     UpdateProfile_Controllerins.emailController.value.text =
@@ -119,14 +116,32 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       Container(
                         height: height * .2,
                         width: width * .3,
-                        child: UpdateProfile_Controllerins.imgFile.toString() ==
-                                "null"
-                            ? CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage: NetworkImage(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                backgroundColor: Colors.transparent,
+                        child: UpdateProfile_Controllerins.imgFile == null
+                            ? Container(
+                                height: height * .2,
+                                width: width * .3,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffff8300),
+                                  // image: DecorationImage(
+
+                                  //     image: AssetImage(
+                                  //         'assets/images/editprofile.png' ,  ),
+                                  //         )
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    'assets/images/editprofile.png',
+                                    color: Colors.white,
+                                  ),
+                                ),
                               )
+                            // CircleAvatar(
+                            //     radius: 30.0,
+                            //     backgroundImage: NetworkImage(
+                            //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                            //     backgroundColor: Colors.transparent,
+                            //   )
                             : CircleAvatar(
                                 radius: 30.0,
                                 backgroundImage: FileImage(
@@ -152,7 +167,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                           child: Text("Camera"),
                                           onTap: () {
                                             // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            openCamera();
+                                            getImage(ImageSource.camera);
+                                            Get.back();
                                           },
                                         ),
                                         SizedBox(width: 80),
@@ -160,7 +176,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                           child: Text("Gallery"),
                                           onTap: () {
                                             // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            openGallery();
+                                            getImage(ImageSource.gallery);
+                                            Get.back();
                                           },
                                         ),
                                       ],
@@ -252,6 +269,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       },
       hintText: 'enter your Email',
       textInputType: TextInputType.emailAddress,
+      readOnly: true,
     );
   }
 
@@ -265,6 +283,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           return null;
         }
       },
+      readOnly: true,
       hintText: 'enter your number',
     );
   }
@@ -287,8 +306,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       leadingWidth: 60,
       leading: AppbarLeadingIconbuttonTwo(
         onTap: () {
-          Get.off(MyAccountScreen());
           Get.back();
+          // Get.back();
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(
@@ -305,16 +324,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   checkvalidate() async {
-    print("send");
     if (_formKey.currentState!.validate()) {
       UpdateProfile_Controllerins.loading.value = true;
-      print('apihit');
-      await UpdateProfile_Controllerins
-          .ProfileApiHit(); // Await the ProfileApiHit function
+      await UpdateProfile_Controllerins.ProfileApiHit();
       _formKey.currentState!.save();
+
       return;
-    } else {
-      print('data');
     }
   }
 }

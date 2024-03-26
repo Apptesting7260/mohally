@@ -64,27 +64,27 @@ class _arabicSubCat_Mens_activewearState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: Padding(
+      //     padding: const EdgeInsets.only(
+      //       top: 15,
+      //     ),
+      //     child: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Container(
+      //           width: Get.width * .07,
+      //           height: Get.height * .03,
+      //           decoration: BoxDecoration(
+      //               shape: BoxShape.circle,
+      //               color: const Color.fromARGB(90, 158, 158, 158)),
+      //           child: Icon(
+      //             Icons.arrow_back,
+      //           )),
+      //     ),
+      //   ),
+      // ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Obx(() {
@@ -194,41 +194,9 @@ class _arabicSubCat_Mens_activewearState
                                         });
                                         print("$productid==");
                                         print("$arabicMainCatId==");
-                                        if (arabicMainCatId == "153") {
-                                          Get.to(
-                                              ArabicMensSingleShirtViewScreen());
-                                          print(
-                                              "$arabicMainCatId===========Mens Appearl main category id ");
-                                        } else if (arabicMainCatId == "154") {
-                                          Get.to(
-                                              ArabicMensBottomSingleShViewScreen());
-                                        } else if (arabicMainCatId == "155") {
-                                          Get.to(
-                                              ArabicMensJacketSingleShViewScreen());
-                                        } else if (arabicMainCatId == "156") {
+                                        if (arabicMainCatId == "156") {
                                           Get.to(
                                               ArabicMensActivewearSingleShViewScreen());
-                                        } else if (arabicMainCatId == "157") {
-                                          Get.to(
-                                              ArabicMensFormalsSingleShViewScreen());
-                                        } else if (arabicMainCatId == "174") {
-                                          Get.to(
-                                              ArabicMensShoesSingleShViewScreen());
-                                        } else if (arabicMainCatId == "166") {
-                                          Get.to(
-                                              ArabicElectronicsPhoneSingleShViewScreen());
-                                        } else if (arabicMainCatId == "170") {
-                                          Get.to(
-                                              ArabicElectronicsLaptopsSingleShViewScreen());
-                                        } else if (arabicMainCatId == "171") {
-                                          Get.to(
-                                              ArabicElectronicsHeadphonesSingleShViewScreen());
-                                        } else if (arabicMainCatId == "172") {
-                                          Get.to(
-                                              ArabicElectronicsCameraSingleShViewScreen());
-                                        } else if (arabicMainCatId == "173") {
-                                          Get.to(
-                                              ArabicElectronicswearableSingleShViewScreen());
                                         } else {
                                           print('not found ');
                                         }
@@ -411,21 +379,16 @@ class _arabicSubCat_Mens_activewearState
                                       if (arabicMainCatId == "156") {
                                         productviewcontroller
                                             .Single_ProductApiHit();
-                                        Timer(Duration(seconds: 2), () {
-                                          if (productviewcontroller
-                                                  .rxRequestStatus.value ==
-                                              Status.COMPLETED) {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                builder: (context) {
-                                                  return _buildAddtocartmensActiveWear(
-                                                      context,
-                                                      arabicMainCatId,
-                                                      arproductId);
-                                                });
-                                          }
-                                        });
+
+                                        showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            builder: (context) {
+                                              return _buildAddtocartmensActiveWear(
+                                                  context,
+                                                  arabicMainCatId,
+                                                  arproductId);
+                                            });
                                       }
                                     },
                                     height: 30.adaptSize,
@@ -445,6 +408,27 @@ class _arabicSubCat_Mens_activewearState
                   );
           }
         }),
+      ),
+    );
+  }
+
+  Widget _buildRowSize(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Size", style: theme.textTheme.titleMedium),
+            Padding(
+              padding: EdgeInsets.only(bottom: 2.v),
+              child: Text("Size Guide",
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(color: Colors.grey)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -505,6 +489,14 @@ class _arabicSubCat_Mens_activewearState
                         CustomImageView(
                           onTap: () {
                             Get.back();
+                            setState(() {
+                              color = null;
+                              size1 = null;
+                              colorId = null;
+                              sizeid = null;
+                              selectedcolorIndex.value = -1;
+                              selectedSizeIndex.value = -1;
+                            });
                           },
                           imagePath: ImageConstant.imgMaskGroup24x24,
                           height: 24.adaptSize,
@@ -519,189 +511,407 @@ class _arabicSubCat_Mens_activewearState
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Obx(
-                            () => Padding(
+                      child: Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Container(
                                 height: Get.height * .4,
                                 width: Get.width,
-                                child: CustomImageView(
-                                  fit: BoxFit.cover,
-                                  imagePath: selectedImageUrl.value.isNotEmpty
-                                      ? selectedImageUrl.value
-                                      : "${productviewcontroller.activewear_userlist.value.productView!.imageUrl.toString()}",
-                                  height: 504.v,
-                                  width: Get.width,
-                                  alignment: Alignment.center,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  // Remove the physics property or set it to ScrollPhysics()
+                                  // physics: ScrollPhysics(),
+                                  itemCount: productviewcontroller
+                                          .activewear_userlist
+                                          .value
+                                          .productView
+                                          ?.galleryUrl
+                                          ?.length ??
+                                      0,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return CustomImageView(
+                                      fit: BoxFit.fill,
+                                      imagePath: selectedImageUrl
+                                              .value.isNotEmpty
+                                          ? selectedImageUrl.value
+                                          : "${productviewcontroller.activewear_userlist.value.productView?.galleryUrl?[index] ?? ''}",
+                                      height: 504.v,
+                                      width: Get.width,
+                                      alignment: Alignment.center,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 14.v),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                              "${productviewcontroller.activewear_userlist.value.productView?.title.toString()}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'League Spartan',
+                            SizedBox(height: 14.v),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                                "${productviewcontroller.activewear_userlist.value.productView?.title.toString()}",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'League Spartan',
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 12.v),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
-                              "${productviewcontroller.activewear_userlist.value.productView?.description.toString()}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'League Spartan',
+                            SizedBox(height: 12.v),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                // "NOBERO Men's Cotton Travel Solid Hooded Winter Sports Jacket",
+                                "${productviewcontroller.activewear_userlist.value.productView?.description.toString()}",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'League Spartan',
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 14.v),
-                          Container(
-                            height: Get.height * .1,
-                            child: ListView.builder(
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(left: 10.h),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].price}',
-                                                  style: CustomTextStyles
-                                                      .titleLargePrimary,
-                                                ),
-                                                TextSpan(
-                                                  text: " ",
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      // '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].productPrice}',
-                                                      " \$120",
-                                                  style: CustomTextStyles
-                                                      .titleMediumGray50001
-                                                      .copyWith(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                          SizedBox(width: Get.width * .02),
-                                          Container(
-                                            width: 63,
-                                            height: 16,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Color.fromARGB(
-                                                  36, 206, 117, 147),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "-20% off",
-                                                style: TextStyle(
-                                                  color: Color(0xffff8300),
-                                                  fontSize: 9,
-                                                  fontFamily: 'League Spartan',
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: Get.height * .1,
-                            child: ListView.builder(
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                color = productviewcontroller
-                                    .activewear_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details?[index]
-                                    .Color;
-                                if (color == null) {
-                                  return Text('');
-                                } else {
-                                  return Column(
-                                    children: [
-                                      // SizedBox(height: 11.v),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Row(
+                            SizedBox(height: 14.v),
+                            Container(
+                              height: Get.height * .1,
+                              child: ListView.builder(
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(left: 10.h),
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           children: [
                                             RichText(
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
-                                                    text: "Color: ",
-                                                    style: theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                      fontSize: 20,
-                                                    ),
+                                                    text:
+                                                        '${productviewcontroller.activewear_userlist.value.productView?.productDetails!.details?[index].price}',
+                                                    style: CustomTextStyles
+                                                        .titleLargePrimary,
                                                   ),
                                                   TextSpan(
-                                                    text: selectedcolored
-                                                            .value.isNotEmpty
-                                                        ? selectedcolored.value
-                                                        : productviewcontroller
-                                                            .activewear_userlist
-                                                            .value
-                                                            .productView
-                                                            ?.productDetails
-                                                            ?.details?[index]
-                                                            .Color,
-                                                    style: theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                      fontSize: 18,
-                                                      color: Colors.grey,
+                                                    text: " ",
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        // '${productviewcontroller.activewear_userlist.value.productView!.productDetails!.details?[index].productPrice}',
+                                                        " \$120",
+                                                    style: CustomTextStyles
+                                                        .titleMediumGray50001
+                                                        .copyWith(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                               textAlign: TextAlign.left,
+                                            ),
+                                            SizedBox(width: Get.width * .02),
+                                            Container(
+                                              width: 63,
+                                              height: 16,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                color: Color.fromARGB(
+                                                    36, 206, 117, 147),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "-20% off",
+                                                  style: TextStyle(
+                                                    color: Color(0xffff8300),
+                                                    fontSize: 9,
+                                                    fontFamily:
+                                                        'League Spartan',
+                                                  ),
+                                                ),
+                                              ),
                                             )
                                           ],
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Container(
+                              height: Get.height * .1,
+                              child: ListView.builder(
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  color = productviewcontroller
+                                      .activewear_userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details?[index]
+                                      .Color;
+                                  if (color == null) {
+                                    return Text('');
+                                  } else {
+                                    return Column(
+                                      children: [
+                                        // SizedBox(height: 11.v),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: Row(
+                                            children: [
+                                              RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: "لون: ",
+                                                      style: theme
+                                                          .textTheme.titleMedium
+                                                          ?.copyWith(
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: selectedcolored
+                                                              .value.isNotEmpty
+                                                          ? selectedcolored
+                                                              .value
+                                                          : productviewcontroller
+                                                              .activewear_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .Color,
+                                                      style: theme
+                                                          .textTheme.titleMedium
+                                                          ?.copyWith(
+                                                        fontSize: 18,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                textAlign: TextAlign.left,
+                                              )
+                                            ],
+                                          ),
+                                        ),
 
+                                        SizedBox(height: 11.v),
+
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 0, 10, 0),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: SizedBox(
+                                              height: 35.v,
+                                              child: ListView.separated(
+                                                padding:
+                                                    EdgeInsets.only(left: 20.h),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                separatorBuilder: (
+                                                  context,
+                                                  index,
+                                                ) {
+                                                  return SizedBox(
+                                                    width: 10.h,
+                                                  );
+                                                },
+                                                itemCount: productviewcontroller
+                                                        .activewear_userlist
+                                                        .value
+                                                        .productView
+                                                        ?.productDetails
+                                                        ?.details!
+                                                        .length ??
+                                                    0,
+                                                itemBuilder: (context, index) {
+                                                  String selectedcolorname =
+                                                      productviewcontroller
+                                                              .activewear_userlist
+                                                              .value
+                                                              .productView
+                                                              ?.productDetails
+                                                              ?.details?[index]
+                                                              .Color ??
+                                                          "";
+
+                                                  return SizedBox(
+                                                    width: 70.h,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        // setState(() {
+                                                        selectedcolored.value =
+                                                            selectedcolorname;
+                                                        selectedcolorIndex
+                                                            .value = index;
+                                                        colorId =
+                                                            productviewcontroller
+                                                                .activewear_userlist
+                                                                .value
+                                                                .productView
+                                                                ?.productDetails
+                                                                ?.details?[
+                                                                    index]
+                                                                .ColorId
+                                                                .toString();
+                                                        // selectedIndex = index;
+                                                        // selectedColor = selectedcolor;
+                                                        // });
+                                                        print(
+                                                            selectedcolorIndex);
+                                                      },
+                                                      child: Obx(
+                                                        () => Center(
+                                                          child: Container(
+                                                            width: 70.h,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: selectedcolorIndex
+                                                                          .value ==
+                                                                      index
+                                                                  ? Color(
+                                                                      0xffff8300)
+                                                                  : Color
+                                                                      .fromARGB(
+                                                                          111,
+                                                                          158,
+                                                                          158,
+                                                                          158),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20), // Adjust the border radius as needed
+                                                            ),
+                                                            padding: EdgeInsets.all(
+                                                                8), // Adjust the padding as needed
+                                                            child: Center(
+                                                              child: Text(
+                                                                '$selectedcolorname',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: selectedcolorIndex
+                                                                              .value ==
+                                                                          index
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                            SizedBox(height: Get.height * .04),
+                            Obx(
+                              () => Align(
+                                alignment: Alignment.center,
+                                child: SizedBox(
+                                  height: 60.v,
+                                  child: ListView.separated(
+                                    padding: EdgeInsets.only(
+                                      left: 20.h,
+                                      //right: 10.h,
+                                    ),
+                                    scrollDirection: Axis.horizontal,
+                                    separatorBuilder: (
+                                      context,
+                                      index,
+                                    ) {
+                                      return SizedBox(
+                                        width: 8.h,
+                                      );
+                                    },
+                                    itemCount: productviewcontroller
+                                            .activewear_userlist
+                                            .value
+                                            .productView
+                                            ?.galleryUrl
+                                            ?.length ??
+                                        0,
+                                    itemBuilder: (context, index) {
+                                      String imageUrl = productviewcontroller
+                                              .activewear_userlist
+                                              .value
+                                              .productView
+                                              ?.galleryUrl?[index] ??
+                                          '';
+                                      return GestureDetector(
+                                        onTap: () {
+                                          selectedImageUrl.value = imageUrl;
+                                          selectedImageIndex.value = index;
+                                          print(selectedImageIndex);
+                                        },
+                                        child: SizedBox(
+                                          width: 60.h,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: CustomImageView(
+                                              fit: BoxFit.cover,
+                                              imagePath: "$imageUrl",
+                                              height: 60.adaptSize,
+                                              width: 60.adaptSize,
+                                              radius: BorderRadius.circular(
+                                                6.h,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: Get.height * .15,
+                              child: ListView.builder(
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  size1 = productviewcontroller
+                                      .activewear_userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details?[index]
+                                      .Size;
+
+                                  if (size1 == null) {
+                                    return Text('');
+                                  }
+                                  return Column(
+                                    children: [
+                                      SizedBox(height: 27.v),
+                                      _buildRowSize(context),
                                       SizedBox(height: 11.v),
-
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 0, 10, 0),
@@ -730,50 +940,50 @@ class _arabicSubCat_Mens_activewearState
                                                       .length ??
                                                   0,
                                               itemBuilder: (context, index) {
-                                                String selectedcolorname =
+                                                String selectedsizename =
                                                     productviewcontroller
                                                             .activewear_userlist
                                                             .value
                                                             .productView
                                                             ?.productDetails
                                                             ?.details?[index]
-                                                            .Color ??
+                                                            .Size ??
                                                         "";
 
                                                 return SizedBox(
                                                   width: 70.h,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      // setState(() {
-                                                      selectedcolored.value =
-                                                          selectedcolorname;
-                                                      selectedcolorIndex.value =
+                                                      selectedSizeIndex.value =
                                                           index;
-                                                      colorId =
+                                                      sizeid =
                                                           productviewcontroller
                                                               .activewear_userlist
                                                               .value
                                                               .productView
                                                               ?.productDetails
                                                               ?.details?[index]
-                                                              .ColorId
+                                                              .SizeId
                                                               .toString();
-                                                      // selectedIndex = index;
-                                                      // selectedColor = selectedcolor;
-                                                      // });
-                                                      print(selectedcolorIndex);
+                                                      // print(selectedSizeIndex);
                                                     },
-                                                    child: Obx(
-                                                      () => Center(
-                                                        child: Container(
+                                                    child: Center(
+                                                      child: Obx(
+                                                        () => Container(
                                                           width: 70.h,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: selectedcolorIndex
+                                                            color: selectedSizeIndex
                                                                         .value ==
                                                                     index
-                                                                ? Colors.orange
-                                                                : Colors.grey,
+                                                                ? Color(
+                                                                    0xffff8300)
+                                                                : Color
+                                                                    .fromARGB(
+                                                                        111,
+                                                                        158,
+                                                                        158,
+                                                                        158),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -783,9 +993,9 @@ class _arabicSubCat_Mens_activewearState
                                                               8), // Adjust the padding as needed
                                                           child: Center(
                                                             child: Text(
-                                                              '$selectedcolorname',
+                                                              '$selectedsizename',
                                                               style: TextStyle(
-                                                                color: selectedcolorIndex
+                                                                color: selectedSizeIndex
                                                                             .value ==
                                                                         index
                                                                     ? Colors
@@ -799,6 +1009,7 @@ class _arabicSubCat_Mens_activewearState
                                                       ),
                                                     ),
                                                   ),
+                                                  //),
                                                 );
                                               },
                                             ),
@@ -807,350 +1018,261 @@ class _arabicSubCat_Mens_activewearState
                                       ),
                                     ],
                                   );
-                                }
-                              },
-                            ),
-                          ),
-                          Obx(
-                            () => Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 60.v,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: 20.h,
-                                    //right: 10.h,
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return SizedBox(
-                                      width: 8.h,
-                                    );
-                                  },
-                                  itemCount: productviewcontroller
-                                          .activewear_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    String imageUrl = productviewcontroller
-                                            .activewear_userlist
-                                            .value
-                                            .productView
-                                            ?.galleryUrl?[index] ??
-                                        '';
-                                    return GestureDetector(
-                                      onTap: () {
-                                        selectedImageUrl.value = imageUrl;
-                                        selectedImageIndex.value = index;
-                                        print(selectedImageIndex);
-                                      },
-                                      child: SizedBox(
-                                        width: 60.h,
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: CustomImageView(
-                                            fit: BoxFit.cover,
-                                            imagePath: "$imageUrl",
-                                            height: 60.adaptSize,
-                                            width: 60.adaptSize,
-                                            radius: BorderRadius.circular(
-                                              6.h,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                },
                               ),
                             ),
-                          ),
-                          Container(
-                            height: Get.height * .15,
-                            child: ListView.builder(
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                size1 = productviewcontroller
-                                    .activewear_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details?[index]
-                                    .Size;
-
-                                if (size1 == null) {
-                                  return Text('');
-                                }
-                                return Column(
-                                  children: [
-                                    SizedBox(height: 27.v),
-                                    _buildRowSize(context),
-                                    SizedBox(height: 11.v),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 10, 0),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: SizedBox(
-                                          height: 35.v,
-                                          child: ListView.separated(
-                                            padding:
-                                                EdgeInsets.only(left: 20.h),
-                                            scrollDirection: Axis.horizontal,
-                                            separatorBuilder: (
-                                              context,
-                                              index,
-                                            ) {
-                                              return SizedBox(
-                                                width: 10.h,
-                                              );
-                                            },
-                                            itemCount: productviewcontroller
+                            // Container(
+                            //   height: Get.height * .06,
+                            //   child: ListView.builder(
+                            //     physics: NeverScrollableScrollPhysics(),
+                            //     itemCount: 1,
+                            //     itemBuilder: (BuildContext context, int index) {
+                            //       if (color == null || size1 == null) {
+                            //         return Text('');
+                            //       } else {
+                            //         return Obx(
+                            //           () => InkWell(
+                            //             onTap: () {
+                            //               if (color != null && size1 != null) {
+                            //                 if (colorId == null) {
+                            //                   Utils.snackBar(context, 'Failed',
+                            //                       'Please Select Color');
+                            //                 } else if (sizeid == null) {
+                            //                   Utils.snackBar(context, 'Failed',
+                            //                       'Please Select Size');
+                            //                 } else {
+                            //                   arabicpid = productviewcontroller
+                            //                       .activewear_userlist
+                            //                       .value
+                            //                       .productView
+                            //                       ?.id
+                            //                       .toString();
+                            //                   arabicproductColor =
+                            //                       colorId.toString();
+                            //                   // quantity = counter;
+                            //                   arabicproductSize =
+                            //                       sizeid.toString();
+                            //                   _productpricechangebyattributecontroller
+                            //                       .ProductPriceChangeByAttribute(
+                            //                           context);
+                            //                 }
+                            //               }
+                            //             },
+                            //             child: Padding(
+                            //               padding: const EdgeInsets.fromLTRB(
+                            //                   110, 0, 110, 0),
+                            //               child: Center(
+                            //                 child: Container(
+                            //                   height: Get.height * .05,
+                            //                   decoration: BoxDecoration(
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(35),
+                            //                       border: Border.all(
+                            //                         color: Color(0xffff8300),
+                            //                         width: 2,
+                            //                       ),
+                            //                       color: Color(0xffff8300)),
+                            //                   child: _productpricechangebyattributecontroller
+                            //                               .loading.value ==
+                            //                           false
+                            //                       ? Center(
+                            //                           child: Text(
+                            //                             "Check Combination",
+                            //                             style: TextStyle(
+                            //                                 fontSize: 14,
+                            //                                 color:
+                            //                                     Colors.white),
+                            //                           ),
+                            //                         )
+                            //                       : Center(
+                            //                           child:
+                            //                               CircularProgressIndicator(
+                            //                           color: Colors.white,
+                            //                         )),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         );
+                            //       }
+                            //     },
+                            //   ),
+                            // ),
+                            SizedBox(
+                              height: Get.height * .04,
+                            ),
+                            Container(
+                              height: Get.height * .07,
+                              child: ListView.builder(
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Obx(
+                                    () => GestureDetector(
+                                      onTap: () {
+                                        if (color != null && size1 != null) {
+                                          if (colorId == null) {
+                                            Utils.snackBar(context, 'Failed',
+                                                'Please Select Color');
+                                          } else if (sizeid == null) {
+                                            Utils.snackBar(context, 'Failed',
+                                                'Please Select Size');
+                                          } else {
+                                            Arabiccartproductid =
+                                                productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.id
+                                                    .toString();
+                                            ArabicAddtocartColor =
+                                                colorId.toString();
+                                            ArabicAddtocartprice =
+                                                productviewcontroller
                                                     .activewear_userlist
                                                     .value
                                                     .productView
                                                     ?.productDetails
-                                                    ?.details!
-                                                    .length ??
-                                                0,
-                                            itemBuilder: (context, index) {
-                                              String selectedsizename =
-                                                  productviewcontroller
-                                                          .activewear_userlist
-                                                          .value
-                                                          .productView
-                                                          ?.productDetails
-                                                          ?.details?[index]
-                                                          .Size ??
-                                                      "";
-
-                                              return SizedBox(
-                                                width: 70.h,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    selectedSizeIndex.value =
-                                                        index;
-                                                    sizeid =
-                                                        productviewcontroller
-                                                            .activewear_userlist
-                                                            .value
-                                                            .productView
-                                                            ?.productDetails
-                                                            ?.details?[index]
-                                                            .SizeId
-                                                            .toString();
-                                                    // print(selectedSizeIndex);
-                                                  },
-                                                  child: Center(
-                                                    child: Obx(
-                                                      () => Container(
-                                                        width: 70.h,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: selectedSizeIndex
-                                                                      .value ==
-                                                                  index
-                                                              ? Colors.orange
-                                                              : Colors.grey,
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  20), // Adjust the border radius as needed
-                                                        ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$selectedsizename',
-                                                            style: TextStyle(
-                                                              color: selectedSizeIndex
-                                                                          .value ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    ?.details?[index]
+                                                    .price
+                                                    .toString();
+                                            ArabicAddtocartSize =
+                                                sizeid.toString();
+                                            arabic_addtocart_controller()
+                                                .addtocart_Apihit(context);
+                                            color = null;
+                                            size1 = null;
+                                            colorId = null;
+                                            sizeid = null;
+                                            selectedcolorIndex.value = -1;
+                                            selectedSizeIndex.value = -1;
+                                          }
+                                        } else if (size1 != null) {
+                                          if (sizeid == null) {
+                                            Utils.snackBar(context, 'Failed',
+                                                'Please Select Color');
+                                          } else {
+                                            Arabiccartproductid =
+                                                productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.id
+                                                    .toString();
+                                            ArabicAddtocartColor =
+                                                colorId.toString();
+                                            ArabicAddtocartprice =
+                                                productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details?[index]
+                                                    .price
+                                                    .toString();
+                                            ArabicAddtocartSize =
+                                                sizeid.toString();
+                                            arabic_addtocart_controller()
+                                                .addtocart_Apihit(context);
+                                            size1 = null;
+                                            sizeid = null;
+                                            selectedSizeIndex.value = -1;
+                                          }
+                                        } else if (color != null) {
+                                          if (colorId == null) {
+                                            Utils.snackBar(context, 'Failed',
+                                                'Please Select Color');
+                                          } else {
+                                            Arabiccartproductid =
+                                                productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.id
+                                                    .toString();
+                                            ArabicAddtocartColor =
+                                                colorId.toString();
+                                            ArabicAddtocartprice =
+                                                productviewcontroller
+                                                    .activewear_userlist
+                                                    .value
+                                                    .productView
+                                                    ?.productDetails
+                                                    ?.details?[index]
+                                                    .price
+                                                    .toString();
+                                            ArabicAddtocartSize =
+                                                sizeid.toString();
+                                            arabic_addtocart_controller()
+                                                .addtocart_Apihit(context);
+                                            color = null;
+                                            colorId = null;
+                                            selectedcolorIndex.value = -1;
+                                          }
+                                        } else {
+                                          Arabiccartproductid =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.id
+                                                  .toString();
+                                          ArabicAddtocartColor =
+                                              colorId.toString();
+                                          ArabicAddtocartprice =
+                                              productviewcontroller
+                                                  .activewear_userlist
+                                                  .value
+                                                  .productView
+                                                  ?.productDetails
+                                                  ?.details?[index]
+                                                  .price
+                                                  .toString();
+                                          ArabicAddtocartSize =
+                                              sizeid.toString();
+                                          arabic_addtocart_controller()
+                                              .addtocart_Apihit(context);
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            45, 0, 45, 0),
+                                        child: Container(
+                                          // width: Get.width * .4,
+                                          height: Get.height * .06,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              border: Border.all(
+                                                color: Color(0xffff8300),
+                                                width: 2,
+                                              ),
+                                              color: Color(0xffff8300)),
+                                          child: arabic_addtocart_controller()
+                                                      .loading
+                                                      .value ==
+                                                  false
+                                              ? Center(
+                                                  child: Text(
+                                                    "أضف إلى السلة",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white),
                                                   ),
-                                                ),
-                                                //),
-                                              );
-                                            },
-                                          ),
+                                                )
+                                              : Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                )),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                          Container(
-                            height: Get.height * .07,
-                            child: ListView.builder(
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Obx(
-                                  () => GestureDetector(
-                                    onTap: () {
-                                      if (color != null && size1 != null) {
-                                        if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please Select Color');
-                                        } else if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please Select Size');
-                                        } else {
-                                          Arabiccartproductid =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.id
-                                                  .toString();
-                                          ArabicAddtocartColor =
-                                              colorId.toString();
-                                          ArabicAddtocartprice =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.productDetails
-                                                  ?.details?[index]
-                                                  .price
-                                                  .toString();
-                                          ArabicAddtocartSize =
-                                              sizeid.toString();
-                                          arabic_addtocart_controller()
-                                              .addtocart_Apihit(context);
-                                        }
-                                      } else if (size1 != null) {
-                                        if (sizeid == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please Select Color');
-                                        } else {
-                                          Arabiccartproductid =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.id
-                                                  .toString();
-                                          ArabicAddtocartColor =
-                                              colorId.toString();
-                                          ArabicAddtocartprice =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.productDetails
-                                                  ?.details?[index]
-                                                  .price
-                                                  .toString();
-                                          ArabicAddtocartSize =
-                                              sizeid.toString();
-                                          arabic_addtocart_controller()
-                                              .addtocart_Apihit(context);
-                                        }
-                                      } else if (color != null) {
-                                        if (colorId == null) {
-                                          Utils.snackBar(context, 'Failed',
-                                              'Please Select Color');
-                                        } else {
-                                          Arabiccartproductid =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.id
-                                                  .toString();
-                                          ArabicAddtocartColor =
-                                              colorId.toString();
-                                          ArabicAddtocartprice =
-                                              productviewcontroller
-                                                  .activewear_userlist
-                                                  .value
-                                                  .productView
-                                                  ?.productDetails
-                                                  ?.details?[index]
-                                                  .price
-                                                  .toString();
-                                          ArabicAddtocartSize =
-                                              sizeid.toString();
-                                          arabic_addtocart_controller()
-                                              .addtocart_Apihit(context);
-                                        }
-                                      } else {
-                                        Arabiccartproductid =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        ArabicAddtocartColor =
-                                            colorId.toString();
-                                        ArabicAddtocartprice =
-                                            productviewcontroller
-                                                .activewear_userlist
-                                                .value
-                                                .productView
-                                                ?.productDetails
-                                                ?.details?[index]
-                                                .price
-                                                .toString();
-                                        ArabicAddtocartSize = sizeid.toString();
-                                        arabic_addtocart_controller()
-                                            .addtocart_Apihit(context);
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          45, 0, 45, 0),
-                                      child: Container(
-                                        // width: Get.width * .4,
-                                        height: Get.height * .06,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(35),
-                                            border: Border.all(
-                                              color: Colors.orange,
-                                              width: 2,
-                                            ),
-                                            color: Colors.orange),
-                                        child: arabic_addtocart_controller()
-                                                    .loading
-                                                    .value ==
-                                                false
-                                            ? Center(
-                                                child: Text(
-                                                  "أضف إلى السلة",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.white),
-                                                ),
-                                              )
-                                            : Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                color: Colors.white,
-                                              )),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -1161,26 +1283,5 @@ class _arabicSubCat_Mens_activewearState
         ),
       );
     }
-  }
-
-  Widget _buildRowSize(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Size", style: theme.textTheme.titleMedium),
-            Padding(
-              padding: EdgeInsets.only(bottom: 2.v),
-              child: Text("Size Guide",
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(color: Colors.grey)),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

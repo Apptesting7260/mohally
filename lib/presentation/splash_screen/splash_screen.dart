@@ -66,29 +66,30 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: theme.colorScheme.primary,
-      body: SizedBox(
-        height: mediaQueryData.size.height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomImageView(
-              imagePath: ImageConstant.imgImage2023110,
-              height: 375.adaptSize,
-              width: 375.adaptSize,
-              alignment: Alignment.center,
-            ),
-            CustomImageView(
-              imagePath: ImageConstant.imgImage2023111,
-              height: 375.adaptSize,
-              width: 375.adaptSize,
-              alignment: Alignment.center,
-            ),
-          ],
+      body: SafeArea(
+        child: SizedBox(
+          height: mediaQueryData.size.height,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomImageView(
+                imagePath: ImageConstant.imgImage2023110,
+                height: 375.adaptSize,
+                width: 375.adaptSize,
+                alignment: Alignment.center,
+              ),
+              CustomImageView(
+                imagePath: ImageConstant.imgImage2023111,
+                height: 375.adaptSize,
+                width: 375.adaptSize,
+                alignment: Alignment.center,
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

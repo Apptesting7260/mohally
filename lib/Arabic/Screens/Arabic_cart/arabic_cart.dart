@@ -18,19 +18,12 @@ import 'package:mohally/view_models/controller/ApplyCouponCodeController/applyco
 import 'package:mohally/view_models/controller/Cart/ProductQtyUpdateController/cartproductqtyUpdateController.dart';
 import 'package:mohally/view_models/controller/CouponController/couponcodeController.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/HomeController.dart';
-import 'package:mohally/view_models/controller/PlaceOrderController/paceOrderController.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_CategoryBynameController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEcameraview.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEheadphonesView.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicElaptopview.dart';
@@ -785,210 +778,196 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                   SizedBox(
                     width: Get.width * .04,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 14.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: Get.width * .4,
+                            // color: Colors.amberAccent,
+                            child: Text(
+                              "${_viewcartcontroller.userList.value.viewCart?[index].name.toString()}",
+                              style: theme.textTheme.titleSmall
+                                  ?.copyWith(fontSize: 10),
+                              maxLines: 2,
+                            ),
+                          ),
+                          SizedBox(width: Get.width * .1),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isSelectedList[index] = !isSelectedList[index];
+                              });
+                              // DeleteCartCartControlleri.selectedCartIds.addIf()
+
+                              if (!DeleteCartCartControlleri.selectedCartIds
+                                      .contains(_viewcartcontroller
+                                          .userList.value.viewCart?[index].id
+                                          .toString()) ||
+                                  !placeordercontroller.selectedCartIds
+                                      .contains(_viewcartcontroller
+                                          .userList.value.viewCart?[index].id
+                                          .toString())) {
+                                placeordercontroller.selectedCartIds.add(
+                                    _viewcartcontroller
+                                        .userList.value.viewCart?[index].id
+                                        .toString());
+                                DeleteCartCartControlleri.selectedCartIds.add(
+                                    _viewcartcontroller
+                                        .userList.value.viewCart?[index].id
+                                        .toString());
+                                print(
+                                    DeleteCartCartControlleri.selectedCartIds);
+                              } else {
+                                placeordercontroller.selectedCartIds.remove(
+                                    _viewcartcontroller
+                                        .userList.value.viewCart?[index].id
+                                        .toString());
+                                DeleteCartCartControlleri.selectedCartIds
+                                    .remove(_viewcartcontroller
+                                        .userList.value.viewCart?[index].id
+                                        .toString());
+                                print(
+                                    DeleteCartCartControlleri.selectedCartIds);
+                              }
+                              // // deleteCartId = _viewcartcontroller
+                              // //     .userList.value.viewCart?[index].id
+                              // //     .toString();
+
+                              // print(deleteCartId);
+                              // DeleteCartCartController().deleteCartApiHit();
+                            },
+                            child: Container(
+                              height: Get.height * .03,
+                              width: Get.width * .05,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Color(0xffff8300),
+                                ),
+                                color: Colors.white,
+                              ),
+                              child: isSelectedList[index]
+                                  ? Center(
+                                      child: Container(
+                                        height: Get.height * .02,
+                                        width: Get.width * .03,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color(0xffff8300),
+                                        ),
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      SizedBox(
+                        width: 221.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: Get.width * .4,
-                              // color: Colors.amberAccent,
-                              child: Text(
-                                "${_viewcartcontroller.userList.value.viewCart?[index].name.toString()}",
-                                style: theme.textTheme.titleSmall
-                                    ?.copyWith(fontSize: 10),
-                                maxLines: 2,
-                              ),
-                            ),
-                            SizedBox(width: Get.width * .1),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isSelectedList[index] =
-                                      !isSelectedList[index];
-                                });
-                                // DeleteCartCartControlleri.selectedCartIds.addIf()
-
-                                if (!DeleteCartCartControlleri.selectedCartIds
-                                        .contains(_viewcartcontroller
-                                            .userList.value.viewCart?[index].id
-                                            .toString()) ||
-                                    !placeordercontroller.selectedCartIds
-                                        .contains(_viewcartcontroller
-                                            .userList.value.viewCart?[index].id
-                                            .toString())) {
-                                  placeordercontroller.selectedCartIds.add(
-                                      _viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString());
-                                  DeleteCartCartControlleri.selectedCartIds.add(
-                                      _viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString());
-                                  print(DeleteCartCartControlleri
-                                      .selectedCartIds);
-                                } else {
-                                  placeordercontroller.selectedCartIds.remove(
-                                      _viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString());
-                                  DeleteCartCartControlleri.selectedCartIds
-                                      .remove(_viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString());
-                                  print(DeleteCartCartControlleri
-                                      .selectedCartIds);
-                                }
-                                // // deleteCartId = _viewcartcontroller
-                                // //     .userList.value.viewCart?[index].id
-                                // //     .toString();
-
-                                // print(deleteCartId);
-                                // DeleteCartCartController().deleteCartApiHit();
-                              },
-                              child: Container(
-                                height: Get.height * .03,
-                                width: Get.width * .05,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Color(0xffff8300),
-                                  ),
-                                  color: Colors.white,
-                                ),
-                                child: isSelectedList[index]
-                                    ? Center(
-                                        child: Container(
-                                          height: Get.height * .02,
-                                          width: Get.width * .03,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Color(0xffff8300),
-                                          ),
-                                        ),
-                                      )
-                                    : null,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: Get.height * .02,
-                        ),
-                        SizedBox(
-                          width: 221.h,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 1.v),
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            "${_viewcartcontroller.userList.value.viewCart?[index].price.toString()}",
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                      TextSpan(
-                                        text: " ",
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            "${_viewcartcontroller.userList.value.viewCart?[index].totalPrice.toString()}",
-                                        style: CustomTextStyles
-                                            .titleSmallGray50001
-                                            .copyWith(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                width: Get.width * .2,
-                                height: Get.height * .04,
-                                decoration: AppDecoration.fillPrimary.copyWith(
-                                  borderRadius:
-                                      BorderRadiusStyle.circleBorder30,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 1.v),
+                              child: RichText(
+                                text: TextSpan(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        CartId = _viewcartcontroller
-                                            .userList.value.viewCart![index].id
-                                            .toString();
-                                        // Decrement the counter when "-" is pressed
-                                        _viewcartcontroller
-                                            .userList
-                                            .value
-                                            .viewCart![index]
-                                            .totalQty
-                                            .value -= 1;
-                                        print(_viewcartcontroller.userList.value
-                                            .viewCart![index].totalQty.value);
-
-                                        CartProductQtyIncrementCartcontroller()
-                                            .addtocart_Apihit(
-                                                context, index, "decrement");
-                                      },
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 15,
-                                      ),
+                                    TextSpan(
+                                      text:
+                                          "${_viewcartcontroller.userList.value.viewCart?[index].price.toString()}",
+                                      style: theme.textTheme.titleMedium,
                                     ),
-                                    Center(
-                                        child: Text(
-                                      _viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value
-                                          .toString(),
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(color: Colors.white),
-                                    )),
-                                    GestureDetector(
-                                      onTap: () {
-                                        CartId = _viewcartcontroller
-                                            .userList.value.viewCart![index].id
-                                            .toString();
-                                        // Increment the counter when "+" is pressed
-                                        _viewcartcontroller
-                                            .userList
-                                            .value
-                                            .viewCart![index]
-                                            .totalQty
-                                            .value += 1;
-                                        print(_viewcartcontroller.userList.value
-                                            .viewCart![index].totalQty.value);
-
-                                        CartProductQtyIncrementCartcontroller()
-                                            .addtocart_Apihit(
-                                                context, index, "increment");
-                                      },
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 15,
+                                    TextSpan(
+                                      text: " ",
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          "${_viewcartcontroller.userList.value.viewCart?[index].totalPrice.toString()}",
+                                      style: CustomTextStyles
+                                          .titleSmallGray50001
+                                          .copyWith(
+                                        decoration: TextDecoration.lineThrough,
                                       ),
                                     ),
                                   ],
                                 ),
+                                textAlign: TextAlign.left,
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                            Container(
+                              width: Get.width * .2,
+                              height: Get.height * .04,
+                              decoration: AppDecoration.fillPrimary.copyWith(
+                                borderRadius: BorderRadiusStyle.circleBorder30,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      CartId = _viewcartcontroller
+                                          .userList.value.viewCart![index].id
+                                          .toString();
+                                      // Decrement the counter when "-" is pressed
+                                      _viewcartcontroller.userList.value
+                                          .viewCart![index].totalQty.value -= 1;
+                                      print(_viewcartcontroller.userList.value
+                                          .viewCart![index].totalQty.value);
+
+                                      CartProductQtyIncrementCartcontroller()
+                                          .QtyUpdate_Apihit(
+                                              context, index, "decrement");
+                                    },
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                  Center(
+                                      child: Text(
+                                    _viewcartcontroller.userList.value
+                                        .viewCart![index].totalQty.value
+                                        .toString(),
+                                    style: theme.textTheme.bodyMedium
+                                        ?.copyWith(color: Colors.white),
+                                  )),
+                                  GestureDetector(
+                                    onTap: () {
+                                      CartId = _viewcartcontroller
+                                          .userList.value.viewCart![index].id
+                                          .toString();
+                                      // Increment the counter when "+" is pressed
+                                      _viewcartcontroller.userList.value
+                                          .viewCart![index].totalQty.value += 1;
+                                      print(_viewcartcontroller.userList.value
+                                          .viewCart![index].totalQty.value);
+
+                                      CartProductQtyIncrementCartcontroller()
+                                          .QtyUpdate_Apihit(
+                                              context, index, "increment");
+                                    },
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),

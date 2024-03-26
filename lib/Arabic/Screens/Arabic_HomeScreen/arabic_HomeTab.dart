@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_CategoryBynameController.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryElectronics.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryMensScreen.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryWomensCategory.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_men.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_women.dart';
@@ -11,10 +15,8 @@ import 'package:mohally/Arabic/Screens/widgets/arabic_customSearchView.dart';
 import 'package:mohally/Arabic/Screens/widgets/custom_arabic_drawer.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
-import 'package:mohally/presentation/category_page/category_page.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
-import 'package:mohally/routes/app_routes.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_bottom_bar.dart';
 
@@ -94,34 +96,34 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
                   readOnly: true,
                   enableTap: true,
                 ),
-                Positioned(
-                    top: 20,
-                    right: 240,
-                    child: GestureDetector(
-                        onTap: () {
-                          File imgFile = File("");
+                // Positioned(
+                //     top: 20,
+                //     right: 240,
+                //     child: GestureDetector(
+                //         onTap: () {
+                //           File imgFile = File("");
 
-                          final imgPicker = ImagePicker();
-                          void openCamera(abc) async {
-                            var imgCamera =
-                                await imgPicker.pickImage(source: abc);
-                            setState(() {
-                              imgFile = File(imgCamera!.path);
-                            });
-                            Navigator.of(context).pop();
-                          }
+                //           final imgPicker = ImagePicker();
+                //           void openCamera(abc) async {
+                //             var imgCamera =
+                //                 await imgPicker.pickImage(source: abc);
+                //             setState(() {
+                //               imgFile = File(imgCamera!.path);
+                //             });
+                //             Navigator.of(context).pop();
+                //           }
 
-                          //open camera
-                          void openCameraa(abc) async {
-                            var imgCamera =
-                                await imgPicker.pickImage(source: abc);
-                            setState(() {
-                              imgFile = File(imgCamera!.path);
-                            });
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        child: Image.asset('assets/images/greycamera.png'))),
+                //           //open camera
+                //           void openCameraa(abc) async {
+                //             var imgCamera =
+                //                 await imgPicker.pickImage(source: abc);
+                //             setState(() {
+                //               imgFile = File(imgCamera!.path);
+                //             });
+                //             Navigator.of(context).pop();
+                //           }
+                //         },
+                //         child: Image.asset('assets/images/greycamera.png'))),
               ])),
               SizedBox(
                 height: Get.height * .04,
@@ -136,13 +138,47 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
                         selectedTabIndex; // Assuming you have a variable to track the selected tab index
 
                     return GestureDetector(
+                      // onTap: () {
+                      //   setState(() {
+                      //     selectedTabIndex = index;
+                      //   });
+                      //   _pageController.animateToPage(index,
+                      //       duration: Duration(milliseconds: 300),
+                      //       curve: Curves.easeInOut);
+                      // },
                       onTap: () {
                         setState(() {
+                          if (index == 1) {
+                            arabicMainCatId = "133";
+                          } else if (index == 2) {
+                            arabicMainCatId = "134";
+                          } else if (index == 3) {
+                            arabicMainCatId = "175";
+                          }
                           selectedTabIndex = index;
+                          arabicid = arabicMainCatId;
                         });
-                        _pageController.animateToPage(index,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeInOut);
+                        if (index == 1) {
+                          Get.to(arabic_subcategory_MensScreen());
+                          setState(() {
+                            selectedTabIndex = 0;
+                          });
+                        } else if (index == 2) {
+                          Get.to(arabic_subcategory_ElectronicsScreen());
+                          setState(() {
+                            selectedTabIndex = 0;
+                          });
+                        } else if (index == 3) {
+                          Get.to(arabic_subcategory_womensCategory());
+                          setState(() {
+                            selectedTabIndex = 0;
+                          });
+                        } else {
+                          // Navigate to the All screen
+                          _pageController.animateToPage(index,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut);
+                        }
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -192,10 +228,10 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
                   },
                   children: [
                     Container(child: content_of_all()),
-                    Container(child: content_of_men()),
-                    Container(child: content_of_women()),
-                    Container(child: content_of_men()),
-                    Container(child: content_of_men()),
+                    // Container(child: content_of_men()),
+                    // Container(child: content_of_women()),
+                    // Container(child: content_of_men()),
+                    // Container(child: content_of_men()),
                     // Add more pages as needed
                   ],
                 ),
@@ -239,22 +275,22 @@ class _arabic_HomeScreenState extends State<arabic_HomeScreen> {
   }
 
   ///Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.homePageOneTabContainerPage:
-        return Container();
-      case AppRoutes.categoryPage:
-        return CategoryPage();
-      case AppRoutes.wishlistPage:
-        return WishlistPage();
-      case AppRoutes.cartPage:
-        return CartPage();
-      case AppRoutes.myProfilePage:
-        return MyProfilePage();
-      default:
-        return DefaultWidget();
-    }
-  }
+  // Widget getCurrentPage(String currentRoute) {
+  //   switch (currentRoute) {
+  //     case AppRoutes.homePageOneTabContainerPage:
+  //       return Container();
+  //     case AppRoutes.categoryPage:
+  //       return CategoryPage();
+  //     case AppRoutes.wishlistPage:
+  //       return WishlistPage();
+  //     case AppRoutes.cartPage:
+  //       return CartPage();
+  //     case AppRoutes.myProfilePage:
+  //       return MyProfilePage();
+  //     default:
+  //       return DefaultWidget();
+  //   }
+  // }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(

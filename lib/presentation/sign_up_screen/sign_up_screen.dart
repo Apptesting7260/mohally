@@ -169,16 +169,107 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(height: 9.v),
                           _buildCountry(context),
                           SizedBox(height: 17.v),
-                          Text(
-                            'Mobile Number',
-                            style: theme.textTheme.titleMedium,
+                          // Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       'Mobile Number',
+                          //       style: theme.textTheme.titleMedium,
+                          //     ),
+                          //     CustomElevatedButton(
+                          //       height: 28.v,
+                          //       width: 56.h,
+                          //       text: "Edit",
+                          //       leftIcon: Container(
+                          //         margin: EdgeInsets.only(right: 4.h),
+                          //         child: CustomImageView(
+                          //           imagePath: ImageConstant.imgEditWhiteA70002,
+                          //           height: 12.adaptSize,
+                          //           width: 12.adaptSize,
+                          //         ),
+                          //       ),
+                          //       onPressed: () {
+                          //         signup_controller.phoneController.value
+                          //             .clear();
+                          //       },
+                          //       buttonTextStyle:
+                          //           CustomTextStyles.bodySmallWhiteA70002,
+                          //     ),
+                          //   ],
+                          // ),
+
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Mobile Number',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              CustomElevatedButton(
+                                height: 28.v,
+                                width: Get.width * .3,
+                                text: "Change Number",
+                                leftIcon: Container(
+                                  // margin: EdgeInsets.only(right: 4.h),
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.imgEditWhiteA70002,
+                                    height: 12.adaptSize,
+                                    width: 20.adaptSize,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // Clear the phone controller
+                                  signup_controller.phoneController.value
+                                      .clear();
+                                  // Reset verification status
+                                  verifyphone.value = false;
+                                  // Update the state to reflect changes
+                                  setState(() {});
+                                },
+                                buttonTextStyle:
+                                    CustomTextStyles.bodySmallWhiteA70002,
+                              ),
+                            ],
                           ),
+
                           SizedBox(height: 9.v),
                           _buildPhoneField(context),
                           SizedBox(height: 17.v),
-                          Text(
-                            'Email',
-                            style: theme.textTheme.titleMedium,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Email',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              CustomElevatedButton(
+                                height: 28.v,
+                                width: Get.width * .3,
+                                text: "Change Email",
+                                leftIcon: Container(
+                                  // margin: EdgeInsets.only(right: 4.h),
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.imgEditWhiteA70002,
+                                    height: 12.adaptSize,
+                                    width: 20.adaptSize,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // Clear the phone controller
+                                  signup_controller.emailController.value
+                                      .clear();
+                                  // Reset verification status
+                                  verifyemail.value = false;
+                                  // Update the state to reflect changes
+                                  setState(() {});
+                                },
+                                buttonTextStyle:
+                                    CustomTextStyles.bodySmallWhiteA70002,
+                              ),
+                            ],
                           ),
                           SizedBox(height: 9.v),
                           _buildEmailField(context),
@@ -270,6 +361,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       controller: signup_controller.emailController.value,
       hintText: 'Enter your email address',
       textInputType: TextInputType.emailAddress,
+      enabled: !verifyemail.value,
       suffix: Padding(
         padding: const EdgeInsets.only(top: 17, left: 10),
         child: GestureDetector(
@@ -695,11 +787,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onChanged: (value) {
         if (value!.isEmpty) {
           verifyphone.value = false;
-        } else {
-          if (value.length > 10) {
-            Utils.snackBar(
-                context, 'Error', 'Phone number must only be 10 digits');
-          }
         }
         return null;
       },
@@ -711,7 +798,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       controller: signup_controller.phoneController.value,
-      hintText: 'Enter your  mobile number',
+      hintText: 'Enter your mobile number',
+      maxLength: 10, // Added maxLength property
+      enabled: !verifyphone
+          .value, // Make the field enabled only if phone is not verified
       suffix: Padding(
         padding: const EdgeInsets.only(top: 15, left: 10),
         child: GestureDetector(
@@ -724,8 +814,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Utils.snackBar(context, 'Failed', 'Please enter mobile number');
               } else if (phoneNumber.length < 10) {
                 Utils.snackBar(
-                    context, 'Failed', 'Please enter a valid Mobile Number');
+                    context, 'Failed', 'Please Enter Correct mobile number');
               }
+
               if (signup_controller.phoneController.value.text.isNotEmpty &&
                   signup_controller.phoneController.value.text.length == 10) {
                 userVerify_controller.UserVerify_apihit(
@@ -775,23 +866,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              // GestureDetector(
-                              //     onTap: () {
-                              //       // Clear the PIN input field
-                              //       verifyemailOTP_controller
-                              //           .pinController.value
-                              //           .clear();
-                              //       Future.delayed(Duration(seconds: 1), () {
-                              //         Utils.snackBar(context, 'Success',
-                              //             'OTP Resent Successfully');
-                              //       });
-                              //     },
-                              //     child: Text('Resend Otp',
-                              //         style: TextStyle(
-                              //             color: Colors.black,
-                              //             fontWeight: FontWeight.w600,
-                              //             fontSize: 14))),
-
                               GestureDetector(
                                 onTap: () {
                                   verifyemailOTP_controller.pinController.value

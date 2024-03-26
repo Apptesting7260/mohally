@@ -39,7 +39,8 @@
 //           padding: const EdgeInsets.only(
 //             top: 15,
 //           ),
-//           child: GestureDetector(
+//           child:
+// GestureDetector(
 //             onTap: () {
 //               Get.back();
 //             },

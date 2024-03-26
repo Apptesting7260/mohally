@@ -1,14 +1,30 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
+import 'package:mohally/view_models/controller/EnglishSearchController/EnglishsearchController.dart';
+import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../search_screen/widgets/vectorchipview_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/widgets/custom_search_view.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/AudioSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/CameraSingleviewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/LaptopsSingleviewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/SmartPhonesSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/WearableSingleviewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ActivewearSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/Bottoms_single_view.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/JacketandOutwearSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/MensShoesSingleviewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/SuitsandFormalsSingleVoewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
+import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
+import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensTopsSingleViewScreen.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key})
@@ -21,15 +37,16 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  //SearchProductByName_Controller _searchProductByName_Controller =SearchProductByName_Controller();
+  TextEditingController searchController = TextEditingController();
+  EnglishSearchController _searchcontroller = EnglishSearchController();
 
   FocusNode _searchFocusNode = FocusNode();
   @override
   void initState() {
     super.initState();
-    _loadSearchHistory();
-    // _searchProductByName_Controller.Search_Product_By_Name_ApiHit();
-    _searchFocusNode = FocusNode();
+    // _loadSearchHistory();
+    _searchcontroller.searchProducts("");
+    // _searchFocusNode = FocusNode();
   }
 
   void _loadSearchHistory() async {
@@ -65,160 +82,238 @@ class _SearchScreenState extends State<SearchScreen> {
     Navigator.of(context).pop();
   }
 
-  TextEditingController searchController = TextEditingController();
+  // TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: _buildAppBar(context),
-            body:
-                //   Obx((){
-                //       if (
-                //   //searchcategories_controller.rxRequestStatus.value == Status.LOADING &&
-                //   _searchProductByName_Controller.rxRequestStatus.value==Status.LOADING) {
-                //   return const Scaffold(
-                //     body: Center(child: CircularProgressIndicator()),
-                //   );
-                // }  else {
-                //    return
-                Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.h,
-                vertical: 25.v,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Stack(
-                      children: [
-                        CustomSearchView(
-                          controller: searchController,
-                          readOnly: false,
-                          enableTap: false,
-                          hintText: "Search Category",
-                          onFieldSubmitted: (query) => _handleSearch(query),
-                          focusNode: _searchFocusNode,
-                        ),
-                        Positioned(
-                            top: 20,
-                            left: 240,
-                            child: GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Color(0xFFFF8300),
-                                          title: Text(
-                                            "Choose",
-                                            style: TextStyle(
-                                                fontFamily: 'League Spartan',
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          content: Row(
-                                            children: [
-                                              GestureDetector(
-                                                child: Text(
-                                                  "Camera",
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'League Spartan',
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                                onTap: () {
-                                                  openCameraa(
-                                                      ImageSource.camera);
-                                                },
-                                              ),
-                                              SizedBox(width: 80),
-                                              GestureDetector(
-                                                child: Text("Gallery",
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            'League Spartan',
-                                                        color: Colors.white,
-                                                        fontSize: 18)),
-                                                onTap: () {
-                                                  openCameraa(
-                                                      ImageSource.gallery);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
-                                child: Image.asset(
-                                    'assets/images/greycamera.png'))),
-                      ],
+    return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                  width: Get.width * .06,
+                  height: Get.height * .02,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(90, 158, 158, 158)),
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back,
+                    ),
+                  )),
+            ),
+          ),
+          title: SizedBox(
+            width: Get.width * .9,
+            child: TextFormField(
+              style: CustomTextStyles.bodyLargeOnError_1,
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: "Search",
+                hintStyle: CustomTextStyles.bodyLargeOnError_1,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(
+                    15.h,
+                  ),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                prefixIconConstraints: BoxConstraints(
+                  maxHeight: 50.v,
+                ),
+                suffixIcon: Container(
+                  padding: EdgeInsets.all(15.h),
+                  margin: EdgeInsets.only(
+                    left: 30.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(
+                        55.h,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 26.v),
-                  _buildRecentSearchedRow(context),
-                  SizedBox(height: 29.v),
-                  Text(
-                    "Popular right now",
-                    style: CustomTextStyles.titleMedium16,
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgSearchWhiteA70002,
+                    height: 30.adaptSize,
+                    width: 20.adaptSize,
                   ),
-
-//                   _searchProductByName_Controller.userList.value.products == null ||
-//             _searchProductByName_Controller.userList.value.products!.isEmpty
-//                                 ? Center(child:  Text('Error: ${_searchProductByName_Controller.error.value}'))
-//                                 :  Container(
-//                                    height: Get.height * .2,
-//  // height: Get.height *.4,
-//   child: ListView.builder(
-//                                     shrinkWrap: true,
-//                                     scrollDirection: Axis.horizontal,
-//                                     itemCount:_searchProductByName_Controller.userList.value.products?.length ?? 0,
-//                                     itemBuilder: (context, index) {
-//       return Column(
-//                                           crossAxisAlignment:
-//                                               CrossAxisAlignment.start,
-//                                           children: [
-//                                             ClipRRect(
-//                                               borderRadius:
-//                                                   BorderRadius.circular(38.0),
-//                                               child: Image.network(
-//                                                 "${_searchProductByName_Controller.userList.value.products?[index].imageUrl.toString()}",
-//                                                 height: 68,
-//                                                 width: 68,
-//                                                 fit: BoxFit.cover,
-//                                               ),
-//                                             ),
-//                                             SizedBox(height: 5.v),
-//                                             Align(
-//                                               alignment: Alignment.center,
-//                                               child: Text(
-//                                                 "${_searchProductByName_Controller.userList.value.products?[index].aTitle.toString()}",
-//                                                 style:
-//                                                 TextStyle(color: Color(0xFF272727, ),
-// fontSize: 8,
-// fontFamily: 'Almarai',
-
-// fontWeight: FontWeight.w500,), maxLines: 3,
-//                                                 // theme.textTheme.bodySmall,
-//                                                 // overflow: TextOverflow.ellipsis,
-//                                                 // maxLines: 1,
-//                                               ),
-//                                             )
-//                                           ],
-//                                         );
-//                                       },
-//   )),
-                  _buildVectorChipView(context),
-                  SizedBox(height: 5.v),
-                ],
+                ),
+                suffixIconConstraints: BoxConstraints(
+                  maxHeight: 60.v,
+                ),
+                isDense: true,
+                contentPadding: EdgeInsets.only(
+                  left: 16.h,
+                  top: 17.v,
+                  bottom: 17.v,
+                ),
+                fillColor: appTheme.gray100,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.h),
+                  borderSide: BorderSide(
+                    color: appTheme.gray300,
+                    width: 1,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.h),
+                  borderSide: BorderSide(
+                    color: appTheme.gray300,
+                    width: 1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.h),
+                  borderSide: BorderSide(
+                    color: appTheme.gray300,
+                    width: 1,
+                  ),
+                ),
               ),
-            )));
+              onChanged: (value) {
+                _searchcontroller.searchProducts(value);
+              },
+            ),
+          )),
+      body: SafeArea(
+        child: Obx(() {
+          if (_searchcontroller.loading.value) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (_searchcontroller.error.value.isNotEmpty) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/error2.png',
+                ),
+                Text(
+                  "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                      color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
+                ),
+              ],
+            ));
+          } else if (_searchcontroller.products.value.products!.isEmpty) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/nosearch.png',
+                  height: Get.height * .1,
+                  width: Get.width * .3,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Text(
+                      'Ooops! We couldn\'t find any products that match your search criteria.',
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Almarai',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ListView.builder(
+                itemCount: _searchcontroller.products.value.products!.length,
+                itemBuilder: (context, index) {
+                  final product =
+                      _searchcontroller.products.value.products![index];
+                  return ListTile(
+                    title: Text(product.title),
+                    subtitle: Text('Price: ${product.price.toString()}'),
+                    leading: GestureDetector(
+                      child: Image.network(product.imageUrl),
+                      onTap: () {
+                        mainCatId = _searchcontroller
+                            .products.value.products?[index].mainCategoryId!
+                            .toString();
+                        String? productId = _searchcontroller
+                            .products.value.products?[index].id!
+                            .toString();
+
+                        setState(() {
+                          Englishproductid = productId;
+                          EnglishMainCatId = mainCatId;
+                        });
+                        print("$Englishproductid==");
+                        if (mainCatId == "153") {
+                          Get.to(ShirtsandTopsSingleView());
+                          print(
+                              "$mainCatId===========Mens Appearl main category id ");
+                        } else if (mainCatId == "154") {
+                          Get.to(SinglePageScreen_Bottoms());
+                        } else if (mainCatId == "155") {
+                          Get.to(SinglePageScreen_mens_Jacket());
+                        } else if (mainCatId == "156") {
+                          Get.to(SinglePageScreen_mens_activewear());
+                        } else if (mainCatId == "157") {
+                          Get.to(SinglePageScreen_Mens_Formals());
+                        } else if (mainCatId == "174") {
+                          Get.to(SinglePageScreen_Mens_Shoes());
+                        } else if (mainCatId == "166") {
+                          Get.to(SinglePageScreen_Electronics_Smartphones());
+                        } else if (mainCatId == "170") {
+                          Get.to(SinglePageScreen_Electronics_Laptops());
+                        } else if (mainCatId == "171") {
+                          Get.to(
+                              SinglePageScreen_Electronics_AudioHeadphones());
+                        } else if (mainCatId == "172") {
+                          Get.to(SinglePageScreen_Electronics_Camera());
+                        } else if (mainCatId == "173") {
+                          Get.to(SinglePageScreen_Electronics_wearable());
+                        } else if (mainCatId == "176") {
+                          Get.to(Womens_Dress_SingleView());
+                        } else if (mainCatId == "177") {
+                          Get.to(Womens_Tops_SingleView());
+                        } else {
+                          print('not found ');
+                        }
+                      },
+                    ),
+                    trailing:
+                        // Text(
+                        //   "${_searchcontroller.products.value.products?[index].averageRating.toString()}",
+                        // ),
+                        CustomRatingBar(
+                      ignoreGestures: true,
+                      initialRating: _searchcontroller
+                          .products.value.products?[index].averageRating
+                          ?.toDouble(),
+                    ),
+                    // Add more details or customize the UI as needed
+                  );
+                },
+              ),
+            );
+          }
+        }),
+      ),
+    );
   }
 
   //     ),

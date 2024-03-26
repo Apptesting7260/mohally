@@ -3,7 +3,6 @@ import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/LaptopsModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/WearableModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/cameraModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/electronics_single_view_model.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/headPhones.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/smartphonesModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ActiveWearModel.dart';

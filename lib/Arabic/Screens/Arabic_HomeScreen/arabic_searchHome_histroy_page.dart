@@ -2,12 +2,29 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_searchCategories_Controller.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabicSearchController.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
-import 'package:mohally/Arabic/Screens/widgets/arabic_customSearchView.dart';
+import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/search_screen/widgets/vectorchipview_item_widget.dart';
+import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
+import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEcameraview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEheadphonesView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicElaptopview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEphoneSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicElectronicsSingleView/arabicEwearableView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMBootsSingleViewScreen.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMBottomSingleview.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMFormalSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMJacketSingleView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMShirtSingleViewScreen.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMactivewearView.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicWomensSingleViewScreens/arabicWomenDressSingleViewScreen.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicWomensSingleViewScreens/arabicWomensTopsSingleViewScreen.dart';
 
 class SearchHistoryArabic extends StatefulWidget {
   const SearchHistoryArabic({Key? key}) : super(key: key);
@@ -17,10 +34,6 @@ class SearchHistoryArabic extends StatefulWidget {
 }
 
 class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
-  SearchCategories_Controller searchcategories_controller =
-      SearchCategories_Controller();
-  // SearchProductByName_Controller _searchProductByName_Controller =
-  //     SearchProductByName_Controller();
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
@@ -42,15 +55,8 @@ class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
   }
 
   FocusNode _searchFocusNode = FocusNode();
+  ArabicSearchController _searchcontroller = ArabicSearchController();
   @override
-  void initState() {
-    super.initState();
-    //searchcategories_controller.Search_Categories();
-    // _searchProductByName_Controller.Search_Product_By_Name_ApiHit();
-    _loadSearchHistory();
-    _searchFocusNode = FocusNode();
-  }
-
   void _loadSearchHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -65,285 +71,307 @@ class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
 
   TextEditingController _searchController = TextEditingController();
   Set<String> searchHistory = {};
+  String _typedText = '';
+
+  void _onKeyPressed(String keyPressed) {
+    setState(() {
+      _typedText += keyPressed;
+    });
+  }
+
+  TextEditingController textEditingController = TextEditingController();
+  bool showKeyboard = false;
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    _searchcontroller.searchProducts("");
+    // listen to focus changes
+    focusNode.addListener(() {
+      if (focusNode.hasFocus == false && showKeyboard == false) {
+        setState(() {
+          showKeyboard = false;
+        });
+      }
+    });
+  }
+
+  void setFocus() {
+    FocusScope.of(context).requestFocus(focusNode);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // return Obx(() {
-    //   if (
-    //       //searchcategories_controller.rxRequestStatus.value == Status.LOADING &&
-    //       _searchProductByName_Controller.rxRequestStatus.value ==
-    //           Status.LOADING) {
-    //     return const Scaffold(
-    //       body: Center(child: CircularProgressIndicator()),
-    //     );
-    //   } else {
-    //     return
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "يبحث",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Almarai',
-          ),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          // title: GestureDetector(
+          //   onTap: () {
+          //     Get.back();
+          //   },
+          //   child: Container(
+          //       width: Get.width * .07,
+          //       height: Get.height * .03,
+          //       decoration: BoxDecoration(
+          //           shape: BoxShape.circle,
+          //           color: const Color.fromARGB(90, 158, 158, 158)),
+          //       child: Center(
+          //         child: Icon(
+          //           Icons.arrow_back,
+          //         ),
+          //       )),
+          // ),
+          leading: GestureDetector(
             onTap: () {
               Get.back();
             },
             child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
+                width: Get.width * .06,
+                height: Get.height * .02,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
+                child: Center(
+                  child: Icon(
+                    Icons.arrow_back,
+                  ),
                 )),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: Get.height * 0.04),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Center(
-                    child: Stack(children: [
-                  CustomSearchView_arabic(
-                    controller: _searchController,
-                    hintText: 'يبحث',
-                    hintStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey),
-                    readOnly: false,
-                    enableTap: false,
-                    onFieldSubmitted: (query) => _handleSearch(query),
-                    focusNode: _searchFocusNode,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                focusNode: focusNode,
+                keyboardType: TextInputType.multiline,
+                controller: textEditingController,
+                textDirection: TextDirection.rtl,
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: "يبحث",
+                  hintStyle: CustomTextStyles.bodyLargeOnError_1,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(right: 15),
+
+                    //  Icon(
+                    //   Icons.search,
+                    //   color: Colors.grey.shade600,
+                    // ),
                   ),
-                  Positioned(
-                      top: 20,
-                      right: 240,
-                      child: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: AlertDialog(
-                                      backgroundColor: Color(0xFFFF8300),
-                                      title: Text(
-                                        "يختار",
-                                        style: TextStyle(
-                                            fontFamily: 'Almarai',
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      content: Row(
-                                        children: [
-                                          GestureDetector(
-                                            child: Text(
-                                              "آلة تصوير",
-                                              style: TextStyle(
-                                                  fontFamily: 'Almarai',
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            onTap: () {
-                                              openCameraa(ImageSource.camera);
-                                            },
-                                          ),
-                                          SizedBox(width: 80),
-                                          GestureDetector(
-                                            child: Text("صالة عرض",
-                                                style: TextStyle(
-                                                    fontFamily: 'Almarai',
-                                                    color: Colors.white,
-                                                    fontSize: 16)),
-                                            onTap: () {
-                                              openCameraa(ImageSource.gallery);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
-                          child: Image.asset('assets/images/greycamera.png'))),
-                ])),
-              ),
-              SizedBox(height: Get.height * 0.02),
-              _buildSearchHistory(),
-              SizedBox(height: 29.v),
-//                   _searchProductByName_Controller.userList.value.products ==
-//                               null ||
-//                           _searchProductByName_Controller
-//                               .userList.value.products!.isEmpty
-//                       ? Center(
-//                           child: Text(
-//                               'Error: ${_searchProductByName_Controller.error.value}'))
-//                       : Container(
-//                           height: Get.height * .2,
-//                           // height: Get.height *.4,
-//                           child: ListView.builder(
-//                             shrinkWrap: true,
-//                             scrollDirection: Axis.horizontal,
-
-//                             //  gridDelegate:
-// //                                         SliverGridDelegateWithFixedCrossAxisCount(
-// //                                       crossAxisCount: 3,
-// //                                       crossAxisSpacing: 8.0,
-// // //mainAxisSpacing: 8.0,
-// //                                       mainAxisExtent: Get.height*.2
-// //                                     ),
-//                             itemCount: _searchProductByName_Controller
-//                                     .userList.value.products?.length ??
-//                                 0,
-//                             itemBuilder: (context, index) {
-//                               return Column(
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   ClipRRect(
-//                                     borderRadius: BorderRadius.circular(38.0),
-//                                     child: Image.network(
-//                                       "${_searchProductByName_Controller.userList.value.products?[index].imageUrl.toString()}",
-//                                       height: 68,
-//                                       width: 68,
-//                                       fit: BoxFit.cover,
-//                                     ),
-//                                   ),
-//                                   SizedBox(height: 5.v),
-//                                   Align(
-//                                     alignment: Alignment.center,
-//                                     child: Text(
-//                                       "${_searchProductByName_Controller.userList.value.products?[index].aTitle.toString()}",
-//                                       style: TextStyle(
-//                                         color: Color(
-//                                           0xFF272727,
-//                                         ),
-//                                         fontSize: 8,
-//                                         fontFamily: 'Almarai',
-//                                         fontWeight: FontWeight.w500,
-//                                       ),
-//                                       maxLines: 3,
-//                                       // theme.textTheme.bodySmall,
-//                                       // overflow: TextOverflow.ellipsis,
-//                                       // maxLines: 1,
-//                                     ),
-//                                   )
-//                                 ],
-//                               );
-//                             },
-//                           )),
-
-              // searchcategories_controller.userList.value.searchMainCat == null ||
-              // searchcategories_controller.userList.value.searchMainCat!.isEmpty
-              //                     ? Center(child:  Text('Error: ${searchcategories_controller.error.value}'))
-              //                     :  Container(
-              //                       height: Get.height*.2,
-              //                       child: GridView.builder(
-              // shrinkWrap: true,
-              // scrollDirection: Axis.vertical,
-              // gridDelegate:
-              //     SliverGridDelegateWithFixedCrossAxisCount(
-
-              //   crossAxisCount: 5,
-              //   // crossAxisSpacing: 8.0,
-              //   // mainAxisSpacing: 8.0,
-              //   mainAxisExtent: Get.height*.2
-              // ),
-              // itemCount:searchcategories_controller.userList.value.searchMainCat?.length ?? 0,
-              // itemBuilder: (context, index) {
-              //                           return Column(
-              //                           crossAxisAlignment:
-              //                               CrossAxisAlignment.start,
-              //                           children: [
-              //                             ClipRRect(
-              //                               borderRadius:
-              //                                   BorderRadius.circular(38.0),
-              //                               child: Image.network(
-              //                                 "${searchcategories_controller.userList.value.searchMainCat?[index].imageUrl.toString()}",
-              //                                 height: 68,
-              //                                 width: 68,
-              //                                 fit: BoxFit.cover,
-              //                               ),
-              //                             ),
-              //                             SizedBox(height: 5.v),
-              //                             Align(
-              //                               alignment: Alignment.center,
-              //                               child: Text(
-              //                                 "${searchcategories_controller.userList.value.searchMainCat?[index].aCategoryName.toString()}",
-              //                                 style:
-              //                                 TextStyle(fontSize: 8)
-              //                                 // theme.textTheme.bodySmall,
-              //                                 // overflow: TextOverflow.ellipsis,
-              //                                 // maxLines: 1,
-              //                               ),
-              //                             )
-              //                           ],
-              //                         );
-              //                         Column(
-              //                           crossAxisAlignment:
-              //                               CrossAxisAlignment.start,
-              //                           children: [
-              //                             // Container(
-              //                             //     height: 50,
-              //                             //     width: 50,
-              //                             //     child: Image.asset(
-              //                             //       "assets/images/img_mask_group_60x56.png",
-              //                             //       fit: BoxFit.cover,
-              //                             //     )),
-              //                             GestureDetector(
-              //                               onTap: (){
-              //    _navigateToNewPage(context, index);
-              // },
-              //                               child:
-              //                                CircleAvatar(radius: 35, backgroundImage: AssetImage('assets/images/img_mask_group_60x56.png'),)),
-              //                             SizedBox(height: 4.v),
-              //                             Center(
-              //                               child: Text(
-              //                                 "للنساء\nالبلوزات\n وقمصان",
-              //                                 style: theme.textTheme.bodySmall?.copyWith(fontFamily: 'Almarai'),
-              //                               ),
-              //                             )
-              //                           ],
-              //                         );
-              //     },
-              //   ),
-              // ),
-
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  "شعبية الآن",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontFamily: 'Almarai',
+                  prefixIconConstraints: BoxConstraints(
+                    maxHeight: 50.v,
+                  ),
+                  suffixIcon:
+                      //  Image.asset('assets/images/greycamera.png'),
+                      Container(
+                    padding: EdgeInsets.all(15.h),
+                    margin: EdgeInsets.only(
+                      right: 30.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary,
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(
+                          55.h,
+                        ),
+                      ),
+                    ),
+                    child: CustomImageView(
+                      imagePath: ImageConstant.imgSearchWhiteA70002,
+                      height: 30.adaptSize,
+                      width: 20.adaptSize,
+                    ),
+                  ),
+                  suffixIconConstraints: BoxConstraints(
+                    maxHeight: 60.v,
+                  ),
+                  isDense: true,
+                  contentPadding: EdgeInsets.only(
+                    left: 16.h,
+                    top: 17.v,
+                    bottom: 17.v,
+                  ),
+                  fillColor: appTheme.gray100,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.h),
+                    borderSide: BorderSide(
+                      color: appTheme.gray300,
+                      width: 1,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.h),
+                    borderSide: BorderSide(
+                      color: appTheme.gray300,
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.h),
+                    borderSide: BorderSide(
+                      color: appTheme.gray300,
+                      width: 1,
+                    ),
                   ),
                 ),
+                onChanged: (value) {
+                  _searchcontroller.searchProducts(value);
+                },
               ),
-              SizedBox(height: 25.v),
-              _buildVectorChipView(context),
-              SizedBox(height: Get.height * .05),
-            ],
+            ),
+          ),
+        ),
+        body: Center(
+          child: Obx(() {
+            if (_searchcontroller.loading.value) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (_searchcontroller.error.value.isNotEmpty) {
+              return Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/error2.png',
+                  ),
+                  Center(
+                    child: Text(
+                      "عفوا! تواجه خوادمنا مشكلة في الاتصال.\nيرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى",
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                          color: Color.fromARGB(73, 0, 0, 0),
+                          fontSize: 12,
+                          fontFamily: 'Almarai'),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ));
+            } else if (_searchcontroller.products.value.products!.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/nosearch.png',
+                    height: Get.height * .1,
+                    width: Get.width * .3,
+                  ),
+                  Center(
+                    child: Text(
+                      'أُووبس! لم نتمكن من العثور على أي منتجات\nتطابق معايير بحثك.',
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Almarai',
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ListView.builder(
+                  itemCount: _searchcontroller.products.value.products!.length,
+                  itemBuilder: (context, index) {
+                    final product =
+                        _searchcontroller.products.value.products![index];
+                    return ListTile(
+                      title: Text(product.aTitle),
+                      subtitle: Text('Price: ${product.price.toString()}'),
+                      leading: GestureDetector(
+                        child: Image.network(product.imageUrl),
+                        onTap: () {
+                          arabicMainCatId = _searchcontroller
+                              .products.value.products?[index].mainCategoryId!
+                              .toString();
+                          String? productId = _searchcontroller
+                              .products.value.products?[index].id!
+                              .toString();
+
+                          setState(() {
+                            MainCatId = arabicMainCatId;
+                            productid = productId;
+                          });
+                          print("$Englishproductid==");
+                          if (arabicMainCatId == "153") {
+                            Get.to(ArabicMensSingleShirtViewScreen());
+                            print(
+                                "$arabicMainCatId===========Mens Appearl main category id ");
+                          } else if (arabicMainCatId == "154") {
+                            Get.to(ArabicMensBottomSingleShViewScreen());
+                          } else if (arabicMainCatId == "155") {
+                            Get.to(ArabicMensJacketSingleShViewScreen());
+                          } else if (arabicMainCatId == "156") {
+                            Get.to(ArabicMensActivewearSingleShViewScreen());
+                          } else if (arabicMainCatId == "157") {
+                            Get.to(ArabicMensFormalsSingleShViewScreen());
+                          } else if (arabicMainCatId == "174") {
+                            Get.to(ArabicMensShoesSingleShViewScreen());
+                          } else if (arabicMainCatId == "166") {
+                            Get.to(ArabicElectronicsPhoneSingleShViewScreen());
+                          } else if (arabicMainCatId == "170") {
+                            Get.to(
+                                ArabicElectronicsLaptopsSingleShViewScreen());
+                          } else if (arabicMainCatId == "171") {
+                            Get.to(
+                                ArabicElectronicsHeadphonesSingleShViewScreen());
+                          } else if (arabicMainCatId == "172") {
+                            Get.to(ArabicElectronicsCameraSingleShViewScreen());
+                          } else if (arabicMainCatId == "173") {
+                            Get.to(
+                                ArabicElectronicswearableSingleShViewScreen());
+                          } else if (arabicMainCatId == "176") {
+                            Get.to(ArabicWomensDressSingleShViewScreen());
+                          } else if (arabicMainCatId == "177") {
+                            Get.to(ArabicWomensTopSingleShViewScreen());
+                          } else {
+                            print('not found ');
+                          }
+                        },
+                      ),
+                      trailing:
+                          // Text(
+                          //   "${_searchcontroller.products.value.products?[index].averageRating.toString()}",
+                          // ),
+                          CustomRatingBar(
+                        ignoreGestures: true,
+                        initialRating: _searchcontroller
+                            .products.value.products?[index].averageRating
+                            ?.toDouble(),
+                      ),
+                      // Add more details or customize the UI as needed
+                    );
+                  },
+                ),
+              );
+            }
+          }),
+        ),
+        bottomNavigationBar: Visibility(
+          visible: showKeyboard,
+          child: Container(
+            color: Colors.white,
+            child: VirtualKeyboard(
+              fontSize: 20,
+              textColor: Colors.grey,
+              textController: textEditingController,
+              type: VirtualKeyboardType.Alphanumeric,
+              defaultLayouts: const [VirtualKeyboardDefaultLayouts.Arabic],
+            ),
           ),
         ),
       ),
     );
   }
-  //   });
-  // }
 
   void _handleSearch(String query) {
     if (query.isNotEmpty) {

@@ -10,6 +10,7 @@ class EnglishCreateaddress_controller extends GetxController {
   // RxBool isAddressPrimary = false.obs;
   final _api = AuthRepository();
   RxBool loading = false.obs;
+  var isAddressPrimary = false.obs;
   final nameEditTextController = TextEditingController().obs;
   final addressEditTextController = TextEditingController().obs;
   final cityEditTextController = TextEditingController().obs;
@@ -27,7 +28,7 @@ class EnglishCreateaddress_controller extends GetxController {
       'state': statecontroller.value.text,
       'zip_code': zipcodeEditTextController.value.text,
       'mobile_number': group184EditTextController.value.text,
-      'address_status': 'active',
+      'address_status': isAddressPrimary.value.toString(),
       //isAddressPrimary.value ? 'active' : 'inactive',
       'language_type': 'English',
     };

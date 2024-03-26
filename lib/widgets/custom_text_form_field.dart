@@ -8,7 +8,7 @@ class CustomTextFormField extends StatelessWidget {
     this.width,
     this.controller,
     this.readOnly,
-        
+
     // this.focusNode,
     this.autofocus = true,
     this.textStyle,
@@ -26,22 +26,22 @@ class CustomTextFormField extends StatelessWidget {
     this.borderDecoration,
     this.fillColor,
     this.filled = true,
-    this.validator,  
-    this.hintTextDirection, 
-     this. onChanged,
-
+    this.validator,
+    this.hintTextDirection,
+    this.onChanged,
+    this.maxLength,
+    this.enabled,
   }) : super(
           key: key,
-           
         );
 
   final Alignment? alignment;
-final TextDirection? hintTextDirection;
+  final TextDirection? hintTextDirection;
   final double? width;
-final bool? readOnly;
+  final bool? readOnly;
   final TextEditingController? controller;
-
-
+  final int? maxLength;
+  final bool? enabled;
   final bool? autofocus;
 
   final TextStyle? textStyle;
@@ -94,8 +94,10 @@ final bool? readOnly;
           onChanged: onChanged,
           // readOnly: true,
           controller: controller,
+          maxLength: maxLength,
           // focusNode: focusNode ?? FocusNode(),
- readOnly: readOnly??false,
+          readOnly: readOnly ?? false,
+          enabled: enabled,
           autofocus: autofocus!,
           style: textStyle ?? CustomTextStyles.bodyLargeOnError,
           obscureText: obscureText!,
@@ -108,7 +110,8 @@ final bool? readOnly;
       );
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
-        hintStyle: hintStyle ?? theme.textTheme.bodyLarge!.copyWith(color: Colors.grey),
+        hintStyle: hintStyle ??
+            theme.textTheme.bodyLarge!.copyWith(color: Colors.grey),
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,

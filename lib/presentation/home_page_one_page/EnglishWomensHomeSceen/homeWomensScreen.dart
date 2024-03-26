@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/theme/theme_helper.dart';
 
 class WomensHomeScreen extends StatefulWidget {

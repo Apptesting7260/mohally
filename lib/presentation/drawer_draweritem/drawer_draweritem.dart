@@ -32,25 +32,23 @@ class DrawerDraweritem extends StatefulWidget {
 }
 
 class _DrawerDraweritemState extends State<DrawerDraweritem> {
-  final  _controller = Get.put(MyAccountController());
+  final _controller = Get.put(MyAccountController());
   @override
   void initState() {
-    
- _controller.fetchMyAccountData();
-    // Ensure that the initial locale is set when the screen initializes
-    setInitialLocale();
+    _controller.fetchMyAccountData();
 
     super.initState();
   }
 
   // Function to set the initial locale
-  void setInitialLocale() {
-    if (Get.locale == null || Get.locale?.languageCode == 'ar') {
-      Get.updateLocale(Locale('ar', 'DZ'));
-    } else {
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
+  // void setInitialLocale() {
+  //   if (Get.locale == null || Get.locale?.languageCode == 'ar') {
+  //     Get.updateLocale(Locale('ar', 'DZ'));
+  //   } else {
+  //     Get.updateLocale(Locale('en', 'US'));
+  //   }
+  // }
+
   bool raffleToWin = false;
 
   @override
@@ -85,28 +83,26 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                 child: CircleAvatar(
                   radius: 30.0,
                   backgroundImage: NetworkImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                      _controller.MyAccount.value.userDetails?.imageUrl),
                   backgroundColor: Colors.transparent,
                 ),
               ),
               SizedBox(height: 7.v),
-               Obx((){
-                          return Text(
-                           "${ _controller.MyAccount.value.userDetails?.firstName.toString()}",
-                           // "Name",
-                            style:  theme.textTheme.titleLarge,
-                          );
-                        }
-                        ),
-                       SizedBox(height: 5.v),
-                         Obx((){
-                          return Text(
-                           "${ _controller.MyAccount.value.userDetails?.email.toString()}",
-                           // "Name",
-                            style:   theme.textTheme.bodyMedium,
-                          );
-                        }
-                        ),
+              Obx(() {
+                return Text(
+                  "${_controller.MyAccount.value.userDetails?.firstName.toString()}",
+                  // "Name",
+                  style: theme.textTheme.titleLarge,
+                );
+              }),
+              SizedBox(height: 5.v),
+              Obx(() {
+                return Text(
+                  "${_controller.MyAccount.value.userDetails?.email.toString()}",
+                  // "Name",
+                  style: theme.textTheme.bodyMedium,
+                );
+              }),
               // Text(
               //   "John Due",
               //   style: theme.textTheme.titleLarge,
@@ -208,7 +204,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                         left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -234,7 +230,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                       left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -260,7 +256,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                         left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -324,18 +320,21 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                   ],
                 ),
               ),
-               SizedBox(height: 20.v),
+              SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
                   Get.to(() => ContactUs());
                 },
                 child: Row(
                   children: [
-                   Image.asset('assets/images/contactus_drawer.png',height: 28.v,
-                      width: 28.h,),
+                    Image.asset(
+                      'assets/images/contactus_drawer.png',
+                      height: 28.v,
+                      width: 28.h,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
-                         left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -361,7 +360,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                         left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -407,13 +406,11 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                   Padding(
                     padding: EdgeInsets.only(
                       left: 10.h,
-                        top: 5.v,
-                        bottom: 2.v,
+                      top: 5.v,
+                      bottom: 2.v,
                     ),
                     child: GestureDetector(
-                      onTap: (){
-                        
-                      },
+                      onTap: () {},
                       child: Text(
                         "Settings",
                         style: CustomTextStyles.bodyLarge18,
@@ -438,7 +435,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                      left: 10.h,
+                        left: 10.h,
                         top: 5.v,
                         bottom: 2.v,
                       ),
@@ -472,11 +469,11 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
   }
 
   Future<void> clearSharedPreferences() async {
-   final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     prefs.remove("token");
     prefs.remove("selectedLanguage");
-      Get.offAll(() => SplashScreen());
+    Get.offAll(() => SplashScreen());
     print('data clearrrerererererererererre');
   }
 }

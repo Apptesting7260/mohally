@@ -51,181 +51,184 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Form(
-          key: _formKey,
-          child: Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(
-              horizontal: 30.h,
-              vertical: 22.v,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 36.v),
-                  Text("تسجيل الدخول",
-                      style: TextStyle(
-                          fontFamily: 'Almarai',
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26)
-                      // theme.textTheme.headlineLarge,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Form(
+            key: _formKey,
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(
+                horizontal: 30.h,
+                vertical: 22.v,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 36.v),
+                    Text("تسجيل الدخول",
+                        style: TextStyle(
+                            fontFamily: 'Almarai',
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26)
+                        // theme.textTheme.headlineLarge,
+                        ),
+                    SizedBox(height: 15.v),
+                    Container(
+                      width: 268.h,
+                      margin: EdgeInsets.only(
+                        left: 22.h,
+                        right: 23.h,
                       ),
-                  SizedBox(height: 15.v),
-                  Container(
-                    width: 268.h,
-                    margin: EdgeInsets.only(
-                      left: 22.h,
-                      right: 23.h,
-                    ),
-                    child: Text(
-                        'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Almarai',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16)),
-                  ),
-                  SizedBox(height: 40.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text('رقم الجوال أو البريد الإلكتروني',
-                        style: TextStyle(
-                            fontFamily: 'Almarai',
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18)),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildMobileNumber(context),
-                  SizedBox(height: 9.v),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text('كلمة المرور',
-                        style: TextStyle(
-                            fontFamily: 'Almarai',
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18)),
-                  ),
-                  SizedBox(height: 9.v),
-                  _buildPassword(context),
-                  SizedBox(height: 20.v),
-                  _buildContinueButton(context),
-                  SizedBox(height: 12.v),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => Forgot_arabic());
-                    },
-                    child: Center(
                       child: Text(
-                        'هل نسيت كلمة السر',
-                        style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14)
-                            .copyWith(color: Color(0xffFF8300)),
-                      ),
+                          'لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد.',
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Almarai',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16)),
                     ),
-                  ),
-                  SizedBox(height: 27.v),
-                  Text(
-                    'أو',
-                    style: TextStyle(
-                        fontFamily: 'Almarai',
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18),
-                  ),
-                  SizedBox(height: 27.v),
-                  _buildContinueWithGoogleButton(context),
-                  SizedBox(height: 14.v),
-                  _buildContinueWithFacebookButton(context),
-                  SizedBox(height: 14.v),
-                  _buildContinueWithAppleButton(context),
-                  SizedBox(height: 14.v),
-                  Container(
-                    width: 297.h,
-                    padding: EdgeInsets.only(top: 5),
-                    margin: EdgeInsets.symmetric(horizontal: 10.h),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'من خلال الاستمرار، فإنك توافق على لدينا',
-                            style: TextStyle(
-                                fontFamily: 'Almarai',
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12),
-                          ),
-                          TextSpan(
-                              text: 'شروط الاستخدام',
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                color: Color(0xffff8300),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                              )),
-                          TextSpan(
-                            text: '  و',
-                            style: TextStyle(
-                                fontFamily: 'Almarai',
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12),
-                          ),
-                          TextSpan(
-                              text: '.سياسة الخصوصية وملفات تعريف الارتباط',
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                color: Color(0xffff8300),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(height: 77.v),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'ليس لديك حساب بعد؟',
+                    SizedBox(height: 40.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text('رقم الجوال أو البريد الإلكتروني',
                           style: TextStyle(
                               fontFamily: 'Almarai',
                               color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12),
-                        ),
-                        TextSpan(
-                          text: " ",
-                        ),
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.to(() => SignUpScreen_arabic());
-                              // Handle the tap gesture
-                              print('TextSpan tapped!');
-                            },
-                          text: 'اصنع واحدا',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18)),
+                    ),
+                    SizedBox(height: 9.v),
+                    _buildMobileNumber(context),
+                    SizedBox(height: 9.v),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text('كلمة المرور',
                           style: TextStyle(
                               fontFamily: 'Almarai',
-                              color: Color(0xffff8300),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12),
-                        ),
-                      ],
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18)),
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
+                    SizedBox(height: 9.v),
+                    _buildPassword(context),
+                    SizedBox(height: 20.v),
+                    _buildContinueButton(context),
+                    SizedBox(height: 12.v),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => Forgot_arabic());
+                      },
+                      child: Center(
+                        child: Text(
+                          'هل نسيت كلمة السر',
+                          style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14)
+                              .copyWith(color: Color(0xffFF8300)),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 27.v),
+                    Text(
+                      'أو',
+                      style: TextStyle(
+                          fontFamily: 'Almarai',
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18),
+                    ),
+                    SizedBox(height: 27.v),
+                    _buildContinueWithGoogleButton(context),
+                    SizedBox(height: 14.v),
+                    _buildContinueWithFacebookButton(context),
+                    SizedBox(height: 14.v),
+                    _buildContinueWithAppleButton(context),
+                    SizedBox(height: 14.v),
+                    Container(
+                      width: 297.h,
+                      padding: EdgeInsets.only(top: 5),
+                      margin: EdgeInsets.symmetric(horizontal: 10.h),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'من خلال الاستمرار، فإنك توافق على لدينا',
+                              style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
+                            ),
+                            TextSpan(
+                                text: 'شروط الاستخدام',
+                                style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Color(0xffff8300),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                )),
+                            TextSpan(
+                              text: '  و',
+                              style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
+                            ),
+                            TextSpan(
+                                text: '.سياسة الخصوصية وملفات تعريف الارتباط',
+                                style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  color: Color(0xffff8300),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                )),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(height: 77.v),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'ليس لديك حساب بعد؟',
+                            style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
+                          ),
+                          TextSpan(
+                            text: " ",
+                          ),
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.to(() => SignUpScreen_arabic());
+                                // Handle the tap gesture
+                                print('TextSpan tapped!');
+                              },
+                            text: 'اصنع واحدا',
+                            style: TextStyle(
+                                fontFamily: 'Almarai',
+                                color: Color(0xffff8300),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -390,9 +393,7 @@ class _LoginScreen_arabicState extends State<LoginScreen_arabic> {
     );
   }
 
-  checkvalidate() {
-    print("_send".tr);
-  }
+  checkvalidate() {}
   // CrossAxisAlignment getCrossAxisAlignment(BuildContext context) {
   //   // Check if the current locale is Arabic
   //   if (Localizations.localeOf(context).languageCode == 'ar') {

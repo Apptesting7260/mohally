@@ -7,7 +7,7 @@ class MyAccountTextField extends StatelessWidget {
     this.alignment,
     this.width,
     this.controller,
-    // this.focusNode,
+    this.readOnly,
     this.autofocus = true,
     this.textStyle,
     this.obscureText = false,
@@ -33,6 +33,7 @@ class MyAccountTextField extends StatelessWidget {
   final Alignment? alignment;
 
   final double? width;
+  final bool? readOnly;
 
   final TextEditingController? controller;
 
@@ -86,7 +87,6 @@ class MyAccountTextField extends StatelessWidget {
   Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
-          readOnly: true,
           controller: controller,
           // focusNode: focusNode ?? FocusNode(),
           autofocus: autofocus!,
@@ -97,11 +97,13 @@ class MyAccountTextField extends StatelessWidget {
           maxLines: maxLines ?? 1,
           decoration: decoration,
           validator: validator,
+          readOnly: readOnly ?? false,
         ),
       );
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
-        hintStyle: hintStyle ?? theme.textTheme.bodyLarge!.copyWith(color: Colors.grey),
+        hintStyle: hintStyle ??
+            theme.textTheme.bodyLarge!.copyWith(color: Colors.grey),
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,

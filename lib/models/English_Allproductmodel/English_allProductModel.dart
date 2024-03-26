@@ -35,7 +35,7 @@ class AllProductList {
   String? title;
   String? price;
   String? mainCategoryId;
-  int? averageRating;
+  var averageRating;
   String? imageUrl;
   Null galleryUrl;
   var producttype;

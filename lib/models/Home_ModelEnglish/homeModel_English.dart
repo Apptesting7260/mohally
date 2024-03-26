@@ -66,7 +66,7 @@ class RecommendedProduct {
   int? id;
   String? title;
   String? price;
-  int? averageRating;
+  var averageRating;
   String? mainCategoryId;
   String? imageUrl;
   Null galleryUrl;

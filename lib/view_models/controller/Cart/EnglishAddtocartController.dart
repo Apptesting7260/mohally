@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Arabic_cart/arabic_cart.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/EnglishAdd_to_cart_Model/EnglishaddtocartModel.dart';
@@ -20,6 +21,10 @@ class AddToCartcontroller extends GetxController {
   RxBool loading = false.obs;
   RxString statusOfApi = ''.obs;
   RxString error = ''.obs;
+  RxString sizeid = ''.obs;
+  RxString colorId = ''.obs;
+  RxString color = ''.obs;
+  RxString size1 = ''.obs;
   final signupModel = EnglishAddtoCartModel().obs;
   final rxRequestStatus = Status.LOADING.obs;
 
@@ -35,7 +40,6 @@ class AddToCartcontroller extends GetxController {
     String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
-   
     addIfNotNull(productDetails, 'Color', EnglishAddtocartColor?.toString());
     addIfNotNull(productDetails, 'Size', EnglishAddtocartSize?.toString());
     addIfNotNull(
@@ -64,6 +68,10 @@ class AddToCartcontroller extends GetxController {
       if (response.status == true) {
         Get.back();
         Utils.snackBar(context, 'Success', response.message.toString());
+        // color.value = '';
+        // size1.value = '';
+        // colorId.value = '';
+        // sizeid.value = '';
       } else {
         Utils.snackBar(context, 'Failed', response.message.toString());
       }

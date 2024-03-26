@@ -41,7 +41,7 @@ class UserVerify_controller extends GetxController {
       setUserList(value);
       loading.value = false;
       // if (value.message == "Otp Verifed Successfully.") {
-      //   Utils2.snackBar('Success', 'OTP verified successfully');
+      // Utils2.snackBar('Success', 'OTP verified successfully');
       //   // If you want to show a different message, replace the line above with:
       //   // Utils2.snackBar('Success', 'OTP sent to your email.');
       //   Get.offAll(HomeBanner());

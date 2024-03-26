@@ -5,9 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_CategoryBynameController.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_ProductAll.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryElectronics.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryHealthandWellness.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryHomeliving.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryWomensCategory.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategories/arabic_subcategoryMensScreen.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_product_found.dart';
@@ -69,6 +70,8 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
     homeView_controller.homeview_apihit();
   }
 
+  categorybyNameController _categoryByName = categorybyNameController();
+
   HomeView_controller homeView_controller = HomeView_controller();
 
   TextEditingController searchController = TextEditingController();
@@ -109,15 +112,15 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                         readOnly: true,
                         enableTap: true,
                       ),
-                      Positioned(
-                          top: 20,
-                          right: 240,
-                          child: GestureDetector(
-                              onTap: () {
-                                _buildOncameraclick(context);
-                              },
-                              child:
-                                  Image.asset('assets/images/greycamera.png'))),
+                      // Positioned(
+                      //     top: 20,
+                      //     right: 240,
+                      //     child: GestureDetector(
+                      //         onTap: () {
+                      //           _buildOncameraclick(context);
+                      //         },
+                      //         child:
+                      //             Image.asset('assets/images/greycamera.png'))),
                     ])),
                     Gap(15),
                     Row(
@@ -211,6 +214,36 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                 },
                               ),
                             ),
+
+                            // if (index == 0) {
+                            //   return
+                            // Column(
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: () {
+                            //         Get.to(arabicAllProductView());
+                            //       },
+                            //       child: ClipRRect(
+                            //           borderRadius: BorderRadius.circular(38.0),
+                            //           child: Icon(
+                            //             Icons.category_outlined,
+                            //             color: Color(0xffFF8300),
+                            //             size: 68,
+                            //           )),
+                            //     ),
+                            //     SizedBox(height: 5.v),
+                            //     Align(
+                            //       alignment: Alignment.center,
+                            //       child: Text("All",
+                            //           style: TextStyle(
+                            //             color: Color(0xFF272727),
+                            //             fontSize: 12,
+                            //             fontFamily: 'Almarai',
+                            //             fontWeight: FontWeight.w500,
+                            //           )),
+                            //     )
+                            //   ],
+                            // ),
                             homeView_controller.userList.value.categoryData ==
                                         null ||
                                     homeView_controller.userList.value
@@ -219,7 +252,37 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                 ? Center(
                                     child: Text(
                                         'Error: ${homeView_controller.error.value}'))
-                                : Expanded(
+                                :
+                                // Column(
+                                //     children: [
+                                //       GestureDetector(
+                                //         onTap: () {
+                                //           Get.to(arabicAllProductView());
+                                //         },
+                                //         child: ClipRRect(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(38.0),
+                                //             child: Icon(
+                                //               Icons.category_outlined,
+                                //               color: Color(0xffFF8300),
+                                //               size: 68,
+                                //             )),
+                                //       ),
+                                //       SizedBox(height: 5.v),
+                                //       Align(
+                                //         alignment: Alignment.center,
+                                //         child: Text("All",
+                                //             style: TextStyle(
+                                //               color: Color(0xFF272727),
+                                //               fontSize: 12,
+                                //               fontFamily: 'Almarai',
+                                //               fontWeight: FontWeight.w500,
+                                //             )),
+                                //       )
+                                //     ],
+                                //   ),
+
+                                Expanded(
                                     child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -232,223 +295,127 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                           });
                                         },
                                         children: [
-                                          // for (var i = 0; i <= pagesCount; i++)
-                                          // Container(
-                                          //   color: Colors.white,
-                                          //   child: Center(
-                                          //     child: GridView.builder(
-                                          //       shrinkWrap: true,
-                                          //       gridDelegate:
-                                          //           SliverGridDelegateWithFixedCrossAxisCount(
-                                          //               crossAxisCount: 3,
-                                          //               crossAxisSpacing: 8.0,
-                                          //               mainAxisSpacing: 8.0,
-                                          //               mainAxisExtent:
-                                          //                   Get.height * .2),
-                                          //       itemCount: 18,
-                                          //       itemBuilder: (context, index) {
-                                          //         return Column(
-                                          //           crossAxisAlignment:
-                                          //               CrossAxisAlignment
-                                          //                   .start,
-                                          //           children: [
-                                          //             GestureDetector(
-                                          //               onTap: () {
-                                          //                 _navigateaftertapped(
-                                          //                     context, index);
-                                          //               },
-                                          //               child: ClipRRect(
-                                          //                 borderRadius:
-                                          //                     BorderRadius
-                                          //                         .circular(
-                                          //                             38.0),
-                                          //                 child: Image.network(
-                                          //                   "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
-                                          //                   height: 68,
-                                          //                   width: 68,
-                                          //                   fit: BoxFit.cover,
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //             SizedBox(height: 5.v),
-                                          //             Align(
-                                          //               alignment:
-                                          //                   Alignment.center,
-                                          //               child: Text(
-                                          //                   "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
-                                          //                   style: TextStyle(
-                                          //                     color: Color(
-                                          //                         0xFF272727),
-                                          //                     fontSize: 12,
-                                          //                     fontFamily:
-                                          //                         'League Spartan',
-                                          //                     fontWeight:
-                                          //                         FontWeight
-                                          //                             .w500,
-                                          //                   )
-                                          //                   // theme.textTheme.bodySmall,
-                                          //                   // overflow: TextOverflow.ellipsis,
-                                          //                   // maxLines: 1,
-                                          //                   ),
-                                          //             )
-                                          //           ],
-                                          //         );
-                                          //       },
-                                          //     ),
-                                          //   ),
-                                          // ),
                                           Container(
                                             color: Colors.white,
                                             child: Center(
-                                              child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: GridView.builder(
-                                                    shrinkWrap: true,
-                                                    gridDelegate:
-                                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                                            crossAxisCount: 3,
-                                                            crossAxisSpacing:
-                                                                8.0,
-                                                            mainAxisSpacing:
-                                                                8.0,
-                                                            mainAxisExtent:
-                                                                Get.height *
-                                                                    .2),
-                                                    itemCount:
-                                                        homeView_controller
-                                                                .userList
-                                                                .value
-                                                                .categoryData
-                                                                ?.length ??
-                                                            0,
-                                                    //     null
-                                                    // ? homeView_controller
-                                                    //         .userList
-                                                    //         .value
-                                                    //         .categoryData!
-                                                    //         .length??0,
-                                                    //         +
-                                                    //     1
-                                                    // : 1,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      // if (index == 0) {
-                                                      //   return Column(
-                                                      //     children: [
-                                                      //       GestureDetector(
-                                                      //         onTap: () {
-                                                      //           Get.to(
-                                                      //               AllProduct());
-                                                      //         },
-                                                      //         child: ClipRRect(
-                                                      //             borderRadius:
-                                                      //                 BorderRadius
-                                                      //                     .circular(
-                                                      //                         38.0),
-                                                      //             child:
-                                                      //                 //     Image.network(
-                                                      //                 //   "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
-                                                      //                 //   height: 68,
-                                                      //                 //   width: 68,
-                                                      //                 //   fit: BoxFit.cover,
-                                                      //                 // ),
-                                                      //                 Icon(
-                                                      //               Icons
-                                                      //                   .category_outlined,
-                                                      //               color: Color(
-                                                      //                   0xffFF8300),
-                                                      //             )),
-                                                      //       ),
-                                                      //       SizedBox(height: 5.v),
-                                                      //       Align(
-                                                      //         alignment: Alignment
-                                                      //             .center,
-                                                      //         child: Text("All",
-                                                      //             style:
-                                                      //                 TextStyle(
-                                                      //               color: Color(
-                                                      //                   0xFF272727),
-                                                      //               fontSize: 12,
-                                                      //               fontFamily:
-                                                      //                   'Almarai',
-                                                      //               fontWeight:
-                                                      //                   FontWeight
-                                                      //                       .w500,
-                                                      //             )),
-                                                      //       )
-                                                      //     ],
-                                                      //   );
-                                                      // } else {
-                                                      //   final apiIndex =
-                                                      //       index - 1;
-                                                      //   return
-                                                      return Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          GestureDetector(
-                                                            // _navigateaftertapped(
-                                                            //     context, index);
-                                                            onTap: () {
-                                                              arabicMainCatId =
-                                                                  homeView_controller
-                                                                      .userList
-                                                                      .value
-                                                                      .categoryData?[
-                                                                          index]
-                                                                      .id!
-                                                                      .toString();
-
-                                                              setState(() {
-                                                                arabicid =
-                                                                    arabicMainCatId;
-                                                              });
-                                                              print(
-                                                                  "$arabicid==");
-                                                              if (arabicMainCatId ==
-                                                                  "133") {
-                                                                Get.to(
-                                                                    arabic_subcategory_MensScreen());
-                                                              } else if (arabicMainCatId ==
-                                                                  "134") {
-                                                                Get.to(
-                                                                    arabic_subcategory_ElectronicsScreen());
-                                                              } else if (arabicMainCatId ==
-                                                                  "135") {
-                                                                Get.to(
-                                                                    arabic_subcategory_homelivingScreen());
-                                                              } else if (arabicMainCatId ==
-                                                                  "136") {
-                                                                Get.to(
-                                                                    arabic_subcategory_healthandwellnessScreen());
-                                                              } else {
-                                                                NoProductFound();
-                                                              }
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          38.0),
-                                                              child:
-                                                                  Image.network(
-                                                                "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
-                                                                height: 68,
-                                                                width: 68,
-                                                                fit: BoxFit
-                                                                    .cover,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Get.to(
+                                                          arabicAllProductView());
+                                                    },
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(38.0),
+                                                        child: Image.asset(
+                                                            'assets/images/viewall.png')),
+                                                  ),
+                                                  SizedBox(height: 5.v),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 20),
+                                                    child: Text(
+                                                      "All",
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF272727),
+                                                        fontSize: 12,
+                                                        fontFamily: 'Almarai',
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                          10), // Adjust spacing if needed
+                                                  Container(
+                                                    child: GridView.builder(
+                                                      shrinkWrap: true,
+                                                      gridDelegate:
+                                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 3,
+                                                        crossAxisSpacing: 8.0,
+                                                        mainAxisSpacing: 8.0,
+                                                        mainAxisExtent:
+                                                            Get.height * .2,
+                                                      ),
+                                                      itemCount:
+                                                          homeView_controller
+                                                                  .userList
+                                                                  .value
+                                                                  .categoryData
+                                                                  ?.length ??
+                                                              0,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                arabicMainCatId =
+                                                                    homeView_controller
+                                                                        .userList
+                                                                        .value
+                                                                        .categoryData?[
+                                                                            index]
+                                                                        .id!
+                                                                        .toString();
+                                                                setState(() {
+                                                                  arabicid =
+                                                                      arabicMainCatId;
+                                                                });
+                                                                print(
+                                                                    "$arabicid==");
+                                                                if (arabicMainCatId ==
+                                                                    "133") {
+                                                                  Get.to(
+                                                                      arabic_subcategory_MensScreen());
+                                                                } else if (arabicMainCatId ==
+                                                                    "134") {
+                                                                  Get.to(
+                                                                      arabic_subcategory_ElectronicsScreen());
+                                                                } else if (arabicMainCatId ==
+                                                                    "175") {
+                                                                  Get.to(
+                                                                      arabic_subcategory_womensCategory());
+                                                                } else {
+                                                                  NoProductFound();
+                                                                }
+                                                              },
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            38.0),
+                                                                child: Image
+                                                                    .network(
+                                                                  "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
+                                                                  height: 68,
+                                                                  width: 68,
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(height: 5.v),
-                                                          Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
+                                                            SizedBox(
+                                                                height: 5.v),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
                                                                 "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
                                                                 style:
                                                                     TextStyle(
@@ -460,28 +427,297 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
-                                                                )),
-                                                          )
-                                                        ],
-                                                      );
-                                                    }),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
-                                          NoProductFound(),
 
-                                          // Womens_Pants(),
+                                          // Container(
+                                          //   color: Colors.white,
+                                          //   child: GridView.builder(
+                                          //       shrinkWrap: true,
+                                          //       gridDelegate:
+                                          //           SliverGridDelegateWithFixedCrossAxisCount(
+                                          //               crossAxisCount: 2,
+                                          //               crossAxisSpacing: 8.0,
+                                          //               mainAxisSpacing: 8.0,
+                                          //               mainAxisExtent:
+                                          //                   Get.height * .2),
+                                          //       itemCount: homeView_controller
+                                          //               .userList
+                                          //               .value
+                                          //               .categoryData
+                                          //               ?.length ??
+                                          //           0,
+                                          //       itemBuilder: (context, index) {
+                                          //         return Column(
+                                          //           mainAxisAlignment:
+                                          //               MainAxisAlignment.start,
+                                          //           crossAxisAlignment:
+                                          //               CrossAxisAlignment.start,
+                                          //           children: [
+                                          //             GestureDetector(
+                                          //               // _navigateaftertapped(
+                                          //               //     context, index);
+                                          //               onTap: () {
+                                          //                 arabicMainCatId =
+                                          //                     homeView_controller
+                                          //                         .userList
+                                          //                         .value
+                                          //                         .categoryData?[
+                                          //                             index]
+                                          //                         .id!
+                                          //                         .toString();
 
-                                          // Womens_Pants(),
-                                          // Womens_Pants(),
-                                          // Womens_Pants(),
+                                          //                 setState(() {
+                                          //                   arabicid =
+                                          //                       arabicMainCatId;
+                                          //                 });
+                                          //                 print("$arabicid==");
+                                          //                 if (arabicMainCatId ==
+                                          //                     "133") {
+                                          //                   Get.to(
+                                          //                       arabic_subcategory_MensScreen());
+                                          //                 } else if (arabicMainCatId ==
+                                          //                     "134") {
+                                          //                   Get.to(
+                                          //                       arabic_subcategory_ElectronicsScreen());
+                                          //                 } else if (arabicMainCatId ==
+                                          //                     "135") {
+                                          //                   Get.to(
+                                          //                       arabic_subcategory_womensCategory());
+                                          //                 } else {
+                                          //                   NoProductFound();
+                                          //                 }
+                                          //               },
+                                          //               child: ClipRRect(
+                                          //                 borderRadius:
+                                          //                     BorderRadius.circular(
+                                          //                         38.0),
+                                          //                 child: Image.network(
+                                          //                   "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
+                                          //                   height: 68,
+                                          //                   width: 68,
+                                          //                   fit: BoxFit.cover,
+                                          //                 ),
+                                          //               ),
+                                          //             ),
+                                          //             SizedBox(height: 5.v),
+                                          //             Align(
+                                          //               alignment: Alignment.center,
+                                          //               child: Text(
+                                          //                   "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                          //                   style: TextStyle(
+                                          //                     color:
+                                          //                         Color(0xFF272727),
+                                          //                     fontSize: 12,
+                                          //                     fontFamily:
+                                          //                         'League Spartan',
+                                          //                     fontWeight:
+                                          //                         FontWeight.w500,
+                                          //                   )),
+                                          //             )
+                                          //           ],
+                                          //         );
+                                          //       }),
+                                          // ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset(
+                                                  'assets/images/no_product.png',
+                                                  color: Color(0xffff8300),
+                                                  width: Get.width * .7,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  "غير معثور عليه",
+                                                  style: theme
+                                                      .textTheme.titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                          color: Colors.grey),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),

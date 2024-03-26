@@ -1,12 +1,12 @@
-class SubHealthandWellnessModel {
-  SubHealthandWellnessModel({
+class EnglishSubCatWomensModel {
+  EnglishSubCatWomensModel({
     this.status,
     this.seeAllMainCategory,
   });
   bool? status;
   List<SeeAllMainCategory>? seeAllMainCategory;
 
-  SubHealthandWellnessModel.fromJson(Map<String, dynamic> json) {
+  EnglishSubCatWomensModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     seeAllMainCategory = List.from(json['see_all_main_category'])
         .map((e) => SeeAllMainCategory.fromJson(e))
@@ -28,9 +28,9 @@ class SeeAllMainCategory {
     this.categoryName,
     this.imageUrl,
   });
-  int? id;
-  String? categoryName;
-  String? imageUrl;
+  var id;
+  var categoryName;
+  var imageUrl;
 
   SeeAllMainCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];

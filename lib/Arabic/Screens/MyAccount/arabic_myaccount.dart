@@ -328,7 +328,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
               ),
             ),
             onPressed: () {
-              Get.off(UpdateProfileScreen_arabic());
+              Get.offAll(UpdateProfileScreen_arabic());
             },
             buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
           ),

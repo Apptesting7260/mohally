@@ -43,7 +43,7 @@ dependencies:
   geocoding: ^2.1.1
   flutter_geocoder: ^0.2.2-nullsafety
   pull_to_refresh: ^2.0.0
-  
+  virtual_keyboard_multi_language: ^1.0.3
 
 
 

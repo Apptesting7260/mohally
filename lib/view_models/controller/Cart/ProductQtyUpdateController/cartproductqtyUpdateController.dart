@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/CartProductQtyUpdateModel/cartproductQtyUpdate.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +24,7 @@ class CartProductQtyIncrementCartcontroller extends GetxController {
 
   void setError(String value) => error.value = value;
 
-  Future<void> addtocart_Apihit(
+  Future<void> QtyUpdate_Apihit(
       BuildContext context, int index, String quantityUpdateAction) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String lang = prefs.getString('selectedLanguage').toString();
@@ -44,7 +45,7 @@ class CartProductQtyIncrementCartcontroller extends GetxController {
       print(data);
       print("Message: ${value.message}");
       if (value.status == true) {
-        // Utils.snackBar(context, 'Success', value.message.toString());
+        Get.offAll(TabScreen(index: 3));
       } else {
         Utils.snackBar(context, 'Failed', value.message.toString());
       }

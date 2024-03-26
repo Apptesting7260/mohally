@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/MyOrder_Widgets/my_orders_page.dart';
-import 'package:mohally/presentation/MyOrder_Widgets/widgets/myorderslist_item_widget.dart';
-import 'package:mohally/presentation/my_orders_one_page/my_orders_one_page.dart';
+import 'package:mohally/presentation/MyOrder_Widgets/My_Order_Deliver.dart';
+import 'package:mohally/presentation/my_orders_one_page/MyOrder_Processing.dart';
 import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart';
-import 'package:mohally/view_models/controller/OrderStatusController/orderstatuscontroller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
@@ -35,10 +33,10 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-          appBar: _buildAppBar(context),
-          body: Container(
+    return Scaffold(
+        appBar: _buildAppBar(context),
+        body: SafeArea(
+          child: Container(
             height: Get.height,
             width: Get.width,
             child: SingleChildScrollView(
@@ -52,85 +50,17 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
                     child: TabBarView(
                       controller: tabviewController,
                       children: [
-                        MyOrdersPage(),
-                        MyOrdersOnePage(),
-                        MyOrdersTwoPage(),
+                        MyOrdersDelivererdPage(),
+                        MyOrdersProcessingPage(),
+                        MyOrdersCancelledPage(),
                       ],
                     ),
                   ),
                 ],
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 250, bottom: 250),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       CustomImageView(
-              //         imagePath: ImageConstant.imgBag,
-              //         height: 100.adaptSize,
-              //         width: 100.adaptSize,
-              //         color: Color(0xffff8300),
-              //       ),
-              //       SizedBox(
-              //         height: Get.height * .02,
-              //       ),
-              //       Center(
-              //         child: Text(
-              //             'Looks like you haven\'t placed any orders yet. \nStart exploring our products to find something you love !'),
-              //       )
-              //     ],
-              //   ),
-              // ),
             ),
-          )
-          // SizedBox(
-          //   width: double.maxFinite,
-          // child: Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     SizedBox(height: 22.v),
-          //     _buildTabview(context),
-          //     SizedBox(
-          //       height: 658.v,
-          //       child: TabBarView(
-          //         controller: tabviewController,
-          //         children: [
-          //           MyOrdersPage(),
-          //           MyOrdersOnePage(),
-          //           MyOrdersTwoPage(),
-          //         ],
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // ),
           ),
-    );
-  }
-
-  Widget _buildMyOrdersList(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.h),
-        child: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          shrinkWrap: true,
-          separatorBuilder: (
-            context,
-            index,
-          ) {
-            return SizedBox(
-              height: 15.v,
-            );
-          },
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return MyorderslistItemWidget();
-          },
-        ),
-      ),
-    );
+        ));
   }
 
   /// Section Widget

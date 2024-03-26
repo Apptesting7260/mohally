@@ -16,7 +16,6 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../customer_support/customer_support.dart';
 import '../notifications_one_screen/notifications_one_screen.dart';
@@ -74,10 +73,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
     mediaQueryData = MediaQuery.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: Container(
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: SafeArea(
+        child: Container(
           width: double.maxFinite,
           decoration: AppDecoration.fillWhiteA,
           child: Column(
@@ -106,58 +105,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: SizedBox(
                             height: 100.adaptSize,
                             width: 100.adaptSize,
-                            child: Stack(
-                              alignment: Alignment.bottomRight,
-                              children: [
-                                Container(
-                                  height: height * .2,
-                                  width: width * .3,
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: NetworkImage(
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                ),
-                                CustomIconButton(
-                                  height: 30.adaptSize,
-                                  width: 30.adaptSize,
-                                  padding: EdgeInsets.all(8.h),
-                                  alignment: Alignment.bottomRight,
-                                  child: CustomImageView(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text("Choose"),
-                                              content: Row(
-                                                children: [
-                                                  GestureDetector(
-                                                    child: Text("Camera"),
-                                                    onTap: () {
-                                                      openCameraa(
-                                                          ImageSource.camera);
-                                                    },
-                                                  ),
-                                                  SizedBox(width: 80),
-                                                  GestureDetector(
-                                                    child: Text("Gallery"),
-                                                    onTap: () {
-                                                      openCameraa(
-                                                          ImageSource.gallery);
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                    },
-                                    imagePath:
-                                        ImageConstant.imgCamera1WhiteA70002,
-                                  ),
-                                ),
-                              ],
+                            child: Container(
+                              height: height * .2,
+                              width: width * .3,
+                              child: CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage: NetworkImage(_controller
+                                    .MyAccount.value.userDetails?.imageUrl),
+                                backgroundColor: Colors.transparent,
+                              ),
                             ),
                           ),
                         ),
@@ -187,16 +143,43 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         }),
 
                         SizedBox(height: 36.v),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => MyAccountScreen());
-                          },
-                          child: _buildMessageOne(
-                            context,
-                            userImage: ImageConstant.imgProfileIcon,
-                            userMessage: "MyAccount",
-                          ),
-                        ),
+                        InkWell(
+                            onTap: () {
+                              Get.to(() => MyAccountScreen());
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomImageView(
+                                  imagePath: ImageConstant.imgProfileIcon,
+                                  height: 25.adaptSize,
+                                  width: 25.adaptSize,
+                                  color: Color(0xffff8300),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.h,
+                                    top: 5.v,
+                                    bottom: 2.v,
+                                  ),
+                                  child: Text(
+                                    "MyAccount",
+                                    style:
+                                        CustomTextStyles.bodyLarge18.copyWith(
+                                      color: appTheme.gray90001,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                CustomImageView(
+                                  imagePath:
+                                      ImageConstant.imgVectorGray9000111x6,
+                                  height: 11.v,
+                                  width: 6.h,
+                                  margin: EdgeInsets.symmetric(vertical: 7.v),
+                                ),
+                              ],
+                            )),
                         // SizedBox(height: 26.v),
                         // _buildMessageOne(
                         //   context,
@@ -204,7 +187,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         //   userMessage: "Messages_".tr,
                         // ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => MyOrdersTabContainerScreen());
                           },
@@ -215,7 +198,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => ReviewsScreen());
                           },
@@ -226,7 +209,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => CoupanScreen());
                           },
@@ -249,7 +232,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           userMessage: "Browsing history",
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => Default_address());
                           },
@@ -260,7 +243,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => NotificationsOneScreen());
                           },
@@ -271,7 +254,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => EnglishLanguageSwitch());
                           },
@@ -282,7 +265,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           ),
                         ),
                         SizedBox(height: 26.v),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.to(() => CustomerSupport());
                           },

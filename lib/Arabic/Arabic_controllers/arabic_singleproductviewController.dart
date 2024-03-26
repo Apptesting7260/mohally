@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/AarbicWomensSingleViewModel/arabicWomenDressSingleviewModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/AarbicWomensSingleViewModel/arabicWomensTopSingleView.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/ArabicElectronicsSingleViewModel/arabicESinglephoneModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/ArabicElectronicsSingleViewModel/arabicEsingleCameraModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/ArabicElectronicsSingleViewModel/arabicEsingleHeadphonesModel.dart';
@@ -32,6 +34,8 @@ class SingleProductViewController extends GetxController {
   final headphones_userlist = ArabicHeadphonesAudioModel().obs;
   final camera_userlist = ArabicCameraModel().obs;
   final wearable_userlist = ArabicWearableModel().obs;
+  final womens_dressSingleView = ArabicWomensdressSingleViewModel().obs;
+  final womens_topView = ArabicWomensTopsSingleViewModel().obs;
   // final userList = Rx<dynamic>(null);
   RxString error = ''.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
@@ -53,6 +57,11 @@ class SingleProductViewController extends GetxController {
   void cameraModel(ArabicCameraModel value) => camera_userlist.value = value;
   void wearableModel(ArabicWearableModel value) =>
       wearable_userlist.value = value;
+  void WomensDressModel(ArabicWomensdressSingleViewModel value) =>
+      womens_dressSingleView.value = value;
+
+  void WomensTopModel(ArabicWomensTopsSingleViewModel value) =>
+      womens_topView.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   Single_ProductApiHit() async {
@@ -93,6 +102,10 @@ class SingleProductViewController extends GetxController {
           return cameraModel(value);
         case "173":
           return wearableModel(value);
+        case "177":
+          return WomensTopModel(value);
+        case "176":
+          return WomensDressModel(value);
         default:
           throw Exception('Unexpected condition');
       }

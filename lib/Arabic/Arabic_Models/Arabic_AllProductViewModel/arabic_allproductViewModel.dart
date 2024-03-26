@@ -22,45 +22,46 @@ class arabicAllProductViewModel {
 }
 
 class AllProductList {
-  AllProductList(
-      {this.id,
-      this.title,
-      this.price,
-      this.mainCategoryId,
-      this.averageRating,
-      this.imageUrl,
-      this.galleryUrl,
-      this.producttype});
-  int? id;
-  String? title;
-  String? price;
-  String? mainCategoryId;
-  int? averageRating;
-  String? imageUrl;
-  Null galleryUrl;
-  var producttype;
+  AllProductList({
+    this.id,
+    this.productType,
+    this.aTitle,
+    this.price,
+    this.mainCategoryId,
+    this.averageRating,
+    this.imageUrl,
+    this.galleryUrl,
+  });
+  var id;
+  var productType;
+  var aTitle;
+  var price;
+  var mainCategoryId;
+  var averageRating;
+  var imageUrl;
+  var galleryUrl;
 
   AllProductList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['a_title'];
+    productType = json['product_type'];
+    aTitle = json['a_title'];
     price = json['price'];
     mainCategoryId = json['main_category_id'];
     averageRating = json['average_rating'];
     imageUrl = json['image_url'];
     galleryUrl = null;
-    producttype = json['product_type'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
-    _data['a_title'] = title;
+    _data['product_type'] = productType;
+    _data['a_title'] = aTitle;
     _data['price'] = price;
     _data['main_category_id'] = mainCategoryId;
     _data['average_rating'] = averageRating;
     _data['image_url'] = imageUrl;
     _data['gallery_url'] = galleryUrl;
-    _data['product_type'] = producttype;
     return _data;
   }
 }

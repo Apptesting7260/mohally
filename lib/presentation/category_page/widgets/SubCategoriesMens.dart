@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_product_found.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/MensAllProduct.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/home_page_one_page.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
@@ -39,6 +34,10 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
     _categoryByName.SeeAll_apiHit();
   }
 
+  PageController _pageController =
+      PageController(initialPage: 0); // Set initial page to 0
+  bool showPageView = false;
+  int selectedTabIndex = 0;
   CategoriesByNameControllerEnglish _categoryByName =
       CategoriesByNameControllerEnglish();
   @override
@@ -64,6 +63,24 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
                 )),
           ),
         ),
+        title: Padding(
+            padding: const EdgeInsets.only(
+              top: 15,
+            ),
+            child: Text(
+              "Men's Apparel",
+              style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                // fontSize: 12,
+                fontFamily: 'Almarai',
+                fontWeight: FontWeight.w500,
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              // theme.textTheme.bodySmall,
+              // overflow: TextOverflow.ellipsis,
+              // maxLines: 1,
+            )),
       ),
       body: Obx(() {
         if (_categoryByName.rxRequestStatus.value == Status.LOADING) {
@@ -110,98 +127,185 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
                     ],
                   ),
                 ))
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: Get.height * .05,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 20),
-                      child: Container(
-                        color: Colors.white,
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 8.0,
-                                  mainAxisSpacing: 8.0,
-                                  mainAxisExtent: Get.height * .2),
-                          itemCount: _categoryByName
-                                  .userList.value.seeAllMainCategory?.length ??
-                              0,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+              : SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: Get.height * .03,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 300),
+                        child: Container(
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                showPageView =
+                                    false; // Set showPageView to false to show GridView instead of PageView
+                              });
+                              _pageController.jumpToPage(
+                                  0); // Jump to the first page (MensAllProduct())
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    submainCatId = _categoryByName.userList
-                                        .value.seeAllMainCategory![index].id
-                                        .toString();
-
-                                    setState(() {
-                                      EnglishproductbyCatId = submainCatId;
-                                    });
-                                    print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "153") {
-                                      Get.to(SubCat_Mens_ShirtsView());
-                                      print(
-                                          "$submainCatId===========Mens Appearl main category id ");
-                                    } else if (submainCatId == "154") {
-                                      Get.to(SubCat_Mens_Bottoms());
-                                    } else if (submainCatId == "155") {
-                                      Get.to(SubCat_Mens_jacket());
-                                    } else if (submainCatId == "156") {
-                                      Get.to(SubCat_Mens_activewear());
-                                    } else if (submainCatId == "157") {
-                                      Get.to(SubCat_Mens_formals());
-                                    } else if (submainCatId == "174") {
-                                      Get.to(SubCat_Mens_shoes());
-                                    } else if (submainCatId == "166") {
-                                      Get.to(SubCat_Electronics_smartphone());
-                                    } else if (submainCatId == "170") {
-                                      Get.to(SubCat_Electronics_laptops());
-                                    } else if (submainCatId == "171") {
-                                      Get.to(SubCat_Electronics_headphones());
-                                    } else if (submainCatId == "172") {
-                                      Get.to(SubCat_Electronics_camera());
-                                    } else if (submainCatId == "173") {
-                                      Get.to(SubCat_Electronics_wearable());
-                                    } else {
-                                      print('not found ');
-                                    }
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(38.0),
-                                    child: Image.network(
-                                      "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                                      height: 68,
-                                      width: 68,
-                                      fit: BoxFit.cover,
-                                    ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(38.0),
+                                  child: Image.asset(
+                                    "assets/images/viewall.png",
+                                    height: 50,
+                                    width: 50,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 SizedBox(height: 5.v),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
+                                Text(
+                                  "View All",
+                                  style: TextStyle(
+                                    color: Color(0xFF272727),
+                                    fontSize: 12,
+                                    fontFamily: 'League Spartan',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 20),
+                          child: Container(
+                            color: Colors.white,
+                            child: GridView.builder(
+                              // physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4,
+                                      crossAxisSpacing: 8.0,
+                                      mainAxisSpacing: 8.0,
+                                      mainAxisExtent: Get.height * .14),
+                              itemCount: _categoryByName.userList.value
+                                      .seeAllMainCategory?.length ??
+                                  0,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        submainCatId = _categoryByName.userList
+                                            .value.seeAllMainCategory![index].id
+                                            .toString();
+
+                                        setState(() {
+                                          EnglishproductbyCatId = submainCatId;
+                                          showPageView = true;
+                                        });
+                                        print("$EnglishproductbyCatId==");
+                                        if (submainCatId == "153") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_Bottoms());
+                                        } else if (submainCatId == "154") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_jacket());
+                                        } else if (submainCatId == "155") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_activewear());
+                                        } else if (submainCatId == "156") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_formals());
+                                        } else if (submainCatId == "157") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_shoes());
+                                        } else if (submainCatId == "174") {
+                                          _pageController.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease);
+                                          // Get.to(SubCat_Mens_shoes());
+                                        } else {
+                                          Utils.snackBar(context, 'Sorry!',
+                                              "We're currently working behind the scenes");
+                                        }
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(38.0),
+                                        child: Image.network(
+                                          "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                          height: 68,
+                                          width: 68,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.v),
+                                    Text(
                                       "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
                                       style: TextStyle(
                                         color: Color(0xFF272727),
                                         fontSize: 12,
                                         fontFamily: 'League Spartan',
                                         fontWeight: FontWeight.w500,
-                                      )),
-                                )
-                              ],
-                            );
-                          },
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: Get.height * 0.6,
+                        child: PageView(
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _pageController,
+                          onPageChanged: (index) {
+                            setState(() {
+                              selectedTabIndex = index;
+                            });
+                          },
+                          children: [
+                            if (!showPageView)
+                              MensAllProduct(), // Display MensAllProduct initially
+                            Container(child: SubCat_Mens_ShirtsView()),
+                            Container(child: SubCat_Mens_Bottoms()),
+                            Container(child: SubCat_Mens_jacket()),
+                            Container(child: SubCat_Mens_activewear()),
+                            Container(child: SubCat_Mens_formals()),
+                            Container(child: SubCat_Mens_shoes()),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
         }
       }),

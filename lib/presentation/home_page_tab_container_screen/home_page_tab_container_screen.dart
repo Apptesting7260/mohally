@@ -6,7 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
-import 'package:mohally/presentation/category_page/category_page.dart';
+import 'package:mohally/presentation/category_page/category_screen.dart';
 import 'package:mohally/presentation/home_page/home_page.dart';
 import 'package:mohally/presentation/home_page_one_tab_container_page/home_page_one_tab_container_page.dart';
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
@@ -104,7 +104,7 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
       case AppRoutes.homePageOneTabContainerPage:
         return Container();
       case AppRoutes.categoryPage:
-        return CategoryPage();
+        return CategoryScreen();
       case AppRoutes.wishlistPage:
         return WishlistPage();
       case AppRoutes.cartPage:

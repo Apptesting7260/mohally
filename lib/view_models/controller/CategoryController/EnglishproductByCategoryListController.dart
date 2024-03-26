@@ -5,12 +5,15 @@ import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategoryby
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecLaptopsSubcatModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecSmartPhonesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecWearablesubcategoryModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensAllProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensBottomsubcatbycatidModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensFormalsSubCategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensJacketSubCategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensShoesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mensactivewearSubCategory.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/shirtandtopsSubCatViewModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/WomensSubCatViewModel/womenSubCatTopModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/WomensSubCatViewModel/womensSubCatDressProductViewModel.dart';
 import 'package:mohally/presentation/category_page/widgets/SubCategoriesMens.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +25,7 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
   final rxRequestStatus = Status.LOADING.obs;
   RxString error = ''.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  final mens = MensAllProductModel().obs;
   final ShirtandTops_userlist = ShirtsSubcatviewModel().obs;
   final Bottom_userlist = MensBottomSubcatviewModel().obs;
   final jacket_userlist = MensJacketSubCategoryByCategoryIdModel().obs;
@@ -33,7 +37,11 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
   final headphones_userlist = ElecHeadphonessubCatModel().obs;
   final camera_userlist = ElecCamerasubcategoryModel().obs;
   final wearable_userlist = ElecWearableSubCatModel().obs;
+  final womensDress_userlist = WomensDressSubcatviewModel().obs;
+  final womenstops_userlist = WomensTopsSubcatviewModel().obs;
   // final userList = Rx<dynamic>(null);
+
+  void MensModel(MensAllProductModel value) => mens.value = value;
   void shirtandTopsModel(ShirtsSubcatviewModel value) =>
       ShirtandTops_userlist.value = value;
   void bottomModel(MensBottomSubcatviewModel value) =>
@@ -56,6 +64,10 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
       camera_userlist.value = value;
   void wearableModel(ElecWearableSubCatModel value) =>
       wearable_userlist.value = value;
+  void womenDressModel(WomensDressSubcatviewModel value) =>
+      womensDress_userlist.value = value;
+  void womenTopModel(WomensTopsSubcatviewModel value) =>
+      womenstops_userlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -72,6 +84,8 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       //  mensApparelModel(value);
       switch (submainCatId) {
+        case "133":
+          return MensModel(value);
         case "153":
           return shirtandTopsModel(value);
         case "154":
@@ -94,11 +108,16 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
           return cameraModel(value);
         case "173":
           return wearableModel(value);
+        case "176":
+          return womenDressModel(value);
+        case "177":
+          return womenTopModel(value);
+
         default:
           throw Exception('Unexpected condition');
       }
     }).onError((error, stackTrace) {
-      print("=====Home====Page======Error======");
+      print("=====Sub====Cat======ProductView Error======");
       print(error.toString());
       print(stackTrace.toString());
       loading.value = false;

@@ -14,6 +14,7 @@ class ChooseLanguageScreen extends StatefulWidget {
   @override
   State<ChooseLanguageScreen> createState() => _ChooseLanguageScreenState();
 }
+
 class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
   String radioGroup = "";
   String continueButtonText = "Continue";
@@ -22,35 +23,41 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
   void initState() {
     super.initState();
     _loadSelectedLanguage();
-   
   }
-Future<void> _loadSelectedLanguage() async {
+
+  Future<void> _loadSelectedLanguage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       radioGroup = prefs.getString('selectedLanguage') ?? "";
       continueButtonText = (radioGroup == "Arabic") ? "يكمل" : "Continue";
-       continueButtonText = (radioGroup == "English") ? "Continue" : "يكمل";
-        if (radioGroup.isEmpty) {
-      setState(() {
-        continueButtonText = "Continue";
-      });}
+      continueButtonText = (radioGroup == "English") ? "Continue" : "يكمل";
+      if (radioGroup.isEmpty) {
+        setState(() {
+          continueButtonText = "Continue";
+        });
+      }
     });
   }
+
   Future<void> _saveSelectedLanguage(String language) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selectedLanguage', language);
   }
-  void _navigateToNextScreen()async {
-     SharedPreferences prefs = await SharedPreferences.getInstance();
-     String lang= prefs.getString('selectedLanguage').toString();
-    if (lang=="Arabic") {
-      print("$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
-       Get.to(() => arabic_WelcomeScreen());
-    } else if (lang=="English") {
-       print("$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
+
+  void _navigateToNextScreen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String lang = prefs.getString('selectedLanguage').toString();
+    if (lang == "Arabic") {
+      print(
+          "$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
+      Get.to(() => arabic_WelcomeScreen());
+    } else if (lang == "English") {
+      print(
+          "$lang=========l==a==n==g==u==a==g==e========s==e==l==e==c==t==e==d===========");
       Get.to(() => WelcomeScreen());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -72,15 +79,16 @@ Future<void> _loadSelectedLanguage() async {
               _buildChooseLanguageEnglish(context),
               SizedBox(height: 20.v),
               CustomElevatedButton(
-                  onPressed: () async {
-  if (radioGroup.isNotEmpty) {
-    await _saveSelectedLanguage(radioGroup);
-    _navigateToNextScreen();
-  } 
-  else {
-    Utils.snackBar(context, '', 'Please Select a Language\nيرجى تحديد لغة ');
-    print("Please choose a language");
-  } },
+                onPressed: () async {
+                  if (radioGroup.isNotEmpty) {
+                    await _saveSelectedLanguage(radioGroup);
+                    _navigateToNextScreen();
+                  } else {
+                    Utils.snackBar(context, '',
+                        'Please Select a Language\nيرجى تحديد لغة ');
+                    print("Please choose a language");
+                  }
+                },
                 text: continueButtonText,
                 buttonStyle: CustomButtonStyles.fillPrimary,
               ),
@@ -110,7 +118,9 @@ Future<void> _loadSelectedLanguage() async {
             height: 30.adaptSize,
             width: 30.adaptSize,
           ),
-            SizedBox(width: Get.width*.03,),
+          SizedBox(
+            width: Get.width * .03,
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
@@ -126,9 +136,9 @@ Future<void> _loadSelectedLanguage() async {
                 isRightCheck: true,
                 onChange: (value) {
                   setState(() {
-                     Get.updateLocale(Locale('ar','DZ'));
+                    //  Get.updateLocale(Locale('ar','DZ'));
                     radioGroup = value;
-                    continueButtonText ="يكمل";
+                    continueButtonText = "يكمل";
                   });
                 },
               ),
@@ -157,7 +167,9 @@ Future<void> _loadSelectedLanguage() async {
             height: 30.adaptSize,
             width: 30.adaptSize,
           ),
-          SizedBox(width: Get.width*.03,),
+          SizedBox(
+            width: Get.width * .03,
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
@@ -173,9 +185,9 @@ Future<void> _loadSelectedLanguage() async {
                 isRightCheck: true,
                 onChange: (value) {
                   setState(() {
-                       Get.updateLocale(Locale('en','US'));
+                    Get.updateLocale(Locale('en', 'US'));
                     radioGroup = value;
-                     continueButtonText ="Continue";
+                    continueButtonText = "Continue";
                   });
                 },
               ),

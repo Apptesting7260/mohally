@@ -763,8 +763,14 @@ class _arabicSubCat_Electronics_laptopsState
                                                             color: selectedcolorIndex
                                                                         .value ==
                                                                     index
-                                                                ? Colors.orange
-                                                                : Colors.grey,
+                                                                ? Color(
+                                                                    0xffff8300)
+                                                                : const Color
+                                                                    .fromARGB(
+                                                                    111,
+                                                                    158,
+                                                                    158,
+                                                                    158),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(

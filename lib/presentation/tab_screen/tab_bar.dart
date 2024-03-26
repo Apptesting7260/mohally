@@ -30,19 +30,15 @@ class _TabScreenState extends State<TabScreen> {
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
     _controller.fetchMyAccountData();
-
-    // Ensure that the initial locale is set when the screen initializes
-
     super.initState();
   }
-
-  // Function to set the initial locale
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
+        // backgroundColor: Colors.white,
         key: drawerKey,
         body: SafeArea(
           child: GestureDetector(

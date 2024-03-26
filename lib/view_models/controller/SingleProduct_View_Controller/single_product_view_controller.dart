@@ -13,7 +13,9 @@ import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/FormalsMode
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/JaketandOutwearModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/home_page_one_page.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSingleProductViewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensTopSingleProductViewModel.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +36,8 @@ class EnglishSingleProductViewController extends GetxController {
   final headphones_userlist = HeadphonesAudioModel().obs;
   final camera_userlist = CameraModel().obs;
   final wearable_userlist = WearableModel().obs;
+  final womenstops_userlist = WomensTopSingleViewModel().obs;
+  final womensDress_userlist = WomensDressSingleViewModel().obs;
   // final userList = Rx<dynamic>(null);
   RxString error = ''.obs;
 
@@ -54,7 +58,10 @@ class EnglishSingleProductViewController extends GetxController {
       headphones_userlist.value = value;
   void cameraModel(CameraModel value) => camera_userlist.value = value;
   void wearableModel(WearableModel value) => wearable_userlist.value = value;
-
+  void womendressModel(WomensDressSingleViewModel value) =>
+      womensDress_userlist.value = value;
+  void womenTopModel(WomensTopSingleViewModel value) =>
+      womenstops_userlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   void showLoadingDialog(BuildContext context) {
@@ -114,6 +121,11 @@ class EnglishSingleProductViewController extends GetxController {
           return cameraModel(value);
         case "173":
           return wearableModel(value);
+        case "176":
+          return womendressModel(value);
+
+        case "177":
+          return womenTopModel(value);
         default:
           throw Exception('Unexpected condition');
       }

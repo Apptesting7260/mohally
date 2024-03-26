@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -402,10 +403,12 @@ class _AddressScreenState extends State<AddressScreen> {
             style: theme.textTheme.bodyLarge,
           ),
         ),
-        CustomSwitch(
-          value: isSelectedSwitch,
-          onChange: (value) {
-            isSelectedSwitch = value;
+        CupertinoSwitch(
+          value: _newAddressController.isAddressPrimary.value,
+          onChanged: (value) {
+            setState(() {
+              _newAddressController.isAddressPrimary.value = value;
+            });
           },
         ),
       ],

@@ -22,7 +22,7 @@ import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/ara
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMJacketSingleView.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMShirtSingleViewScreen.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMactivewearView.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/home_page_one_page.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/AudioSingleViewScreen.dart';
 import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/CameraSingleviewScreen.dart';
 import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/LaptopsSingleviewScreen.dart';
@@ -788,8 +788,14 @@ class _arabic_SubCat_Electronics_cameraState
                                                             color: selectedcolorIndex
                                                                         .value ==
                                                                     index
-                                                                ? Colors.orange
-                                                                : Colors.grey,
+                                                                ? Color(
+                                                                    0xffff8300)
+                                                                : const Color
+                                                                    .fromARGB(
+                                                                    111,
+                                                                    158,
+                                                                    158,
+                                                                    158),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(

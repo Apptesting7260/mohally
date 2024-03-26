@@ -1,15 +1,16 @@
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
+import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/English_Viewwishlist_Controller/english_view_wishlistController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
-import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore_for_file: must_be_immutable
 class WishlistPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class WishlistPage extends StatefulWidget {
 }
 
 class _WishlistPageState extends State<WishlistPage> {
-  List<bool> isButtonTappedList = List.generate(8, (index) => false);
+  List<bool> isButtonTappedList = List.generate(1000000, (index) => false);
   bool isButtonTapped = false;
   EnglishViewwishlist viewWishlistcontroller = EnglishViewwishlist();
   HomeView_controller_English homeView_controller =
@@ -38,43 +39,44 @@ class _WishlistPageState extends State<WishlistPage> {
     homeView_controller.homeview_apihit();
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Obx(() {
-        if (viewWishlistcontroller.rxRequestStatus.value == Status.LOADING) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else if (homeView_controller.rxRequestStatus.value ==
-            Status.LOADING) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else if (homeView_controller.rxRequestStatus.value == Status.ERROR) {
-          return Scaffold(
-              body: Center(
-                  child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/error2.png',
-              ),
-              Text(
-                "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
-                style: theme.textTheme.headlineMedium?.copyWith(
-                    color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
-              ),
-            ],
-          )));
-        } else if (viewWishlistcontroller.rxRequestStatus.value ==
-            Status.ERROR) {
-          return Scaffold(
-              body: Center(
-                  child: Column(
+    return Obx(() {
+      if (viewWishlistcontroller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else if (homeView_controller.rxRequestStatus.value == Status.ERROR) {
+        return Scaffold(
+            body: Center(
+                child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/error2.png',
+            ),
+            Text(
+              "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+              style: theme.textTheme.headlineMedium
+                  ?.copyWith(color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
+            ),
+          ],
+        )));
+      } else if (viewWishlistcontroller.rxRequestStatus.value == Status.ERROR) {
+        return Scaffold(
+            body: SafeArea(
+          child: Center(
+              child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -87,10 +89,18 @@ class _WishlistPageState extends State<WishlistPage> {
                     color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
               ),
             ],
-          )));
-        } else {
-          return Scaffold(
-            body: SingleChildScrollView(
+          )),
+        ));
+      } else {
+        return Scaffold(
+          body: SmartRefresher(
+            enablePullDown: true,
+            onRefresh: () async {
+              viewWishlistcontroller.ViewWishlish_apihit();
+            },
+            enablePullUp: false,
+            controller: _refreshController,
+            child: SingleChildScrollView(
               child: Container(
                 width: double.maxFinite,
                 decoration: AppDecoration.fillWhiteA,
@@ -106,8 +116,8 @@ class _WishlistPageState extends State<WishlistPage> {
                           style: theme.textTheme.headlineMedium,
                         ),
                       ),
-                      SizedBox(height: 25.v),
-                      _buildEdit(context),
+                      // SizedBox(height: 25.v),
+                      // _buildEdit(context),
                       SizedBox(height: 27.v),
                       _buildWishlistGrid(context),
                     ],
@@ -115,31 +125,31 @@ class _WishlistPageState extends State<WishlistPage> {
                 ),
               ),
             ),
-          );
-        }
-      }),
-    );
+          ),
+        );
+      }
+    });
   }
 
   /// Section Widget
-  Widget _buildEditButton(BuildContext context) {
-    return CustomElevatedButton(
-      height: 35.v,
-      width: 65.h,
-      text: "Edit".tr,
-      margin: EdgeInsets.only(bottom: 2.v),
-      leftIcon: Container(
-        margin: EdgeInsets.only(right: 5.h),
-        child: CustomImageView(
-          imagePath: ImageConstant.imgEdit,
-          height: 15.adaptSize,
-          width: 15.adaptSize,
-        ),
-      ),
-      buttonStyle: CustomButtonStyles.fillGray,
-      buttonTextStyle: CustomTextStyles.bodyMediumGray9000115,
-    );
-  }
+  // Widget _buildEditButton(BuildContext context) {
+  //   return CustomElevatedButton(
+  //     height: 35.v,
+  //     width: 65.h,
+  //     text: "Edit".tr,
+  //     margin: EdgeInsets.only(bottom: 2.v),
+  //     leftIcon: Container(
+  //       margin: EdgeInsets.only(right: 5.h),
+  //       child: CustomImageView(
+  //         imagePath: ImageConstant.imgEdit,
+  //         height: 15.adaptSize,
+  //         width: 15.adaptSize,
+  //       ),
+  //     ),
+  //     buttonStyle: CustomButtonStyles.fillGray,
+  //     buttonTextStyle: CustomTextStyles.bodyMediumGray9000115,
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildEdit(BuildContext context) {
@@ -151,21 +161,21 @@ class _WishlistPageState extends State<WishlistPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: Text(
-              //     "20 Items",
-              //     style: theme.textTheme.titleMedium,
-              //   ),
-              // ),
-              // SizedBox(height: 6.v),
-              // Text(
-              //   "in wishlist".tr,
-              //   style: CustomTextStyles.bodyLargeGray50001_3,
-              // ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "${viewWishlistcontroller.userList.value.wishlistViewList!.length.toString()} Items",
+                  style: theme.textTheme.titleMedium,
+                ),
+              ),
+              SizedBox(height: 6.v),
+              Text(
+                "in wishlist",
+                style: CustomTextStyles.bodyLargeGray50001_3,
+              ),
             ],
           ),
-          _buildEditButton(context),
+          // _buildEditButton(context),
         ],
       ),
     );
@@ -175,10 +185,11 @@ class _WishlistPageState extends State<WishlistPage> {
   Widget _buildWishlistGrid(BuildContext context) {
     return viewWishlistcontroller.userList.value.wishlistViewList == null ||
             viewWishlistcontroller.userList.value.wishlistViewList!.isEmpty
-        ? Center(
-            child: Padding(
-            padding: const EdgeInsets.only(top: 150),
+        ? Padding(
+            padding: const EdgeInsets.only(top: 200),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/wishlist.png',
@@ -187,24 +198,30 @@ class _WishlistPageState extends State<WishlistPage> {
                 SizedBox(
                   height: Get.height * .03,
                 ),
-                Text(
-                  "Your wishlist is empty!",
-                  style: theme.textTheme.headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.normal, fontSize: 18),
+                Center(
+                  child: Text(
+                    "Your wishlist is empty!",
+                    style: theme.textTheme.headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.normal, fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 SizedBox(
                   height: Get.height * .01,
                 ),
-                Text(
-                  "Explore More and shortlist some items",
-                  style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 18,
-                      color: Color.fromARGB(73, 0, 0, 0)),
+                Center(
+                  child: Text(
+                    "Explore More and shortlist some items",
+                    style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 18,
+                        color: Color.fromARGB(73, 0, 0, 0)),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),
-          ))
+          )
         : Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Container(
@@ -268,10 +285,21 @@ class _WishlistPageState extends State<WishlistPage> {
                                   decoration: IconButtonStyleHelper.fillWhiteA,
                                   alignment: Alignment.topRight,
                                   child: CustomImageView(
-                                      imagePath: ImageConstant
-                                          .imgGroup239531 // Change this to your tapped image
-                                      // :  ImageConstant.imgSearch,    // Default image
-                                      ),
+                                    imagePath: isButtonTappedList[index]
+                                        ? ImageConstant.imgSearch
+                                        : ImageConstant.imgGroup239531,
+                                  ),
+                                  onTap: () {
+                                    Add_remove_productidd =
+                                        wishlistProduct.id!.toString();
+                                    EnglishAdd_remove_wishlistController()
+                                        .AddRemoveWishlish_apihit();
+
+                                    setState(() {
+                                      isButtonTappedList[index] =
+                                          !isButtonTappedList[index];
+                                    });
+                                  },
                                 )),
                           ],
                         ),
@@ -299,7 +327,7 @@ class _WishlistPageState extends State<WishlistPage> {
                       SizedBox(
                         width: 131.h,
                         child: Text(
-                          wishlistProduct.title.toString(),
+                          wishlistProduct.Title.toString(),
                           //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

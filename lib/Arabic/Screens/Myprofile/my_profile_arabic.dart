@@ -247,7 +247,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             );
                           }),
                           SizedBox(height: 36.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => MyAccountScreen_arabic());
                             },
@@ -264,7 +264,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                           //   userMessage: "Messages_".tr,
                           // ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => MyOrdersTab_arabic());
                             },
@@ -275,7 +275,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => ReviewsScreen_arabic());
                             },
@@ -286,7 +286,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => CoupanScreen_arabic());
                             },
@@ -303,7 +303,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                           //   userMessage: "Followed_shops".tr,
                           // ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               //  Locationtest();
                               // Get.to(() => Locationtest());
@@ -315,7 +315,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => addresses_arabic());
                             },
@@ -326,7 +326,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => NotificationsOneScreen_arabic());
                             },
@@ -337,7 +337,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => ArabicLanguageSwitch());
                             },
@@ -348,7 +348,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             ),
                           ),
                           SizedBox(height: 26.v),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Get.to(() => CustomerSupport_arabic());
                             },

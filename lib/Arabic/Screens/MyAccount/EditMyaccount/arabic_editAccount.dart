@@ -35,31 +35,18 @@ class _UpdateProfileScreen_arabicState
       Get.put(arabic_UpdateProfile_Controller());
   bool isEmail(String input) => EmailValidator.validate(input);
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //  void _submit() {
-  //   final isValid = _formKey.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   UpdateProfile_Controllerins.updateprofile_apihit();
-  //   _formKey.currentState!.save();
-  // }
-  final imgPicker = ImagePicker();
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
-    setState(() {
-      UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
-    });
-    Navigator.of(context).pop();
-  }
+  final picker = ImagePicker();
+  Future getImage(ImageSource source) async {
+    final pickedFile = await picker.getImage(source: source);
 
-  //open camera
-  void openCameraa(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
     setState(() {
-      UpdateProfile_Controllerins.imgFile = File(imgCamera!.path);
-      print("image------${UpdateProfile_Controllerins.imgFile}");
+      if (pickedFile != null) {
+        UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
+        print("====file${UpdateProfile_Controllerins.imgFile}");
+      } else {
+        print('No image selected.');
+      }
     });
-    Navigator.of(context).pop();
   }
 
   void initState() {
@@ -101,21 +88,32 @@ class _UpdateProfileScreen_arabicState
                         Container(
                           height: height * .2,
                           width: width * .3,
-                          child:
-                              UpdateProfile_Controllerins.imgFile.toString() ==
-                                      "null"
-                                  ? CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: NetworkImage(
-                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                      backgroundColor: Colors.transparent,
-                                    )
-                                  : CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: FileImage(
-                                          UpdateProfile_Controllerins.imgFile!),
-                                      backgroundColor: Colors.transparent,
+                          child: UpdateProfile_Controllerins.imgFile == null
+                              ? Container(
+                                  height: height * .2,
+                                  width: width * .3,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffff8300),
+                                    // image: DecorationImage(
+
+                                    //     image: AssetImage(
+                                    //         'assets/images/editprofile.png' ,  ),
+                                    //         )
+                                  ),
+                                  child: Center(
+                                    child: Image.asset(
+                                      'assets/images/editprofile.png',
+                                      color: Colors.white,
                                     ),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: 30.0,
+                                  backgroundImage: FileImage(
+                                      UpdateProfile_Controllerins.imgFile!),
+                                  backgroundColor: Colors.transparent,
+                                ),
                         ),
                         CustomIconButton(
                           height: 30.adaptSize,
@@ -124,48 +122,43 @@ class _UpdateProfileScreen_arabicState
                           alignment: Alignment.bottomRight,
                           child: CustomImageView(
                             onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: Color(0xFFFF8300),
-                                      title: Text(
-                                        "يختار",
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            fontFamily: 'Almarai',
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      content: Row(
-                                        children: [
-                                          GestureDetector(
-                                            child: Text(
-                                              "آلة تصوير",
-                                              style: TextStyle(
-                                                  fontFamily: 'Almarai',
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            onTap: () {
-                                              openCameraa(ImageSource.camera);
-                                            },
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SafeArea(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: Icon(
+                                            Icons.photo_library,
+                                            color: Color(0xffff8300),
                                           ),
-                                          SizedBox(width: 80),
-                                          GestureDetector(
-                                            child: Text("صالة عرض",
-                                                style: TextStyle(
-                                                    fontFamily: 'Almarai',
-                                                    color: Colors.white,
-                                                    fontSize: 16)),
-                                            onTap: () {
-                                              openCameraa(ImageSource.gallery);
-                                            },
+                                          title: Text('Choose from gallery'),
+                                          onTap: () {
+                                            getImage(ImageSource.gallery);
+
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        ListTile(
+                                          leading: Icon(
+                                            Icons.camera_alt,
+                                            color: Color(0xffff8300),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  });
+                                          title: Text(
+                                            'Take a picture',
+                                          ),
+                                          onTap: () {
+                                            getImage(ImageSource.camera);
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
                             },
                             imagePath: ImageConstant.imgCamera1WhiteA70002,
                           ),

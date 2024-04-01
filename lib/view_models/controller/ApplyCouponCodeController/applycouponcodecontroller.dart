@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/CouponCodeApply/applyCouponCodeModel.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -18,15 +17,18 @@ class CouponCodeApplyController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs;
   final userList = CouponCodeApplyModel().obs;
   RxString error = ''.obs;
+  RxList selectedCartIds = [].obs;
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setUserList(CouponCodeApplyModel value) => userList.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
-  void applyCoupon_apihit(BuildContext context) async {
+  void applyCoupon_apihit(BuildContext context, List ids) async {
     loading.value = true;
     Map data = {
       "coupon_id": CouponId.toString(),
       "total_amount": TotalAmount.toString(),
+      "cart_id": ids.toString(),
     };
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
@@ -39,7 +41,7 @@ class CouponCodeApplyController extends GetxController {
       } else {}
       discountprice = value.discountPrice.toString();
       totalpriceafterdiscount = value.totalPrice.toString();
-      couponidforcheckout = value.couponid.toString();
+      // couponidforcheckout = value.couponid.toString();
       print("========dis${discountprice}");
       print(value);
       loading.value = false;

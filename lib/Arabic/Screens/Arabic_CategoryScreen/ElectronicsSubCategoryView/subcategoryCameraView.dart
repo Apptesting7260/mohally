@@ -80,27 +80,27 @@ class _arabic_SubCat_Electronics_cameraState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: Padding(
+      //     padding: const EdgeInsets.only(
+      //       top: 15,
+      //     ),
+      //     child: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Container(
+      //           width: Get.width * .07,
+      //           height: Get.height * .03,
+      //           decoration: BoxDecoration(
+      //               shape: BoxShape.circle,
+      //               color: const Color.fromARGB(90, 158, 158, 158)),
+      //           child: Icon(
+      //             Icons.arrow_back,
+      //           )),
+      //     ),
+      //   ),
+      // ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Obx(() {

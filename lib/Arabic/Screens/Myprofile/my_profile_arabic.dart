@@ -78,42 +78,42 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
     mediaQueryData = MediaQuery.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "ملفي",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Almarai',
-                ),
-              )),
-          leading: Padding(
-            padding: const EdgeInsets.only(
-              top: 15,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                Get.offAll(arabic_TabScreen(
-                  index: 0,
-                ));
-              },
-              child: Container(
-                  width: Get.width * .07,
-                  height: Get.height * .03,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color.fromARGB(90, 158, 158, 158)),
-                  child: Icon(
-                    Icons.arrow_back,
-                  )),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "ملفي",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Almarai',
+              ),
+            )),
+        leading: Padding(
+          padding: const EdgeInsets.only(
+            top: 15,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Get.offAll(arabic_TabScreen(
+                index: 0,
+              ));
+            },
+            child: Container(
+                width: Get.width * .07,
+                height: Get.height * .03,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color.fromARGB(90, 158, 158, 158)),
+                child: Icon(
+                  Icons.arrow_back,
+                )),
           ),
         ),
-        body: Directionality(
+      ),
+      body: SafeArea(
+        child: Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
             width: double.maxFinite,

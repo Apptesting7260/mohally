@@ -42,7 +42,7 @@ class EnglishCreateaddress_controller extends GetxController {
     // print(userid.value);
     _api.arabic_addnewaddressApi(data, header).then((value) {
       loading.value = false;
-      Get.off(() => Default_address());
+      Get.off(() => ShippingAddress());
       // _showVerificationDialog(context);
     }).onError((error, stackTrace) {
       loading.value = false;

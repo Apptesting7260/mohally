@@ -53,4 +53,6 @@ class AppUrl {
       '${baseurl}product-price-change-by-attribute';
   static const String productaddreview = '${baseurl}product-review-store-api';
   static const String usercancelorder = '${baseurl}user-cancel-order';
+  static const String reorder = '${baseurl}re-order';
+  static const String orderDetails = '${baseurl}single-order-details';
 }

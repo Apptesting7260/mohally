@@ -64,27 +64,27 @@ class _arabicSubCat_Electronics_wearableState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: Padding(
+      //     padding: const EdgeInsets.only(
+      //       top: 15,
+      //     ),
+      //     child: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Container(
+      //           width: Get.width * .07,
+      //           height: Get.height * .03,
+      //           decoration: BoxDecoration(
+      //               shape: BoxShape.circle,
+      //               color: const Color.fromARGB(90, 158, 158, 158)),
+      //           child: Icon(
+      //             Icons.arrow_back,
+      //           )),
+      //     ),
+      //   ),
+      // ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Obx(() {
@@ -772,7 +772,7 @@ class _arabicSubCat_Electronics_wearableState
                                                             color: selectedcolorIndex
                                                                         .value ==
                                                                     index
-                                                              ? Color(
+                                                                ? Color(
                                                                     0xffff8300)
                                                                 : const Color
                                                                     .fromARGB(

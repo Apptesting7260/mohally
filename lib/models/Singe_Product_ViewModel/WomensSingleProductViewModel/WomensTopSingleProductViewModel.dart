@@ -28,17 +28,19 @@ class WomensTopSingleViewModel {
 }
 
 class ProductView {
-  ProductView({
-    this.id,
-    this.productType,
-    this.title,
-    this.slug,
-    this.description,
-    this.productCatgories,
-    this.productDetails,
-    this.imageUrl,
-    this.galleryUrl,
-  });
+  ProductView(
+      {this.id,
+      this.productType,
+      this.title,
+      this.slug,
+      this.description,
+      this.productCatgories,
+      this.productDetails,
+      this.quantity,
+      this.price,
+      this.imageUrl,
+      this.galleryUrl,
+      this.incart});
   var id;
   var productType;
   var title;
@@ -46,7 +48,11 @@ class ProductView {
   var description;
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
+  var quantity;
+  var incart;
+  var price;
   var imageUrl;
+
   List<String>? galleryUrl;
 
   ProductView.fromJson(Map<String, dynamic> json) {
@@ -55,8 +61,11 @@ class ProductView {
     title = json['title'];
     slug = json['slug'];
     description = json['description'];
+    incart = json['in_cart'];
     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
     productDetails = ProductDetails.fromJson(json['product_details']);
+    quantity = null;
+    price = json['price'];
     imageUrl = json['image_url'];
     galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
   }
@@ -67,9 +76,13 @@ class ProductView {
     _data['product_type'] = productType;
     _data['title'] = title;
     _data['slug'] = slug;
+    _data['in_cart'] = incart;
+
     _data['description'] = description;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();
+    _data['quantity'] = quantity;
+    _data['price'] = price;
     _data['image_url'] = imageUrl;
     _data['gallery_url'] = galleryUrl;
     return _data;
@@ -167,77 +180,78 @@ class ProductDetails {
   ProductDetails({
     this.details,
   });
-  List<Details>? details;
+  Details? details;
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
-    details =
-        List.from(json['details']).map((e) => Details.fromJson(e)).toList();
+    details = Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['details'] = details!.map((e) => e.toJson()).toList();
+    _data['details'] = details!.toJson();
     return _data;
   }
 }
 
 class Details {
   Details({
-    this.Size,
-    this.SizeId,
-    this.Color,
-    this.ColorId,
-    this.sku,
-    this.skuId,
-    this.totalQuantity,
-    this.totalQuantityId,
-    this.price,
-    this.priceId,
-    this.productPrice,
-    this.productPriceId,
+    this.color,
+    this.size,
   });
-  var Size;
-  var SizeId;
-  var Color;
-  var ColorId;
-  var sku;
-  var skuId;
-  var totalQuantity;
-  var totalQuantityId;
-  var price;
-  var priceId;
-  var productPrice;
-  var productPriceId;
+  List<Color>? color;
+  List<Size>? size;
 
   Details.fromJson(Map<String, dynamic> json) {
-    Size = json['Size'];
-    SizeId = json['Size_id'];
-    Color = json['Color'];
-    ColorId = json['Color_id'];
-    sku = null;
-    skuId = null;
-    totalQuantity = json['total_quantity'];
-    totalQuantityId = null;
-    price = json['price'];
-    priceId = null;
-    productPrice = null;
-    productPriceId = null;
+    color = List.from(json['Color']).map((e) => Color.fromJson(e)).toList();
+    size = List.from(json['Size']).map((e) => Size.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['Size'] = Size;
-    _data['Size_id'] = SizeId;
-    _data['Color'] = Color;
-    _data['Color_id'] = ColorId;
-    _data['sku'] = sku;
-    _data['sku_id'] = skuId;
-    _data['total_quantity'] = totalQuantity;
-    _data['total_quantity_id'] = totalQuantityId;
-    _data['price'] = price;
-    _data['price_id'] = priceId;
-    _data['product_price'] = productPrice;
-    _data['product_price_id'] = productPriceId;
+    _data['Color'] = color!.map((e) => e.toJson()).toList();
+    _data['Size'] = size!.map((e) => e.toJson()).toList();
+    return _data;
+  }
+}
+
+class Color {
+  Color({
+    this.id,
+    this.value,
+  });
+  var id;
+  var value;
+
+  Color.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['value'] = value;
+    return _data;
+  }
+}
+
+class Size {
+  Size({
+    this.id,
+    this.value,
+  });
+  var id;
+  var value;
+
+  Size.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['value'] = value;
     return _data;
   }
 }

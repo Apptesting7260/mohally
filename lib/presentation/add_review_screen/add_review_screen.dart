@@ -9,7 +9,6 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
@@ -27,18 +26,30 @@ class AddReviewScreen extends StatefulWidget {
 
 class _AddReviewScreenState extends State<AddReviewScreen> {
   final picker = ImagePicker();
-  // File imgFile = File("");
-  Future getImage(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source);
 
-    setState(() {
-      if (pickedFile != null) {
-        _addreviewController.imgFile = File(pickedFile.path);
-        print("====file${_addreviewController.imgFile}");
-      } else {
-        print('No image selected.');
-      }
-    });
+  List<File> _imageFiles = [];
+
+  // Function to open gallery and select image
+  Future<void> _pickImageFromGallery() async {
+    final pickedImage =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFiles.add(File(pickedImage.path));
+      });
+    }
+    print(_imageFiles);
+  }
+
+  // Function to open camera and capture image
+  Future<void> _pickImageFromCamera() async {
+    final pickedImage =
+        await ImagePicker().getImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFiles.add(File(pickedImage.path));
+      });
+    }
   }
 
   AddReviewController _addreviewController = AddReviewController();
@@ -83,96 +94,37 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 ),
                 SizedBox(height: 7.v),
                 CustomRatingBar(
-                  ignoreGestures: true,
-                  initialRating: 2,
+                  initialRating: _addreviewController.rating,
+                  onRatingUpdate: _addreviewController.setRating,
                   itemSize: 20,
                 ),
                 SizedBox(height: 30.v),
-                SizedBox(
-                  height: 120.adaptSize,
-                  width: 120.adaptSize,
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        height: Get.height * .2,
-                        width: Get.width * .3,
-                        child: _addreviewController.imgFile == null
-                            ? Container(
-                                height: Get.height * .2,
-                                width: Get.width * .3,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xffff8300),
-                                  // image: DecorationImage(
-
-                                  //     image: AssetImage(
-                                  //         'assets/images/editprofile.png' ,  ),
-                                  //         )
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    'assets/images/editprofile.png',
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            // CircleAvatar(
-                            //     radius: 30.0,
-                            //     backgroundImage: NetworkImage(
-                            //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                            //     backgroundColor: Colors.transparent,
-                            //   )
-                            : CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage:
-                                    FileImage(_addreviewController.imgFile!),
-                                backgroundColor: Colors.transparent,
-                              ),
-                      ),
-                      CustomIconButton(
-                        height: 30.adaptSize,
-                        width: 30.adaptSize,
-                        padding: EdgeInsets.all(8.h),
-                        alignment: Alignment.bottomRight,
-                        child: CustomImageView(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Choose"),
-                                    content: Row(
-                                      children: [
-                                        GestureDetector(
-                                          child: Text("Camera"),
-                                          onTap: () {
-                                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            getImage(ImageSource.camera);
-                                            Get.back();
-                                          },
-                                        ),
-                                        SizedBox(width: 80),
-                                        GestureDetector(
-                                          child: Text("Gallery"),
-                                          onTap: () {
-                                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            getImage(ImageSource.gallery);
-                                            Get.back();
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                          imagePath: ImageConstant.imgCamera1WhiteA70002,
+                Container(
+                  height: Get.height * .2, // Adjust height as needed
+                  width: Get.width * .2, // Adjust width as needed
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _imageFiles.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 8.0),
+                        height: Get.height * .1, // Adjust height as needed
+                        width: Get.width * .2, // Adjust width as needed
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                            image: FileImage(_imageFiles[index]),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
-                // _buildAddPhotosVideoButton(context),
+                SizedBox(
+                  height: Get.height * .02,
+                ),
+                _buildAddPhotosVideoButton(context),
                 SizedBox(height: 15.v),
                 _buildSubmitReviewButton(context),
                 SizedBox(height: 5.v),
@@ -232,41 +184,51 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   /// Section Widget
   Widget _buildAddPhotosVideoButton(BuildContext context) {
     return CustomOutlinedButton(
+      onPressed: () {
+        // Show options to pick image
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(
+                      Icons.photo_library,
+                      color: Color(0xffff8300),
+                    ),
+                    title: Text('Choose from gallery'),
+                    onTap: () {
+                      _pickImageFromGallery();
+
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.camera_alt,
+                      color: Color(0xffff8300),
+                    ),
+                    title: Text(
+                      'Take a picture',
+                    ),
+                    onTap: () {
+                      _pickImageFromCamera();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
       text: "Add photos/video",
       margin: EdgeInsets.symmetric(horizontal: 10.h),
       leftIcon: Container(
         margin: EdgeInsets.only(right: 9.h),
         child: CustomImageView(
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("Choose"),
-                    content: Row(
-                      children: [
-                        GestureDetector(
-                          child: Text("Camera"),
-                          onTap: () {
-                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                            getImage(ImageSource.camera);
-                            Get.back();
-                          },
-                        ),
-                        SizedBox(width: 80),
-                        GestureDetector(
-                          child: Text("Gallery"),
-                          onTap: () {
-                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                            getImage(ImageSource.gallery);
-                            Get.back();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                });
-          },
           imagePath: ImageConstant.imgBaselinephotocamera24px,
           height: 24.adaptSize,
           width: 24.adaptSize,

@@ -6,7 +6,7 @@ class ShirtAndTopsModel {
     this.productReview,
   });
   bool? status;
-  var modalCategory;
+  String? modalCategory;
   ProductView? productView;
   ProductReview? productReview;
 
@@ -36,17 +36,21 @@ class ProductView {
     this.description,
     this.productCatgories,
     this.productDetails,
+    this.quantity,
+    this.price,
     this.imageUrl,
     this.galleryUrl,
   });
-  var id;
-  var productType;
-  var title;
-  var slug;
-  var description;
+  int? id;
+  String? productType;
+  String? title;
+  String? slug;
+  String? description;
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
-  var imageUrl;
+  Null? quantity;
+  String? price;
+  String? imageUrl;
   List<String>? galleryUrl;
 
   ProductView.fromJson(Map<String, dynamic> json) {
@@ -57,6 +61,8 @@ class ProductView {
     description = json['description'];
     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
     productDetails = ProductDetails.fromJson(json['product_details']);
+    quantity = null;
+    price = json['price'];
     imageUrl = json['image_url'];
     galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
   }
@@ -70,6 +76,8 @@ class ProductView {
     _data['description'] = description;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();
+    _data['quantity'] = quantity;
+    _data['price'] = price;
     _data['image_url'] = imageUrl;
     _data['gallery_url'] = galleryUrl;
     return _data;
@@ -122,7 +130,7 @@ class Item {
     this.key,
     this.value,
   });
-  var key;
+  String? key;
   List<String>? value;
 
   Item.fromJson(Map<String, dynamic> json) {
@@ -144,9 +152,9 @@ class ProductCatgorey {
     this.categoryName,
     this.imageUrl,
   });
-  var id;
-  var categoryName;
-  var imageUrl;
+  int? id;
+  String? categoryName;
+  String? imageUrl;
 
   ProductCatgorey.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -167,77 +175,78 @@ class ProductDetails {
   ProductDetails({
     this.details,
   });
-  List<Details>? details;
+  Details? details;
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
-    details =
-        List.from(json['details']).map((e) => Details.fromJson(e)).toList();
+    details = Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['details'] = details!.map((e) => e.toJson()).toList();
+    _data['details'] = details!.toJson();
     return _data;
   }
 }
 
 class Details {
   Details({
-    this.Color,
-    this.ColorId,
-    this.Size,
-    this.SizeId,
-    this.totalQuantity,
-    this.totalQuantityId,
-    this.price,
-    this.priceId,
-    this.sku,
-    this.skuId,
-    this.productPrice,
-    this.productPriceId,
+    this.color,
+    this.size,
   });
-  var Color;
-  var ColorId;
-  var Size;
-  var SizeId;
-  var totalQuantity;
-  var totalQuantityId;
-  var price;
-  var priceId;
-  var sku;
-  var skuId;
-  var productPrice;
-  var productPriceId;
+  List<Color>? color;
+  List<Size>? size;
 
   Details.fromJson(Map<String, dynamic> json) {
-    Color = null;
-    ColorId = null;
-    Size = null;
-    SizeId = null;
-    totalQuantity = json['total_quantity'];
-    totalQuantityId = null;
-    price = json['price'];
-    priceId = null;
-    sku = null;
-    skuId = null;
-    productPrice = json['product_price'];
-    productPriceId = null;
+    color = List.from(json['Color']).map((e) => Color.fromJson(e)).toList();
+    size = List.from(json['Size']).map((e) => Size.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['Color'] = Color;
-    _data['Color_id'] = ColorId;
-    _data['Size'] = Size;
-    _data['Size_id'] = SizeId;
-    _data['total_quantity'] = totalQuantity;
-    _data['total_quantity_id'] = totalQuantityId;
-    _data['price'] = price;
-    _data['price_id'] = priceId;
-    _data['sku'] = sku;
-    _data['sku_id'] = skuId;
-    _data['product_price'] = productPrice;
-    _data['product_price_id'] = productPriceId;
+    _data['color'] = color!.map((e) => e.toJson()).toList();
+    _data['size'] = size!.map((e) => e.toJson()).toList();
+    return _data;
+  }
+}
+
+class Color {
+  Color({
+    this.id,
+    this.value,
+  });
+  int? id;
+  String? value;
+
+  Color.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['value'] = value;
+    return _data;
+  }
+}
+
+class Size {
+  Size({
+    this.id,
+    this.value,
+  });
+  int? id;
+  String? value;
+
+  Size.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['value'] = value;
     return _data;
   }
 }
@@ -248,69 +257,18 @@ class ProductReview {
     this.productReviewDetails,
   });
   var productAverageReview;
-  List<ProductReviewDetails>? productReviewDetails;
+  List<dynamic>? productReviewDetails;
 
   ProductReview.fromJson(Map<String, dynamic> json) {
     productAverageReview = json['product_average_review'];
-    productReviewDetails = List.from(json['product_review_details'])
-        .map((e) => ProductReviewDetails.fromJson(e))
-        .toList();
+    productReviewDetails =
+        List.castFrom<dynamic, dynamic>(json['product_review_details']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['product_average_review'] = productAverageReview;
-    _data['product_review_details'] =
-        productReviewDetails!.map((e) => e.toJson()).toList();
-    return _data;
-  }
-}
-
-class ProductReviewDetails {
-  ProductReviewDetails({
-    this.id,
-    this.userName,
-    this.description,
-    this.ratting,
-    this.helpful,
-    this.helpfulStatus,
-    this.userImage,
-    this.reviewDate,
-    this.galleryUrl,
-  });
-  var id;
-  var userName;
-  var description;
-  var ratting;
-  var helpful;
-  var helpfulStatus;
-  var userImage;
-  var reviewDate;
-  List<String>? galleryUrl;
-
-  ProductReviewDetails.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userName = json['user_name'];
-    description = json['description'];
-    ratting = json['ratting'];
-    helpful = json['helpful'];
-    helpfulStatus = json['helpful_status'];
-    userImage = json['user_image'];
-    reviewDate = json['review_date'];
-    galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['user_name'] = userName;
-    _data['description'] = description;
-    _data['ratting'] = ratting;
-    _data['helpful'] = helpful;
-    _data['helpful_status'] = helpfulStatus;
-    _data['user_image'] = userImage;
-    _data['review_date'] = reviewDate;
-    _data['gallery_url'] = galleryUrl;
+    _data['product_review_details'] = productReviewDetails;
     return _data;
   }
 }

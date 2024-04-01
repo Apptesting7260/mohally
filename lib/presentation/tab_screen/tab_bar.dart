@@ -38,7 +38,7 @@ class _TabScreenState extends State<TabScreen> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        // backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         key: drawerKey,
         body: SafeArea(
           child: GestureDetector(

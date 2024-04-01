@@ -1,27 +1,27 @@
-import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class EnglishViewcartModel {
   EnglishViewcartModel({
     this.status,
     this.viewCartTotal,
-    this.message,
-    this.viewCart,
     this.subTotalPrice,
     this.totalPrice,
+    this.message,
+    this.viewCart,
   });
   bool? status;
   var viewCartTotal;
+  var subTotalPrice;
+  var totalPrice;
   var message;
   List<ViewCart>? viewCart;
-  int? subTotalPrice;
-  int? totalPrice;
 
   EnglishViewcartModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     viewCartTotal = json['view_cart_total'];
-    message = json['message'];
     subTotalPrice = json['sub_total_price'];
     totalPrice = json['total_price'];
+    message = json['message'];
     viewCart =
         List.from(json['view_cart']).map((e) => ViewCart.fromJson(e)).toList();
   }
@@ -30,9 +30,9 @@ class EnglishViewcartModel {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['view_cart_total'] = viewCartTotal;
-    _data['message'] = message;
     _data['sub_total_price'] = subTotalPrice;
     _data['total_price'] = totalPrice;
+    _data['message'] = message;
     _data['view_cart'] = viewCart!.map((e) => e.toJson()).toList();
     return _data;
   }
@@ -63,18 +63,17 @@ class ViewCart {
   var price;
   var totalPrice;
   var coupon;
-  var available;
+  bool? available;
   var availableQuantity;
   var image;
   var name;
   RxInt totalQty = 0.obs;
-
   ViewCart.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     productId = json['product_id'];
     categoryId = json['category_id'];
-    productDetails = json['product_details'];
+    productDetails = null;
     totalQuantity = json['total_quantity'];
     price = json['price'];
     totalPrice = json['total_price'];

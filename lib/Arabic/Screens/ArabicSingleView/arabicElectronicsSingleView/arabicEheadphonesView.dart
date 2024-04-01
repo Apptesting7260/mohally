@@ -96,23 +96,26 @@ class _ArabicElectronicsHeadphonesSingleShViewScreenState
           body: Center(child: CircularProgressIndicator()),
         );
       } else if (productviewcontroller.rxRequestStatus.value == Status.ERROR) {
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/error2.png',
-            ),
-            Text(
-              "عفوا! تواجه خوادمنا مشكلة في الاتصال.\nيرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى",
-              style: theme.textTheme.headlineMedium?.copyWith(
-                  color: Color.fromARGB(73, 0, 0, 0),
-                  fontSize: 12,
-                  fontFamily: 'Almarai'),
-            ),
-          ],
-        ));
+        return  Scaffold(
+          // backgroundColor: Colors.white,
+          body: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/error2.png',
+              ),
+              Text(
+                "عفوا! تواجه خوادمنا مشكلة في الاتصال.\nيرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى",
+                style: theme.textTheme.headlineMedium?.copyWith(
+                    color: Color.fromARGB(73, 0, 0, 0),
+                    fontSize: 12,
+                    fontFamily: 'Almarai'),
+              ),
+            ],
+          )),
+        );
       } else {
         return SafeArea(
           child: Scaffold(

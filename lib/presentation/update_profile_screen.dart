@@ -31,40 +31,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final UpdateProfile_Controllerins = Get.put(UpdateProfile_Controller());
   bool isEmail(String input) => EmailValidator.validate(input);
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //  void _submit() {
-  //   final isValid = _formKey.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   UpdateProfile_Controllerins.updateprofile_apihit();
-  //   _formKey.currentState!.save();
-  // }
 
-  // final imgPicker = ImagePicker();
-
-  // void openCamera() async {
-  //   final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       //UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
-  //     }
-  //   });
-  //   Navigator.of(context).pop();
-  // }
-
-  // // Open gallery method
-  // void openGallery() async {
-  //   final pickedFile =
-  //       await ImagePicker().getImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       //  UpdateProfile_Controllerins.imgFile = File(pickedFile.path);
-  //     }
-  //   });
-  //   Navigator.of(context).pop();
-  // }
   final picker = ImagePicker();
-  // File imgFile = File("");
   Future getImage(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
 
@@ -156,34 +124,43 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         alignment: Alignment.bottomRight,
                         child: CustomImageView(
                           onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Choose"),
-                                    content: Row(
-                                      children: [
-                                        GestureDetector(
-                                          child: Text("Camera"),
-                                          onTap: () {
-                                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            getImage(ImageSource.camera);
-                                            Get.back();
-                                          },
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SafeArea(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: Icon(
+                                          Icons.photo_library,
+                                          color: Color(0xffff8300),
                                         ),
-                                        SizedBox(width: 80),
-                                        GestureDetector(
-                                          child: Text("Gallery"),
-                                          onTap: () {
-                                            // UpdateProfile_Controllerins.openCamera(ImageSource.camera);
-                                            getImage(ImageSource.gallery);
-                                            Get.back();
-                                          },
+                                        title: Text('Choose from gallery'),
+                                        onTap: () {
+                                          getImage(ImageSource.gallery);
+
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: Icon(
+                                          Icons.camera_alt,
+                                          color: Color(0xffff8300),
                                         ),
-                                      ],
-                                    ),
-                                  );
-                                });
+                                        title: Text(
+                                          'Take a picture',
+                                        ),
+                                        onTap: () {
+                                          getImage(ImageSource.camera);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
                           },
                           imagePath: ImageConstant.imgCamera1WhiteA70002,
                         ),

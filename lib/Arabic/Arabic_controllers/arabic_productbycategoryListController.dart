@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/ArabicSubCatWomensProductViewModel/arabicWomensSubCatDressProductView.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/ArabicSubCatWomensProductViewModel/arabicWomensSubCatTopsProductViewModel.dart';
+import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_AllelectronicModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_ElecsubcatPhoneModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatCameraModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcategoryMensProductView/Arabic_ElectronicsSubCategoryViewModel/arabic_elecsubcatHeadphoneModel.dart';
@@ -24,6 +25,7 @@ class ProductsByCatIdListControllerarabic extends GetxController {
   final rxRequestStatus = Status.LOADING.obs;
   RxString error = ''.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  final allElectronics = AllElectronicModel().obs;
   final ShirtandTops_userlist = ArabicShirtsSubcatviewModel().obs;
   final Bottom_userlist = ArabicMensBottomSubCatModel().obs;
   final jacket_userlist = ArabicMensJacketSubCatModel().obs;
@@ -37,7 +39,9 @@ class ProductsByCatIdListControllerarabic extends GetxController {
   final wearable_userlist = ArabicelecsubcatWearableModel().obs;
   final womens_dressUserlist = ArabicWomensDressesProductViewModel().obs;
   final womens_topUserlist = ArabicWomensTopsProductViewModel().obs;
-  // final userList = Rx<dynamic>(null);
+
+  void allelectronicmodel(AllElectronicModel value) =>
+      allElectronics.value = value;
   void shirtandTopsModel(ArabicShirtsSubcatviewModel value) =>
       ShirtandTops_userlist.value = value;
   void bottomModel(ArabicMensBottomSubCatModel value) =>
@@ -80,6 +84,8 @@ class ProductsByCatIdListControllerarabic extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       //  mensApparelModel(value);
       switch (arabicsubmainCatId) {
+        case '134':
+          return allelectronicmodel(value);
         case "153":
           return shirtandTopsModel(value);
         case "154":

@@ -126,7 +126,7 @@ class AppRoutes {
     singlePageScreen: (context) => ShirtsandTopsSingleView(),
     reviewsScreen: (context) => ReviewsScreen(),
     addReviewScreen: (context) => AddReviewScreen(),
-    shippingAddressesScreen: (context) => Default_address(),
+    shippingAddressesScreen: (context) => ShippingAddress(),
     addressScreen: (context) => AddressScreen(),
     paymentScreen: (context) => PaymentScreen(),
     addNewCardScreen: (context) => AddNewCardScreen(),

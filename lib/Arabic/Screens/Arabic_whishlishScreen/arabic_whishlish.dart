@@ -34,6 +34,7 @@ import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/ara
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicMensSingleView/arabicMactivewearView.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicWomensSingleViewScreens/arabicWomenDressSingleViewScreen.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/arabicWomensSingleViewScreens/arabicWomensTopsSingleViewScreen.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore_for_file: must_be_immutable
 class WishlistPage_arabic extends StatefulWidget {
@@ -60,7 +61,8 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
   ArabicViewwishlist viewWishlistcontroller = ArabicViewwishlist();
   Add_remove_wishlistController add_remove_wishlistController =
       Add_remove_wishlistController();
-
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   void initState() {
     super.initState();
@@ -117,32 +119,40 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
         );
       } else {
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(
-                decoration: AppDecoration.fillWhiteA,
+          body: SmartRefresher(
+            enablePullDown: true,
+            onRefresh: () async {
+              viewWishlistcontroller.ViewWishlish_apihit();
+            },
+            enablePullUp: false,
+            controller: _refreshController,
+            child: SingleChildScrollView(
+              child: Directionality(
+                textDirection: TextDirection.rtl,
                 child: Container(
-                  // padding: EdgeInsets.symmetric(horizontal: 20.h,),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 25.v),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            "قائمة الرغبات",
-                            style: theme.textTheme.headlineMedium
-                                ?.copyWith(fontFamily: "Almarai"),
+                  decoration: AppDecoration.fillWhiteA,
+                  child: Container(
+                    // padding: EdgeInsets.symmetric(horizontal: 20.h,),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 25.v),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "قائمة الرغبات",
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(fontFamily: "Almarai"),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 25.v),
-                      _buildEdit(context),
-                      SizedBox(height: 27.v),
-                      _buildWishlistGrid(context),
-                    ],
+                        SizedBox(height: 25.v),
+                        _buildEdit(context),
+                        SizedBox(height: 27.v),
+                        _buildWishlistGrid(context),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -209,42 +219,50 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
   Widget _buildWishlistGrid(BuildContext context) {
     return viewWishlistcontroller.userList.value.wishlistViewList == null ||
             viewWishlistcontroller.userList.value.wishlistViewList!.isEmpty
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/wishlist.png',
-                width: 100,
-              ),
-              SizedBox(
-                height: Get.height * .03,
-              ),
-              Center(
-                child: Text(
-                  "قائمة رغباتك فارغة!",
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12,
-                      fontFamily: 'Almarai'),
-                  textAlign: TextAlign.center,
+        ? Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/wishlist.png',
+                  width: 100,
                 ),
-              ),
-              SizedBox(
-                height: Get.height * .01,
-              ),
-              Center(
-                child: Text(
-                  "استكشف المزيد وقم بوضع قائمة مختصرة لبعض العناصر",
-                  style: theme.textTheme.titleSmall?.copyWith(
+                SizedBox(
+                  height: Get.height * .03,
+                ),
+                Center(
+                  child: Text(
+                    "قائمة رغباتك فارغة!",
+                    style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.normal,
                       fontSize: 18,
-                      color: Color.fromARGB(73, 0, 0, 0),
-                      fontFamily: 'Almarai'),
-                  textAlign: TextAlign.center,
+                      fontFamily: 'Almarai',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: Get.height * .01,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Text(
+                      "استكشف المزيد وقم بوضع قائمة مختصرة لبعض العناصر",
+                      style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 18,
+                          color: Color.fromARGB(73, 0, 0, 0),
+                          fontFamily: 'Almarai'),
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           )
         : Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),

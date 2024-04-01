@@ -56,7 +56,9 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
             ],
           ));
         } else {
-          return _orderStatuscontroller.Userlist.value.orders == []
+          return _orderStatuscontroller.Userlist.value.orders == [] ||
+                  _orderStatuscontroller.Userlist.value.orders!.isEmpty ||
+                  _orderStatuscontroller.Userlist.value.orders == null
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +74,7 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
                     // ),
                     Center(
                       child: Text(
-                        "Oops! It seems like you haven't \nplaced any orders yet.",
+                        "We appreciate your patience! \nYour order is currently being processed and has \nnot yet been marked as delivered.",
                         style: theme.textTheme.headlineMedium?.copyWith(
                             color: Color.fromARGB(120, 0, 0, 0), fontSize: 15),
                         textAlign: TextAlign.center,

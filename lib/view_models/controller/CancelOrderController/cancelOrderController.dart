@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/CancelOrderModel/cancelordermodel.dart';
 import 'package:mohally/presentation/my_orders_one_page/MyOrder_Processing.dart';
+import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +43,7 @@ class CancelOrderController extends GetxController {
       print(data);
       rxRequestStatus.value = Status.COMPLETED;
       if (value.status == true) {
-        Get.offAll(MyOrdersProcessingPage());
+        Get.off(MyOrdersCancelledPage());
       } else {
         setRxRequestStatus(Status.ERROR);
       }

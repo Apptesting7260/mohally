@@ -7,6 +7,7 @@ import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/PlaceOrderModel/placeorderModel.dart';
 import 'package:mohally/models/Sign_Up_Model/sign_up_model.dart';
 import 'package:mohally/presentation/login_screen/login_screen.dart';
+import 'package:mohally/presentation/order_confirmed_screen/order_confirmed_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -69,10 +70,8 @@ class PlaceOrdercontroller extends GetxController {
       print("Message: ${value.message}");
 
       if (value.status == true) {
-        Get.offAll(() => TabScreen(
-              index: 0,
-            ));
-        Utils.snackBar(context, 'Success', value.message.toString());
+        Get.offAll(() => OrderConfirmedScreen());
+        // Utils.snackBar(context, 'Success', value.message.toString());
         //  varificationemail = emailController.value.text;
       } else {
         Utils.snackBar(context, 'Failed', value.message.toString());

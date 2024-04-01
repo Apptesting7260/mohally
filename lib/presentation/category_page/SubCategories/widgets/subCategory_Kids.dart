@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/ElectronicsAllProductView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
-import 'package:mohally/presentation/category_page/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/KidsclothingProductsView.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsBoysApparel.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsGirlsProductsView.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsShoesProductsView.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsToysProductView.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 
-class subcategoryElectronicsScreen extends StatefulWidget {
-  const subcategoryElectronicsScreen({Key? key}) : super(key: key);
+class subcategoryKidsScreen extends StatefulWidget {
+  const subcategoryKidsScreen({Key? key}) : super(key: key);
 
   @override
-  State<subcategoryElectronicsScreen> createState() =>
-      _subcategoryElectronicsScreenState();
+  State<subcategoryKidsScreen> createState() => _subcategoryKidsScreenState();
 }
 
-class _subcategoryElectronicsScreenState
-    extends State<subcategoryElectronicsScreen> {
+class _subcategoryKidsScreenState extends State<subcategoryKidsScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -65,7 +66,7 @@ class _subcategoryElectronicsScreenState
               top: 15,
             ),
             child: Text(
-              "Electronics",
+              "Women's Fashion",
               style: TextStyle(
                 color: Color.fromARGB(255, 0, 0, 0),
                 // fontSize: 12,
@@ -102,11 +103,10 @@ class _subcategoryElectronicsScreenState
             ],
           )));
         } else {
-          return _categoryByName
-                          .electronics_userlist.value.seeAllMainCategory ==
+          return _categoryByName.kids_userlist.value.seeAllMainCategory ==
                       null ||
-                  _categoryByName.electronics_userlist.value.seeAllMainCategory
-                          ?.length ==
+                  _categoryByName
+                          .kids_userlist.value.seeAllMainCategory?.length ==
                       0
               ? Center(
                   child: Padding(
@@ -140,12 +140,7 @@ class _subcategoryElectronicsScreenState
                         child: Container(
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                showPageView =
-                                    false; // Set showPageView to false to show GridView instead of PageView
-                              });
-                              _pageController.jumpToPage(
-                                  0); // Jump to the first page (MensAllProduct())
+                              Get.to(WomensAllProduct());
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -194,17 +189,14 @@ class _subcategoryElectronicsScreenState
                                       crossAxisSpacing: 8.0,
                                       mainAxisSpacing: 8.0,
                                       mainAxisExtent: Get.height * .14),
-                              itemCount: _categoryByName.electronics_userlist
-                                      .value.seeAllMainCategory?.length ??
+                              itemCount: _categoryByName.kids_userlist.value
+                                      .seeAllMainCategory?.length ??
                                   0,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    submainCatId = _categoryByName
-                                        .electronics_userlist
-                                        .value
-                                        .seeAllMainCategory![index]
-                                        .id
+                                    submainCatId = _categoryByName.kids_userlist
+                                        .value.seeAllMainCategory![index].id
                                         .toString();
 
                                     setState(() {
@@ -212,34 +204,18 @@ class _subcategoryElectronicsScreenState
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "166") {
-                                      _pageController.animateToPage(index,
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.ease);
-                                      // Get.to(SubCat_Mens_Bottoms());
-                                    } else if (submainCatId == "170") {
-                                      _pageController.animateToPage(index,
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.ease);
-                                      // Get.to(SubCat_Mens_jacket());
-                                    } else if (submainCatId == "171") {
-                                      _pageController.animateToPage(index,
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.ease);
-                                      // Get.to(SubCat_Mens_activewear());
-                                    } else if (submainCatId == "172") {
-                                      _pageController.animateToPage(index,
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.ease);
-                                      // Get.to(SubCat_Mens_formals());
-                                    } else if (submainCatId == "173") {
-                                      _pageController.animateToPage(index,
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.ease);
-                                      // Get.to(SubCat_Mens_shoes());
+                                    if (submainCatId == "182") {
+                                      Get.to(SubCat_kids_babyclothing());
+                                    } else if (submainCatId == "183") {
+                                      Get.to(SubCat_kids_boysApparel());
+                                    } else if (submainCatId == "184") {
+                                      Get.to(SubCat_kids_GirlsApparel());
+                                    } else if (submainCatId == "185") {
+                                      Get.to(SubCat_kids_shoes());
+                                    } else if (submainCatId == "186") {
+                                      Get.to(SubCat_kids_Toys());
                                     } else {
-                                      Utils.snackBar(context, 'Sorry!',
-                                          "We're currently working behind the scenes");
+                                      Get.to(NoProductFound());
                                     }
                                   },
                                   child: Column(
@@ -252,7 +228,7 @@ class _subcategoryElectronicsScreenState
                                           borderRadius:
                                               BorderRadius.circular(38.0),
                                           child: Image.network(
-                                            "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                            "${_categoryByName.kids_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
                                             height: 68,
                                             width: 68,
                                             fit: BoxFit.cover,
@@ -261,7 +237,7 @@ class _subcategoryElectronicsScreenState
                                       ),
                                       SizedBox(height: 5.v),
                                       Text(
-                                        "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                        "${_categoryByName.kids_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
                                         style: TextStyle(
                                           color: Color(0xFF272727),
                                           fontSize: 12,
@@ -279,28 +255,58 @@ class _subcategoryElectronicsScreenState
                           ),
                         ),
                       ),
-                      Container(
-                        height: Get.height * 0.6,
-                        child: PageView(
-                          physics: NeverScrollableScrollPhysics(),
-                          controller: _pageController,
-                          onPageChanged: (index) {
-                            setState(() {
-                              selectedTabIndex = index;
-                            });
-                          },
-                          children: [
-                            if (!showPageView)
-                              ElectronicsAllProduct(), // Display MensAllProduct initially
-                            Container(child: SubCat_Electronics_smartphone()),
-                            Container(child: SubCat_Electronics_laptops()),
-                            Container(child: SubCat_Electronics_headphones()),
-                            Container(child: SubCat_Electronics_camera()),
-                            Container(child: SubCat_Electronics_wearable()),
-                            // Container(child: SubCat_Mens_shoes()),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   height: Get.height * 0.6,
+                      //   child: PageView(
+                      //     physics: NeverScrollableScrollPhysics(),
+                      //     controller: _pageController,
+                      //     onPageChanged: (index) {
+                      //       setState(() {
+                      //         selectedTabIndex = index;
+                      //       });
+                      //     },
+                      //     children: [
+                      //       if (!showPageView)
+                      //         WomensAllProduct(), // Display MensAllProduct initially
+                      //       Container(
+                      //           child:
+                      //               SubCat_Womens_Dresses(showAppBar: false)),
+                      //       Container(
+                      //           child: SubCat_Womens_Tops(showAppBar: false)),
+                      //       Container(
+                      //           child: Center(
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           mainAxisAlignment: MainAxisAlignment.center,
+                      //           children: [
+                      //             Container(
+                      //               child: Center(
+                      //                   child: Image.asset(
+                      //                 'assets/images/no_product.png',
+                      //                 color: Color(0xffff8300),
+                      //                 width: 200,
+                      //                 height: 200,
+                      //               )),
+                      //             ),
+                      //             Center(
+                      //               child: Text(
+                      //                 "We're currently working behind the scenes",
+                      //                 style: theme.textTheme.titleSmall
+                      //                     ?.copyWith(
+                      //                         fontWeight: FontWeight.normal,
+                      //                         fontSize: 12,
+                      //                         color: Colors.grey),
+                      //               ),
+                      //             )
+                      //           ],
+                      //         ),
+                      //       )
+                      //       )
+
+                      //       // Container(child: SubCat_Mens_shoes()),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 );

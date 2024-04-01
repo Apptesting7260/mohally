@@ -11,7 +11,7 @@ import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/FormalsMode
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/JaketandOutwearModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
-import 'package:mohally/presentation/category_page/widgets/AllProductView.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/AllProductView.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -17,10 +17,10 @@ class NotificationsOneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: Container(
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: SafeArea(
+        child: Container(
           width: double.maxFinite,
           padding: EdgeInsets.only(top: 231.v),
           child: Column(
@@ -43,31 +43,31 @@ class NotificationsOneScreen extends StatelessWidget {
             ],
           ),
         ),
-
-        // Padding(
-        //   padding: EdgeInsets.only(
-        //     left: 20.h,
-        //     top: 22.v,
-        //     right: 20.h,
-        //   ),
-        //   child: ListView.separated(
-        //     physics: BouncingScrollPhysics(),
-        //     shrinkWrap: true,
-        //     separatorBuilder: (
-        //       context,
-        //       index,
-        //     ) {
-        //       return SizedBox(
-        //         height: 10.v,
-        //       );
-        //     },
-        //     itemCount: 3,
-        //     itemBuilder: (context, index) {
-        //       return NotificationsoneItemWidget();
-        //     },
-        //   ),
-        // ),
       ),
+
+      // Padding(
+      //   padding: EdgeInsets.only(
+      //     left: 20.h,
+      //     top: 22.v,
+      //     right: 20.h,
+      //   ),
+      //   child: ListView.separated(
+      //     physics: BouncingScrollPhysics(),
+      //     shrinkWrap: true,
+      //     separatorBuilder: (
+      //       context,
+      //       index,
+      //     ) {
+      //       return SizedBox(
+      //         height: 10.v,
+      //       );
+      //     },
+      //     itemCount: 3,
+      //     itemBuilder: (context, index) {
+      //       return NotificationsoneItemWidget();
+      //     },
+      //   ),
+      // ),
     );
   }
 

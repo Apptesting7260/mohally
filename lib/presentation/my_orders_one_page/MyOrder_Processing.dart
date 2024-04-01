@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/view_models/controller/CancelOrderController/cancelOrderController.dart';
+import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
 import 'package:mohally/view_models/controller/OrderStatusController/orderstatuscontroller.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
@@ -28,6 +29,7 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
     super.initState();
   }
 
+  OrderDetailsController _orderDetails = OrderDetailsController();
   CancelOrderController _cancelOrderController = CancelOrderController();
   OrderStatuscontroller _orderStatuscontroller = OrderStatuscontroller();
   @override
@@ -60,6 +62,7 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
           ));
         } else {
           return _orderStatuscontroller.Userlist.value.orders == [] ||
+                  _orderStatuscontroller.Userlist.value.orders!.isEmpty ||
                   _orderStatuscontroller.Userlist.value.orders == null
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -235,6 +238,16 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
                       margin: EdgeInsets.only(left: 8.h),
                       buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                       buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
+                      onPressed: () {
+                        String? id = _orderStatuscontroller
+                            .Userlist.value.orders?[index].id
+                            .toString();
+                        print(id);
+                        setState(() {
+                          Orderdetailsid = id;
+                        });
+                        _orderDetails.ordeDetailsHit(context);
+                      },
                     ),
                   ],
                 ),

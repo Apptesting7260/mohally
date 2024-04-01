@@ -80,10 +80,10 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-          appBar: _buildAppBar(context),
-          body: Directionality(
+    return Scaffold(
+        appBar: _buildAppBar(context),
+        body: SafeArea(
+          child: Directionality(
             textDirection: TextDirection.ltr,
             child: Obx(() {
               if (_controller.rxRequestStatus.value == Status.LOADING) {
@@ -135,68 +135,17 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                                       )
                                     : CircleAvatar(
                                         radius: 30.0,
-                                        backgroundImage: NetworkImage(
-                                            _controller.MyAccount.value
-                                                .userDetails!.imageUrl
-                                                .toString()),
+                                        backgroundImage:
+                                            // FileImage(_controller
+                                            //     .MyAccount
+                                            //     .value
+                                            //     .userDetails!
+                                            //     .imageUrl),
+
+                                            NetworkImage(_controller.MyAccount
+                                                .value.userDetails?.imageUrl),
                                         backgroundColor: Colors.transparent,
                                       ),
-                              ),
-                              CustomIconButton(
-                                height: 30.adaptSize,
-                                width: 30.adaptSize,
-                                padding: EdgeInsets.all(8.h),
-                                alignment: Alignment.bottomRight,
-                                child: CustomImageView(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            backgroundColor: Color(0xFFFF8300),
-                                            title: Text(
-                                              "يختار",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontFamily: 'Almarai',
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            content: Row(
-                                              children: [
-                                                GestureDetector(
-                                                  child: Text(
-                                                    "آلة تصوير",
-                                                    style: TextStyle(
-                                                        fontFamily: 'Almarai',
-                                                        color: Colors.white,
-                                                        fontSize: 16),
-                                                  ),
-                                                  onTap: () {
-                                                    openCameraa(
-                                                        ImageSource.camera);
-                                                  },
-                                                ),
-                                                SizedBox(width: 80),
-                                                GestureDetector(
-                                                  child: Text("صالة عرض",
-                                                      style: TextStyle(
-                                                          fontFamily: 'Almarai',
-                                                          color: Colors.white,
-                                                          fontSize: 16)),
-                                                  onTap: () {
-                                                    openCameraa(
-                                                        ImageSource.gallery);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  imagePath:
-                                      ImageConstant.imgCamera1WhiteA70002,
-                                ),
                               ),
                             ],
                           ),
@@ -248,6 +197,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                       MyAccountTextField(
                         hintText: _controller.MyAccount.value.userDetails!.phone
                             .toString(),
+                        readOnly: true,
                       ),
                       SizedBox(height: 17.v),
                       Align(
@@ -263,6 +213,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                         hintText: _controller
                             .MyAccount.value.userDetails!.country
                             .toString(),
+                        readOnly: true,
                       ),
                       SizedBox(height: 30.v),
                       _buildContinueButton(context),
@@ -272,25 +223,28 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                 );
               }
             }),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget _buildFirstName(BuildContext context) {
     return MyAccountTextField(
       hintText: _controller.MyAccount.value.userDetails!.firstName.toString(),
+      readOnly: true,
     );
   }
 
   Widget _buildLastName(BuildContext context) {
     return MyAccountTextField(
       hintText: _controller.MyAccount.value.userDetails!.lastName.toString(),
+      readOnly: true,
     );
   }
 
   Widget _buildEmail(BuildContext context) {
     return MyAccountTextField(
       hintText: _controller.MyAccount.value.userDetails!.email.toString(),
+      readOnly: true,
     );
   }
 
@@ -328,7 +282,7 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
               ),
             ),
             onPressed: () {
-              Get.offAll(UpdateProfileScreen_arabic());
+              Get.off(UpdateProfileScreen_arabic());
             },
             buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
           ),

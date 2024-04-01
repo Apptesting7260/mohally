@@ -9,7 +9,6 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
-import 'package:mohally/widgets/custom_switch.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 import 'package:pinput/pinput.dart';
 

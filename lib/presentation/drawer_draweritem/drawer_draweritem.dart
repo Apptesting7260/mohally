@@ -219,7 +219,7 @@ class _DrawerDraweritemState extends State<DrawerDraweritem> {
               SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => WishlistPage());
+                  Get.to(() => WishlistPage(showAppBar: true));
                 },
                 child: Row(
                   children: [

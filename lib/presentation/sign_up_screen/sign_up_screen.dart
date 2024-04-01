@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -382,6 +384,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return AlertDialog(
                       content: Container(
                         height: Get.height * .4,
+                        width: Get.width,
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -460,10 +463,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               SizedBox(height: 36.v),
                               Container(
-                                height: Get.height * .04,
+                                height: Get.height * .05,
+                                width: Get.width,
                                 decoration:
                                     BoxDecoration(shape: BoxShape.circle),
-                                width: Get.width * .9,
                                 child: Pinput(
                                   length: 6,
                                   // autofocus: true,
@@ -827,7 +830,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return AlertDialog(
                       content: Container(
                         height: Get.height * .4,
-                        width: 500,
+                        width: Get.width,
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -868,15 +871,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  verifyemailOTP_controller.pinController.value
-                                      .clear();
-                                  verifyemail_controller.Verifyeusermail_apihit(
-                                      phoneNumber);
-                                  verifyemail_controller.rxRequestStatus ==
-                                          Status.LOADING
-                                      ? CircularProgressIndicator()
-                                      : Utils.snackBar(context, 'Success',
-                                          'OTP Resent Successfully');
+                                  Timer(Duration(seconds: 2), () {
+                                    verifyemailOTP_controller
+                                        .pinController.value
+                                        .clear();
+                                    verifyemail_controller
+                                        .Verifyeusermail_apihit(phoneNumber);
+                                    verifyemail_controller.rxRequestStatus ==
+                                            Status.LOADING
+                                        ? CircularProgressIndicator()
+                                        : Utils.snackBar(context, 'Success',
+                                            'OTP Resent Successfully');
+                                  });
                                 },
                                 child: Text(
                                   'Resend Otp',
@@ -889,11 +895,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               SizedBox(height: 36.v),
                               Container(
-                                height: Get.height * .04,
-                                // width: Get.width*.8,
+                                height: Get.height * .05,
+                                width: Get.width,
                                 decoration:
                                     BoxDecoration(shape: BoxShape.circle),
-
                                 child: Pinput(
                                   length: 6,
                                   autofocus: false,

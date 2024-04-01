@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
@@ -80,9 +81,11 @@ class OrderConfirmedScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 73.v),
                       CustomElevatedButton(
-                         onPressed: () {
-                                Get.offAll(TabScreen(index: 0,));
-                              },
+                        onPressed: () {
+                          Get.offAll(TabScreen(
+                            index: 0,
+                          ));
+                        },
                         text: "Continue Shopping",
                         buttonStyle: CustomButtonStyles.fillPrimary,
                       ),
@@ -91,6 +94,9 @@ class OrderConfirmedScreen extends StatelessWidget {
                 ),
               ),
               CustomOutlinedButton(
+                onPressed: () {
+                  Get.to(() => MyOrdersTabContainerScreen());
+                },
                 width: 315.h,
                 text: 'Go to orders',
                 margin: EdgeInsets.only(bottom: 5.v),
@@ -110,8 +116,8 @@ class OrderConfirmedScreen extends StatelessWidget {
     return CustomAppBar(
       leadingWidth: 60.h,
       leading: AppbarLeadingIconbuttonTwo(
-        onTap: (){
-         Get.back();
+        onTap: () {
+          Get.back();
         },
         imagePath: ImageConstant.imgBack,
         margin: EdgeInsets.only(

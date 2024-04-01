@@ -17,11 +17,8 @@ import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScre
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
-import 'package:mohally/presentation/category_page/widgets/SubCategoriesMens.dart';
-import 'package:mohally/presentation/category_page/widgets/subCategories_Womens.dart';
-import 'package:mohally/presentation/category_page/widgets/subcategories_ElectronicScreen.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
-import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/EnglishSearchController/EnglishCategorySearch.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
@@ -323,9 +320,6 @@ class _CategorySearchState extends State<CategorySearch> {
     );
   }
 
-  //     ),
-  //   ),
-  // );
   void _handleSearch(String query) {
     if (query.isNotEmpty) {
       setState(() {

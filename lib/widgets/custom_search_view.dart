@@ -26,13 +26,13 @@ class CustomSearchView extends StatefulWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
-      this.enableTap,
-       this.readOnly,
-         this.onFieldSubmitted,
+    this.enableTap,
+    this.readOnly,
+    this.onFieldSubmitted,
   }) : super(
           key: key,
         );
-final bool? readOnly;
+  final bool? readOnly;
   final Alignment? alignment;
 
   final double? width;
@@ -72,8 +72,8 @@ final bool? readOnly;
   final FormFieldValidator<String>? validator;
 
   final Function(String)? onChanged;
-    final bool? enableTap;
-       final Function(String)? onFieldSubmitted;
+  final bool? enableTap;
+  final Function(String)? onFieldSubmitted;
 
   @override
   State<CustomSearchView> createState() => _CustomSearchViewState();
@@ -82,18 +82,18 @@ final bool? readOnly;
 class _CustomSearchViewState extends State<CustomSearchView> {
   @override
   Widget build(BuildContext context) {
-   return widget.alignment != null
+    return widget.alignment != null
         ? Align(
             alignment: widget.alignment ?? Alignment.center,
             child: searchViewWidget,
           )
         : searchViewWidget;
   }
+
   Widget get searchViewWidget => SizedBox(
-        width:Get.width*.9,
+        width: Get.width * .9,
         //  width ?? double.maxFinite,
-        child:
-         TextFormField(
+        child: TextFormField(
           controller: widget.controller,
           focusNode: widget.focusNode ?? FocusNode(),
           autofocus: widget.autofocus!,
@@ -103,7 +103,7 @@ class _CustomSearchViewState extends State<CustomSearchView> {
           maxLines: widget.maxLines ?? 1,
           decoration: decoration,
           validator: widget.validator,
-           onFieldSubmitted: (String value) {
+          onFieldSubmitted: (String value) {
             if (widget.onFieldSubmitted != null) {
               widget.onFieldSubmitted!.call(value);
             }
@@ -111,27 +111,27 @@ class _CustomSearchViewState extends State<CustomSearchView> {
           onChanged: (String value) {
             widget.onChanged!.call(value);
           },
-          onTap: (){
-             if (widget.enableTap!) {
+          onTap: () {
+            if (widget.enableTap!) {
               Get.to(SearchScreen());
               print('tapingggggggggggggggggggggggg');
             }
           },
-                 ),
+        ),
       );
 
   InputDecoration get decoration => InputDecoration(
         hintText: widget.hintText ?? "",
         hintStyle: widget.hintStyle ?? CustomTextStyles.bodyLargeOnError_1,
-        prefixIcon: Padding(
-          padding: EdgeInsets.all(
-            15.h,
-          ),
-          child: Icon(
-            Icons.search,
-            color: Colors.grey.shade600,
-          ),
-        ),
+        // prefixIcon: Padding(
+        //   padding: EdgeInsets.all(
+        //     15.h,
+        //   ),
+        //   child: Icon(
+        //     Icons.search,
+        //     color: Colors.grey.shade600,
+        //   ),
+        // ),
         prefixIconConstraints: widget.prefixConstraints ??
             BoxConstraints(
               maxHeight: 50.v,
@@ -150,8 +150,7 @@ class _CustomSearchViewState extends State<CustomSearchView> {
                   ),
                 ),
               ),
-              child: 
-              CustomImageView(
+              child: CustomImageView(
                 imagePath: ImageConstant.imgSearchWhiteA70002,
                 height: 30.adaptSize,
                 width: 20.adaptSize,

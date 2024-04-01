@@ -66,7 +66,7 @@ class RecommendedProduct {
   int? id;
   String? title;
   String? pricee;
-  int? rating;
+  var rating;
   String? mainCategoryId;
   String? imageUrl;
   var galleryUrl;

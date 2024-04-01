@@ -234,7 +234,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         SizedBox(height: 26.v),
                         InkWell(
                           onTap: () {
-                            Get.to(() => Default_address());
+                            Get.to(() => ShippingAddress());
                           },
                           child: _buildMessageOne(
                             context,

@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_AllcategoryProductController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_AllProductCategoryController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';

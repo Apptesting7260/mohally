@@ -54,7 +54,9 @@ class MyOrdersCancelledPageState extends State<MyOrdersCancelledPage>
             ],
           ));
         } else {
-          return _orderStatuscontroller.Userlist.value.orders == []
+          return _orderStatuscontroller.Userlist.value.orders == [] ||
+                  _orderStatuscontroller.Userlist.value.orders!.isEmpty ||
+                  _orderStatuscontroller.Userlist.value.orders == null
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +72,7 @@ class MyOrdersCancelledPageState extends State<MyOrdersCancelledPage>
                     // ),
                     Center(
                       child: Text(
-                        "Oops! It seems like you haven't \nplaced any orders yet.",
+                        "It seems like you haven't \n cancelled any orders yet.",
                         style: theme.textTheme.headlineMedium?.copyWith(
                             color: Color.fromARGB(120, 0, 0, 0), fontSize: 15),
                         textAlign: TextAlign.center,
@@ -81,13 +83,15 @@ class MyOrdersCancelledPageState extends State<MyOrdersCancelledPage>
               : Container(
                   width: double.maxFinite,
                   decoration: AppDecoration.fillWhiteA,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20.v),
-                      _buildMyOrderscCancelled(context),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20.v),
+                        _buildMyOrderscCancelled(context),
+                      ],
+                    ),
                   ),
                 );
         }
@@ -100,7 +104,7 @@ class MyOrdersCancelledPageState extends State<MyOrdersCancelledPage>
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.h),
       child: ListView.separated(
-        physics: NeverScrollableScrollPhysics(),
+        physics: ScrollPhysics(),
         shrinkWrap: true,
         separatorBuilder: (
           context,

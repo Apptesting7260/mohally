@@ -89,7 +89,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(18.0),
                             child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: ScrollPhysics(),
                               itemCount: _viewreviewcontroller
                                       .userlist.value.productReview?.length ??
                                   0,
@@ -101,7 +101,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: Get.height * .04,
+                                        height: Get.height * .01,
                                       ),
                                       // _buildRowItemsReviewsAnd(context),
                                       Row(
@@ -258,7 +258,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: const EdgeInsets.fromLTRB(250, 0, 50, 0),
             child: CustomElevatedButton(
               onPressed: () {
                 addReviewId = _viewreviewcontroller
@@ -267,6 +267,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                 setState(() {
                   AddreviewProductid = addReviewId;
                 });
+                print(AddreviewProductid);
                 Get.to(() => AddReviewScreen());
               },
               height: 35.v,

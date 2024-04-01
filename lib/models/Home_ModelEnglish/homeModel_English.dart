@@ -62,7 +62,8 @@ class RecommendedProduct {
       this.mainCategoryId,
       this.imageUrl,
       this.galleryUrl,
-      this.producttype});
+      this.producttype,
+      this.incart});
   int? id;
   String? title;
   String? price;
@@ -71,6 +72,7 @@ class RecommendedProduct {
   String? imageUrl;
   Null galleryUrl;
   var producttype;
+  var incart;
   RecommendedProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
@@ -80,6 +82,7 @@ class RecommendedProduct {
     imageUrl = json['image_url'];
     galleryUrl = null;
     producttype = json['product_type'];
+    incart = json['in_cart'];
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +95,7 @@ class RecommendedProduct {
     _data['image_url'] = imageUrl;
     _data['gallery_url'] = galleryUrl;
     _data['product_type'] = producttype;
+    _data['in_cart'] = incart;
     return _data;
   }
 }

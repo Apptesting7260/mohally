@@ -20,7 +20,6 @@ class UpdateProfile_Controller extends GetxController {
   final emailFocusNode = FocusNode().obs;
   RxBool loading = false.obs;
   File? imgFile;
-  //final ImagePicker _imgPicker = ImagePicker();
 
   MyAccountController MyAccountControllerin = MyAccountController();
 

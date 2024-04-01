@@ -11,6 +11,7 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EnglishLanguageSwitch extends StatefulWidget {
   const EnglishLanguageSwitch({Key? key}) : super(key: key);
@@ -20,60 +21,62 @@ class EnglishLanguageSwitch extends StatefulWidget {
 }
 
 class _EnglishLanguageSwitchState extends State<EnglishLanguageSwitch> {
-  // late SharedPreferences _preferences;
-  // late String languageSelectedText;
-  // late String languageSelectedSubtitle;
-  // late bool showCheckMarkEnglish;
-  // late bool showCheckMarkArabic;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initializePreferences();
-  // }
-
-  // Future<void> _initializePreferences() async {
-  //   _preferences = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     languageSelectedText =
-  //         _preferences.getString('languageSelectedText') ?? 'English';
-  //     languageSelectedSubtitle =
-  //         _preferences.getString('languageSelectedSubtitle') ??
-  //             'language Selected';
-  //     showCheckMarkEnglish =
-  //         _preferences.getBool('showCheckMarkEnglish') ?? true;
-  //     showCheckMarkArabic =
-  //         _preferences.getBool('showCheckMarkArabic') ?? false;
-  //   });
-  // }
-
-  // Future<void> _updateLanguageAndNavigate() async {
-  //   await _preferences.setString('languageSelectedText', languageSelectedText);
-  //   await _preferences.setString(
-  //       'languageSelectedSubtitle', languageSelectedSubtitle);
-  //   await _preferences.setBool('showCheckMarkEnglish', showCheckMarkEnglish);
-  //   await _preferences.setBool('showCheckMarkArabic', showCheckMarkArabic);
-
+  // void _updateLanguageAndNavigate() {
   //   if (showCheckMarkEnglish) {
+  //     // Navigate to English home tab
   //     Get.offAll(() => TabScreen(index: 0));
   //   } else {
+  //     // Navigate to Arabic home tab
   //     Get.offAll(() => arabic_TabScreen(index: 0));
   //   }
   // }
-  void _updateLanguageAndNavigate() {
+
+  // String languageSelectedText = "English";
+  // String languageSelectedSubtitle = "language Selected";
+  // bool showCheckMarkEnglish = true;
+  // bool showCheckMarkArabic = false;
+  void _updateLanguageAndNavigate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (showCheckMarkEnglish) {
-      // Navigate to English home tab
+      await prefs.setString('selectedLanguage', 'English');
+      await prefs.getString('token').toString();
+      print(prefs.getString('token').toString());
       Get.offAll(() => TabScreen(index: 0));
     } else {
-      // Navigate to Arabic home tab
+      await prefs.setString('selectedLanguage', 'Arabic');
+      await prefs.getString('token').toString();
       Get.offAll(() => arabic_TabScreen(index: 0));
     }
   }
 
   String languageSelectedText = "English";
-  String languageSelectedSubtitle = "language Selected";
+  String languageSelectedSubtitle = "Language Selected";
   bool showCheckMarkEnglish = true;
   bool showCheckMarkArabic = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkStoredLanguage();
+  }
+
+  void _checkStoredLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedLanguage = prefs.getString('selectedLanguage');
+    if (storedLanguage != null) {
+      setState(() {
+        languageSelectedText = storedLanguage;
+        if (storedLanguage == 'English') {
+          showCheckMarkEnglish = true;
+          showCheckMarkArabic = false;
+        } else {
+          showCheckMarkEnglish = false;
+          showCheckMarkArabic = true;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

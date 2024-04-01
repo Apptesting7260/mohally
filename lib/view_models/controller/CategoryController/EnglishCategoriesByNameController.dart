@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/models/SubCategories/subcategories_WomensModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_electronicsModel.dart';
-import 'package:mohally/models/SubCategories/subcategories_healthandwellnessModel.dart';
+import 'package:mohally/models/SubCategories/subcategories_kidsModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_mensModel.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -17,13 +18,15 @@ class CategoriesByNameControllerEnglish extends GetxController {
   final userList = EnglishMensSubCategoryModel().obs;
   final Womens_userlist = EnglishSubCatWomensModel().obs;
   final electronics_userlist = SubElectronicsCategoryModel().obs;
-  void mensApparelModel(EnglishMensSubCategoryModel value) =>
-      userList.value = value;
+  final kids_userlist = EnglishKidsSubCatModel().obs;
+
+  void KidsModel(EnglishKidsSubCatModel value) => kids_userlist.value = value;
   void WomensModel(EnglishSubCatWomensModel value) =>
       Womens_userlist.value = value;
   void electronics_model(SubElectronicsCategoryModel value) =>
       electronics_userlist.value = value;
-
+  void mensApparelModel(EnglishMensSubCategoryModel value) =>
+      userList.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -46,6 +49,8 @@ class CategoriesByNameControllerEnglish extends GetxController {
           return electronics_model(value);
         case "175":
           return WomensModel(value);
+        case "181":
+          return KidsModel(value);
 
         default:
           throw Exception('Unexpected condition');

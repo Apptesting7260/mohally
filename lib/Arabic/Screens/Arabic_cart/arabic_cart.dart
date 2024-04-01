@@ -2736,8 +2736,8 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                                   });
                                 });
 
-                                CouponCodeApplyController()
-                                    .applyCoupon_apihit(context);
+                                // CouponCodeApplyController()
+                                //     .applyCoupon_apihit(context);
                               },
                             )
                           ],

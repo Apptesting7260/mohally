@@ -25,6 +25,13 @@ class AddReviewController extends GetxController {
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   File? imgFile;
+  double rating = 0; // Add this variable to store the rating
+
+  void setRating(double value) {
+    rating = value; // Update the rating when it changes
+    update(); // Notify listeners about the change
+  }
+
   Future<void> AddReviewApiHit() async {
     final sp = await SharedPreferences.getInstance();
 
@@ -46,7 +53,8 @@ class AddReviewController extends GetxController {
       request.fields["product_id"] = AddreviewProductid.toString();
       request.fields['user_name'] = namecontroller.value.text;
       request.fields['description'] = descriptioncontroller.value.text;
-      request.fields["ratting"] = 1.toString();
+      request.fields["ratting"] =
+          rating.toString(); // Use the stored rating here
       request.headers['Authorization'] = "Bearer ${sp.getString("token")}";
 
       // Send the request and get the response

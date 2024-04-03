@@ -38,41 +38,41 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 11, left: 10),
-          child: CustomIconButton(
-              onTap: () {
-                Get.back();
-              },
-              height: 40.adaptSize,
-              width: 40.adaptSize,
-              decoration: IconButtonStyleHelper.fillGrayTL20,
-              child: Center(
-                  child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ))),
-        ),
-        title: Padding(
-            padding: const EdgeInsets.only(
-              top: 11,
-            ),
-            child: Text(
-              "Women's Fashion",
-              style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                // fontSize: 12,
-                fontFamily: 'Almarai',
-                fontWeight: FontWeight.w500,
-              ),
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              // theme.textTheme.bodySmall,
-              // overflow: TextOverflow.ellipsis,
-              // maxLines: 1,
-            )),
-      ),
+      // appBar: AppBar(
+      //   leading: Padding(
+      //     padding: const EdgeInsets.only(top: 11, left: 10),
+      //     child: CustomIconButton(
+      //         onTap: () {
+      //           Get.back();
+      //         },
+      //         height: 40.adaptSize,
+      //         width: 40.adaptSize,
+      //         decoration: IconButtonStyleHelper.fillGrayTL20,
+      //         child: Center(
+      //             child: Icon(
+      //           Icons.arrow_back,
+      //           color: Colors.black,
+      //         ))),
+      //   ),
+      //   title: Padding(
+      //       padding: const EdgeInsets.only(
+      //         top: 11,
+      //       ),
+      //       child: Text(
+      //         "Women's Fashion",
+      //         style: TextStyle(
+      //           color: Color.fromARGB(255, 0, 0, 0),
+      //           // fontSize: 12,
+      //           fontFamily: 'Almarai',
+      //           fontWeight: FontWeight.w500,
+      //         ),
+      //         maxLines: 2,
+      //         textAlign: TextAlign.center,
+      //         // theme.textTheme.bodySmall,
+      //         // overflow: TextOverflow.ellipsis,
+      //         // maxLines: 1,
+      //       )),
+      // ),
       body: Obx(() {
         if (_categoryByName.rxRequestStatus.value == Status.LOADING) {
           return const Scaffold(
@@ -125,49 +125,6 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: Get.height * .03,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 300),
-                        child: Container(
-                          child: InkWell(
-                            onTap: () {
-                              Get.to(WomensAllProduct());
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(38.0),
-                                  child: Image.asset(
-                                    "assets/images/viewall.png",
-                                    height: 50,
-                                    width: 50,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(height: 5.v),
-                                Text(
-                                  "View All",
-                                  style: TextStyle(
-                                    color: Color(0xFF272727),
-                                    fontSize: 12,
-                                    fontFamily: 'League Spartan',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: Get.height * .02,
-                      ),
                       Container(
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20, left: 20),
@@ -178,7 +135,7 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                               shrinkWrap: true,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4,
+                                      crossAxisCount: 3,
                                       crossAxisSpacing: 8.0,
                                       mainAxisSpacing: 8.0,
                                       mainAxisExtent: Get.height * .14),

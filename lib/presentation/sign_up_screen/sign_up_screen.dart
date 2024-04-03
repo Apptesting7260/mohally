@@ -29,13 +29,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final RxInt countdown = 10.obs;
+  final RxInt countdown = 30.obs;
   final RxBool isCountingDown = false.obs;
   late Timer _timer;
 
   void _startCountdown() {
     isCountingDown.value = true;
-    countdown.value = 10;
+    countdown.value = 30;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (countdown.value > 0) {
         countdown.value--;
@@ -464,7 +464,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onTap: () {
                                   if (!isCountingDown.value) {
                                     isCountingDown.value = true;
-                                    countdown.value = 10;
+                                    countdown.value = 30;
                                     _timer = Timer.periodic(
                                         Duration(seconds: 1), (timer) {
                                       if (countdown.value > 0) {
@@ -934,7 +934,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onTap: () {
                                   if (!isCountingDown.value) {
                                     isCountingDown.value = true;
-                                    countdown.value = 10;
+                                    countdown.value = 30;
                                     _timer = Timer.periodic(
                                         Duration(seconds: 1), (timer) {
                                       if (countdown.value > 0) {

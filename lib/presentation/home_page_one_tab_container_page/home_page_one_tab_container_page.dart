@@ -19,6 +19,7 @@ import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/routes/app_routes.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
+import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_bottom_bar.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
@@ -33,6 +34,8 @@ class HomePageOneTabContainerPage extends StatefulWidget {
 
 class _HomePageOneTabContainerPageState
     extends State<HomePageOneTabContainerPage> {
+  HomeView_controller_English homeView_controller =
+      HomeView_controller_English();
   List<String> title = [
     'All', 'Men', 'Electronics', 'Womens', 'Kids'
     // "Jewelry",
@@ -42,6 +45,11 @@ class _HomePageOneTabContainerPageState
   int selectedTabIndex = 0;
 
   File imgFile = File("");
+  @override
+  void initState() {
+    super.initState();
+    homeView_controller.homeview_apihit();
+  }
 
   final imgPicker = ImagePicker();
   void openCamera(abc) async {
@@ -169,63 +177,183 @@ class _HomePageOneTabContainerPageState
               SizedBox(
                 height: Get.height * .05,
               ),
+              // Container(
+              //   height: Get.height * .05,
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     // itemCount:
+              //     itemCount: homeView_controller
+              //             .userList.value?.categoryData?.length ??
+              //         0,
+              //     itemBuilder: (context, index) {
+              //       bool isSelected = index == selectedTabIndex;
+              //       return GestureDetector(
+              //         // onTap: () {
+              //         //   setState(() {
+              //         //     if (index == 1) {
+              //         //       mainCatId = "133";
+              //         //     } else if (index == 2) {
+              //         //       mainCatId = "134";
+              //         //     } else if (index == 3) {
+              //         //       mainCatId = "175";
+              //         //     } else if (index == 4) {
+              //         //       mainCatId = "181";
+              //         //     }
+              //         //     selectedTabIndex = index;
+              //         //     EnglishsubMainCatId = mainCatId;
+
+              //         //     print(arabicproductbyCatId);
+              //         //   });
+              //         //   if (index == 1) {
+              //         //     // Get.to(subcategory_MensScreen());
+              //         //     Get.to(CategoryScreen(
+              //         //       initialPage: 1,
+              //         //       showAppBar: true,
+              //         //       FromHomeToCat: true,
+              //         //       selectedTabIndex: 1,
+              //         //     ));
+              //         //     setState(() {
+              //         //       selectedTabIndex = 0;
+              //         //     });
+              //         //   } else if (index == 2) {
+              //         //     Get.to(CategoryScreen(
+              //         //       showAppBar: true,
+              //         //       initialPage: 2,
+              //         //       FromHomeToCat: true,
+              //         //       selectedTabIndex: 2,
+              //         //     ));
+              //         //     setState(() {
+              //         //       selectedTabIndex = 0;
+              //         //     });
+              //         //   } else if (index == 3) {
+              //         //     Get.to(CategoryScreen(
+              //         //       showAppBar: true,
+              //         //       initialPage: 3,
+              //         //       FromHomeToCat: true,
+              //         //       selectedTabIndex: 3,
+              //         //     ));
+              //         //     setState(() {
+              //         //       selectedTabIndex = 0;
+              //         //     });
+              //         //   } else if (index == 4) {
+              //         //     Get.to(subcategoryKidsScreen());
+              //         //     setState(() {
+              //         //       selectedTabIndex = 0;
+              //         //     });
+              //         //   } else {}
+              //         // },
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //             Container(
+              //               padding: EdgeInsets.symmetric(
+              //                   horizontal: 20.0), // Adjust as needed
+              //               child: Center(
+              //                 child: Text(
+              //                   "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+              //                   style: TextStyle(
+              //                     fontSize: 16,
+              //                     color:
+              //                         isSelected ? Colors.orange : Colors.grey,
+              //                     fontWeight: FontWeight.w400,
+              //                     fontFamily: 'Almarai',
+              //                   ),
+              //                   textAlign: TextAlign.center,
+              //                 ),
+              //               ),
+              //             ),
+              //             // if (isSelected)
+              //             //   Container(
+              //             //     width: 30,
+              //             //     // Get.width * .06,
+              //             //     height: 2,
+              //             //     decoration: BoxDecoration(
+              //             //       borderRadius: BorderRadius.circular(30),
+              //             //       color: Color(0xffff8300),
+              //             //     ),
+              //             //   ),
+              //             // SizedBox(
+              //             //   width: Get.width * .2,
+              //             // ),
+              //           ],
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
               Container(
                 height: Get.height * .05,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: title.length,
+                  itemCount: (homeView_controller
+                              .userList.value.categoryData?.length ??
+                          0) +
+                      1, // Add 1 for "ALL" option
                   itemBuilder: (context, index) {
                     bool isSelected = index == selectedTabIndex;
 
+                    // Check if it's the first item, then show "ALL" text
+                    if (index == 0) {
+                      return GestureDetector(
+                        onTap: () {
+                          // Handle the tap for "ALL"
+                          // Add your logic here
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Center(
+                                child: Text(
+                                  "All",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: isSelected
+                                        ? Colors.orange
+                                        : Colors.grey,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Almarai',
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 2,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color: Color(0xffff8300),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+
+                    // For other items, show dynamic category data
+                    final categoryIndex =
+                        index - 1; // Adjust index to match categoryData
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          if (index == 1) {
-                            mainCatId = "133";
-                          } else if (index == 2) {
-                            mainCatId = "134";
-                          } else if (index == 3) {
-                            mainCatId = "175";
-                          } else if (index == 4) {
-                            mainCatId = "181";
-                          }
-                          selectedTabIndex = index;
-                          EnglishsubMainCatId = mainCatId;
-
-                          print(arabicproductbyCatId);
-                        });
-                        if (index == 1) {
-                          Get.to(subcategory_MensScreen());
-                          setState(() {
-                            selectedTabIndex = 0;
-                          });
-                        } else if (index == 2) {
-                          Get.to(subcategoryElectronicsScreen());
-                          setState(() {
-                            selectedTabIndex = 0;
-                          });
-                        } else if (index == 3) {
-                          Get.to(subcategoryWomensScreen());
-                          setState(() {
-                            selectedTabIndex = 0;
-                          });
-                        } else if (index == 4) {
-                          Get.to(subcategoryKidsScreen());
-                          setState(() {
-                            selectedTabIndex = 0;
-                          });
-                        } else {}
+                        selectedTabIndex = index;
+                        print(selectedTabIndex);
+                        Get.to(CategoryScreen(
+                            FromHomeToCat: true,
+                            selectedTabIndex: selectedTabIndex));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20.0), // Adjust as needed
+                            padding: EdgeInsets.symmetric(horizontal: 20.0),
                             child: Center(
                               child: Text(
-                                title[index],
+                                "${homeView_controller.userList.value.categoryData?[categoryIndex].categoryName.toString()}",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color:
@@ -237,25 +365,13 @@ class _HomePageOneTabContainerPageState
                               ),
                             ),
                           ),
-                          if (isSelected)
-                            Container(
-                              width: 30,
-                              // Get.width * .06,
-                              height: 2,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Color(0xffff8300),
-                              ),
-                            ),
-                          SizedBox(
-                            width: Get.width * .2,
-                          ),
                         ],
                       ),
                     );
                   },
                 ),
               ),
+
               Container(
                 height: Get.height * 0.6,
                 child: PageView(
@@ -315,7 +431,9 @@ class _HomePageOneTabContainerPageState
       case AppRoutes.homePageOneTabContainerPage:
         return Container();
       case AppRoutes.categoryPage:
-        return CategoryScreen();
+        return CategoryScreen(
+          selectedTabIndex: 0,
+        );
       case AppRoutes.wishlistPage:
         return WishlistPage();
       case AppRoutes.cartPage:

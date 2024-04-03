@@ -49,7 +49,9 @@ class _TabScreenState extends State<TabScreen> {
               onPageChanged: (index) => pageChanged(index),
               children: [
                 HomePageOneTabContainerPage(),
-                CategoryScreen(),
+                CategoryScreen(
+                  selectedTabIndex: 0,
+                ),
                 WishlistPage(),
                 CartPage(),
                 MyProfilePage(),

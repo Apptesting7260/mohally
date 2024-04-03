@@ -63,7 +63,9 @@ class HomePageOneContainerScreen extends StatelessWidget {
       case AppRoutes.homePageOneTabContainerPage:
         return HomePageOneTabContainerPage();
       case AppRoutes.categoryPage:
-        return CategoryScreen();
+        return CategoryScreen(
+          selectedTabIndex: 0,
+        );
       case AppRoutes.wishlistPage:
         return WishlistPage();
       case AppRoutes.cartPage:

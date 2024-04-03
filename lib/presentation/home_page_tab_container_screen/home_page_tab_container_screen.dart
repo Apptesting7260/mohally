@@ -104,7 +104,9 @@ class HomePageTabContainerScreenState extends State<HomePageTabContainerScreen>
       case AppRoutes.homePageOneTabContainerPage:
         return Container();
       case AppRoutes.categoryPage:
-        return CategoryScreen();
+        return CategoryScreen(
+          selectedTabIndex: 0,
+        );
       case AppRoutes.wishlistPage:
         return WishlistPage();
       case AppRoutes.cartPage:

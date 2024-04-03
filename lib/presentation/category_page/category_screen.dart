@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,7 @@ import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScre
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategory_Kids.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
 import 'package:mohally/presentation/category_page/SubCategories/widgets/AllProductView.dart';
@@ -43,18 +45,30 @@ import 'package:mohally/view_models/controller/EnglishSearchController/EnglishCa
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
 import 'package:mohally/widgets/app_bar/appbar_title.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
 import 'package:vertical_tabs_flutter/vertical_tabs.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+  // final int initialPage;
+  final bool showAppBar;
+  final int selectedTabIndex;
+  final bool FromHomeToCat;
+  const CategoryScreen(
+      {Key? key,
+      this.showAppBar = false,
+      required this.selectedTabIndex,
+      this.FromHomeToCat = false})
+      : super(key: key);
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  RxBool isFeaturedSelected = true.obs;
+  int selectedTabIndex = -1;
   EnglishCategorySearchController _searchcontroller =
       EnglishCategorySearchController();
   CategoriesByNameControllerEnglish _categoryByName =
@@ -63,8 +77,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     'ALL',
     'Men\'s Apparel',
     'Electronics',
-    'Women\'s Fashion',
+    'Women\'s \nFashion',
   ];
+  HomeView_controller_English homeView_controller =
+      HomeView_controller_English();
   // HomeView_controller_English _allcategory =
   //     HomeView_controller_English();
   EnglishAllSubCategory _allcategory = EnglishAllSubCategory();
@@ -98,9 +114,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      // _allcategory.homeview_apihit();
+      pagecontroller = PageController();
       _allcategory.AllSubCat();
-      _categoryByName.SeeAll_apiHit();
+      // _categoryByName.SeeAll_apiHit();
+      homeView_controller.homeview_apihit();
 
       setInitialLocale();
     });
@@ -117,9 +134,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   TextEditingController searchController = TextEditingController();
 
-  int selectedTabIndex = 0;
   PageController pagecontroller = PageController();
-  int pagesCount = 5;
+  // int pagesCount = homeView_controller.userList.value.categoryData!.length;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -149,7 +165,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
       } else {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: _buildAppBar(context),
+          appBar: widget.showAppBar
+              ? AppBar(
+                  leading: Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 10),
+                    child: CustomIconButton(
+                        onTap: () {
+                          Get.back();
+                        },
+                        height: 40.adaptSize,
+                        width: 40.adaptSize,
+                        decoration: IconButtonStyleHelper.fillGrayTL20,
+                        child: Center(
+                            child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ))),
+                  ),
+                )
+              : _buildAppBar(context),
           body: SafeArea(
             child: ListView(
               physics: NeverScrollableScrollPhysics(),
@@ -257,775 +291,963 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                 ),
                 Gap(15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 22.0),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          "Featured",
-                          style: theme.textTheme.titleMedium,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 45.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Shop By Category",
-                          style: theme.textTheme.titleMedium,
-                        ),
-                      ),
-                    ),
-                  ],
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Shop By Category",
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
+                // SizedBox(
+                //   height: Get.height * .02,
+                // ),
+
                 Obx(
                   () => Container(
                     width: double.infinity,
-                    height: height,
+                    height: height * .7,
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
                         children: [
-                          SizedBox(
+                          Container(
+                            color: const Color.fromARGB(36, 158, 158, 158),
                             width: 120,
-                            child: ListView.separated(
-                              itemCount: pagesCount,
-                              itemBuilder: (context, int index) {
-                                return SizedBox(
-                                  height: Get.height * .006,
-                                );
-                              },
-                              separatorBuilder: (context, int index) {
-                                bool isSelected = index == selectedTabIndex;
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (index == 1) {
-                                      mainCatId = "133";
-
-                                      setState(() {
-                                        EnglishsubMainCatId = mainCatId;
-                                        selectedTabIndex = index;
-                                        _categoryByName.SeeAll_apiHit();
-                                      });
-                                      print(mainCatId);
-                                    } else if (index == 2) {
-                                      mainCatId = "134";
-                                      setState(() {
-                                        EnglishsubMainCatId = mainCatId;
-                                        selectedTabIndex = index;
-                                        _categoryByName.SeeAll_apiHit();
-                                      });
-                                    } else if (index == 3) {
-                                      mainCatId = "175";
-                                      setState(() {
-                                        EnglishsubMainCatId = mainCatId;
-                                        selectedTabIndex = index;
-                                        _categoryByName.SeeAll_apiHit();
-                                      });
-                                    }
-                                    // selectedTabIndex = index;
-                                    // EnglishsubMainCatId = mainCatId;
-
-                                    print(EnglishsubMainCatId);
-
-                                    // if (index == 1) {
-                                    //   Get.to(subcategory_MensScreen());
-                                    // setState(() {
-                                    //   selectedTabIndex = 0;
-                                    // });
-                                    // } else if (index == 2) {
-                                    //   Get.to(subcategoryElectronicsScreen());
-                                    //   setState(() {
-                                    //     selectedTabIndex = 0;
-                                    //   });
-                                    // } else if (index == 3) {
-                                    //   Get.to(subcategoryWomensScreen());
-                                    //   setState(() {
-                                    //     selectedTabIndex = 0;
-                                    //   });
-                                    // }
-                                    pagecontroller.animateToPage(index,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.ease);
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        AnimatedContainer(
-                                          duration: Duration(milliseconds: 500),
-                                          height: (selectedTabIndex == index)
-                                              ? 40
-                                              : 0,
-                                          color: Color(0xffFF8300),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 60,
+                                  width: 120,
+                                  color: isFeaturedSelected.value
+                                      ? Colors.white
+                                      : const Color.fromARGB(36, 158, 158,
+                                          158), // Change this to your condition
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          // setState(() {
+                                          //   if (isFeaturedSelected.value) {
+                                          //     isFeaturedSelected =
+                                          //         false; // Toggle isFeaturedSelected to false
+                                          //     selectedTabIndex =
+                                          //         0; // Set selectedTabIndex to the index of the first item
+                                          //   } else {
+                                          //     isFeaturedSelected =
+                                          //         true; // Toggle isFeaturedSelected to true
+                                          //     selectedTabIndex =
+                                          //         -1; // Reset selectedTabIndex to -1
+                                          //   }
+                                          // });
+                                          isFeaturedSelected.value = true;
+                                          // Reset selectedTabIndex
+                                          selectedTabIndex = -1;
+                                        },
+                                        child: Container(
+                                          height: 60,
+                                          width: 4,
+                                          color: isFeaturedSelected.value
+                                              ? Color(0xffFF8300)
+                                              : null, // Change this to your condition
                                         ),
-                                        Expanded(
-                                            child: AnimatedContainer(
-                                          duration: Duration(milliseconds: 500),
-                                          height: 40,
-                                          alignment: Alignment.center,
-                                          color: (selectedTabIndex == index)
-                                              ? Colors.orange.shade200
-                                                  .withOpacity(0.2)
-                                              : Colors.transparent,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10.0, horizontal: 5),
-                                            child: Text(featured_text[index]),
+                                      ),
+                                      Container(
+                                        width: 100,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: Text(
+                                            "Featured",
+                                            style: theme.textTheme.titleMedium,
                                           ),
-                                        ))
-                                      ],
-                                    ),
+                                        ),
+                                        // textAlign: TextAlign.center,
+                                      )
+                                    ],
                                   ),
-                                );
-                              },
+                                ),
+                                Container(
+                                  height: Get.height * .6,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: homeView_controller.userList
+                                            .value.categoryData?.length ??
+                                        0,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          isFeaturedSelected.value = false;
+                                          mainCatId = homeView_controller
+                                              .userList
+                                              .value
+                                              .categoryData?[index]
+                                              .id!
+                                              .toString();
+
+                                          setState(() {
+                                            isFeaturedSelected.value =
+                                                false; // Update isFeaturedSelected
+                                            widget.FromHomeToCat
+                                                ? widget.selectedTabIndex
+                                                : selectedTabIndex =
+                                                    index; // Update selectedTabIndex
+                                            EnglishsubMainCatId = mainCatId;
+                                          });
+                                          print(selectedTabIndex);
+
+                                          print(mainCatId);
+                                          print(EnglishsubMainCatId);
+                                          _categoryByName.SeeAll_apiHit();
+                                          pagecontroller.animateToPage(index,
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              curve: Curves.ease);
+                                        },
+                                        child: Obx(
+                                          () => Container(
+                                              child: Row(children: [
+                                            Container(
+                                              height: 60,
+                                              width: 120,
+                                              color: selectedTabIndex == index
+                                                  ? Colors.white
+                                                  : const Color.fromARGB(
+                                                      36, 158, 158, 158),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    height: 60,
+                                                    width: 4,
+                                                    color: selectedTabIndex ==
+                                                            index
+                                                        ? Color(0xffFF8300)
+                                                        : Colors.white,
+                                                  ),
+                                                  // SizedBox(
+                                                  //   width: Get.width * .03,
+                                                  // ),
+                                                  Container(
+                                                    // height: 60,
+                                                    width: 100,
+                                                    child: Text(
+                                                      "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF272727),
+                                                        fontSize: 12,
+                                                        fontFamily: 'Almarai',
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      maxLines: 3,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      // theme.textTheme.bodySmall,
+                                                      // overflow: TextOverflow.ellipsis,
+                                                      // maxLines: 1,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ])),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          _allcategory.userlist.value.searchMainCat == null ||
-                                  _allcategory.userlist.value.searchMainCat
-                                          ?.length ==
-                                      0
-                              ? Center(child: NoProductFound())
-                              : Expanded(
-                                  child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: PageView(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      controller: pagecontroller,
-                                      onPageChanged: (index) {
-                                        setState(() {
-                                          selectedTabIndex = index;
-                                        });
-                                      },
-                                      children: [
-                                        //  for (var i = 0; i <= pagesCount; i++)
-                                        Container(
-                                          color: Colors.white,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            // mainAxisAlignment:
-                                            //     MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                height: Get.height * .65,
-                                                child: GridView.builder(
-                                                    shrinkWrap: true,
-                                                    gridDelegate:
-                                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 3,
-                                                      // crossAxisSpacing: 8.0,
-                                                      // mainAxisSpacing: 3.0,
-                                                      mainAxisExtent:
-                                                          Get.height * .14,
-                                                    ),
-                                                    itemCount: (_allcategory
-                                                            .userlist
-                                                            .value
-                                                            .searchMainCat
-                                                            ?.length ??
-                                                        0),
-                                                    //  + 1, // Add 1 for the "All" widget
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              mainCatId = _allcategory
-                                                                  .userlist
-                                                                  .value
-                                                                  .searchMainCat?[
-                                                                      index]
-                                                                  .id!
-                                                                  .toString();
-                                                              submainCatId =
-                                                                  _allcategory
-                                                                      .userlist
-                                                                      .value
-                                                                      .searchMainCat![
-                                                                          index]
-                                                                      .id
-                                                                      .toString();
-                                                              setState(() {
-                                                                EnglishsubMainCatId =
-                                                                    mainCatId;
-                                                                EnglishproductbyCatId =
-                                                                    submainCatId;
-                                                              });
-                                                              print(
-                                                                  "$EnglishsubMainCatId==");
-                                                              if (mainCatId ==
-                                                                  "133") {
-                                                                Get.to(
-                                                                    subcategory_MensScreen());
-                                                              } else if (mainCatId ==
-                                                                  "134") {
-                                                                Get.to(
-                                                                    subcategoryElectronicsScreen());
-                                                              } else if (mainCatId ==
-                                                                  "175") {
-                                                                Get.to(
-                                                                    subcategoryWomensScreen());
-                                                              } else if (submainCatId ==
-                                                                  "153") {
-                                                                Get.to(SubCat_Mens_ShirtsView(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "154") {
-                                                                Get.to(SubCat_Mens_Bottoms(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "155") {
-                                                                Get.to(SubCat_Mens_jacket(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "156") {
-                                                                Get.to(SubCat_Mens_activewear(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "157") {
-                                                                Get.to(SubCat_Mens_formals(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "174") {
-                                                                Get.to(SubCat_Mens_shoes(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "166") {
-                                                                Get.to(SubCat_Electronics_smartphone(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "170") {
-                                                                Get.to(SubCat_Electronics_laptops(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "171") {
-                                                                Get.to(SubCat_Electronics_headphones(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "172") {
-                                                                Get.to(SubCat_Electronics_camera(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "173") {
-                                                                Get.to(
-                                                                    SubCat_Electronics_wearable());
-                                                              } else if (submainCatId ==
-                                                                  "175") {
-                                                                Get.to(
-                                                                    subcategoryWomensScreen());
-                                                              } else if (submainCatId ==
-                                                                  "176") {
-                                                                Get.to(SubCat_Womens_Dresses(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else if (submainCatId ==
-                                                                  "177") {
-                                                                Get.to(SubCat_Womens_Tops(
-                                                                    showAppBar:
-                                                                        true));
-                                                              } else {
-                                                                Get.to(
-                                                                    NoProductFound());
-                                                              }
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          38.0),
-                                                              child:
-                                                                  Image.network(
-                                                                "${_allcategory.userlist.value.searchMainCat![index].imageUrl.toString()}",
-                                                                height: 68,
-                                                                width: 68,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(height: 5.v),
-                                                          Text(
-                                                            "${_allcategory.userlist.value.searchMainCat![index].aCategoryName.toString()}",
-                                                            style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF272727),
-                                                              fontSize: 12,
-                                                              fontFamily:
-                                                                  'League Spartan',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          )
-                                                        ],
-                                                      );
-                                                    }
-                                                    //},
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        //Mens Categoryyyyyyyyyyyyyyyyy
-                                        Obx(() {
-                                          if (_categoryByName
-                                                  .rxRequestStatus.value ==
-                                              Status.LOADING) {
-                                            return const Scaffold(
-                                              body: Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                            );
-                                          } else {
-                                            return
-                                                // _categoryByName
-                                                //                 .userList
-                                                //                 .value
-                                                //                 .seeAllMainCategory ==
-                                                //             null ||
-                                                //         _categoryByName
-                                                //                 .userList
-                                                //                 .value
-                                                //                 .seeAllMainCategory
-                                                //                 ?.length ==
-                                                //             0
-                                                //     ? Center(
-                                                //         child: Padding(
-                                                //         padding:
-                                                //             const EdgeInsets.only(
-                                                //                 top: 150),
-                                                //         child: Column(
-                                                //           children: [
-                                                //             Image.asset(
-                                                //               'assets/images/no_product.png',
-                                                //               color:
-                                                //                   Color(0xffff8300),
-                                                //             ),
-                                                //             SizedBox(
-                                                //               height:
-                                                //                   Get.height * .03,
-                                                //             ),
-                                                //             Text(
-                                                //               "Page Not Found",
-                                                //               style: theme.textTheme
-                                                //                   .headlineSmall
-                                                //                   ?.copyWith(
-                                                //                       fontWeight:
-                                                //                           FontWeight
-                                                //                               .normal,
-                                                //                       fontSize: 18),
-                                                //             ),
-                                                //           ],
-                                                //         ),
-                                                //       ))
-                                                // :
-                                                Container(
-                                              height: Get.height * .7,
-                                              child: GridView.builder(
-                                                  shrinkWrap: true,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3,
-                                                    // crossAxisSpacing: 8.0,
-                                                    // mainAxisSpacing: 3.0,
-                                                    mainAxisExtent:
-                                                        Get.height * .14,
-                                                  ),
-                                                  itemCount: _categoryByName
-                                                          .userList
-                                                          .value
-                                                          .seeAllMainCategory
-                                                          ?.length ??
-                                                      0,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            submainCatId =
-                                                                _categoryByName
-                                                                    .userList
-                                                                    .value
-                                                                    .seeAllMainCategory![
-                                                                        index]
-                                                                    .id
-                                                                    .toString();
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: PageView(
+                                physics: NeverScrollableScrollPhysics(),
+                                controller: pagecontroller,
+                                onPageChanged: (index) {
+                                  setState(() {
+                                    // widget.FromHomeToCat
+                                    //     ? widget.initialPage
+                                    //     : selectedTabIndex = index;
+                                    // ;
+                                    isFeaturedSelected.value;
+                                    widget.FromHomeToCat
+                                        ? widget.selectedTabIndex
+                                        : selectedTabIndex = index;
+                                  });
+                                },
+                                children: [
+                                  //  for (var i = 0; i <= pagesCount; i++)
 
-                                                            setState(() {
-                                                              EnglishproductbyCatId =
-                                                                  submainCatId;
-                                                            });
-                                                            print(
-                                                                "$EnglishproductbyCatId==");
-                                                            if (submainCatId ==
-                                                                "153") {
-                                                              Get.to(
-                                                                  SubCat_Mens_ShirtsView());
-                                                            } else if (submainCatId ==
-                                                                "154") {
-                                                              Get.to(
-                                                                  SubCat_Mens_Bottoms());
-                                                            } else if (submainCatId ==
-                                                                "155") {
-                                                              Get.to(
-                                                                  SubCat_Mens_jacket());
-                                                            } else if (submainCatId ==
-                                                                "156") {
-                                                              Get.to(
-                                                                  SubCat_Mens_activewear());
-                                                            } else if (submainCatId ==
-                                                                "157") {
-                                                              Get.to(
-                                                                  SubCat_Mens_formals());
-                                                            } else if (submainCatId ==
-                                                                "174") {
-                                                              Get.to(
-                                                                  SubCat_Mens_shoes());
-                                                            } else {
-                                                              Get.to(
-                                                                  NoProductFound());
-                                                            }
-                                                          },
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        38.0),
-                                                            child:
-                                                                Image.network(
-                                                              "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                                                              height: 68,
-                                                              width: 68,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 5.v),
-                                                        Text(
-                                                          "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF272727),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'League Spartan',
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          maxLines: 2,
-                                                        )
-                                                      ],
-                                                    );
-                                                  }
-                                                  //},
+                                  if (isFeaturedSelected.value)
+                                    Container(
+                                      height: Get.height * .65,
+                                      child: GridView.builder(
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            // crossAxisSpacing: 8.0,
+                                            // mainAxisSpacing: 3.0,
+                                            mainAxisExtent: Get.height * .14,
+                                          ),
+                                          itemCount: (_allcategory
+                                                  .userlist
+                                                  .value
+                                                  .searchMainCat
+                                                  ?.length ??
+                                              0),
+                                          //  + 1, // Add 1 for the "All" widget
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    mainCatId = _allcategory
+                                                        .userlist
+                                                        .value
+                                                        .searchMainCat?[index]
+                                                        .id!
+                                                        .toString();
+                                                    submainCatId = _allcategory
+                                                        .userlist
+                                                        .value
+                                                        .searchMainCat![index]
+                                                        .id
+                                                        .toString();
+                                                    setState(() {
+                                                      EnglishsubMainCatId =
+                                                          mainCatId;
+                                                      EnglishproductbyCatId =
+                                                          submainCatId;
+                                                    });
+                                                    print(
+                                                        "$EnglishsubMainCatId==");
+                                                    if (mainCatId == "133") {
+                                                      Get.to(
+                                                          subcategory_MensScreen());
+                                                    } else if (mainCatId ==
+                                                        "134") {
+                                                      Get.to(
+                                                          subcategoryElectronicsScreen());
+                                                    } else if (mainCatId ==
+                                                        "175") {
+                                                      Get.to(
+                                                          subcategoryWomensScreen());
+                                                    } else if (submainCatId ==
+                                                        "153") {
+                                                      Get.to(
+                                                          SubCat_Mens_ShirtsView(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "154") {
+                                                      Get.to(
+                                                          SubCat_Mens_Bottoms(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "155") {
+                                                      Get.to(SubCat_Mens_jacket(
+                                                          showAppBar: true));
+                                                    } else if (submainCatId ==
+                                                        "156") {
+                                                      Get.to(
+                                                          SubCat_Mens_activewear(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "157") {
+                                                      Get.to(
+                                                          SubCat_Mens_formals(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "174") {
+                                                      Get.to(SubCat_Mens_shoes(
+                                                          showAppBar: true));
+                                                    } else if (submainCatId ==
+                                                        "166") {
+                                                      Get.to(
+                                                          SubCat_Electronics_smartphone(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "170") {
+                                                      Get.to(
+                                                          SubCat_Electronics_laptops(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "171") {
+                                                      Get.to(
+                                                          SubCat_Electronics_headphones(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "172") {
+                                                      Get.to(
+                                                          SubCat_Electronics_camera(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "173") {
+                                                      Get.to(
+                                                          SubCat_Electronics_wearable());
+                                                    } else if (submainCatId ==
+                                                        "175") {
+                                                      Get.to(
+                                                          subcategoryWomensScreen());
+                                                    } else if (submainCatId ==
+                                                        "176") {
+                                                      Get.to(
+                                                          SubCat_Womens_Dresses(
+                                                              showAppBar:
+                                                                  true));
+                                                    } else if (submainCatId ==
+                                                        "177") {
+                                                      Get.to(SubCat_Womens_Tops(
+                                                          showAppBar: true));
+                                                    } else {
+                                                      Get.to(NoProductFound());
+                                                    }
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            38.0),
+                                                    child: Image.network(
+                                                      "${_allcategory.userlist.value.searchMainCat![index].imageUrl.toString()}",
+                                                      height: 68,
+                                                      width: 68,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
+                                                ),
+                                                SizedBox(height: 5.v),
+                                                Text(
+                                                  "${_allcategory.userlist.value.searchMainCat![index].aCategoryName.toString()}",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF272727),
+                                                    fontSize: 12,
+                                                    fontFamily:
+                                                        'League Spartan',
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                )
+                                              ],
                                             );
                                           }
-                                        }),
-
-                                        //Electronics Categoryyyyyyyyyyy
-                                        // _categoryByName
-                                        //                 .electronics_userlist
-                                        //                 .value
-                                        //                 .seeAllMainCategory ==
-                                        //             null ||
-                                        //         _categoryByName
-                                        //                 .electronics_userlist
-                                        //                 .value
-                                        //                 .seeAllMainCategory
-                                        //                 ?.length ==
-                                        //             0
-                                        //     ? Center(
-                                        //         child: Padding(
-                                        //         padding: const EdgeInsets.only(
-                                        //             top: 150),
-                                        //         child: Column(
-                                        //           children: [
-                                        //             Image.asset(
-                                        //               'assets/images/no_product.png',
-                                        //               color: Color(0xffff8300),
-                                        //             ),
-                                        //             SizedBox(
-                                        //               height: Get.height * .03,
-                                        //             ),
-                                        //             Text(
-                                        //               "Page Not Found",
-                                        //               style: theme.textTheme
-                                        //                   .headlineSmall
-                                        //                   ?.copyWith(
-                                        //                       fontWeight:
-                                        //                           FontWeight
-                                        //                               .normal,
-                                        //                       fontSize: 18),
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       ))
-                                        //     :
-                                        Container(
-                                          height: Get.height * .7,
-                                          child: GridView.builder(
-                                              shrinkWrap: true,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                // crossAxisSpacing: 8.0,
-                                                // mainAxisSpacing: 3.0,
-                                                mainAxisExtent:
-                                                    Get.height * .14,
-                                              ),
-                                              itemCount: _categoryByName
-                                                      .electronics_userlist
-                                                      .value
-                                                      .seeAllMainCategory
-                                                      ?.length ??
-                                                  0,
-                                              itemBuilder: (context, index) {
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        submainCatId = _categoryByName
-                                                            .electronics_userlist
-                                                            .value
-                                                            .seeAllMainCategory![
-                                                                index]
-                                                            .id
-                                                            .toString();
-
-                                                        setState(() {
-                                                          EnglishproductbyCatId =
-                                                              submainCatId;
-                                                        });
-                                                        print(
-                                                            "$EnglishproductbyCatId==");
-                                                        if (submainCatId ==
-                                                            "166") {
-                                                          Get.to(
-                                                              SubCat_Electronics_smartphone());
-                                                        } else if (submainCatId ==
-                                                            "170") {
-                                                          Get.to(
-                                                              SubCat_Electronics_laptops());
-                                                        } else if (submainCatId ==
-                                                            "171") {
-                                                          Get.to(
-                                                              SubCat_Electronics_headphones());
-                                                        } else if (submainCatId ==
-                                                            "172") {
-                                                          Get.to(
-                                                              SubCat_Electronics_camera());
-                                                        } else if (submainCatId ==
-                                                            "173") {
-                                                          Get.to(
-                                                              SubCat_Electronics_wearable());
-                                                        } else {
-                                                          Get.to(
-                                                              NoProductFound());
-                                                        }
-                                                      },
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(38.0),
-                                                        child: Image.network(
-                                                          "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                                                          height: 68,
-                                                          width: 68,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 5.v),
-                                                    Text(
-                                                      "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF272727),
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            'League Spartan',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      maxLines: 2,
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                              //},
-                                              ),
-                                        ),
-
-                                        //Womens Category
-                                        // _categoryByName.Womens_userlist.value
-                                        //                 .seeAllMainCategory ==
-                                        //             null ||
-                                        //         _categoryByName
-                                        //                 .Womens_userlist
-                                        //                 .value
-                                        //                 .seeAllMainCategory
-                                        //                 ?.length ==
-                                        //             0
-                                        //     ? Center(
-                                        //         child: Padding(
-                                        //         padding: const EdgeInsets.only(
-                                        //             top: 150),
-                                        //         child: Column(
-                                        //           children: [
-                                        //             Image.asset(
-                                        //               'assets/images/no_product.png',
-                                        //               color: Color(0xffff8300),
-                                        //             ),
-                                        //             SizedBox(
-                                        //               height: Get.height * .03,
-                                        //             ),
-                                        //             Text(
-                                        //               "Page Not Found",
-                                        //               style: theme.textTheme
-                                        //                   .headlineSmall
-                                        //                   ?.copyWith(
-                                        //                       fontWeight:
-                                        //                           FontWeight
-                                        //                               .normal,
-                                        //                       fontSize: 18),
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       ))
-                                        // :
-                                        Container(
-                                          height: Get.height * .7,
-                                          child: GridView.builder(
-                                              shrinkWrap: true,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                // crossAxisSpacing: 8.0,
-                                                // mainAxisSpacing: 3.0,
-                                                mainAxisExtent:
-                                                    Get.height * .14,
-                                              ),
-                                              itemCount: _categoryByName
-                                                      .Womens_userlist
-                                                      .value
-                                                      .seeAllMainCategory
-                                                      ?.length ??
-                                                  0,
-                                              itemBuilder: (context, index) {
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        submainCatId =
-                                                            _categoryByName
-                                                                .Womens_userlist
-                                                                .value
-                                                                .seeAllMainCategory![
-                                                                    index]
-                                                                .id
-                                                                .toString();
-
-                                                        setState(() {
-                                                          EnglishproductbyCatId =
-                                                              submainCatId;
-                                                        });
-                                                        print(
-                                                            "$EnglishproductbyCatId==");
-                                                        if (submainCatId ==
-                                                            "176") {
-                                                          Get.to(
-                                                              SubCat_Womens_Dresses());
-                                                        } else if (submainCatId ==
-                                                            "177") {
-                                                          Get.to(
-                                                              SubCat_Womens_Tops());
-                                                        } else {
-                                                          Get.to(
-                                                              NoProductFound());
-                                                        }
-                                                      },
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(38.0),
-                                                        child: Image.network(
-                                                          "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                                                          height: 68,
-                                                          width: 68,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 5.v),
-                                                    Text(
-                                                      "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF272727),
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            'League Spartan',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      maxLines: 2,
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                              //},
-                                              ),
-                                        ),
-                                      ],
+                                          //},
+                                          ),
                                     ),
-                                  ),
-                                ))
+                                  if (mainCatId == "133")
+                                    Container(
+                                      child: subcategory_MensScreen(),
+                                    ),
+
+                                  if (mainCatId == "134")
+                                    Container(
+                                      child: subcategoryElectronicsScreen(),
+                                    ),
+                                  if (mainCatId == "175")
+                                    Container(
+                                      child: subcategoryWomensScreen(),
+                                    ),
+                                  if (mainCatId == "181")
+                                    Container(
+                                      child: subcategoryKidsScreen(),
+                                    ),
+
+                                  // Container(
+                                  //   color: Colors.white,
+                                  //   child: Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     // mainAxisAlignment:
+                                  //     //     MainAxisAlignment.center,
+                                  //     children: [
+                                  //       Container(
+                                  //         height: Get.height * .65,
+                                  //         child: GridView.builder(
+                                  //             shrinkWrap: true,
+                                  //             gridDelegate:
+                                  //                 SliverGridDelegateWithFixedCrossAxisCount(
+                                  // crossAxisCount: 3,
+                                  // // crossAxisSpacing: 8.0,
+                                  // // mainAxisSpacing: 3.0,
+                                  // mainAxisExtent:
+                                  //     Get.height * .14,
+                                  //             ),
+                                  //             itemCount: (_allcategory
+                                  //                     .userlist
+                                  //                     .value
+                                  //                     .searchMainCat
+                                  //                     ?.length ??
+                                  //                 0),
+                                  //             //  + 1, // Add 1 for the "All" widget
+                                  //             itemBuilder:
+                                  //                 (context, index) {
+                                  //               return Column(
+                                  //                 mainAxisAlignment:
+                                  //                     MainAxisAlignment
+                                  //                         .start,
+                                  //                 crossAxisAlignment:
+                                  //                     CrossAxisAlignment
+                                  //                         .center,
+                                  //                 children: [
+                                  //                   GestureDetector(
+                                  //                     onTap: () {
+                                  //                       mainCatId = _allcategory
+                                  //                           .userlist
+                                  //                           .value
+                                  //                           .searchMainCat?[
+                                  //                               index]
+                                  //                           .id!
+                                  //                           .toString();
+                                  //                       submainCatId =
+                                  //                           _allcategory
+                                  //                               .userlist
+                                  //                               .value
+                                  //                               .searchMainCat![
+                                  //                                   index]
+                                  //                               .id
+                                  //                               .toString();
+                                  //                       setState(() {
+                                  //                         EnglishsubMainCatId =
+                                  //                             mainCatId;
+                                  //                         EnglishproductbyCatId =
+                                  //                             submainCatId;
+                                  //                       });
+                                  //                       print(
+                                  //                           "$EnglishsubMainCatId==");
+                                  //                       if (mainCatId ==
+                                  //                           "133") {
+                                  //                         Get.to(
+                                  //                             subcategory_MensScreen());
+                                  //                       } else if (mainCatId ==
+                                  //                           "134") {
+                                  //                         Get.to(
+                                  //                             subcategoryElectronicsScreen());
+                                  //                       } else if (mainCatId ==
+                                  //                           "175") {
+                                  //                         Get.to(
+                                  //                             subcategoryWomensScreen());
+                                  //                       } else if (submainCatId ==
+                                  //                           "153") {
+                                  //                         Get.to(SubCat_Mens_ShirtsView(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "154") {
+                                  //                         Get.to(SubCat_Mens_Bottoms(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "155") {
+                                  //                         Get.to(SubCat_Mens_jacket(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "156") {
+                                  //                         Get.to(SubCat_Mens_activewear(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "157") {
+                                  //                         Get.to(SubCat_Mens_formals(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "174") {
+                                  //                         Get.to(SubCat_Mens_shoes(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "166") {
+                                  //                         Get.to(SubCat_Electronics_smartphone(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "170") {
+                                  //                         Get.to(SubCat_Electronics_laptops(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "171") {
+                                  //                         Get.to(SubCat_Electronics_headphones(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "172") {
+                                  //                         Get.to(SubCat_Electronics_camera(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "173") {
+                                  //                         Get.to(
+                                  //                             SubCat_Electronics_wearable());
+                                  //                       } else if (submainCatId ==
+                                  //                           "175") {
+                                  //                         Get.to(
+                                  //                             subcategoryWomensScreen());
+                                  //                       } else if (submainCatId ==
+                                  //                           "176") {
+                                  //                         Get.to(SubCat_Womens_Dresses(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else if (submainCatId ==
+                                  //                           "177") {
+                                  //                         Get.to(SubCat_Womens_Tops(
+                                  //                             showAppBar:
+                                  //                                 true));
+                                  //                       } else {
+                                  //                         Get.to(
+                                  //                             NoProductFound());
+                                  //                       }
+                                  //                     },
+                                  //                     child: ClipRRect(
+                                  //                       borderRadius:
+                                  //                           BorderRadius
+                                  //                               .circular(
+                                  //                                   38.0),
+                                  //                       child:
+                                  //                           Image.network(
+                                  //                         "${_allcategory.userlist.value.searchMainCat![index].imageUrl.toString()}",
+                                  //                         height: 68,
+                                  //                         width: 68,
+                                  //                         fit: BoxFit
+                                  //                             .cover,
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                   SizedBox(height: 5.v),
+                                  //                   Text(
+                                  //                     "${_allcategory.userlist.value.searchMainCat![index].aCategoryName.toString()}",
+                                  //                     style: TextStyle(
+                                  //                       color: Color(
+                                  //                           0xFF272727),
+                                  //                       fontSize: 12,
+                                  //                       fontFamily:
+                                  //                           'League Spartan',
+                                  //                       fontWeight:
+                                  //                           FontWeight
+                                  //                               .w500,
+                                  //                     ),
+                                  //                     textAlign: TextAlign
+                                  //                         .center,
+                                  //                   )
+                                  //                 ],
+                                  //               );
+                                  //             }
+                                  //             //},
+                                  //             ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  //Mens Categoryyyyyyyyyyyyyyyyy
+                                  // Obx(() {
+                                  //   if (_categoryByName
+                                  //           .rxRequestStatus.value ==
+                                  //       Status.LOADING) {
+                                  //     return const Scaffold(
+                                  //       body: Center(
+                                  //           child:
+                                  //               CircularProgressIndicator()),
+                                  //     );
+                                  //   } else {
+                                  //     return Container(
+                                  //       height: Get.height * .7,
+                                  //       child: GridView.builder(
+                                  //           shrinkWrap: true,
+                                  //           gridDelegate:
+                                  //               SliverGridDelegateWithFixedCrossAxisCount(
+                                  //             crossAxisCount: 3,
+                                  //             // crossAxisSpacing: 8.0,
+                                  //             // mainAxisSpacing: 3.0,
+                                  //             mainAxisExtent:
+                                  //                 Get.height * .14,
+                                  //           ),
+                                  //           itemCount: _categoryByName
+                                  //                   .userList
+                                  //                   .value
+                                  //                   .seeAllMainCategory
+                                  //                   ?.length ??
+                                  //               0,
+                                  //           itemBuilder:
+                                  //               (context, index) {
+                                  //             return Column(
+                                  //               mainAxisAlignment:
+                                  //                   MainAxisAlignment
+                                  //                       .start,
+                                  //               crossAxisAlignment:
+                                  //                   CrossAxisAlignment
+                                  //                       .center,
+                                  //               children: [
+                                  //                 GestureDetector(
+                                  //                   onTap: () {
+                                  //                     submainCatId =
+                                  //                         _categoryByName
+                                  //                             .userList
+                                  //                             .value
+                                  //                             .seeAllMainCategory![
+                                  //                                 index]
+                                  //                             .id
+                                  //                             .toString();
+
+                                  //                     setState(() {
+                                  //                       EnglishproductbyCatId =
+                                  //                           submainCatId;
+                                  //                     });
+                                  //                     print(
+                                  //                         "$EnglishproductbyCatId==");
+                                  //                     if (submainCatId ==
+                                  //                         "153") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_ShirtsView());
+                                  //                     } else if (submainCatId ==
+                                  //                         "154") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_Bottoms());
+                                  //                     } else if (submainCatId ==
+                                  //                         "155") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_jacket());
+                                  //                     } else if (submainCatId ==
+                                  //                         "156") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_activewear());
+                                  //                     } else if (submainCatId ==
+                                  //                         "157") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_formals());
+                                  //                     } else if (submainCatId ==
+                                  //                         "174") {
+                                  //                       Get.to(
+                                  //                           SubCat_Mens_shoes());
+                                  //                     } else {
+                                  //                       Get.to(
+                                  //                           NoProductFound());
+                                  //                     }
+                                  //                   },
+                                  //                   child: ClipRRect(
+                                  //                     borderRadius:
+                                  //                         BorderRadius
+                                  //                             .circular(
+                                  //                                 38.0),
+                                  //                     child:
+                                  //                         Image.network(
+                                  //                       "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                  //                       height: 68,
+                                  //                       width: 68,
+                                  //                       fit: BoxFit.cover,
+                                  //                     ),
+                                  //                   ),
+                                  //                 ),
+                                  //                 SizedBox(height: 5.v),
+                                  //                 Text(
+                                  //                   "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                  //                   style: TextStyle(
+                                  //                     color: Color(
+                                  //                         0xFF272727),
+                                  //                     fontSize: 12,
+                                  //                     fontFamily:
+                                  //                         'League Spartan',
+                                  //                     fontWeight:
+                                  //                         FontWeight.w500,
+                                  //                   ),
+                                  //                   textAlign:
+                                  //                       TextAlign.center,
+                                  //                   maxLines: 2,
+                                  //                 )
+                                  //               ],
+                                  //             );
+                                  //           }
+                                  //           //},
+                                  //           ),
+                                  //     );
+                                  //   }
+                                  // }),
+
+                                  // //Electronics Categoryyyyyyyyyyy
+                                  // // _categoryByName
+                                  // //                 .electronics_userlist
+                                  // //                 .value
+                                  // //                 .seeAllMainCategory ==
+                                  // //             null ||
+                                  // //         _categoryByName
+                                  // //                 .electronics_userlist
+                                  // //                 .value
+                                  // //                 .seeAllMainCategory
+                                  // //                 ?.length ==
+                                  // //             0
+                                  // //     ? Center(
+                                  // //         child: Padding(
+                                  // //         padding: const EdgeInsets.only(
+                                  // //             top: 150),
+                                  // //         child: Column(
+                                  // //           children: [
+                                  // //             Image.asset(
+                                  // //               'assets/images/no_product.png',
+                                  // //               color: Color(0xffff8300),
+                                  // //             ),
+                                  // //             SizedBox(
+                                  // //               height: Get.height * .03,
+                                  // //             ),
+                                  // //             Text(
+                                  // //               "Page Not Found",
+                                  // //               style: theme.textTheme
+                                  // //                   .headlineSmall
+                                  // //                   ?.copyWith(
+                                  // //                       fontWeight:
+                                  // //                           FontWeight
+                                  // //                               .normal,
+                                  // //                       fontSize: 18),
+                                  // //             ),
+                                  // //           ],
+                                  // //         ),
+                                  // //       ))
+                                  // //     :
+                                  // Container(
+                                  //   height: Get.height * .7,
+                                  //   child: GridView.builder(
+                                  //       shrinkWrap: true,
+                                  //       gridDelegate:
+                                  //           SliverGridDelegateWithFixedCrossAxisCount(
+                                  //         crossAxisCount: 3,
+                                  //         // crossAxisSpacing: 8.0,
+                                  //         // mainAxisSpacing: 3.0,
+                                  //         mainAxisExtent:
+                                  //             Get.height * .14,
+                                  //       ),
+                                  //       itemCount: _categoryByName
+                                  //               .electronics_userlist
+                                  //               .value
+                                  //               .seeAllMainCategory
+                                  //               ?.length ??
+                                  //           0,
+                                  //       itemBuilder: (context, index) {
+                                  //         return Column(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.start,
+                                  //           crossAxisAlignment:
+                                  //               CrossAxisAlignment.center,
+                                  //           children: [
+                                  //             GestureDetector(
+                                  //               onTap: () {
+                                  //                 submainCatId = _categoryByName
+                                  //                     .electronics_userlist
+                                  //                     .value
+                                  //                     .seeAllMainCategory![
+                                  //                         index]
+                                  //                     .id
+                                  //                     .toString();
+
+                                  //                 setState(() {
+                                  //                   EnglishproductbyCatId =
+                                  //                       submainCatId;
+                                  //                 });
+                                  //                 print(
+                                  //                     "$EnglishproductbyCatId==");
+                                  //                 if (submainCatId ==
+                                  //                     "166") {
+                                  //                   Get.to(
+                                  //                       SubCat_Electronics_smartphone());
+                                  //                 } else if (submainCatId ==
+                                  //                     "170") {
+                                  //                   Get.to(
+                                  //                       SubCat_Electronics_laptops());
+                                  //                 } else if (submainCatId ==
+                                  //                     "171") {
+                                  //                   Get.to(
+                                  //                       SubCat_Electronics_headphones());
+                                  //                 } else if (submainCatId ==
+                                  //                     "172") {
+                                  //                   Get.to(
+                                  //                       SubCat_Electronics_camera());
+                                  //                 } else if (submainCatId ==
+                                  //                     "173") {
+                                  //                   Get.to(
+                                  //                       SubCat_Electronics_wearable());
+                                  //                 } else {
+                                  //                   Get.to(
+                                  //                       NoProductFound());
+                                  //                 }
+                                  //               },
+                                  //               child: ClipRRect(
+                                  //                 borderRadius:
+                                  //                     BorderRadius
+                                  //                         .circular(38.0),
+                                  //                 child: Image.network(
+                                  //                   "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                  //                   height: 68,
+                                  //                   width: 68,
+                                  //                   fit: BoxFit.cover,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //             SizedBox(height: 5.v),
+                                  //             Text(
+                                  //               "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                  //               style: TextStyle(
+                                  //                 color:
+                                  //                     Color(0xFF272727),
+                                  //                 fontSize: 12,
+                                  //                 fontFamily:
+                                  //                     'League Spartan',
+                                  //                 fontWeight:
+                                  //                     FontWeight.w500,
+                                  //               ),
+                                  //               textAlign:
+                                  //                   TextAlign.center,
+                                  //               maxLines: 2,
+                                  //             )
+                                  //           ],
+                                  //         );
+                                  //       }
+                                  //       //},
+                                  //       ),
+                                  // ),
+
+                                  //Womens Category
+                                  // _categoryByName.Womens_userlist.value
+                                  //                 .seeAllMainCategory ==
+                                  //             null ||
+                                  //         _categoryByName
+                                  //                 .Womens_userlist
+                                  //                 .value
+                                  //                 .seeAllMainCategory
+                                  //                 ?.length ==
+                                  //             0
+                                  //     ? Center(
+                                  //         child: Padding(
+                                  //         padding: const EdgeInsets.only(
+                                  //             top: 150),
+                                  //         child: Column(
+                                  //           children: [
+                                  //             Image.asset(
+                                  //               'assets/images/no_product.png',
+                                  //               color: Color(0xffff8300),
+                                  //             ),
+                                  //             SizedBox(
+                                  //               height: Get.height * .03,
+                                  //             ),
+                                  //             Text(
+                                  //               "Page Not Found",
+                                  //               style: theme.textTheme
+                                  //                   .headlineSmall
+                                  //                   ?.copyWith(
+                                  //                       fontWeight:
+                                  //                           FontWeight
+                                  //                               .normal,
+                                  //                       fontSize: 18),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       ))
+                                  // :
+                                  // Container(
+                                  //   height: Get.height * .7,
+                                  //   child: GridView.builder(
+                                  //       shrinkWrap: true,
+                                  //       gridDelegate:
+                                  //           SliverGridDelegateWithFixedCrossAxisCount(
+                                  //         crossAxisCount: 3,
+                                  //         // crossAxisSpacing: 8.0,
+                                  //         // mainAxisSpacing: 3.0,
+                                  //         mainAxisExtent:
+                                  //             Get.height * .14,
+                                  //       ),
+                                  //       itemCount: _categoryByName
+                                  //               .Womens_userlist
+                                  //               .value
+                                  //               .seeAllMainCategory
+                                  //               ?.length ??
+                                  //           0,
+                                  //       itemBuilder: (context, index) {
+                                  //         return Column(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.start,
+                                  //           crossAxisAlignment:
+                                  //               CrossAxisAlignment.center,
+                                  //           children: [
+                                  //             GestureDetector(
+                                  //               onTap: () {
+                                  //                 submainCatId =
+                                  //                     _categoryByName
+                                  //                         .Womens_userlist
+                                  //                         .value
+                                  //                         .seeAllMainCategory![
+                                  //                             index]
+                                  //                         .id
+                                  //                         .toString();
+
+                                  //                 setState(() {
+                                  //                   EnglishproductbyCatId =
+                                  //                       submainCatId;
+                                  //                 });
+                                  //                 print(
+                                  //                     "$EnglishproductbyCatId==");
+                                  //                 if (submainCatId ==
+                                  //                     "176") {
+                                  //                   Get.to(
+                                  //                       SubCat_Womens_Dresses());
+                                  //                 } else if (submainCatId ==
+                                  //                     "177") {
+                                  //                   Get.to(
+                                  //                       SubCat_Womens_Tops());
+                                  //                 } else {
+                                  //                   Get.to(
+                                  //                       NoProductFound());
+                                  //                 }
+                                  //               },
+                                  //               child: ClipRRect(
+                                  //                 borderRadius:
+                                  //                     BorderRadius
+                                  //                         .circular(38.0),
+                                  //                 child: Image.network(
+                                  //                   "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                  //                   height: 68,
+                                  //                   width: 68,
+                                  //                   fit: BoxFit.cover,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //             SizedBox(height: 5.v),
+                                  //             Text(
+                                  //               "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                  //               style: TextStyle(
+                                  //                 color:
+                                  //                     Color(0xFF272727),
+                                  //                 fontSize: 12,
+                                  //                 fontFamily:
+                                  //                     'League Spartan',
+                                  //                 fontWeight:
+                                  //                     FontWeight.w500,
+                                  //               ),
+                                  //               textAlign:
+                                  //                   TextAlign.center,
+                                  //               maxLines: 2,
+                                  //             )
+                                  //           ],
+                                  //         );
+                                  //       }
+                                  //       //},
+                                  //       ),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ))
                         ],
                       ),
                     ),

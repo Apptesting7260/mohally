@@ -8,6 +8,7 @@ import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/Arabic_subCategorie
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/Notifications/no_more_notification.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
+import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategory_Kids.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
 import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
 import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
@@ -73,13 +74,13 @@ class _HomePageOneTabContainerPageState
       resizeToAvoidBottomInset: false,
       drawer: DrawerDraweritem(),
       // appBar: _buildAppBar(context),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: Get.height * .03,
+                height: Get.height * .04,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,6 +186,8 @@ class _HomePageOneTabContainerPageState
                             mainCatId = "134";
                           } else if (index == 3) {
                             mainCatId = "175";
+                          } else if (index == 4) {
+                            mainCatId = "181";
                           }
                           selectedTabIndex = index;
                           EnglishsubMainCatId = mainCatId;
@@ -206,12 +209,12 @@ class _HomePageOneTabContainerPageState
                           setState(() {
                             selectedTabIndex = 0;
                           });
-                        } else {
-                          // Navigate to the All screen
-                          _pageController.animateToPage(index,
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeInOut);
-                        }
+                        } else if (index == 4) {
+                          Get.to(subcategoryKidsScreen());
+                          setState(() {
+                            selectedTabIndex = 0;
+                          });
+                        } else {}
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -236,7 +239,8 @@ class _HomePageOneTabContainerPageState
                           ),
                           if (isSelected)
                             Container(
-                              width: Get.width * .05,
+                              width: 30,
+                              // Get.width * .06,
                               height: 2,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),

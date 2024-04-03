@@ -4,11 +4,13 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/theme/custom_text_style.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:http/http.dart' as http;
 import '../../theme/theme_helper.dart';
@@ -81,20 +83,20 @@ class _CustomerSupportState extends State<CustomerSupport> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
-      ),
-      title: AppbarSubtitle(
-        text: "Customer Support",
-        margin: EdgeInsets.only(left: 16),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 5, left: 10),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
     );
   }

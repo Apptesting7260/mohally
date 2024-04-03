@@ -10,6 +10,7 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import '../../core/utils/size_utils.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 
@@ -24,20 +25,20 @@ class AboutUsScreen extends StatefulWidget {
 }
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
-late Future<String> AboutUs;
-@override
-void initState() {
-  super.initState();
-fetchData();
-}
-String? htmlresponse;
+  late Future<String> AboutUs;
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
-fetchData() async {
-var request = http.MultipartRequest('POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
-request.fields.addAll({
-  'page_name': 'about-us',
-  'language_type': 'English'
-    });
+  String? htmlresponse;
+
+  fetchData() async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://urlsdemo.net/mohally/api/view-pages'));
+    request.fields
+        .addAll({'page_name': 'about-us', 'language_type': 'English'});
 
     http.StreamedResponse response = await request.send();
 
@@ -50,48 +51,53 @@ request.fields.addAll({
       print(response.reasonPhrase);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: _buildAppBar(context),
-    body: htmlresponse==null?Center(child: CircularProgressIndicator()):
-      
-   Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: Container(height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,child: SingleChildScrollView(
-       child: Column(
-         children: [HtmlWidget(
-                  '''
+    return SafeArea(
+      child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: htmlresponse == null
+              ? Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        HtmlWidget(
+                          '''
           <!-- Your HTML content goes here -->
          $htmlresponse
-                  ''',
-                ),
-          
-           ] ),
-     ),),
-   )
- 
+                    ''',
+                        ),
+                      ]),
+                    ),
+                  ),
+                )),
     );
   }
-   PreferredSizeWidget _buildAppBar(BuildContext context) {
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60.h,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20.h,
-          top: 8.v,
-          bottom: 8.v,
-        ),
-      ),
-      title: AppbarSubtitle(
-        text: "About Us",
-        margin: EdgeInsets.only(left: 16.h),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 5, left: 10),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
     );
   }

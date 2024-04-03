@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
-import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/verification_code_screen/verification_code_screen.dart';
 import 'package:mohally/view_models/controller/signUp/signup_controller.dart';
 import 'package:mohally/view_models/controller/user_verify_controller/user_verify_controller.dart';
@@ -30,6 +29,45 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final RxInt countdown = 10.obs;
+  final RxBool isCountingDown = false.obs;
+  late Timer _timer;
+
+  void _startCountdown() {
+    isCountingDown.value = true;
+    countdown.value = 10;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (countdown.value > 0) {
+        countdown.value--;
+      } else {
+        isCountingDown.value = false;
+        timer.cancel();
+        verifyemailOTP_controller.pinController.value
+            .clear(); // Clear pin controller
+        verifyemail_controller.Verifyeusermail_apihit(email); // Call API
+        Utils.snackBar(
+            context, 'Success', 'OTP Resent Successfully'); // Show snackbar
+      }
+    });
+  }
+
+  // void _PhonestartCountdown() {
+  //   isCountingDown.value = true;
+  //   countdown.value = 10;
+  //   _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  //     if (countdown.value > 0) {
+  //       countdown.value--;
+  //     } else {
+  //       isCountingDown.value = false;
+  //       timer.cancel();
+  //       verifyemailOTP_controller.pinController.value.clear();
+  //       verifyemail_controller.Verifyeusermail_apihit(phoneNumber); // Call API
+  //       Utils.snackBar(
+  //           context, 'Success', 'OTP Resent Successfully'); // Show snackbar
+  //     }
+  //   });
+  // }
+
   Signup_controller signup_controller = Get.put(Signup_controller());
   VerifyEmailOTP_controller verifyemailOTP_controller =
       Get.put(VerifyEmailOTP_controller());
@@ -100,10 +138,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Form(
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           child: SizedBox(
             width: double.maxFinite,
@@ -422,42 +460,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     verifyemailOTP_controller.pinController.value
-                              //         .clear();
-
-                              //     verifyemail_controller.Verifyeusermail_apihit(
-                              //         email);
-                              //     Utils.snackBar(context, 'Success',
-                              //         'OTP Resent Successfully');
-                              //   },
-                              //   child: Text(
-                              //     'Resend Otp',
-                              //     style: TextStyle(
-                              //         color: Colors.black,
-                              //         fontWeight: FontWeight.w600,
-                              //         fontSize: 14),
-                              //   ),
-                              // ),
                               GestureDetector(
                                 onTap: () {
-                                  verifyemailOTP_controller.pinController.value
-                                      .clear();
-                                  verifyemail_controller.Verifyeusermail_apihit(
-                                      email);
-                                  verifyemail_controller.rxRequestStatus ==
-                                          Status.LOADING
-                                      ? CircularProgressIndicator()
-                                      : Utils.snackBar(context, 'Success',
-                                          'OTP Resent Successfully');
+                                  if (!isCountingDown.value) {
+                                    isCountingDown.value = true;
+                                    countdown.value = 10;
+                                    _timer = Timer.periodic(
+                                        Duration(seconds: 1), (timer) {
+                                      if (countdown.value > 0) {
+                                        countdown.value--;
+                                      } else {
+                                        isCountingDown.value = false;
+                                        timer.cancel();
+                                        verifyemailOTP_controller
+                                            .pinController.value
+                                            .clear(); // Clear pin controller
+                                        verifyemail_controller
+                                            .Verifyeusermail_apihit(
+                                                email); // Call API
+                                        Utils.snackBar(context, 'Success',
+                                            'OTP Resent Successfully'); // Show snackbar
+                                      }
+                                    });
+                                  }
                                 },
-                                child: Text(
-                                  'Resend Otp',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                child: Obx(
+                                  () => Text(
+                                    isCountingDown.value
+                                        ? '${countdown.value} seconds'
+                                        : 'Resend Otp',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -869,27 +905,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Timer(Duration(seconds: 3), () {
+                              // verifyemailOTP_controller
+                              //     .pinController.value
+                              //     .clear();
+                              // verifyemail_controller
+                              //     .Verifyeusermail_apihit(phoneNumber);
+                              //       // verifyemail_controller.rxRequestStatus ==
+                              //       //         Status.LOADING
+                              //       //     ? CircularProgressIndicator()
+                              //       //     :
+                              //       Utils.snackBar(context, 'Success',
+                              //           'OTP Resent Successfully');
+                              //     });
+                              //   },
+                              //   child: Text(
+                              //     'Resend Otp',
+                              //     style: TextStyle(
+                              //       color: Colors.black,
+                              //       fontWeight: FontWeight.w600,
+                              //       fontSize: 14,
+                              //     ),
+                              //   ),
+                              // ),
                               GestureDetector(
                                 onTap: () {
-                                  Timer(Duration(seconds: 2), () {
-                                    verifyemailOTP_controller
-                                        .pinController.value
-                                        .clear();
-                                    verifyemail_controller
-                                        .Verifyeusermail_apihit(phoneNumber);
-                                    verifyemail_controller.rxRequestStatus ==
-                                            Status.LOADING
-                                        ? CircularProgressIndicator()
-                                        : Utils.snackBar(context, 'Success',
-                                            'OTP Resent Successfully');
-                                  });
+                                  if (!isCountingDown.value) {
+                                    isCountingDown.value = true;
+                                    countdown.value = 10;
+                                    _timer = Timer.periodic(
+                                        Duration(seconds: 1), (timer) {
+                                      if (countdown.value > 0) {
+                                        countdown.value--;
+                                      } else {
+                                        isCountingDown.value = false;
+                                        timer.cancel();
+                                        verifyemailOTP_controller
+                                            .pinController.value
+                                            .clear(); // Clear pin controller
+                                        verifyemail_controller
+                                            .Verifyeusermail_apihit(
+                                                email); // Call API
+                                        Utils.snackBar(context, 'Success',
+                                            'OTP Resent Successfully'); // Show snackbar
+                                      }
+                                    });
+                                  }
                                 },
-                                child: Text(
-                                  'Resend Otp',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                child: Obx(
+                                  () => Text(
+                                    isCountingDown.value
+                                        ? '${countdown.value} seconds'
+                                        : 'Resend Otp',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),

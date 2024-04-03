@@ -67,27 +67,23 @@ class _ElectronicsAllProductState extends State<ElectronicsAllProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Padding(
-      //     padding: const EdgeInsets.only(
-      //       top: 15,
-      //     ),
-      //     child: GestureDetector(
-      //       onTap: () {
-      //         Get.back();
-      //       },
-      //       child: Container(
-      //           width: Get.width * .07,
-      //           height: Get.height * .03,
-      //           decoration: BoxDecoration(
-      //               shape: BoxShape.circle,
-      //               color: const Color.fromARGB(90, 158, 158, 158)),
-      //           child: Icon(
-      //             Icons.arrow_back,
-      //           )),
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+       leading: Padding(
+          padding: const EdgeInsets.only(top: 11, left: 10),
+          child: CustomIconButton(
+              onTap: () {
+                Get.back();
+              },
+              height: 40.adaptSize,
+              width: 40.adaptSize,
+              decoration: IconButtonStyleHelper.fillGrayTL20,
+              child: Center(
+                  child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ))),
+        ),
+      ),
       body: Obx(() {
         if (_productbycatid_controller.rxRequestStatus.value ==
             Status.LOADING) {

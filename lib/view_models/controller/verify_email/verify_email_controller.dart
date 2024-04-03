@@ -57,7 +57,7 @@ class Verifyemail_controller extends GetxController {
     }).onError((error, stackTrace) {
       loading.value = false;
       print("$error==========Error of verifymail");
-      Utils2.snackBar('incorrect', error.toString());
+      // Utils2.snackBar('incorrect', error.toString());
       return;
     });
   }

@@ -8,11 +8,10 @@ import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? pid;
-// var quantity;
 String? productColor;
 String? productSize;
 
-Map<String, dynamic> productDetails = {};
+Map<String, String> productDetails = {};
 
 class ProductPriceChngeByAttribute extends GetxController {
   final _api = AuthRepository();
@@ -37,15 +36,12 @@ class ProductPriceChngeByAttribute extends GetxController {
 
     addIfNotNull(productDetails, 'Color', productColor?.toString());
     addIfNotNull(productDetails, 'Size', productSize?.toString());
-    // addIfNotNull(productDetails, 'Quantity', quantity.toString());
 
     loading.value = true;
 
-    Map data = {
+    Map<String, dynamic> data = {
       'product_id': pid.toString(),
-      'product_attribute':
-          // productDetails.toString(),
-          json.encode(productDetails), // Encode the map to JSON
+      'product_attribute': json.encode(productDetails),
       'language_type': 'English'
     };
 
@@ -54,15 +50,12 @@ class ProductPriceChngeByAttribute extends GetxController {
     var header = {'Authorization': "Bearer $token"};
 
     try {
-      final response = await _api.ProductPriceChangeByAttribute(
-          data, header); // Wrapping data inside a list
+      final response = await _api.ProductPriceChangeByAttribute(data, header);
       loading.value = false;
       print(data);
       print("Message: ${response.message}");
       if (response.status == true) {
-        // Get.back();
-
-        Utils.snackBar(context, 'Success', response.message.toString());
+        // Utils.snackBar(context, 'Success', response.message.toString());
       } else {
         Utils.snackBar(context, 'Failed', response.message.toString());
       }
@@ -72,7 +65,7 @@ class ProductPriceChngeByAttribute extends GetxController {
     }
   }
 
-  void addIfNotNull(Map<String, dynamic> map, String key, String? value) {
+  void addIfNotNull(Map<String, String> map, String key, String? value) {
     if (value != null && value != 'null') {
       map[key] = value;
     }

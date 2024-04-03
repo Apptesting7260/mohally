@@ -6,8 +6,6 @@ import 'package:mohally/presentation/OrderDetailsScreen/orderdetails.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String? Orderdetailsid;
-
 class OrderDetailsController extends GetxController {
   final _api = AuthRepository();
   final loading = false.obs;
@@ -18,12 +16,12 @@ class OrderDetailsController extends GetxController {
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
-  void setAccountDetails(OrderDetailsModel value) => userlist.value = value;
+  void setUserList(OrderDetailsModel value) => userlist.value = value;
 
   void setError(String value) => error.value = value;
 
   Future<void> ordeDetailsHit(
-    BuildContext context,
+    String? Orderdetailsid,
   ) async {
     loading.value = true;
 
@@ -31,7 +29,7 @@ class OrderDetailsController extends GetxController {
     String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
-    Map data = {"order_id": Orderdetailsid};
+    Map data = {"order_id": Orderdetailsid, "language_type": "English"};
 
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
@@ -40,9 +38,10 @@ class OrderDetailsController extends GetxController {
     _api.OrderDetails(data, header).then((value) {
       loading.value = false;
       print(data);
-      rxRequestStatus.value = Status.COMPLETED;
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
       if (value.status == true) {
-        Get.off(OrderDetails());
+        Get.to(OrderDetails());
       } else {
         setRxRequestStatus(Status.ERROR);
       }

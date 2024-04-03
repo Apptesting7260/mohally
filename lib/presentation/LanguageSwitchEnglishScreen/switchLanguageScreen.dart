@@ -10,6 +10,7 @@ import 'package:mohally/theme/theme_helper.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -392,16 +393,20 @@ class _EnglishLanguageSwitchState extends State<EnglishLanguageSwitch> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
-        ),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 5, left: 10),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
       title: AppbarSubtitle(
         text: "Language",

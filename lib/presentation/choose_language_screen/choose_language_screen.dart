@@ -61,9 +61,9 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(horizontal: 30.h),
           child: Column(

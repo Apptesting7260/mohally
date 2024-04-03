@@ -9,6 +9,8 @@ import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 
+RxString orderid = "".obs;
+
 // ignore_for_file: must_be_immutable
 class MyOrdersProcessingPage extends StatefulWidget {
   const MyOrdersProcessingPage({Key? key})
@@ -239,14 +241,12 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
                       buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                       buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
                       onPressed: () {
-                        String? id = _orderStatuscontroller
-                            .Userlist.value.orders?[index].id
+                        orderid.value = _orderStatuscontroller
+                            .Userlist.value.orders![index].id
                             .toString();
-                        print(id);
-                        setState(() {
-                          Orderdetailsid = id;
-                        });
-                        _orderDetails.ordeDetailsHit(context);
+
+                        _orderDetails.ordeDetailsHit(orderid.value);
+                        print("orderrrrrrrr${orderid}");
                       },
                     ),
                   ],

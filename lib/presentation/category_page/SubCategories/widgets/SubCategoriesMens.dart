@@ -15,6 +15,8 @@ import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScre
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
+import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 String? submainCatId;
 
@@ -46,27 +48,23 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
+          padding: const EdgeInsets.only(top: 11, left: 10),
+          child: CustomIconButton(
+              onTap: () {
+                Get.back();
+              },
+              height: 40.adaptSize,
+              width: 40.adaptSize,
+              decoration: IconButtonStyleHelper.fillGrayTL20,
+              child: Center(
+                  child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ))),
         ),
         title: Padding(
             padding: const EdgeInsets.only(
-              top: 15,
+              top: 11,
             ),
             child: Text(
               "Men's Apparel",
@@ -239,16 +237,18 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 5.v),
-                                    Text(
-                                      "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
-                                      style: TextStyle(
-                                        color: Color(0xFF272727),
-                                        fontSize: 12,
-                                        fontFamily: 'League Spartan',
-                                        fontWeight: FontWeight.w500,
+                                    Center(
+                                      child: Text(
+                                        "${_categoryByName.userList.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                        style: TextStyle(
+                                          color: Color(0xFF272727),
+                                          fontSize: 12,
+                                          fontFamily: 'League Spartan',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
                                       ),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
                                     )
                                   ],
                                 );

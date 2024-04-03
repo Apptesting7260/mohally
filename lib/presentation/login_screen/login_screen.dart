@@ -52,10 +52,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
     ThemeData theme = Theme.of(context);
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Form(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           child: Container(
             width: double.maxFinite,

@@ -1285,8 +1285,8 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
       height: Get.height * .5,
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
-        itemCount: productviewcontroller.womensDress_userlist.value.productReview
-                ?.productReviewDetails?.length ??
+        itemCount: productviewcontroller.womensDress_userlist.value
+                .productReview?.productReviewDetails?.length ??
             0,
         itemBuilder: (BuildContext context, int index) {
           String imageUrl = productviewcontroller.womensDress_userlist.value
@@ -1316,8 +1316,11 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                         bottom: 2.v,
                       ),
                       child: CustomRatingBar(
-                        initialRating: productviewcontroller.womensDress_userlist
-                            .value.productReview?.productAverageReview
+                        initialRating: productviewcontroller
+                            .womensDress_userlist
+                            .value
+                            .productReview
+                            ?.productAverageReview
                             ?.toDouble(),
                         itemSize: 16,
                       ),
@@ -1392,8 +1395,8 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
               Padding(
                 padding: EdgeInsets.only(left: 20.h),
                 child: CustomRatingBar(
-                  initialRating: productviewcontroller.womensDress_userlist.value
-                      .productReview?.productReviewDetails?[index].ratting
+                  initialRating: productviewcontroller.womensDress_userlist
+                      .value.productReview?.productReviewDetails?[index].ratting
                       ?.toDouble(),
                   itemSize: 14,
                 ),
@@ -2175,19 +2178,31 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                 child: Container(
                                   width: 70.h,
                                   decoration: BoxDecoration(
-                                    color: AselectedSizeIndex.value == index
-                                        ? Color(0xffff8300)
-                                        : Color.fromARGB(111, 158, 158, 158),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                      color: Color.fromARGB(45, 158, 158, 158),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: AselectedSizeIndex.value == index
+                                          ? Border.all(color: Colors.black)
+                                          : Border.all(
+                                              color: Color.fromARGB(
+                                                  45, 158, 158, 158),
+                                            )),
+
+                                  // BoxDecoration(
+                                  //   color: AselectedSizeIndex.value == index
+                                  //       ? Color(0xffff8300)
+                                  //       : Color.fromARGB(111, 158, 158, 158),
+                                  //   borderRadius: BorderRadius.circular(20),
+                                  // ),
                                   padding: EdgeInsets.all(8),
                                   child: Center(
                                     child: Text(
                                       '$Aselectedsizename',
                                       style: TextStyle(
-                                        color: AselectedSizeIndex.value == index
-                                            ? Colors.white
-                                            : Colors.black,
+                                        color:
+                                            //  AselectedSizeIndex.value == index
+                                            //     ? Colors.white
+                                            // :
+                                            Colors.black,
                                       ),
                                     ),
                                   ),

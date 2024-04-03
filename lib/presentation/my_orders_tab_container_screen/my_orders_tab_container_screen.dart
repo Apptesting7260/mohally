@@ -7,6 +7,7 @@ import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart'
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 class MyOrdersTabContainerScreen extends StatefulWidget {
   const MyOrdersTabContainerScreen({Key? key})
@@ -33,10 +34,10 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return Scaffold(
-        appBar: _buildAppBar(context),
-        body: SafeArea(
-          child: Container(
+    return SafeArea(
+      child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: Container(
             height: Get.height,
             width: Get.width,
             child: SingleChildScrollView(
@@ -48,6 +49,7 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
                   SizedBox(
                     height: 658.v,
                     child: TabBarView(
+                      physics: NeverScrollableScrollPhysics(),
                       controller: tabviewController,
                       children: [
                         MyOrdersDelivererdPage(),
@@ -59,24 +61,28 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
                 ],
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60.h,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20.h,
-          top: 8.v,
-          bottom: 8.v,
-        ),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 5, left: 10),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
       title: AppbarSubtitle(
         text: "My Orders",

@@ -122,7 +122,6 @@ import 'package:mohally/models/SubCategories/subcategories_homeandlivingModel.da
 import 'package:mohally/models/SubCategories/subcategories_kidsModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_mensModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCathealthAndwellness.dart';
-import 'package:mohally/models/Sub_category_Model/sub_category_model.dart';
 import 'package:mohally/models/Update_Profile_Model/update_profile_Modal.dart';
 import 'package:mohally/models/User_address_view_Model/user_address_view_model.dart';
 import 'package:mohally/models/View_Wishlist_Model/View_wishlistModel.dart';
@@ -244,12 +243,12 @@ class AuthRepository {
     }
   }
 
-  Future<MensModel> arabicsubcategoriesApi(
-      var data, Map<String, String> header) async {
-    dynamic response =
-        await _apiService.postApi(data, AppUrl.subcategory, header);
-    return MensModel.fromJson(response);
-  }
+  // Future<MensModel> arabicsubcategoriesApi(
+  //     var data, Map<String, String> header) async {
+  //   dynamic response =
+  //       await _apiService.postApi(data, AppUrl.subcategory, header);
+  //   return MensModel.fromJson(response);
+  // }
 
   //    Future<SubCategoryModel>englishsubcategoriesApi(var data,Map<String, String> header) async {
   //   dynamic response = await _apiService.postApi(data, AppUrl.subcategory,header );

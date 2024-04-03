@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 import '../notifications_one_screen/widgets/notificationsone_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,10 @@ class NotificationsOneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: SafeArea(
-        child: Container(
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: Container(
           width: double.maxFinite,
           padding: EdgeInsets.only(top: 231.v),
           child: Column(
@@ -43,31 +44,31 @@ class NotificationsOneScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
 
-      // Padding(
-      //   padding: EdgeInsets.only(
-      //     left: 20.h,
-      //     top: 22.v,
-      //     right: 20.h,
-      //   ),
-      //   child: ListView.separated(
-      //     physics: BouncingScrollPhysics(),
-      //     shrinkWrap: true,
-      //     separatorBuilder: (
-      //       context,
-      //       index,
-      //     ) {
-      //       return SizedBox(
-      //         height: 10.v,
-      //       );
-      //     },
-      //     itemCount: 3,
-      //     itemBuilder: (context, index) {
-      //       return NotificationsoneItemWidget();
-      //     },
-      //   ),
-      // ),
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //     left: 20.h,
+        //     top: 22.v,
+        //     right: 20.h,
+        //   ),
+        //   child: ListView.separated(
+        //     physics: BouncingScrollPhysics(),
+        //     shrinkWrap: true,
+        //     separatorBuilder: (
+        //       context,
+        //       index,
+        //     ) {
+        //       return SizedBox(
+        //         height: 10.v,
+        //       );
+        //     },
+        //     itemCount: 3,
+        //     itemBuilder: (context, index) {
+        //       return NotificationsoneItemWidget();
+        //     },
+        //   ),
+        // ),
+      ),
     );
   }
 
@@ -75,16 +76,20 @@ class NotificationsOneScreen extends StatelessWidget {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 60.h,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20.h,
-          top: 8.v,
-          bottom: 8.v,
-        ),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 5, left: 10),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
       title: AppbarSubtitle(
         text: "Notifications",

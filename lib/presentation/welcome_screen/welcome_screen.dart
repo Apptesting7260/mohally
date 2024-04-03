@@ -14,9 +14,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(
             horizontal: 52.h,
@@ -73,8 +73,8 @@ class WelcomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: _buildGetStartedButton(context),
       ),
+      bottomNavigationBar: _buildGetStartedButton(context),
     );
   }
 
@@ -82,7 +82,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget _buildGetStartedButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-         Get.to(()=>LoginScreen());
+        Get.to(() => LoginScreen());
         // Get.to(() => LoginScreen());
       },
       text: "Get Started",

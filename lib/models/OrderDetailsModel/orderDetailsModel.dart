@@ -95,9 +95,9 @@ class OrderItemInformation {
     name = json['name'];
     image = json['image'];
     price = json['price'];
-    totalPrice = null;
+    totalPrice = json['total_price'];
     totalQuantity = json['total_quantity'];
-    productDetails = null;
+    productDetails = ProductDetails.fromJson(json['product_details']);
   }
 
   Map<String, dynamic> toJson() {
@@ -107,28 +107,28 @@ class OrderItemInformation {
     _data['price'] = price;
     _data['total_price'] = totalPrice;
     _data['total_quantity'] = totalQuantity;
-    _data['product_details'] = productDetails;
+    _data['product_details'] = productDetails!.toJson();
     return _data;
   }
 }
 
 class ProductDetails {
   ProductDetails({
-    this.Size,
     this.Color,
+    this.Size,
   });
-  var Size;
   var Color;
+  var Size;
 
   ProductDetails.fromJson(Map<String, dynamic> json) {
-    Size = json['Size'];
     Color = json['Color'];
+    Size = json['Size'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['Size'] = Size;
     _data['Color'] = Color;
+    _data['Size'] = Size;
     return _data;
   }
 }
@@ -170,7 +170,7 @@ class ShippingAddress {
     zipCode = json['zip_code'];
     mobileNumber = json['mobile_number'];
     primaryAddressStatus = json['primary_address_status'];
-    languageType = null;
+    languageType = json['language_type'];
   }
 
   Map<String, dynamic> toJson() {

@@ -49,7 +49,7 @@ class ProductView {
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
   var quantity;
-  var incart;
+  bool? incart;
   var price;
   var imageUrl;
 
@@ -77,7 +77,6 @@ class ProductView {
     _data['title'] = title;
     _data['slug'] = slug;
     _data['in_cart'] = incart;
-
     _data['description'] = description;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();

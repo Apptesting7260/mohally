@@ -35,7 +35,7 @@ String? size1;
 
 // ignore_for_file: must_be_immutable
 class WishlistPage extends StatefulWidget {
-    final bool showAppBar;
+  final bool showAppBar;
 
   const WishlistPage({Key? key, this.showAppBar = false})
       : super(
@@ -139,23 +139,19 @@ class _WishlistPageState extends State<WishlistPage> {
           appBar: widget.showAppBar
               ? AppBar(
                   leading: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 15,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                          width: Get.width * .07,
-                          height: Get.height * .03,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: const Color.fromARGB(90, 158, 158, 158)),
-                          child: Icon(
-                            Icons.arrow_back,
-                          )),
-                    ),
+                    padding: const EdgeInsets.only(top: 5, left: 10),
+                    child: CustomIconButton(
+                        onTap: () {
+                          Get.back();
+                        },
+                        height: 40.adaptSize,
+                        width: 40.adaptSize,
+                        decoration: IconButtonStyleHelper.fillGrayTL20,
+                        child: Center(
+                            child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ))),
                   ),
                 )
               : null,
@@ -196,6 +192,7 @@ class _WishlistPageState extends State<WishlistPage> {
       }
     });
   }
+
   Widget _buildRowSize(BuildContext context) {
     return Align(
       alignment: Alignment.center,
@@ -216,6 +213,7 @@ class _WishlistPageState extends State<WishlistPage> {
       ),
     );
   }
+
   /// Section Widget
   // Widget _buildEditButton(BuildContext context) {
   //   return CustomElevatedButton(

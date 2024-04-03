@@ -48,17 +48,16 @@ class _NoProductFoundState extends State<NoProductFound> {
                     child: Image.asset(
                   'assets/images/no_product.png',
                   color: Color(0xffff8300),
-                  width: 200,
+                  width: 250,
                   height: 200,
                 )),
               ),
               Center(
                 child: Text(
-                  "Oops! No Product Found",
-                  style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: Colors.grey),
+                  "Oops! Page Not Found",
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                      color: Color.fromARGB(120, 0, 0, 0), fontSize: 15),
+                  textAlign: TextAlign.center,
                 ),
               )
             ],

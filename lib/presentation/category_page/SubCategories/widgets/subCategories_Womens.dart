@@ -11,6 +11,7 @@ import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/
 import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 class subcategoryWomensScreen extends StatefulWidget {
   const subcategoryWomensScreen({Key? key}) : super(key: key);
@@ -39,27 +40,23 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
+          padding: const EdgeInsets.only(top: 11, left: 10),
+          child: CustomIconButton(
+              onTap: () {
+                Get.back();
+              },
+              height: 40.adaptSize,
+              width: 40.adaptSize,
+              decoration: IconButtonStyleHelper.fillGrayTL20,
+              child: Center(
+                  child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ))),
         ),
         title: Padding(
             padding: const EdgeInsets.only(
-              top: 15,
+              top: 11,
             ),
             child: Text(
               "Women's Fashion",
@@ -229,16 +226,18 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                                         ),
                                       ),
                                       SizedBox(height: 5.v),
-                                      Text(
-                                        "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
-                                        style: TextStyle(
-                                          color: Color(0xFF272727),
-                                          fontSize: 12,
-                                          fontFamily: 'League Spartan',
-                                          fontWeight: FontWeight.w500,
+                                      Center(
+                                        child: Text(
+                                          "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                          style: TextStyle(
+                                            color: Color(0xFF272727),
+                                            fontSize: 12,
+                                            fontFamily: 'League Spartan',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
                                         ),
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
                                       )
                                     ],
                                   ),

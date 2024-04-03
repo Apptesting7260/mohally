@@ -44,6 +44,7 @@ dependencies:
   flutter_geocoder: ^0.2.2-nullsafety
   pull_to_refresh: ^2.0.0
   virtual_keyboard_multi_language: ^1.0.3
+  flutter_countdown_timer: ^4.1.0
 
 
 

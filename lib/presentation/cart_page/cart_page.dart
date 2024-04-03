@@ -205,51 +205,639 @@ class _CartPageState extends State<CartPage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10.h),
                                   child: Text(
-                                    " Your shopping cart now contains ",
-                                    style: theme.textTheme.labelLarge?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                    "${_viewcartcontroller.userList.value.viewCartTotal.toString()}  items! ",
+                                    style: CustomTextStyles.bodyLargeGray50001_3
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 6.v),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10.h),
-                                  child: Text(
-                                    "${_viewcartcontroller.userList.value.viewCartTotal.toString()}  items! ",
-                                    style: CustomTextStyles.bodyLargeGray50001_3
-                                        ?.copyWith(),
-                                  ),
+                              SizedBox(height: 2.v),
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.h, right: 10.h),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "in cart",
+                                      style: CustomTextStyles.bodyLargeGray50001_3
+                                          ?.copyWith(),
+                                    ),
+                                    CustomIconButton(
+                                        onTap: () {
+                                          // if (isSelectedList[index]) {
+            
+                                          // }
+                                          DeleteCartCartController()
+                                              .deleteCartApiHit(
+                                                  DeleteCartCartControlleri
+                                                      .selectedCartIds);
+                                        },
+                                        height: 40.adaptSize,
+                                        width: 40.adaptSize,
+                                        decoration:
+                                            IconButtonStyleHelper.fillGrayTL20,
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.delete,
+                                          color: Colors.grey,
+                                        ))),
+                                  ],
                                 ),
                               ),
                               SizedBox(height: 27.v),
                               _buildFreeShippingAnd(context),
-                              SizedBox(height: 29.v),
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Align(
-                                  alignment: AlignmentDirectional.centerEnd,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // if (isSelectedList[index]) {
-
-                                      // }
-                                      DeleteCartCartController()
-                                          .deleteCartApiHit(
-                                              DeleteCartCartControlleri
-                                                  .selectedCartIds);
-                                    },
-                                    child: Icon(
-                                      Icons.delete_forever,
-                                      color: Colors.red,
+                              SizedBox(height: 20.v),
+                              // Padding(
+                              //   padding: EdgeInsets.only(right: 20),
+                              //   child: Align(
+                              //     alignment: AlignmentDirectional.centerEnd,
+                              //     child: GestureDetector(
+                              // onTap: () {
+                              //   // if (isSelectedList[index]) {
+            
+                              //   // }
+                              //   DeleteCartCartController()
+                              //       .deleteCartApiHit(
+                              //           DeleteCartCartControlleri
+                              //               .selectedCartIds);
+                              // },
+                              //       child: Icon(
+                              //         Icons.delete_forever,
+                              //         color: Colors.red,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              ListView.separated(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                separatorBuilder: (
+                                  context,
+                                  index,
+                                ) {
+                                  return SizedBox(
+                                    height: 15.v,
+                                  );
+                                },
+                                itemCount: 1,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    // padding: EdgeInsets.symmetric(
+                                    //   horizontal: 16.h,
+                                    //   vertical: 18.v,
+                                    // ),
+                                    // decoration: AppDecoration.fillGray.copyWith(
+                                    //   borderRadius:
+                                    //       BorderRadiusStyle.roundedBorder15,
+                                    // ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomImageView(
+                                          imagePath:
+                                              "${_viewcartcontroller.userList.value.viewCart?[index].image.toString()}",
+                                          height: 100.adaptSize,
+                                          width: 100.adaptSize,
+                                          radius: BorderRadius.circular(
+                                            10.h,
+                                          ),
+                                          margin: EdgeInsets.only(bottom: 15.v),
+                                          onTap: () {
+                                            String? cartmainCatId =
+                                                _viewcartcontroller.userList.value
+                                                    .viewCart?[index].categoryId
+                                                    .toString();
+                                            String? productId =
+                                                _viewcartcontroller.userList.value
+                                                    .viewCart?[index].productId!
+                                                    .toString();
+            
+                                            setState(() {
+                                              Englishproductid = productId;
+                                              EnglishMainCatId = cartmainCatId;
+                                            });
+                                            print("$Englishproductid==");
+                                            print("$EnglishMainCatId==");
+                                            if (cartmainCatId == "153") {
+                                              Get.to(ShirtsandTopsSingleView());
+                                              print(
+                                                  "$cartmainCatId===========Mens Appearl main category id ");
+                                            } else if (cartmainCatId == "154") {
+                                              Get.to(SinglePageScreen_Bottoms());
+                                            } else if (cartmainCatId == "155") {
+                                              Get.to(
+                                                  SinglePageScreen_mens_Jacket());
+                                            } else if (cartmainCatId == "156") {
+                                              Get.to(
+                                                  SinglePageScreen_mens_activewear());
+                                            } else if (cartmainCatId == "157") {
+                                              Get.to(
+                                                  SinglePageScreen_Mens_Formals());
+                                            } else if (cartmainCatId == "174") {
+                                              Get.to(
+                                                  SinglePageScreen_Mens_Shoes());
+                                            } else if (cartmainCatId == "166") {
+                                              Get.to(
+                                                  SinglePageScreen_Electronics_Smartphones());
+                                            } else if (cartmainCatId == "170") {
+                                              Get.to(
+                                                  SinglePageScreen_Electronics_Laptops());
+                                            } else if (cartmainCatId == "171") {
+                                              Get.to(
+                                                  SinglePageScreen_Electronics_AudioHeadphones());
+                                            } else if (cartmainCatId == "172") {
+                                              Get.to(
+                                                  SinglePageScreen_Electronics_Camera());
+                                            } else if (cartmainCatId == "173") {
+                                              Get.to(
+                                                  SinglePageScreen_Electronics_wearable());
+                                            } else if (cartmainCatId == "176") {
+                                              Get.to(Womens_Dress_SingleView());
+                                            } else if (cartmainCatId == "177") {
+                                              Get.to(Womens_Tops_SingleView());
+                                            } else {
+                                              print('not found ');
+                                            }
+                                          },
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 14.h),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width: Get.width * .4,
+                                                    // color: Colors.amberAccent,
+                                                    child: Text(
+                                                      "${_viewcartcontroller.userList.value.viewCart?[index].name.toString()}",
+                                                      style: theme
+                                                          .textTheme.titleSmall
+                                                          ?.copyWith(
+                                                              fontSize: 10),
+                                                      maxLines: 2,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: Get.width * .1),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        isSelectedList[index] =
+                                                            !isSelectedList[
+                                                                index];
+                                                      });
+                                                      // DeleteCartCartControlleri.selectedCartIds.addIf()
+            
+                                                      if (!DeleteCartCartControlleri
+                                                              .selectedCartIds
+                                                              .contains(
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart?[
+                                                                          index]
+                                                                      .id
+                                                                      .toString()) ||
+                                                          !placeordercontroller
+                                                              .selectedCartIds
+                                                              .contains(
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart?[
+                                                                          index]
+                                                                      .id
+                                                                      .toString()) ||
+                                                          !_applycouponcode
+                                                              .selectedCartIds
+                                                              .contains(
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart?[
+                                                                          index]
+                                                                      .id
+                                                                      .toString())) {
+                                                        placeordercontroller
+                                                            .selectedCartIds
+                                                            .add(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        _applycouponcode
+                                                            .selectedCartIds
+                                                            .add(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        DeleteCartCartControlleri
+                                                            .selectedCartIds
+                                                            .add(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        print(
+                                                            DeleteCartCartControlleri
+                                                                .selectedCartIds);
+                                                        print(_applycouponcode
+                                                            .selectedCartIds);
+                                                      } else {
+                                                        placeordercontroller
+                                                            .selectedCartIds
+                                                            .remove(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        _applycouponcode
+                                                            .selectedCartIds
+                                                            .remove(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        DeleteCartCartControlleri
+                                                            .selectedCartIds
+                                                            .remove(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                        print(
+                                                            DeleteCartCartControlleri
+                                                                .selectedCartIds);
+                                                      }
+                                                      // // deleteCartId = _viewcartcontroller
+                                                      // //     .userList.value.viewCart?[index].id
+                                                      // //     .toString();
+            
+                                                      // print(deleteCartId);
+                                                      // DeleteCartCartController().deleteCartApiHit();
+                                                    },
+                                                    child: Container(
+                                                      height: Get.height * .03,
+                                                      width: Get.width * .05,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                          width: 2,
+                                                          color:
+                                                              Color(0xffff8300),
+                                                        ),
+                                                        color: Colors.white,
+                                                      ),
+                                                      child: isSelectedList[index]
+                                                          ? Center(
+                                                              child: Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        .02,
+                                                                width: Get.width *
+                                                                    .03,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Color(
+                                                                      0xffff8300),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : null,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: Get.height * .02,
+                                              ),
+                                              SizedBox(
+                                                width: 221.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 1.v),
+                                                      child: RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text:
+                                                                  "${_viewcartcontroller.userList.value.viewCart?[index].price.toString()}",
+                                                              style: theme
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                            ),
+                                                            TextSpan(
+                                                              text: " ",
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  "${_viewcartcontroller.userList.value.viewCart?[index].totalPrice.toString()}",
+                                                              style: CustomTextStyles
+                                                                  .titleSmallGray50001
+                                                                  .copyWith(
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .lineThrough,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        textAlign: TextAlign.left,
+                                                      ),
+                                                    ),
+                                                    // Container(
+                                                    //   width: Get.width * .2,
+                                                    //   height: Get.height * .04,
+                                                    //   decoration: AppDecoration.fillPrimary.copyWith(
+                                                    //     borderRadius:
+                                                    //         BorderRadiusStyle.circleBorder30,
+                                                    //   ),
+                                                    //   child: Row(
+                                                    //     mainAxisAlignment:
+                                                    //         MainAxisAlignment.spaceAround,
+                                                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                                                    //     children: [
+                                                    //       // GestureDetector(
+                                                    //       //   onTap: () {
+                                                    //       //     CartId = _viewcartcontroller
+                                                    //       //         .userList.value.viewCart![index].id
+                                                    //       //         .toString();
+                                                    //       //     // Decrement the counter when "-" is pressed
+                                                    //       //     _viewcartcontroller
+                                                    //       //         .userList
+                                                    //       //         .value
+                                                    //       //         .viewCart![index]
+                                                    //       //         .totalQty
+                                                    //       //         .value -= 1;
+                                                    //       //     print(_viewcartcontroller.userList.value
+                                                    //       //         .viewCart![index].totalQty.value);
+            
+                                                    //       //     CartProductQtyIncrementCartcontroller()
+                                                    //       //         .QtyUpdate_Apihit(
+                                                    //       //             context, index, "decrement");
+                                                    //       //   },
+                                                    //       //   child: Icon(
+                                                    //       //     Icons.remove,
+                                                    //       //     color: Colors.white,
+                                                    //       //     size: 15,
+                                                    //       //   ),
+                                                    //       // ),
+                                                    //       GestureDetector(
+                                                    //         onTap: () {
+                                                    //           CartId = _viewcartcontroller
+                                                    //               .userList.value.viewCart![index].id
+                                                    //               .toString();
+                                                    //           // Check if the current quantity is greater than 1 before decrementing
+                                                    //           if (_viewcartcontroller
+                                                    //                   .userList
+                                                    //                   .value
+                                                    //                   .viewCart![index]
+                                                    //                   .totalQty
+                                                    //                   .value >
+                                                    //               1) {
+                                                    //             // Decrement the counter
+                                                    //             _viewcartcontroller
+                                                    //                 .userList
+                                                    //                 .value
+                                                    //                 .viewCart![index]
+                                                    //                 .totalQty
+                                                    //                 .value -= 1;
+                                                    //             print(_viewcartcontroller
+                                                    //                 .userList
+                                                    //                 .value
+                                                    //                 .viewCart![index]
+                                                    //                 .totalQty
+                                                    //                 .value);
+                                                    //             CartProductQtyIncrementCartcontroller()
+                                                    //                 .QtyUpdate_Apihit(
+                                                    //                     context, index, "decrement");
+                                                    //           } else {
+                                                    //             // If quantity is already 1 or less, do nothing or show a message
+                                                    //             // You can add a toast, snackbar, or any other UI feedback here
+                                                    //           }
+                                                    //         },
+                                                    //         child: Icon(
+                                                    //           Icons.remove,
+                                                    //           color: Colors.white,
+                                                    //           size: 15,
+                                                    //         ),
+                                                    //       ),
+            
+                                                    //       Center(
+                                                    //           child: Text(
+                                                    //         _viewcartcontroller.userList.value
+                                                    //             .viewCart![index].totalQty.value
+                                                    //             .toString(),
+                                                    //         style: theme.textTheme.bodyMedium
+                                                    //             ?.copyWith(color: Colors.white),
+                                                    //       )),
+                                                    //       GestureDetector(
+                                                    //         onTap: () {
+                                                    //           CartId = _viewcartcontroller
+                                                    //               .userList.value.viewCart![index].id
+                                                    //               .toString();
+                                                    //           // Increment the counter when "+" is pressed
+                                                    //           _viewcartcontroller
+                                                    //               .userList
+                                                    //               .value
+                                                    //               .viewCart![index]
+                                                    //               .totalQty
+                                                    //               .value += 1;
+                                                    //           print(_viewcartcontroller.userList.value
+                                                    //               .viewCart![index].totalQty.value);
+            
+                                                    //           CartProductQtyIncrementCartcontroller()
+                                                    //               .QtyUpdate_Apihit(
+                                                    //                   context, index, "increment");
+                                                    //         },
+                                                    //         child: Icon(
+                                                    //           Icons.add,
+                                                    //           color: Colors.white,
+                                                    //           size: 15,
+                                                    //         ),
+                                                    //       ),
+                                                    //     ],
+                                                    //   ),
+                                                    // ),
+                                                    Container(
+                                                      width: Get.width * .2,
+                                                      height: Get.height * .04,
+                                                      decoration: AppDecoration
+                                                          .fillPrimary
+                                                          .copyWith(
+                                                        borderRadius:
+                                                            BorderRadiusStyle
+                                                                .circleBorder30,
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              CartId =
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart![
+                                                                          index]
+                                                                      .id
+                                                                      .toString();
+                                                              // Check if the current quantity is greater than 1 before decrementing
+                                                              if (_viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart![
+                                                                          index]
+                                                                      .totalQty
+                                                                      .value >
+                                                                  1) {
+                                                                // Decrement the counter
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart![
+                                                                        index]
+                                                                    .totalQty
+                                                                    .value -= 1;
+                                                                print(
+                                                                    _viewcartcontroller
+                                                                        .userList
+                                                                        .value
+                                                                        .viewCart![
+                                                                            index]
+                                                                        .totalQty
+                                                                        .value);
+                                                                CartProductQtyIncrementCartcontroller()
+                                                                    .QtyUpdate_Apihit(
+                                                                        context,
+                                                                        index,
+                                                                        "decrement");
+                                                              } else {
+                                                                // If quantity is already 1 or less, do nothing or show a message
+                                                                // You can add a toast, snackbar, or any other UI feedback here
+                                                              }
+                                                              // Force the widget to rebuild to reflect the new quantity
+                                                              setState(() {});
+                                                            },
+                                                            child: Icon(
+                                                              Icons.remove,
+                                                              color: Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                          ),
+                                                          Center(
+                                                            child: Text(
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart![
+                                                                      index]
+                                                                  .totalQty
+                                                                  .value
+                                                                  .toString(),
+                                                              style: theme
+                                                                  .textTheme
+                                                                  .bodyMedium
+                                                                  ?.copyWith(
+                                                                      color: Colors
+                                                                          .white),
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              CartId =
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart![
+                                                                          index]
+                                                                      .id
+                                                                      .toString();
+                                                              // Increment the counter when "+" is pressed
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart![
+                                                                      index]
+                                                                  .totalQty
+                                                                  .value += 1;
+                                                              print(
+                                                                  _viewcartcontroller
+                                                                      .userList
+                                                                      .value
+                                                                      .viewCart![
+                                                                          index]
+                                                                      .totalQty
+                                                                      .value);
+            
+                                                              CartProductQtyIncrementCartcontroller()
+                                                                  .QtyUpdate_Apihit(
+                                                                      context,
+                                                                      index,
+                                                                      "increment");
+                                                              // Force the widget to rebuild to reflect the new quantity
+                                                              setState(() {});
+                                                            },
+                                                            child: Icon(
+                                                              Icons.add,
+                                                              color: Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
-
-                              _buildCartProduct(context),
+                              // _buildCartProduct(context),
                               // SizedBox(height: 29.v),
                               // _buildTrailRunningJacket1(context),
                               SizedBox(height: 30.v),
@@ -308,8 +896,7 @@ class _CartPageState extends State<CartPage> {
                               // _buildVisaClassic(context),
                               // SizedBox(height: 29.v),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -365,7 +952,7 @@ class _CartPageState extends State<CartPage> {
                               SizedBox(height: 28.v),
                               _buildItemTotal(context),
                               SizedBox(height: 15.v),
-
+            
                               if (discountprice != null)
                                 Padding(
                                     padding:
@@ -391,7 +978,7 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                       ],
                                     )),
-
+            
                               SizedBox(height: 15.v),
                               if (totalpriceafterdiscount != null)
                                 Padding(
@@ -412,8 +999,7 @@ class _CartPageState extends State<CartPage> {
                                           (_viewcartcontroller.userList.value
                                                       .totalPrice! -
                                                   double.parse(
-                                                      couponDiscountAmount
-                                                          .value))
+                                                      couponDiscountAmount.value))
                                               .toString(),
                                           style: CustomTextStyles
                                               .titleMediumPrimary_1
@@ -425,25 +1011,23 @@ class _CartPageState extends State<CartPage> {
                                     )),
                               SizedBox(height: 17.v),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                 child: Container(
                                     height: 40.v,
                                     width: 100.h,
                                     decoration: BoxDecoration(
                                         color: Color(0xffff8300),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        border: Border.all(
-                                            color: Color(0xffff8300))),
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(20)),
+                                        border:
+                                            Border.all(color: Color(0xffff8300))),
                                     // margin: EdgeInsets.only(left: 23.h),
                                     child: Center(
                                         child: GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           couponid = couponidforcheckout;
-                                          address_id =
-                                              addressIndexId.toString();
+                                          address_id = addressIndexId.toString();
                                           itemdiscountAmount = discountprice;
                                           subtotalamount = _viewcartcontroller
                                               .userList.value.subTotalPrice
@@ -452,10 +1036,9 @@ class _CartPageState extends State<CartPage> {
                                               .userList.value.totalPrice
                                               .toString();
                                         });
-
+            
                                         placeordercontroller.Placeorderapihit(
-                                            placeordercontroller
-                                                .selectedCartIds,
+                                            placeordercontroller.selectedCartIds,
                                             context);
                                       },
                                       child: Text('Checkout',
@@ -526,7 +1109,7 @@ class _CartPageState extends State<CartPage> {
                               //     ),
                               //   ),
                               // ),
-
+            
                               // Padding(
                               //   padding:
                               //       const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -970,6 +1553,120 @@ class _CartPageState extends State<CartPage> {
                                   textAlign: TextAlign.left,
                                 ),
                               ),
+                              // Container(
+                              //   width: Get.width * .2,
+                              //   height: Get.height * .04,
+                              //   decoration: AppDecoration.fillPrimary.copyWith(
+                              //     borderRadius:
+                              //         BorderRadiusStyle.circleBorder30,
+                              //   ),
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //         MainAxisAlignment.spaceAround,
+                              //     crossAxisAlignment: CrossAxisAlignment.center,
+                              //     children: [
+                              //       // GestureDetector(
+                              //       //   onTap: () {
+                              //       //     CartId = _viewcartcontroller
+                              //       //         .userList.value.viewCart![index].id
+                              //       //         .toString();
+                              //       //     // Decrement the counter when "-" is pressed
+                              //       //     _viewcartcontroller
+                              //       //         .userList
+                              //       //         .value
+                              //       //         .viewCart![index]
+                              //       //         .totalQty
+                              //       //         .value -= 1;
+                              //       //     print(_viewcartcontroller.userList.value
+                              //       //         .viewCart![index].totalQty.value);
+
+                              //       //     CartProductQtyIncrementCartcontroller()
+                              //       //         .QtyUpdate_Apihit(
+                              //       //             context, index, "decrement");
+                              //       //   },
+                              //       //   child: Icon(
+                              //       //     Icons.remove,
+                              //       //     color: Colors.white,
+                              //       //     size: 15,
+                              //       //   ),
+                              //       // ),
+                              //       GestureDetector(
+                              //         onTap: () {
+                              //           CartId = _viewcartcontroller
+                              //               .userList.value.viewCart![index].id
+                              //               .toString();
+                              //           // Check if the current quantity is greater than 1 before decrementing
+                              //           if (_viewcartcontroller
+                              //                   .userList
+                              //                   .value
+                              //                   .viewCart![index]
+                              //                   .totalQty
+                              //                   .value >
+                              //               1) {
+                              //             // Decrement the counter
+                              //             _viewcartcontroller
+                              //                 .userList
+                              //                 .value
+                              //                 .viewCart![index]
+                              //                 .totalQty
+                              //                 .value -= 1;
+                              //             print(_viewcartcontroller
+                              //                 .userList
+                              //                 .value
+                              //                 .viewCart![index]
+                              //                 .totalQty
+                              //                 .value);
+                              //             CartProductQtyIncrementCartcontroller()
+                              //                 .QtyUpdate_Apihit(
+                              //                     context, index, "decrement");
+                              //           } else {
+                              //             // If quantity is already 1 or less, do nothing or show a message
+                              //             // You can add a toast, snackbar, or any other UI feedback here
+                              //           }
+                              //         },
+                              //         child: Icon(
+                              //           Icons.remove,
+                              //           color: Colors.white,
+                              //           size: 15,
+                              //         ),
+                              //       ),
+
+                              //       Center(
+                              //           child: Text(
+                              //         _viewcartcontroller.userList.value
+                              //             .viewCart![index].totalQty.value
+                              //             .toString(),
+                              //         style: theme.textTheme.bodyMedium
+                              //             ?.copyWith(color: Colors.white),
+                              //       )),
+                              //       GestureDetector(
+                              //         onTap: () {
+                              //           CartId = _viewcartcontroller
+                              //               .userList.value.viewCart![index].id
+                              //               .toString();
+                              //           // Increment the counter when "+" is pressed
+                              //           _viewcartcontroller
+                              //               .userList
+                              //               .value
+                              //               .viewCart![index]
+                              //               .totalQty
+                              //               .value += 1;
+                              //           print(_viewcartcontroller.userList.value
+                              //               .viewCart![index].totalQty.value);
+
+                              //           CartProductQtyIncrementCartcontroller()
+                              //               .QtyUpdate_Apihit(
+                              //                   context, index, "increment");
+                              //         },
+                              //         child: Icon(
+                              //           Icons.add,
+                              //           color: Colors.white,
+                              //           size: 15,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Container(
                                 width: Get.width * .2,
                                 height: Get.height * .04,
@@ -982,31 +1679,6 @@ class _CartPageState extends State<CartPage> {
                                       MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    // GestureDetector(
-                                    //   onTap: () {
-                                    //     CartId = _viewcartcontroller
-                                    //         .userList.value.viewCart![index].id
-                                    //         .toString();
-                                    //     // Decrement the counter when "-" is pressed
-                                    //     _viewcartcontroller
-                                    //         .userList
-                                    //         .value
-                                    //         .viewCart![index]
-                                    //         .totalQty
-                                    //         .value -= 1;
-                                    //     print(_viewcartcontroller.userList.value
-                                    //         .viewCart![index].totalQty.value);
-
-                                    //     CartProductQtyIncrementCartcontroller()
-                                    //         .QtyUpdate_Apihit(
-                                    //             context, index, "decrement");
-                                    //   },
-                                    //   child: Icon(
-                                    //     Icons.remove,
-                                    //     color: Colors.white,
-                                    //     size: 15,
-                                    //   ),
-                                    // ),
                                     GestureDetector(
                                       onTap: () {
                                         CartId = _viewcartcontroller
@@ -1040,6 +1712,8 @@ class _CartPageState extends State<CartPage> {
                                           // If quantity is already 1 or less, do nothing or show a message
                                           // You can add a toast, snackbar, or any other UI feedback here
                                         }
+                                        // Force the widget to rebuild to reflect the new quantity
+                                        setState(() {});
                                       },
                                       child: Icon(
                                         Icons.remove,
@@ -1047,15 +1721,15 @@ class _CartPageState extends State<CartPage> {
                                         size: 15,
                                       ),
                                     ),
-
                                     Center(
-                                        child: Text(
-                                      _viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value
-                                          .toString(),
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(color: Colors.white),
-                                    )),
+                                      child: Text(
+                                        _viewcartcontroller.userList.value
+                                            .viewCart![index].totalQty.value
+                                            .toString(),
+                                        style: theme.textTheme.bodyMedium
+                                            ?.copyWith(color: Colors.white),
+                                      ),
+                                    ),
                                     GestureDetector(
                                       onTap: () {
                                         CartId = _viewcartcontroller
@@ -1074,6 +1748,8 @@ class _CartPageState extends State<CartPage> {
                                         CartProductQtyIncrementCartcontroller()
                                             .QtyUpdate_Apihit(
                                                 context, index, "increment");
+                                        // Force the widget to rebuild to reflect the new quantity
+                                        setState(() {});
                                       },
                                       child: Icon(
                                         Icons.add,
@@ -1228,42 +1904,35 @@ class _CartPageState extends State<CartPage> {
     return Container(
       height: 70.v,
       width: double.maxFinite,
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.h,
-        vertical: 8.v,
-      ),
       decoration: BoxDecoration(color: Color.fromARGB(125, 252, 228, 236)),
-      child: Stack(
-        alignment: Alignment.topRight,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: SizedBox(
-              width: 306.h,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 2),
-                child: Text(
-                    "The availability and price of the item are not guaranteed until final payment is made.",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    )),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Row(
+          // alignment: Alignment.topRight,
+          children: [
+            CustomImageView(
+              imagePath: ImageConstant.imgInfoCircle1,
+              height: 10.adaptSize,
+              width: 10.adaptSize,
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(
+                top: 19.v,
               ),
             ),
-          ),
-          CustomImageView(
-            imagePath: ImageConstant.imgInfoCircle1,
-            height: 15.adaptSize,
-            width: 15.adaptSize,
-            alignment: Alignment.topRight,
-            margin: EdgeInsets.only(
-              top: 6.v,
+            SizedBox(
+              width: 306.h,
+              child: Text(
+                  "  The availability and price of the item are not guaranteed until final payment is made.",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

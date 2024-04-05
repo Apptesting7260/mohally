@@ -6,7 +6,10 @@ import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategoryby
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecSmartPhonesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecWearablesubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/health_vitaminsSubCatProductModels.dart';
-import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/homeandlivingAllproductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/healthandWellnessAllproductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingBeddingProductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingProductModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingSubCatFurnitureProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyAllProductsViewModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyBoysapparelProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyGirlsproductsModel.dart';
@@ -55,14 +58,25 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
   final kids_toys_userlist = BabytoysSubCatModel().obs;
   // final health_and_wellness_userlist =
   //     health_and_wellnessAllproductsModel().obs;
+  final homeliving_userlist = HomelivingProducts().obs;
+
   final Health_vitamins_userlist = Health_vitaminsSubcatProductsviewModel().obs;
   final healthwellness_userlist = HealthandWellnessAllProductsviewModel().obs;
+  final homeliving_furniture_userlist =
+      HomelivingSubCatFurnitureProductsModel().obs;
+  final homeliving_bedding_userlist =
+      HomelivingSubCatBeddingProductsModel().obs;
 
-  // final userList = Rx<dynamic>(null);
+  void homeliving_BeddingModel(HomelivingSubCatBeddingProductsModel value) =>
+      homeliving_bedding_userlist.value = value;
+  void homeliving_furnitureModel(
+          HomelivingSubCatFurnitureProductsModel value) =>
+      homeliving_furniture_userlist.value = value;
   void healthandWellnessModel(HealthandWellnessAllProductsviewModel value) =>
       healthwellness_userlist.value = value;
-
   void MensModel(MensAllProductModel value) => mens.value = value;
+  void HomelivingModel(HomelivingProducts value) =>
+      homeliving_userlist.value = value;
   void shirtandTopsModel(ShirtsSubcatviewModel value) =>
       ShirtandTops_userlist.value = value;
   void bottomModel(MensBottomSubcatviewModel value) =>
@@ -164,8 +178,13 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
           return Health_vitaminsModel(value);
         case "217":
           return healthandWellnessModel(value);
-        // case "219":
-        //   return kidsclothingModel(value);
+        case "187":
+          return HomelivingModel(value);
+        case "191":
+          return homeliving_furnitureModel(value);
+
+        case "192":
+          return homeliving_BeddingModel(value);
         // case "220":
         //   return kidsclothingModel(value);
         // case "221":

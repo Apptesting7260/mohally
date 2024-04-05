@@ -67,7 +67,10 @@ import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategoryby
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecSmartPhonesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecWearablesubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/health_vitaminsSubCatProductModels.dart';
-import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/homeandlivingAllproductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/healthandWellnessAllproductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingBeddingProductsModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingProductModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HomelivingModel/homelivingSubCatFurnitureProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyAllProductsViewModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyBoysapparelProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyGirlsproductsModel.dart';
@@ -117,6 +120,7 @@ import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesMo
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensTopSingleProductViewModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/singleproductviewModel.dart';
+import 'package:mohally/models/SubCategories/FeaturedCategoryModel.dart';
 import 'package:mohally/models/SubCategories/maincategoriesGroceryandPantryModel.dart';
 import 'package:mohally/models/SubCategories/subcategoriesFurnitureModel.dart';
 import 'package:mohally/models/SubCategories/subcategoriesHomesAndLivingModel.dart';
@@ -267,6 +271,8 @@ class AuthRepository {
       AppUrl.categorybyname,
     );
     switch (mainCatId) {
+      case "id_for_all_cat":
+        return FeaturedCategoryModel.fromJson(response);
       case "133":
         return EnglishMensSubCategoryModel.fromJson(response);
       case "134":
@@ -291,6 +297,7 @@ class AuthRepository {
         return HomeandLivingSubCatModel.fromJson(response);
       case "223":
         return EnglishGrocerySubCategoryModel.fromJson(response);
+
       default:
         throw Exception('Unexpected condition');
     }
@@ -736,6 +743,13 @@ class AuthRepository {
       //   return health_and_wellnessAllproductsModel.fromJson(response);
       case "217":
         return HealthandWellnessAllProductsviewModel.fromJson(response);
+      case "187":
+        return HomelivingProducts.fromJson(response);
+      case "191":
+        return HomelivingSubCatFurnitureProductsModel.fromJson(response);
+      case "192":
+        return HomelivingSubCatBeddingProductsModel.fromJson(response);
+
       default:
         throw Exception('Unexpected condition');
     }

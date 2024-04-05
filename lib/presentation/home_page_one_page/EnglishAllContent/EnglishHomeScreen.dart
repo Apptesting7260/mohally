@@ -445,7 +445,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                 Get.to(CategoryScreen(
                   showAppBar: true,
                   FromHomeToCat: true,
-                  selectedTabIndex: -1,
+                  selectedTabIndex: 0,
                 ));
               },
               child: Text(

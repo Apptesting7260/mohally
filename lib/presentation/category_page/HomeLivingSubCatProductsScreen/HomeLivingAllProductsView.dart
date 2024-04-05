@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
@@ -21,19 +22,17 @@ String? subMainCat;
 String? color;
 String? size1;
 
-class HealthandWellnessAllProducts extends StatefulWidget {
+class HomeLivingAllProducts extends StatefulWidget {
   final bool showAppBar;
 
-  const HealthandWellnessAllProducts({Key? key, this.showAppBar = true})
+  const HomeLivingAllProducts({Key? key, this.showAppBar = true})
       : super(key: key);
 
   @override
-  State<HealthandWellnessAllProducts> createState() =>
-      _HealthandWellnessAllProductsState();
+  State<HomeLivingAllProducts> createState() => _HomeLivingAllProductsState();
 }
 
-class _HealthandWellnessAllProductsState
-    extends State<HealthandWellnessAllProducts> {
+class _HomeLivingAllProductsState extends State<HomeLivingAllProducts> {
   List<bool> tappedList = List.generate(200, (index) => false);
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
@@ -105,13 +104,13 @@ class _HealthandWellnessAllProductsState
           )));
         } else {
           return _productbycatid_controller
-                          .healthwellness_userlist.value.productByCategory ==
+                          .homeliving_userlist.value.productByCategory ==
                       null ||
-                  _productbycatid_controller.healthwellness_userlist.value
+                  _productbycatid_controller.homeliving_userlist.value
                           .productByCategory?.length ==
                       0 ||
                   _productbycatid_controller
-                      .healthwellness_userlist.value.productByCategory!.isEmpty
+                      .homeliving_userlist.value.productByCategory!.isEmpty
               ? Center(
                   child: Column(
                   children: [
@@ -145,7 +144,7 @@ class _HealthandWellnessAllProductsState
                           ),
                           physics: BouncingScrollPhysics(),
                           itemCount: _productbycatid_controller
-                                  .healthwellness_userlist
+                                  .homeliving_userlist
                                   .value
                                   .productByCategory
                                   ?.length ??
@@ -164,14 +163,14 @@ class _HealthandWellnessAllProductsState
                                       CustomImageView(
                                         onTap: () {
                                           mainCatId = _productbycatid_controller
-                                              .healthwellness_userlist
+                                              .homeliving_userlist
                                               .value
                                               .productByCategory?[index]
                                               .mainCategoryId!
                                               .toString();
                                           String? productId =
                                               _productbycatid_controller
-                                                  .healthwellness_userlist
+                                                  .homeliving_userlist
                                                   .value
                                                   .productByCategory?[index]
                                                   .id!
@@ -182,13 +181,14 @@ class _HealthandWellnessAllProductsState
                                             EnglishMainCatId = mainCatId;
                                           });
                                           print("$Englishproductid==");
-                                          if (mainCatId == "176") {
-                                            Get.to(Womens_Dress_SingleView());
-                                          }
+                                          print("$EnglishMainCatId==");
+                                          // if (mainCatId == "191") {
+                                          //   Get.to(Womens_Dress_SingleView());
+                                          // }
                                         },
                                         fit: BoxFit.cover,
                                         imagePath:
-                                            "${_productbycatid_controller.healthwellness_userlist.value.productByCategory?[index].imageUrl.toString()}",
+                                            "${_productbycatid_controller.homeliving_userlist.value.productByCategory?[index].imageUrl.toString()}",
                                         // ImageConstant.imgRectangle569,
                                         height: 190.adaptSize,
                                         width: 190.adaptSize,
@@ -206,7 +206,7 @@ class _HealthandWellnessAllProductsState
                                             onTap: () {
                                               Add_remove_productidd =
                                                   _productbycatid_controller
-                                                      .healthwellness_userlist
+                                                      .homeliving_userlist
                                                       .value
                                                       .productByCategory![index]
                                                       .id!
@@ -266,7 +266,7 @@ class _HealthandWellnessAllProductsState
                                   child: SizedBox(
                                     width: 131.h,
                                     child: Text(
-                                      "${_productbycatid_controller.healthwellness_userlist.value.productByCategory?[index].title.toString()}",
+                                      "${_productbycatid_controller.homeliving_userlist.value.productByCategory?[index].title.toString()}",
                                       //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -293,7 +293,7 @@ class _HealthandWellnessAllProductsState
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "${_productbycatid_controller.healthwellness_userlist.value.productByCategory?[index].averageRating.toString()}",
+                                                  "${_productbycatid_controller.homeliving_userlist.value.productByCategory?[index].averageRating.toString()}",
                                                   // "4.8",
                                                   style: theme
                                                       .textTheme.labelMedium,
@@ -305,7 +305,7 @@ class _HealthandWellnessAllProductsState
                                                     ignoreGestures: true,
                                                     initialRating:
                                                         _productbycatid_controller
-                                                            .healthwellness_userlist
+                                                            .homeliving_userlist
                                                             .value
                                                             .productByCategory?[
                                                                 index]
@@ -322,7 +322,7 @@ class _HealthandWellnessAllProductsState
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      "${_productbycatid_controller.healthwellness_userlist.value.productByCategory?[index].price.toString()}",
+                                                      "${_productbycatid_controller.homeliving_userlist.value.productByCategory?[index].price.toString()}",
                                                   //"99 ",
                                                   style: CustomTextStyles
                                                       .titleMediumPrimary_2,
@@ -347,14 +347,14 @@ class _HealthandWellnessAllProductsState
                                           onTap: () {
                                             mainCatId =
                                                 _productbycatid_controller
-                                                    .healthwellness_userlist
+                                                    .homeliving_userlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .mainCategoryId
                                                     .toString();
                                             String? productId =
                                                 _productbycatid_controller
-                                                    .healthwellness_userlist
+                                                    .homeliving_userlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .id

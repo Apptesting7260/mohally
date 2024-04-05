@@ -21,7 +21,7 @@ class OrderDetailsController extends GetxController {
   void setError(String value) => error.value = value;
 
   Future<void> ordeDetailsHit(
-    String? Orderdetailsid,
+    String Orderdetailsid,
   ) async {
     loading.value = true;
 

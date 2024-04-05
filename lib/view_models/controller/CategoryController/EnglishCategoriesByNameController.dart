@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/models/SubCategories/FeaturedCategoryModel.dart';
 import 'package:mohally/models/SubCategories/maincategoriesGroceryandPantryModel.dart';
 import 'package:mohally/models/SubCategories/subcategoriesFurnitureModel.dart';
 import 'package:mohally/models/SubCategories/subcategoriesHomesAndLivingModel.dart';
@@ -33,7 +34,9 @@ class CategoriesByNameControllerEnglish extends GetxController {
   final beauty_userlist = BeautySubCatModel().obs;
   final homeAndliving_userlist = HomeandLivingSubCatModel().obs;
   final grocery_userlist = EnglishGrocerySubCategoryModel().obs;
-
+  final featured_userlist = FeaturedCategoryModel().obs;
+  void FeaturedModel(FeaturedCategoryModel value) =>
+      featured_userlist.value = value;
   void GroceryModel(EnglishGrocerySubCategoryModel value) =>
       grocery_userlist.value = value;
   void HealthAndWellnessModel(HealthandWellnessSubCatModel value) =>
@@ -91,6 +94,8 @@ class CategoriesByNameControllerEnglish extends GetxController {
           return HomeLivingModel(value);
         case "223":
           return GroceryModel(value);
+        case "id_for_all_cat":
+          return FeaturedModel(value);
         default:
           throw Exception('Unexpected condition');
       }

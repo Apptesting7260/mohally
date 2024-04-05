@@ -13,11 +13,11 @@ import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Home_living_view_model/home_living_view_Model.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/AllProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategory_Kids.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subcategories_ElectronicScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/AllProductView.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategory_Kids.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/Maincategories_ElectronicScreen.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishWomensHomeSceen/homeWomensScreen.dart';
 import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/AudioSingleViewScreen.dart';
 import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/CameraSingleviewScreen.dart';
@@ -74,6 +74,8 @@ class EnglishHomeScreen extends StatefulWidget {
 
 class EnglishHomeScreenState extends State<EnglishHomeScreen>
     with AutomaticKeepAliveClientMixin<EnglishHomeScreen> {
+  int selectedTabIndex = 0;
+
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
   List<bool> tappedList = List.generate(200, (index) => false);
@@ -333,12 +335,16 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               // homeView_controller
                               //     .userList.value.categoryData?.length,
                               itemBuilder: (BuildContext context, int index) {
+                                bool isSelected = index == selectedTabIndex;
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+                                        selectedTabIndex = index;
+                                        print(selectedTabIndex);
+
                                         mainCatId = homeView_controller.userList
                                             .value.categoryData?[index].id!
                                             .toString();
@@ -347,18 +353,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                           EnglishsubMainCatId = mainCatId;
                                         });
                                         print("$EnglishsubMainCatId==");
-                                        if (mainCatId == "133") {
-                                          Get.to(CategoryScreen(selectedTabIndex: 0,));
-                                        } else if (mainCatId == "134") {
-                                          Get.to(
-                                              subcategoryElectronicsScreen());
-                                        } else if (mainCatId == "175") {
-                                          Get.to(subcategoryWomensScreen());
-                                        } else if (mainCatId == "181") {
-                                          Get.to(subcategoryKidsScreen());
-                                        } else {
-                                          Get.to(NoProductFound());
-                                        }
+                                        Get.to(CategoryScreen(
+                                            showAppBar: true,
+                                            FromHomeToCat: true,
+                                            selectedTabIndex:
+                                                selectedTabIndex));
                                       },
                                       child: ClipRRect(
                                         borderRadius:
@@ -443,7 +442,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
             padding: EdgeInsets.only(bottom: 2.v),
             child: GestureDetector(
               onTap: () {
-                Get.to(AllProductViewEnglish());
+                Get.to(CategoryScreen(
+                  showAppBar: true,
+                  FromHomeToCat: true,
+                  selectedTabIndex: -1,
+                ));
               },
               child: Text(
                 "See All",

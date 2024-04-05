@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
@@ -18,20 +19,30 @@ import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/su
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/Health_vitaminsSubcatProducts.dart';
+import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandwellnessAllProducts.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsAllproductsScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/MainCatGroceryandPantry.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
 import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategory_Kids.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategorySportsScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryFurnitureScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryKitchenScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryBeautyScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryHealthAndWellnessScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategory_Kids.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryHomeandLivingScreen.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/AllProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/category_mensClothing.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subcategories_ElectronicScreen.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/AllProductView.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/category_mensClothing.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/Maincategories_ElectronicScreen.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/search_screen/search_screen.dart';
 import 'package:mohally/presentation/search_screen/widgets/categorysearchScreen.dart';
@@ -50,6 +61,9 @@ import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
 import 'package:vertical_tabs_flutter/vertical_tabs.dart';
 
+bool isFeaturedSelected = true;
+int selectedTabIndex = -1;
+
 class CategoryScreen extends StatefulWidget {
   // final int initialPage;
   final bool showAppBar;
@@ -67,8 +81,6 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  RxBool isFeaturedSelected = true.obs;
-  int selectedTabIndex = -1;
   EnglishCategorySearchController _searchcontroller =
       EnglishCategorySearchController();
   CategoriesByNameControllerEnglish _categoryByName =
@@ -114,7 +126,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      pagecontroller = PageController();
+      // pagecontroller = PageController(initialPage: widget.selectedTabIndex);
+
       _allcategory.AllSubCat();
       // _categoryByName.SeeAll_apiHit();
       homeView_controller.homeview_apihit();
@@ -135,6 +148,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
   TextEditingController searchController = TextEditingController();
 
   PageController pagecontroller = PageController();
+
+  @override
+  void dispose() {
+    pagecontroller.dispose();
+    super.dispose();
+  }
+
   // int pagesCount = homeView_controller.userList.value.categoryData!.length;
   @override
   Widget build(BuildContext context) {
@@ -305,7 +325,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Obx(
                   () => Container(
                     width: double.infinity,
-                    height: height * .7,
+                    height: widget.FromHomeToCat ? Get.height : height * .69,
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
@@ -315,59 +335,66 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             width: 120,
                             child: Column(
                               children: [
-                                Container(
-                                  height: 60,
-                                  width: 120,
-                                  color: isFeaturedSelected.value
-                                      ? Colors.white
-                                      : const Color.fromARGB(36, 158, 158,
-                                          158), // Change this to your condition
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          // setState(() {
-                                          //   if (isFeaturedSelected.value) {
-                                          //     isFeaturedSelected =
-                                          //         false; // Toggle isFeaturedSelected to false
-                                          //     selectedTabIndex =
-                                          //         0; // Set selectedTabIndex to the index of the first item
-                                          //   } else {
-                                          //     isFeaturedSelected =
-                                          //         true; // Toggle isFeaturedSelected to true
-                                          //     selectedTabIndex =
-                                          //         -1; // Reset selectedTabIndex to -1
-                                          //   }
-                                          // });
-                                          isFeaturedSelected.value = true;
-                                          // Reset selectedTabIndex
-                                          selectedTabIndex = -1;
-                                        },
-                                        child: Container(
+                                GestureDetector(
+                                  onTap: () {
+                                    print('tpp');
+                                    setState(() {
+                                      isFeaturedSelected = true;
+                                      mainCatId = null;
+                                      // widget.FromHomeToCat
+                                      //     ? isFeaturedSelected = false
+                                      //     : isFeaturedSelected = true;
+                                      widget.FromHomeToCat
+                                          ? widget.selectedTabIndex
+                                          : selectedTabIndex = -1;
+                                      print("-------------------${mainCatId}");
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    width: 120,
+                                    color:
+                                        //  widget.FromHomeToCat
+                                        //     ? null
+                                        //     :
+                                        isFeaturedSelected
+                                            ? Colors.white
+                                            : const Color.fromARGB(36, 158, 158,
+                                                158), // Change this to your condition
+                                    child: Row(
+                                      children: [
+                                        Container(
                                           height: 60,
                                           width: 4,
-                                          color: isFeaturedSelected.value
-                                              ? Color(0xffFF8300)
-                                              : null, // Change this to your condition
+                                          color:
+                                              // widget.FromHomeToCat
+                                              //     ? null
+                                              //     :
+                                              isFeaturedSelected
+                                                  ? Color(0xffFF8300)
+                                                  : null, // Change this to your condition
                                         ),
-                                      ),
-                                      Container(
-                                        width: 100,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: Text(
-                                            "Featured",
-                                            style: theme.textTheme.titleMedium,
+                                        Container(
+                                          width: 100,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 5),
+                                            child: Text(
+                                              "Featured",
+                                              style:
+                                                  theme.textTheme.titleMedium,
+                                            ),
                                           ),
-                                        ),
-                                        // textAlign: TextAlign.center,
-                                      )
-                                    ],
+                                          // textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Container(
-                                  height: Get.height * .6,
+                                  height: widget.FromHomeToCat
+                                      ? Get.height
+                                      : Get.height * .6,
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     itemCount: homeView_controller.userList
@@ -377,7 +404,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         (BuildContext context, int index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          isFeaturedSelected.value = false;
+                                          // isFeaturedSelected = false;
                                           mainCatId = homeView_controller
                                               .userList
                                               .value
@@ -386,7 +413,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               .toString();
 
                                           setState(() {
-                                            isFeaturedSelected.value =
+                                            isFeaturedSelected =
                                                 false; // Update isFeaturedSelected
                                             widget.FromHomeToCat
                                                 ? widget.selectedTabIndex
@@ -399,7 +426,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           print(mainCatId);
                                           print(EnglishsubMainCatId);
                                           _categoryByName.SeeAll_apiHit();
-                                          pagecontroller.animateToPage(index,
+                                          pagecontroller.animateToPage(
+                                              selectedTabIndex,
                                               duration:
                                                   Duration(milliseconds: 500),
                                               curve: Curves.ease);
@@ -410,20 +438,33 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             Container(
                                               height: 60,
                                               width: 120,
-                                              color: selectedTabIndex == index
-                                                  ? Colors.white
-                                                  : const Color.fromARGB(
-                                                      36, 158, 158, 158),
+                                              color: widget.FromHomeToCat
+                                                  ? widget.selectedTabIndex ==
+                                                          index
+                                                      ? Colors.white
+                                                      : Color.fromARGB(
+                                                          36, 158, 158, 158)
+                                                  : selectedTabIndex == index
+                                                      ? Colors.white
+                                                      : Color.fromARGB(
+                                                          36, 158, 158, 158),
+                                              // ),
                                               child: Row(
                                                 children: [
                                                   Container(
-                                                    height: 60,
-                                                    width: 4,
-                                                    color: selectedTabIndex ==
-                                                            index
-                                                        ? Color(0xffFF8300)
-                                                        : Colors.white,
-                                                  ),
+                                                      height: 60,
+                                                      width: 4,
+                                                      color: widget
+                                                              .FromHomeToCat
+                                                          ? (widget.selectedTabIndex ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.white)
+                                                          : selectedTabIndex ==
+                                                                  index
+                                                              ? Colors.orange
+                                                              : Colors.white),
+                                                  // ),
                                                   // SizedBox(
                                                   //   width: Get.width * .03,
                                                   // ),
@@ -473,16 +514,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     //     ? widget.initialPage
                                     //     : selectedTabIndex = index;
                                     // ;
-                                    isFeaturedSelected.value;
+                                    isFeaturedSelected = false;
+
+                                    // widget.FromHomeToCat
+                                    //     ? widget.selectedTabIndex
+                                    //     :
                                     widget.FromHomeToCat
-                                        ? widget.selectedTabIndex
+                                        ? selectedTabIndex
                                         : selectedTabIndex = index;
                                   });
                                 },
                                 children: [
                                   //  for (var i = 0; i <= pagesCount; i++)
 
-                                  if (isFeaturedSelected.value)
+                                  if (isFeaturedSelected && mainCatId == null)
                                     Container(
                                       height: Get.height * .65,
                                       child: GridView.builder(
@@ -532,15 +577,47 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                         "$EnglishsubMainCatId==");
                                                     if (mainCatId == "133") {
                                                       Get.to(
-                                                          subcategory_MensScreen());
+                                                          Maincategory_MensScreen());
                                                     } else if (mainCatId ==
                                                         "134") {
                                                       Get.to(
-                                                          subcategoryElectronicsScreen());
+                                                          MaincategoryElectronicsScreen());
                                                     } else if (mainCatId ==
                                                         "175") {
                                                       Get.to(
-                                                          subcategoryWomensScreen());
+                                                          MaincategoryWomensScreen());
+                                                    } else if (mainCatId ==
+                                                        "181") {
+                                                      Get.to(
+                                                          KidsAllProductsScreen());
+                                                    } else if (mainCatId ==
+                                                        "217") {
+                                                      Get.to(
+                                                          HealthandWellnessAllProducts());
+                                                    } else if (mainCatId ==
+                                                        "211") {
+                                                      Get.to(
+                                                          MaincategoryFurnitureScreen());
+                                                    } else if (mainCatId ==
+                                                        "205") {
+                                                      Get.to(
+                                                          MaincategoryKitchenScreen());
+                                                    } else if (mainCatId ==
+                                                        "199") {
+                                                      Get.to(
+                                                          MaincategorySportsScreen());
+                                                    } else if (mainCatId ==
+                                                        "193") {
+                                                      Get.to(
+                                                          MaincategoryBeautyScreen());
+                                                    } else if (mainCatId ==
+                                                        "187") {
+                                                      Get.to(
+                                                          MaincategoryHomeandLivingScreen());
+                                                    } else if (mainCatId ==
+                                                        "223") {
+                                                      Get.to(
+                                                          MaincategoryGroceryandPantryScreen());
                                                     } else if (submainCatId ==
                                                         "153") {
                                                       Get.to(
@@ -604,7 +681,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                     } else if (submainCatId ==
                                                         "175") {
                                                       Get.to(
-                                                          subcategoryWomensScreen());
+                                                          MaincategoryWomensScreen());
                                                     } else if (submainCatId ==
                                                         "176") {
                                                       Get.to(
@@ -615,6 +692,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                         "177") {
                                                       Get.to(SubCat_Womens_Tops(
                                                           showAppBar: true));
+                                                    } else if (submainCatId ==
+                                                        "218") {
+                                                      Get.to(
+                                                          SubCat_Health_VitaminsProductScreen());
                                                     } else {
                                                       Get.to(NoProductFound());
                                                     }
@@ -651,20 +732,63 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     ),
                                   if (mainCatId == "133")
                                     Container(
-                                      child: subcategory_MensScreen(),
+                                      child: Center(
+                                          child: Maincategory_MensScreen()),
                                     ),
 
                                   if (mainCatId == "134")
                                     Container(
-                                      child: subcategoryElectronicsScreen(),
+                                      child: Center(
+                                          child:
+                                              MaincategoryElectronicsScreen()),
                                     ),
                                   if (mainCatId == "175")
                                     Container(
-                                      child: subcategoryWomensScreen(),
+                                      child: Center(
+                                          child: MaincategoryWomensScreen()),
                                     ),
                                   if (mainCatId == "181")
                                     Container(
-                                      child: subcategoryKidsScreen(),
+                                      child: Center(
+                                          child: MaincategoryKidsScreen()),
+                                    ),
+                                  if (mainCatId == "217")
+                                    Container(
+                                      child: Center(
+                                          child:
+                                              MaincategoryHealthAndWellness()),
+                                    ),
+                                  if (mainCatId == "211")
+                                    Container(
+                                      child: Center(
+                                          child: MaincategoryFurnitureScreen()),
+                                    ),
+                                  if (mainCatId == "205")
+                                    Container(
+                                      child: Center(
+                                          child: MaincategoryKitchenScreen()),
+                                    ),
+                                  if (mainCatId == "199")
+                                    Container(
+                                      child: Center(
+                                          child: MaincategorySportsScreen()),
+                                    ),
+                                  if (mainCatId == "193")
+                                    Container(
+                                      child: Center(
+                                          child: MaincategoryBeautyScreen()),
+                                    ),
+                                  if (mainCatId == "187")
+                                    Container(
+                                      child: Center(
+                                          child:
+                                              MaincategoryHomeandLivingScreen()),
+                                    ),
+                                  if (mainCatId == "228")
+                                    Container(
+                                      child: Center(
+                                          child:
+                                              MaincategoryGroceryandPantryScreen()),
                                     ),
 
                                   // Container(

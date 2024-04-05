@@ -29,7 +29,7 @@ import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/content_of_all.dart';
 import 'package:mohally/Arabic/Screens/widgets/arabic_customSearchView.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
 import 'package:mohally/theme/theme_helper.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/HomeController.dart';
 import 'package:mohally/widgets/app_bar/appbar_title.dart';

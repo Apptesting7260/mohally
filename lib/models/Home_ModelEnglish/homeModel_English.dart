@@ -34,9 +34,9 @@ class CategoryData {
     this.categoryName,
     this.imageUrl,
   });
-  int? id;
-  String? categoryName;
-  String? imageUrl;
+  var id;
+  var categoryName;
+  var imageUrl;
 
   CategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,48 +54,52 @@ class CategoryData {
 }
 
 class RecommendedProduct {
-  RecommendedProduct(
-      {this.id,
-      this.title,
-      this.price,
-      this.averageRating,
-      this.mainCategoryId,
-      this.imageUrl,
-      this.galleryUrl,
-      this.producttype,
-      this.incart});
-  int? id;
-  String? title;
-  String? price;
+  RecommendedProduct({
+    this.id,
+    this.productType,
+    this.title,
+    this.inCart,
+    this.price,
+    this.averageRating,
+    this.mainCategoryId,
+    this.imageUrl,
+    this.galleryUrl,
+  });
+  var id;
+  var productType;
+  var title;
+  var inCart;
+  var price;
   var averageRating;
-  String? mainCategoryId;
-  String? imageUrl;
-  Null galleryUrl;
-  var producttype;
-  var incart;
+  var mainCategoryId;
+  var imageUrl;
+  var galleryUrl;
+
   RecommendedProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    productType = json['product_type'];
     title = json['title'];
-    price = json['price'];
+    inCart = json['in_cart'];
+    price = json['price'] == null ? null : json['price'];
+
     averageRating = json['average_rating'];
     mainCategoryId = json['main_category_id'];
-    imageUrl = json['image_url'];
+    imageUrl = json['image_url'] == null ? null : json['image_url'];
+    ;
     galleryUrl = null;
-    producttype = json['product_type'];
-    incart = json['in_cart'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
+    _data['product_type'] = productType;
     _data['title'] = title;
+    _data['in_cart'] = inCart;
     _data['price'] = price;
     _data['average_rating'] = averageRating;
     _data['main_category_id'] = mainCategoryId;
     _data['image_url'] = imageUrl;
     _data['gallery_url'] = galleryUrl;
-    _data['product_type'] = producttype;
-    _data['in_cart'] = incart;
     return _data;
   }
 }

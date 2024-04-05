@@ -49,7 +49,7 @@ class AddToCartcontroller extends GetxController {
 
     Map<String, dynamic> data = {
       'product_id': Englishcartproductid.toString(),
-      'total_quantity': 1.toString(),
+      'total_quantity': EnglishAddtocartquantity.toString(),
       'price': EnglishAddtocartprice.toString(),
       'coupon': "".toString(),
       'product_details': json.encode(productDetails), // Encode the map to JSON

@@ -66,6 +66,8 @@ import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategoryby
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecLaptopsSubcatModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecSmartPhonesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecWearablesubcategoryModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/health_vitaminsSubCatProductModels.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/homeandlivingAllproductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyAllProductsViewModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyBoysapparelProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyGirlsproductsModel.dart';
@@ -114,14 +116,18 @@ import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/JaketandOut
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensTopSingleProductViewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/single_product_view_model.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/singleproductviewModel.dart';
+import 'package:mohally/models/SubCategories/maincategoriesGroceryandPantryModel.dart';
+import 'package:mohally/models/SubCategories/subcategoriesFurnitureModel.dart';
+import 'package:mohally/models/SubCategories/subcategoriesHomesAndLivingModel.dart';
+import 'package:mohally/models/SubCategories/subcategories_BeautyModel.dart';
+import 'package:mohally/models/SubCategories/subcategories_SportsModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_WomensModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_electronicsModel.dart';
-import 'package:mohally/models/SubCategories/subcategories_homeandlivingModel.dart';
+import 'package:mohally/models/SubCategories/subcategories_healthandwellnessModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_kidsModel.dart';
+import 'package:mohally/models/SubCategories/subcategories_kitchenwearModel.dart';
 import 'package:mohally/models/SubCategories/subcategories_mensModel.dart';
-import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/Arabic_subCathealthAndwellness.dart';
 import 'package:mohally/models/Update_Profile_Model/update_profile_Modal.dart';
 import 'package:mohally/models/User_address_view_Model/user_address_view_model.dart';
 import 'package:mohally/models/View_Wishlist_Model/View_wishlistModel.dart';
@@ -130,8 +136,8 @@ import 'package:mohally/models/privacypolicy_Model/privacy_policy_model.dart';
 import 'package:mohally/models/reset_password_model/reset_password_model.dart';
 import 'package:mohally/models/resetpasswordotp_model/resetpasswordotp_model.dart';
 import 'package:mohally/models/user_verify_model/user_verify_model.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/AllProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/AllProductView.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_allProductviewEnglish.dart';
 
@@ -270,6 +276,21 @@ class AuthRepository {
         return EnglishSubCatWomensModel.fromJson(response);
       case "181":
         return EnglishKidsSubCatModel.fromJson(response);
+      case "217":
+        return HealthandWellnessSubCatModel.fromJson(response);
+      case "211":
+        return FurnitureSubCatModel.fromJson(response);
+      case "205":
+        return KitchenwareSubCatModel.fromJson(response);
+
+      case "199":
+        return SportsSubCatModel.fromJson(response);
+      case "193":
+        return BeautySubCatModel.fromJson(response);
+      case "187":
+        return HomeandLivingSubCatModel.fromJson(response);
+      case "223":
+        return EnglishGrocerySubCategoryModel.fromJson(response);
       default:
         throw Exception('Unexpected condition');
     }
@@ -709,6 +730,12 @@ class AuthRepository {
         return BabyShoesSubCatModel.fromJson(response);
       case "186":
         return BabytoysSubCatModel.fromJson(response);
+      case "218":
+        return Health_vitaminsSubcatProductsviewModel.fromJson(response);
+      // case "217":
+      //   return health_and_wellnessAllproductsModel.fromJson(response);
+      case "217":
+        return HealthandWellnessAllProductsviewModel.fromJson(response);
       default:
         throw Exception('Unexpected condition');
     }

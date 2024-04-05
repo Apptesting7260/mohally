@@ -18,7 +18,8 @@ class ProductPriceChngeByAttribute extends GetxController {
   RxBool loading = false.obs;
   RxString statusOfApi = ''.obs;
   RxString error = ''.obs;
-
+  RxString productPrice = ''.obs;
+  RxString totalQuantity = ''.obs;
   final userlist = ProductPriceChangeByAttributeModel().obs;
   final rxRequestStatus = Status.LOADING.obs;
 
@@ -55,6 +56,9 @@ class ProductPriceChngeByAttribute extends GetxController {
       print(data);
       print("Message: ${response.message}");
       if (response.status == true) {
+        productPrice.value = response.data?.price ?? ''; // Store price
+        totalQuantity.value =
+            response.data?.totalQuantity ?? ''; // Store quantity
         // Utils.snackBar(context, 'Success', response.message.toString());
       } else {
         Utils.snackBar(context, 'Failed', response.message.toString());

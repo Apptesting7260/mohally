@@ -16,14 +16,14 @@ import 'package:mohally/view_models/controller/Home_controller_English/HomeContr
 
 String? submainCatId;
 
-class subcategory_MensScreen extends StatefulWidget {
-  const subcategory_MensScreen({Key? key}) : super(key: key);
+class Maincategory_MensScreen extends StatefulWidget {
+  const Maincategory_MensScreen({Key? key}) : super(key: key);
 
   @override
-  State<subcategory_MensScreen> createState() => _subcategory_MensScreenState();
+  State<Maincategory_MensScreen> createState() => _Maincategory_MensScreenState();
 }
 
-class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
+class _Maincategory_MensScreenState extends State<Maincategory_MensScreen> {
   HomeView_controller_English homeView_controller =
       HomeView_controller_English();
   @override
@@ -42,41 +42,6 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Padding(
-      //     padding: const EdgeInsets.only(top: 11, left: 10),
-      //     child: CustomIconButton(
-      //         onTap: () {
-      //           Get.back();
-      //         },
-      //         height: 40.adaptSize,
-      //         width: 40.adaptSize,
-      //         decoration: IconButtonStyleHelper.fillGrayTL20,
-      //         child: Center(
-      //             child: Icon(
-      //           Icons.arrow_back,
-      //           color: Colors.black,
-      //         ))),
-      //   ),
-      //   title: Padding(
-      //       padding: const EdgeInsets.only(
-      //         top: 11,
-      //       ),
-      //       child: Text(
-      //         "Men's Apparel",
-      //         style: TextStyle(
-      //           color: Color.fromARGB(255, 0, 0, 0),
-      //           // fontSize: 12,
-      //           fontFamily: 'Almarai',
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //         maxLines: 2,
-      //         textAlign: TextAlign.center,
-      //         // theme.textTheme.bodySmall,
-      //         // overflow: TextOverflow.ellipsis,
-      //         // maxLines: 1,
-      //       )),
-      // ),
       body: Container(
         height: Get.height,
         child: Obx(() {
@@ -208,39 +173,6 @@ class _subcategory_MensScreenState extends State<subcategory_MensScreen> {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   height: Get.height * .6,
-                        //   // MediaQuery.of(context).size.height * .8,
-                        //   child: PageView(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     controller: _pageController,
-                        //     onPageChanged: (index) {
-                        //       setState(() {
-                        //         selectedTabIndex = index;
-                        //       });
-                        //     },
-                        //     children: [
-                        //       if (!showPageView)
-                        //         MensAllProduct(), // Display MensAllProduct initially
-                        //       Container(
-                        //           child: SubCat_Mens_ShirtsView(
-                        //               showAppBar: false)),
-                        //       Container(
-                        //           child:
-                        //               SubCat_Mens_Bottoms(showAppBar: false)),
-                        //       Container(
-                        //           child: SubCat_Mens_jacket(showAppBar: false)),
-                        //       Container(
-                        //           child: SubCat_Mens_activewear(
-                        //               showAppBar: false)),
-                        //       Container(
-                        //           child:
-                        //               SubCat_Mens_formals(showAppBar: false)),
-                        //       Container(
-                        //           child: SubCat_Mens_shoes(showAppBar: false)),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   );

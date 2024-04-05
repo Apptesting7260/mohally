@@ -23,18 +23,19 @@ String? subMainCat;
 String? color;
 String? size1;
 
-class SubCat_kids_boysApparel extends StatefulWidget {
+class SubCat_Health_VitaminsProductScreen extends StatefulWidget {
   final bool showAppBar;
 
-  const SubCat_kids_boysApparel({Key? key, this.showAppBar = true})
+  const SubCat_Health_VitaminsProductScreen({Key? key, this.showAppBar = true})
       : super(key: key);
 
   @override
-  State<SubCat_kids_boysApparel> createState() =>
-      _SubCat_kids_boysApparelState();
+  State<SubCat_Health_VitaminsProductScreen> createState() =>
+      _SubCat_Health_VitaminsProductScreenState();
 }
 
-class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
+class _SubCat_Health_VitaminsProductScreenState
+    extends State<SubCat_Health_VitaminsProductScreen> {
   List<bool> tappedList = List.generate(200, (index) => false);
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
@@ -106,13 +107,11 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
           )));
         } else {
           return _productbycatid_controller
-                          .kids_boysApparel_userlist.value.productByCategory ==
+                          .Health_vitamins_userlist.value.productByCategory ==
                       null ||
-                  _productbycatid_controller.kids_boysApparel_userlist.value
+                  _productbycatid_controller.Health_vitamins_userlist.value
                           .productByCategory?.length ==
-                      0 ||
-                  _productbycatid_controller.kids_boysApparel_userlist.value
-                      .productByCategory!.isEmpty
+                      0
               ? Center(
                   child: Column(
                   children: [
@@ -146,7 +145,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                           ),
                           physics: BouncingScrollPhysics(),
                           itemCount: _productbycatid_controller
-                                  .kids_boysApparel_userlist
+                                  .Health_vitamins_userlist
                                   .value
                                   .productByCategory
                                   ?.length ??
@@ -165,14 +164,14 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                       CustomImageView(
                                         onTap: () {
                                           mainCatId = _productbycatid_controller
-                                              .kids_boysApparel_userlist
+                                              .Health_vitamins_userlist
                                               .value
                                               .productByCategory?[index]
                                               .mainCategoryId!
                                               .toString();
                                           String? productId =
                                               _productbycatid_controller
-                                                  .kids_boysApparel_userlist
+                                                  .Health_vitamins_userlist
                                                   .value
                                                   .productByCategory?[index]
                                                   .id!
@@ -189,7 +188,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                         },
                                         fit: BoxFit.cover,
                                         imagePath:
-                                            "${_productbycatid_controller.kids_boysApparel_userlist.value.productByCategory?[index].imageUrl.toString()}",
+                                            "${_productbycatid_controller.Health_vitamins_userlist.value.productByCategory?[index].imageUrl.toString()}",
                                         // ImageConstant.imgRectangle569,
                                         height: 190.adaptSize,
                                         width: 190.adaptSize,
@@ -207,7 +206,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                             onTap: () {
                                               Add_remove_productidd =
                                                   _productbycatid_controller
-                                                      .kids_boysApparel_userlist
+                                                      .Health_vitamins_userlist
                                                       .value
                                                       .productByCategory![index]
                                                       .id!
@@ -267,7 +266,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                   child: SizedBox(
                                     width: 131.h,
                                     child: Text(
-                                      "${_productbycatid_controller.kids_boysApparel_userlist.value.productByCategory?[index].title.toString()}",
+                                      "${_productbycatid_controller.Health_vitamins_userlist.value.productByCategory?[index].title.toString()}",
                                       //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -294,7 +293,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "${_productbycatid_controller.kids_boysApparel_userlist.value.productByCategory?[index].averageRating.toString()}",
+                                                  "${_productbycatid_controller.Health_vitamins_userlist.value.productByCategory?[index].averageRating.toString()}",
                                                   // "4.8",
                                                   style: theme
                                                       .textTheme.labelMedium,
@@ -306,7 +305,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                                     ignoreGestures: true,
                                                     initialRating:
                                                         _productbycatid_controller
-                                                            .kids_boysApparel_userlist
+                                                            .Health_vitamins_userlist
                                                             .value
                                                             .productByCategory?[
                                                                 index]
@@ -323,7 +322,7 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      "${_productbycatid_controller.kids_boysApparel_userlist.value.productByCategory?[index].price.toString()}",
+                                                      "${_productbycatid_controller.Health_vitamins_userlist.value.productByCategory?[index].price.toString()}",
                                                   //"99 ",
                                                   style: CustomTextStyles
                                                       .titleMediumPrimary_2,
@@ -348,14 +347,14 @@ class _SubCat_kids_boysApparelState extends State<SubCat_kids_boysApparel> {
                                           onTap: () {
                                             mainCatId =
                                                 _productbycatid_controller
-                                                    .kids_boysApparel_userlist
+                                                    .Health_vitamins_userlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .mainCategoryId
                                                     .toString();
                                             String? productId =
                                                 _productbycatid_controller
-                                                    .kids_boysApparel_userlist
+                                                    .Health_vitamins_userlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .id

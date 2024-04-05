@@ -17,8 +17,8 @@ import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScre
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/subCategories_Womens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/EnglishSearchController/EnglishCategorySearch.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
@@ -284,7 +284,7 @@ class _CategorySearchState extends State<CategorySearch> {
                             } else if (submainCatId == "172") {
                               Get.to(SubCat_Electronics_camera());
                             } else if (submainCatId == "173") {
-                              Get.to(subcategoryWomensScreen());
+                              Get.to(MaincategoryWomensScreen());
                             } else if (submainCatId == "176") {
                               Get.to(SubCat_Womens_Dresses());
                             } else if (submainCatId == "177") {

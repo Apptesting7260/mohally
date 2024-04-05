@@ -9,20 +9,19 @@ import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/su
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 
-class subcategoryElectronicsScreen extends StatefulWidget {
-  const subcategoryElectronicsScreen({Key? key}) : super(key: key);
+class MaincategorySportsScreen extends StatefulWidget {
+  const MaincategorySportsScreen({Key? key}) : super(key: key);
 
   @override
-  State<subcategoryElectronicsScreen> createState() =>
-      _subcategoryElectronicsScreenState();
+  State<MaincategorySportsScreen> createState() =>
+      _MaincategorySportsScreenState();
 }
 
-class _subcategoryElectronicsScreenState
-    extends State<subcategoryElectronicsScreen> {
+class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -39,41 +38,6 @@ class _subcategoryElectronicsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Padding(
-      //     padding: const EdgeInsets.only(top: 11, left: 10),
-      //     child: CustomIconButton(
-      //         onTap: () {
-      //           Get.back();
-      //         },
-      //         height: 40.adaptSize,
-      //         width: 40.adaptSize,
-      //         decoration: IconButtonStyleHelper.fillGrayTL20,
-      //         child: Center(
-      //             child: Icon(
-      //           Icons.arrow_back,
-      //           color: Colors.black,
-      //         ))),
-      //   ),
-      //   title: Padding(
-      //       padding: const EdgeInsets.only(
-      //         top: 11,
-      //       ),
-      //       child: Text(
-      //         "Electronics",
-      //         style: TextStyle(
-      //           color: Color.fromARGB(255, 0, 0, 0),
-      //           // fontSize: 12,
-      //           fontFamily: 'Almarai',
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //         maxLines: 2,
-      //         textAlign: TextAlign.center,
-      //         // theme.textTheme.bodySmall,
-      //         // overflow: TextOverflow.ellipsis,
-      //         // maxLines: 1,
-      //       )),
-      // ),
       body: Obx(() {
         if (_categoryByName.rxRequestStatus.value == Status.LOADING) {
           return const Scaffold(
@@ -97,11 +61,10 @@ class _subcategoryElectronicsScreenState
             ],
           )));
         } else {
-          return _categoryByName
-                          .electronics_userlist.value.seeAllMainCategory ==
+          return _categoryByName.sports_userlist.value.seeAllMainCategory ==
                       null ||
-                  _categoryByName.electronics_userlist.value.seeAllMainCategory
-                          ?.length ==
+                  _categoryByName
+                          .sports_userlist.value.seeAllMainCategory?.length ==
                       0
               ? Center(
                   child: Padding(
@@ -141,14 +104,14 @@ class _subcategoryElectronicsScreenState
                                       crossAxisSpacing: 8.0,
                                       mainAxisSpacing: 8.0,
                                       mainAxisExtent: Get.height * .14),
-                              itemCount: _categoryByName.electronics_userlist
-                                      .value.seeAllMainCategory?.length ??
+                              itemCount: _categoryByName.sports_userlist.value
+                                      .seeAllMainCategory?.length ??
                                   0,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
                                     submainCatId = _categoryByName
-                                        .electronics_userlist
+                                        .sports_userlist
                                         .value
                                         .seeAllMainCategory![index]
                                         .id
@@ -183,7 +146,7 @@ class _subcategoryElectronicsScreenState
                                           borderRadius:
                                               BorderRadius.circular(38.0),
                                           child: Image.network(
-                                            "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                            "${_categoryByName.sports_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
                                             height: 68,
                                             width: 68,
                                             fit: BoxFit.cover,
@@ -193,7 +156,7 @@ class _subcategoryElectronicsScreenState
                                       SizedBox(height: 5.v),
                                       Center(
                                         child: Text(
-                                          "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                          "${_categoryByName.sports_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
                                           style: TextStyle(
                                             color: Color(0xFF272727),
                                             fontSize: 12,
@@ -212,38 +175,6 @@ class _subcategoryElectronicsScreenState
                           ),
                         ),
                       ),
-                      // Container(
-                      //   height: Get.height * 0.6,
-                      //   child: PageView(
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     controller: _pageController,
-                      //     onPageChanged: (index) {
-                      //       setState(() {
-                      //         selectedTabIndex = index;
-                      //       });
-                      //     },
-                      //     children: [
-                      //       if (!showPageView)
-                      //         ElectronicsAllProduct(), // Display MensAllProduct initially
-                      //       Container(
-                      //           child: SubCat_Electronics_smartphone(
-                      //               showAppBar: false)),
-                      //       Container(
-                      //           child: SubCat_Electronics_laptops(
-                      //               showAppBar: false)),
-                      //       Container(
-                      //           child: SubCat_Electronics_headphones(
-                      //               showAppBar: false)),
-                      //       Container(
-                      //           child: SubCat_Electronics_camera(
-                      //               showAppBar: false)),
-                      //       Container(
-                      //           child: SubCat_Electronics_wearable(
-                      //               showAppBar: false)),
-                      //       // Container(child: SubCat_Mens_shoes()),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 );

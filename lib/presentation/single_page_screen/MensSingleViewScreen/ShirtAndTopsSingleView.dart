@@ -30,6 +30,7 @@ String? Singlesizeid;
 String? Singlecolor;
 String? SinglecolorId;
 String? Singlesize1;
+int quantity = 1;
 
 class ShirtsandTopsSingleView extends StatefulWidget {
   const ShirtsandTopsSingleView({Key? key})
@@ -113,9 +114,9 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
           ],
         )));
       } else {
-        return SafeArea(
-          child: Scaffold(
-            body: Container(
+        return Scaffold(
+          body: SafeArea(
+            child: Container(
               width: Get.width,
               height: Get.height,
               child: productviewcontroller
@@ -300,7 +301,9 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                           _buildColors(context),
 
                         // _buildListRectangle(context),
-
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
                         if (productviewcontroller.ShirtandTops_userlist.value
                                     .productView?.productType ==
                                 "variable" &&
@@ -314,80 +317,86 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                                     ?.length !=
                                 0)
                           _buildsize(context),
-                        // Container(
-                        //   height: Get.height * .06,
-                        //   child: ListView.builder(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     itemCount: 1,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       if (color == null && size1 == null) {
-                        //         return Text('');
-                        //       } else {
-                        //         return Obx(
-                        //           () => InkWell(
-                        //             onTap: () {
-                        //               if (color != null && size1 != null) {
-                        //                 if (colorId == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Color');
-                        //                 } else if (sizeid == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Size');
-                        //                 } else {
-                        //                   pid = productviewcontroller
-                        //                       .ShirtandTops_userlist
-                        //                       .value
-                        //                       .productView
-                        //                       ?.id
-                        //                       .toString();
-                        //                   productColor = colorId.toString();
-                        //                   // quantity = counter;
-                        //                   productSize = sizeid.toString();
-                        //                   _productpricechangebyattributecontroller
-                        //                       .ProductPriceChangeByAttribute(
-                        //                           context);
-                        //                 }
-                        //               }
-                        //             },
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.fromLTRB(
-                        //                   110, 0, 110, 0),
-                        //               child: Center(
-                        //                 child: Container(
-                        //                   height: Get.height * .05,
-                        //                   decoration: BoxDecoration(
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(35),
-                        //                       border: Border.all(
-                        //                         color: Color(0xffff8300),
-                        //                         width: 2,
-                        //                       ),
-                        //                       color: Color(0xffff8300)),
-                        //                   child: _productpricechangebyattributecontroller
-                        //                               .loading.value ==
-                        //                           false
-                        //                       ? Center(
-                        //                           child: Text(
-                        //                             "Check Combination",
-                        //                             style: TextStyle(
-                        //                                 fontSize: 14,
-                        //                                 color: Colors.white),
-                        //                           ),
-                        //                         )
-                        //                       : Center(
-                        //                           child:
-                        //                               CircularProgressIndicator(
-                        //                           color: Colors.white,
-                        //                         )),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         );
-                        //       }
-                        //     },
-                        //   ),
-                        // ),
+
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              Text("Qty", style: theme.textTheme.titleMedium),
+                              SizedBox(
+                                width: Get.width * .03,
+                              ),
+                              Container(
+                                width: Get.width * .3,
+                                height: Get.height * .05,
+                                decoration: AppDecoration.fillPrimary.copyWith(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadiusStyle.circleBorder30,
+                                    border:
+                                        Border.all(color: Color(0xffff8300))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        int totalQuantity = int.tryParse(
+                                                _productpricechangebyattributecontroller
+                                                    .totalQuantity.value) ??
+                                            0;
+                                        if (quantity > 1) {
+                                          setState(() {
+                                            quantity--;
+                                          });
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: Colors.black,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        quantity.toString(),
+                                        style: theme.textTheme.bodyMedium
+                                            ?.copyWith(
+                                                color: Color(0xffff8300),
+                                                fontSize: 20),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        int totalQuantity = int.tryParse(
+                                                _productpricechangebyattributecontroller
+                                                    .totalQuantity.value) ??
+                                            0;
+                                        if (quantity < totalQuantity)
+                                          setState(() {
+                                            quantity++;
+                                          });
+                                        print(quantity);
+                                      },
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.black,
+                                        size: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
                         // Padding(
                         //   padding: EdgeInsets.only(left: 15.h),
                         //   child: Row(
@@ -584,42 +593,49 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                         ),
 
                         SizedBox(height: 30.v),
-                        CustomImageView(
-                          imagePath:
-                              "${productviewcontroller.ShirtandTops_userlist.value.productView?.imageUrl.toString()}",
-                          height: Get.height * .4,
-                          width: 335.h,
-                          alignment: Alignment.center,
-                        ),
-                        SizedBox(height: 5.v),
-                        if (SeeAllImage) _buildGridRectangle(context),
-
-                        SizedBox(height: 18.v),
-
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              SeeAllImage = !SeeAllImage;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "See All",
-                                style:
-                                    CustomTextStyles.titleMediumPrimaryMedium,
-                              ),
-                              Icon(
-                                SeeAllImage
-                                    ? Icons.keyboard_arrow_up
-                                    : Icons.keyboard_arrow_down,
-                                size: 20,
-                                color: Color(0xffff8300),
-                              ),
-                            ],
+                        if (productviewcontroller.ShirtandTops_userlist.value
+                                .productView?.imageUrl !=
+                            null)
+                          Container(
+                            child: Column(
+                              children: [
+                                CustomImageView(
+                                  imagePath:
+                                      "${productviewcontroller.ShirtandTops_userlist.value.productView?.imageUrl.toString()}",
+                                  height: Get.height * .4,
+                                  width: 335.h,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(height: 5.v),
+                                if (SeeAllImage) _buildGridRectangle(context),
+                                SizedBox(height: 18.v),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      SeeAllImage = !SeeAllImage;
+                                    });
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "See All",
+                                        style: CustomTextStyles
+                                            .titleMediumPrimaryMedium,
+                                      ),
+                                      Icon(
+                                        SeeAllImage
+                                            ? Icons.keyboard_arrow_up
+                                            : Icons.keyboard_arrow_down,
+                                        size: 20,
+                                        color: Color(0xffff8300),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
 
                         SizedBox(height: 17.v),
                         _buildAddToCart(context),
@@ -671,23 +687,45 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          selectedImageUrl.isNotEmpty
+          AselectedcolorIndex.value != ""
               ? PageView.builder(
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
                   itemCount: productviewcontroller
                           .ShirtandTops_userlist
                           .value
-                          .productView
-                          ?.productDetails
+                          .productView!
+                          .productDetails
                           ?.details
-                          ?.color
+                          ?.color?[0]
+                          .gallery
                           ?.length ??
                       0,
                   itemBuilder: (BuildContext context, int index) {
+                    print(productviewcontroller
+                        .ShirtandTops_userlist
+                        .value
+                        .productView!
+                        .productDetails
+                        ?.details
+                        ?.color?[0]
+                        .gallery
+                        ?.length);
+                    List<String>? colorGallery = productviewcontroller
+                        .ShirtandTops_userlist
+                        .value
+                        .productView!
+                        .productDetails
+                        ?.details
+                        ?.color?[AselectedcolorIndex.value]
+                        .gallery;
+                    String imageUrl = colorGallery?[index] ?? '';
                     return CustomImageView(
                       fit: BoxFit.fill,
-                      imagePath: selectedImageUrl,
+                      imagePath:
+                          // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+                          "$imageUrl",
+                      // "${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
                       height: 504.v,
                       width: Get.width,
                       alignment: Alignment.center,
@@ -702,14 +740,38 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
               : PageView.builder(
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
-                  itemCount: productviewcontroller.ShirtandTops_userlist.value
-                          .productView?.imageUrl?.length ??
+                  itemCount: productviewcontroller
+                          .ShirtandTops_userlist
+                          .value
+                          .productView!
+                          .productDetails
+                          ?.details
+                          ?.color?[0]
+                          .gallery
+                          ?.length ??
                       0,
                   itemBuilder: (BuildContext context, int index) {
+                    print(productviewcontroller
+                        .ShirtandTops_userlist
+                        .value
+                        .productView!
+                        .productDetails
+                        ?.details
+                        ?.color?[0]
+                        .gallery
+                        ?.length);
+                    List<String>? colorGallery = productviewcontroller
+                        .ShirtandTops_userlist
+                        .value
+                        .productView!
+                        .productDetails
+                        ?.details
+                        ?.color?[0]
+                        .gallery;
+                    String imageUrl = colorGallery?[1] ?? '';
                     return CustomImageView(
                       fit: BoxFit.fill,
-                      imagePath:
-                          "${productviewcontroller.ShirtandTops_userlist.value.productView?.imageUrl ?? ''}",
+                      imagePath: "$imageUrl",
                       height: 504.v,
                       width: Get.width,
                       alignment: Alignment.center,
@@ -765,8 +827,9 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                 SizedBox(height: 371.v),
                 _buildButtonOneHundredTen(
                   context,
-                  productviewcontroller.ShirtandTops_userlist.value.productView
-                      ?.imageUrl?.length,
+                  productviewcontroller.ShirtandTops_userlist.value.productView!
+                          .productDetails?.details?.color?[0].gallery?.length ??
+                      0,
                   _currentIndex, // Pass the current index
                 ),
                 SizedBox(height: 10.v),
@@ -2059,14 +2122,13 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                                   .value ??
                               "";
                           String imageUrl = productviewcontroller
-                                  .ShirtandTops_userlist
-                                  .value
-                                  .productView
-                                  ?.productDetails
-                                  ?.details
-                                  ?.color?[index]
-                                  .featureImage[index] ??
-                              '';
+                              .ShirtandTops_userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details
+                              ?.color?[index]
+                              .featureImage;
                           return Column(
                             children: [
                               GestureDetector(
@@ -2109,7 +2171,7 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                                         .ProductPriceChangeByAttribute(context);
                                     updatedprice.value =
                                         _productpricechangebyattributecontroller
-                                            .userlist.value.data!.price
+                                            .userlist.value.data!.totalQuantity
                                             .toString();
                                   }
 
@@ -2122,7 +2184,8 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                                       decoration: BoxDecoration(
                                           border: AselectedcolorIndex.value ==
                                                   index
-                                              ? Border.all(color: Colors.black)
+                                              ? Border.all(
+                                                  color: Colors.black, width: 3)
                                               : Border.all(color: Colors.grey),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
@@ -2298,7 +2361,7 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
   }
 
   Widget _buildAddToCart(BuildContext context) {
-    bool isInCart = false; // Flag to track if the product is in the cart
+    // bool isInCart = false; // Flag to track if the product is in the cart
 
     return Container(
       height: Get.height * .1,
@@ -2309,60 +2372,11 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
           return Obx(
             () => InkWell(
               onTap: () {
-                if (isInCart) {
-                  // If already in cart, show message and change container color to green
-                  Utils.snackBar(context, 'Failed', 'Product already in cart');
-                } else {
-                  if (color != null && size1 != null) {
-                    if (colorId == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Color');
-                    } else if (sizeid == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Size');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
-                    }
-                  } else if (size1 != null) {
-                    if (sizeid == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Size');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
-                    }
-                  } else if (color != null) {
-                    if (colorId == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Color');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .ShirtandTops_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
-                    }
+                if (color != null && size1 != null) {
+                  if (colorId == null) {
+                    Utils.snackBar(context, 'Failed', 'Please Select Color');
+                  } else if (sizeid == null) {
+                    Utils.snackBar(context, 'Failed', 'Please Select Size');
                   } else {
                     Englishcartproductid = productviewcontroller
                         .ShirtandTops_userlist.value.productView?.id
@@ -2371,11 +2385,55 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                     EnglishAddtocartprice = productviewcontroller
                         .ShirtandTops_userlist.value.productView?.price
                         .toString();
-
+                    EnglishAddtocartquantity = quantity.toString();
                     EnglishAddtocartSize = sizeid.toString();
                     AddToCartcontrollerin.addtocart_Apihit(context);
-                    isInCart = true; // Update flag
+                    // Update flag
                   }
+                } else if (size1 != null) {
+                  if (sizeid == null) {
+                    Utils.snackBar(context, 'Failed', 'Please Select Size');
+                  } else {
+                    Englishcartproductid = productviewcontroller
+                        .ShirtandTops_userlist.value.productView?.id
+                        .toString();
+                    EnglishAddtocartColor = colorId.toString();
+                    EnglishAddtocartprice = productviewcontroller
+                        .ShirtandTops_userlist.value.productView?.price
+                        .toString();
+                    EnglishAddtocartquantity = quantity.toString();
+                    EnglishAddtocartSize = sizeid.toString();
+                    AddToCartcontrollerin.addtocart_Apihit(context);
+                    // Update flag
+                  }
+                } else if (color != null) {
+                  if (colorId == null) {
+                    Utils.snackBar(context, 'Failed', 'Please Select Color');
+                  } else {
+                    Englishcartproductid = productviewcontroller
+                        .ShirtandTops_userlist.value.productView?.id
+                        .toString();
+                    EnglishAddtocartColor = colorId.toString();
+                    EnglishAddtocartprice = productviewcontroller
+                        .ShirtandTops_userlist.value.productView?.price
+                        .toString();
+                    EnglishAddtocartquantity = quantity.toString();
+                    EnglishAddtocartSize = sizeid.toString();
+                    AddToCartcontrollerin.addtocart_Apihit(context);
+                    // Update flag
+                  }
+                } else {
+                  Englishcartproductid = productviewcontroller
+                      .ShirtandTops_userlist.value.productView?.id
+                      .toString();
+                  EnglishAddtocartColor = colorId.toString();
+                  EnglishAddtocartprice = productviewcontroller
+                      .ShirtandTops_userlist.value.productView?.price
+                      .toString();
+                  EnglishAddtocartquantity = quantity.toString();
+                  EnglishAddtocartSize = sizeid.toString();
+                  AddToCartcontrollerin.addtocart_Apihit(context);
+                  // Update flag
                 }
               },
               child: Padding(
@@ -2385,15 +2443,15 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: isInCart ? Colors.green : Color(0xffff8300),
+                      color: Color(0xffff8300),
                       width: 2,
                     ),
-                    color: isInCart ? Colors.green : Color(0xffff8300),
+                    color: Color(0xffff8300),
                   ),
                   child: AddToCartcontrollerin.loading.value == false
                       ? Center(
                           child: Text(
-                            isInCart ? "Already in cart" : "Add to cart",
+                            "Add to cart",
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         )

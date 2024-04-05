@@ -3,25 +3,26 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
+import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
+import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
+import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
+import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
-import 'package:mohally/widgets/custom_icon_button.dart';
 
-class subcategoryWomensScreen extends StatefulWidget {
-  const subcategoryWomensScreen({Key? key}) : super(key: key);
+class MaincategoryElectronicsScreen extends StatefulWidget {
+  const MaincategoryElectronicsScreen({Key? key}) : super(key: key);
 
   @override
-  State<subcategoryWomensScreen> createState() =>
-      _subcategoryWomensScreenState();
+  State<MaincategoryElectronicsScreen> createState() =>
+      _MaincategoryElectronicsScreenState();
 }
 
-class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
+class _MaincategoryElectronicsScreenState
+    extends State<MaincategoryElectronicsScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -38,41 +39,6 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Padding(
-      //     padding: const EdgeInsets.only(top: 11, left: 10),
-      //     child: CustomIconButton(
-      //         onTap: () {
-      //           Get.back();
-      //         },
-      //         height: 40.adaptSize,
-      //         width: 40.adaptSize,
-      //         decoration: IconButtonStyleHelper.fillGrayTL20,
-      //         child: Center(
-      //             child: Icon(
-      //           Icons.arrow_back,
-      //           color: Colors.black,
-      //         ))),
-      //   ),
-      //   title: Padding(
-      //       padding: const EdgeInsets.only(
-      //         top: 11,
-      //       ),
-      //       child: Text(
-      //         "Women's Fashion",
-      //         style: TextStyle(
-      //           color: Color.fromARGB(255, 0, 0, 0),
-      //           // fontSize: 12,
-      //           fontFamily: 'Almarai',
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //         maxLines: 2,
-      //         textAlign: TextAlign.center,
-      //         // theme.textTheme.bodySmall,
-      //         // overflow: TextOverflow.ellipsis,
-      //         // maxLines: 1,
-      //       )),
-      // ),
       body: Obx(() {
         if (_categoryByName.rxRequestStatus.value == Status.LOADING) {
           return const Scaffold(
@@ -96,10 +62,11 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
             ],
           )));
         } else {
-          return _categoryByName.Womens_userlist.value.seeAllMainCategory ==
+          return _categoryByName
+                          .electronics_userlist.value.seeAllMainCategory ==
                       null ||
-                  _categoryByName
-                          .Womens_userlist.value.seeAllMainCategory?.length ==
+                  _categoryByName.electronics_userlist.value.seeAllMainCategory
+                          ?.length ==
                       0
               ? Center(
                   child: Padding(
@@ -139,14 +106,14 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                                       crossAxisSpacing: 8.0,
                                       mainAxisSpacing: 8.0,
                                       mainAxisExtent: Get.height * .14),
-                              itemCount: _categoryByName.Womens_userlist.value
-                                      .seeAllMainCategory?.length ??
+                              itemCount: _categoryByName.electronics_userlist
+                                      .value.seeAllMainCategory?.length ??
                                   0,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
                                     submainCatId = _categoryByName
-                                        .Womens_userlist
+                                        .electronics_userlist
                                         .value
                                         .seeAllMainCategory![index]
                                         .id
@@ -157,10 +124,16 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "176") {
-                                      Get.to(SubCat_Womens_Dresses());
-                                    } else if (submainCatId == "177") {
-                                      Get.to(SubCat_Womens_Tops());
+                                    if (submainCatId == "166") {
+                                      Get.to(SubCat_Electronics_smartphone());
+                                    } else if (submainCatId == "170") {
+                                      Get.to(SubCat_Electronics_laptops());
+                                    } else if (submainCatId == "171") {
+                                      Get.to(SubCat_Electronics_headphones());
+                                    } else if (submainCatId == "172") {
+                                      Get.to(SubCat_Electronics_camera());
+                                    } else if (submainCatId == "173") {
+                                      Get.to(SubCat_Electronics_wearable());
                                     } else {
                                       Get.to(NoProductFound());
                                     }
@@ -175,7 +148,7 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                                           borderRadius:
                                               BorderRadius.circular(38.0),
                                           child: Image.network(
-                                            "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                            "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
                                             height: 68,
                                             width: 68,
                                             fit: BoxFit.cover,
@@ -185,7 +158,7 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                                       SizedBox(height: 5.v),
                                       Center(
                                         child: Text(
-                                          "${_categoryByName.Womens_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                          "${_categoryByName.electronics_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
                                           style: TextStyle(
                                             color: Color(0xFF272727),
                                             fontSize: 12,
@@ -204,58 +177,6 @@ class _subcategoryWomensScreenState extends State<subcategoryWomensScreen> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   height: Get.height * 0.6,
-                      //   child: PageView(
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     controller: _pageController,
-                      //     onPageChanged: (index) {
-                      //       setState(() {
-                      //         selectedTabIndex = index;
-                      //       });
-                      //     },
-                      //     children: [
-                      //       if (!showPageView)
-                      //         WomensAllProduct(), // Display MensAllProduct initially
-                      //       Container(
-                      //           child:
-                      //               SubCat_Womens_Dresses(showAppBar: false)),
-                      //       Container(
-                      //           child: SubCat_Womens_Tops(showAppBar: false)),
-                      //       Container(
-                      //           child: Center(
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.center,
-                      //           mainAxisAlignment: MainAxisAlignment.center,
-                      //           children: [
-                      //             Container(
-                      //               child: Center(
-                      //                   child: Image.asset(
-                      //                 'assets/images/no_product.png',
-                      //                 color: Color(0xffff8300),
-                      //                 width: 200,
-                      //                 height: 200,
-                      //               )),
-                      //             ),
-                      //             Center(
-                      //               child: Text(
-                      //                 "We're currently working behind the scenes",
-                      //                 style: theme.textTheme.titleSmall
-                      //                     ?.copyWith(
-                      //                         fontWeight: FontWeight.normal,
-                      //                         fontSize: 12,
-                      //                         color: Colors.grey),
-                      //               ),
-                      //             )
-                      //           ],
-                      //         ),
-                      //       )
-                      //       )
-
-                      //       // Container(child: SubCat_Mens_shoes()),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 );

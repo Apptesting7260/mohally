@@ -13,19 +13,19 @@ import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsToysP
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 
-class subcategoryKidsScreen extends StatefulWidget {
-  const subcategoryKidsScreen({Key? key}) : super(key: key);
+class MaincategoryKidsScreen extends StatefulWidget {
+  const MaincategoryKidsScreen({Key? key}) : super(key: key);
 
   @override
-  State<subcategoryKidsScreen> createState() => _subcategoryKidsScreenState();
+  State<MaincategoryKidsScreen> createState() => _MaincategoryKidsScreenState();
 }
 
-class _subcategoryKidsScreenState extends State<subcategoryKidsScreen> {
+class _MaincategoryKidsScreenState extends State<MaincategoryKidsScreen> {
   @override
   void initState() {
     // TODO: implement initState

@@ -5,6 +5,8 @@ import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategoryby
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecLaptopsSubcatModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecSmartPhonesSubcategoryModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/ElectronicsSubCategorybyCatModel/elecWearablesubcategoryModel.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/health_vitaminsSubCatProductModels.dart';
+import 'package:mohally/models/ProductsByMainCatIdModel/HealthandWellnesSubcatProductsModel/homeandlivingAllproductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyAllProductsViewModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyBoysapparelProductsModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/KidsSubCategoryModel/babyGirlsproductsModel.dart';
@@ -20,7 +22,7 @@ import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/mens
 import 'package:mohally/models/ProductsByMainCatIdModel/MensSubCatViewModel/shirtandtopsSubCatViewModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/WomensSubCatViewModel/womenSubCatTopModel.dart';
 import 'package:mohally/models/ProductsByMainCatIdModel/WomensSubCatViewModel/womensSubCatDressProductViewModel.dart';
-import 'package:mohally/presentation/category_page/SubCategories/widgets/SubCategoriesMens.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,8 +53,14 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
   final kids_girlsApparel_userlist = BabyGirlsSubCatModel().obs;
   final kids_shoes_userlist = BabyShoesSubCatModel().obs;
   final kids_toys_userlist = BabytoysSubCatModel().obs;
+  // final health_and_wellness_userlist =
+  //     health_and_wellnessAllproductsModel().obs;
+  final Health_vitamins_userlist = Health_vitaminsSubcatProductsviewModel().obs;
+  final healthwellness_userlist = HealthandWellnessAllProductsviewModel().obs;
 
   // final userList = Rx<dynamic>(null);
+  void healthandWellnessModel(HealthandWellnessAllProductsviewModel value) =>
+      healthwellness_userlist.value = value;
 
   void MensModel(MensAllProductModel value) => mens.value = value;
   void shirtandTopsModel(ShirtsSubcatviewModel value) =>
@@ -92,6 +100,10 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
       kids_shoes_userlist.value = value;
   void kidstoysModel(BabytoysSubCatModel value) =>
       kids_toys_userlist.value = value;
+  void Health_vitaminsModel(Health_vitaminsSubcatProductsviewModel value) =>
+      Health_vitamins_userlist.value = value;
+  // void Health_wellnessModel(health_and_wellnessAllproductsModel value) =>
+  //     health_and_wellness_userlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
 
@@ -141,13 +153,25 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
         case "182":
           return kidsclothingModel(value);
         case "183":
-          return kidsclothingModel(value);
+          return kidsboysModel(value);
         case "184":
-          return kidsclothingModel(value);
+          return kidsgirlsModel(value);
         case "185":
-          return kidsclothingModel(value);
+          return kidsshoesModel(value);
         case "186":
-          return kidsclothingModel(value);
+          return kidstoysModel(value);
+        case "218":
+          return Health_vitaminsModel(value);
+        case "217":
+          return healthandWellnessModel(value);
+        // case "219":
+        //   return kidsclothingModel(value);
+        // case "220":
+        //   return kidsclothingModel(value);
+        // case "221":
+        //   return kidsclothingModel(value);
+        // case "222":
+        //   return kidsclothingModel(value);
         default:
           throw Exception('Unexpected condition');
       }

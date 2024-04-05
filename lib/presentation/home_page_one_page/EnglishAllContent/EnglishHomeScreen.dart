@@ -68,6 +68,7 @@ class EnglishHomeScreen extends StatefulWidget {
       : super(
           key: key,
         );
+
   @override
   EnglishHomeScreenState createState() => EnglishHomeScreenState();
 }
@@ -80,6 +81,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
       ProductPriceChngeByAttribute();
   List<bool> tappedList = List.generate(200, (index) => false);
   final AddToCartcontrollerin = Get.put(AddToCartcontroller());
+
   // EnglishViewCart _viewcartcontroller = EnglishViewCart();
 
   RxInt selectedImageIndex = 0.obs;
@@ -87,7 +89,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
   HomeLivingModel homeLivingModel = HomeLivingModel();
   EnglishSingleProductViewController productviewcontroller =
       EnglishSingleProductViewController();
-  int selectedIndex = 0; // Initialize with -1 to indicate no selection
+  // int selectedIndex = 0; // Initialize with -1 to indicate no selection
 
   // EnglishSingleProductViewController _productview =
   //     EnglishSingleProductViewController();
@@ -103,6 +105,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
   RxString selectedcolored = "".obs;
   RxInt selectedcolorIndex = (-1).obs;
   RxInt selectedSizeIndex = (-1).obs;
+
   // int selectedIndex = -1;
   List<Widget> carouselItems = [
     //  Image.network(homeBanner_controller.userList.value.homeBanner!.bannerUrl![0].s0.toString()),
@@ -110,6 +113,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
     Image.asset("assets/images/banner 1.png")
   ];
   int counter = 1;
+
   @override
   void initState() {
     super.initState();
@@ -126,6 +130,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
 
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -288,7 +293,52 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                       ],
                     ),
                     SizedBox(height: 29.v),
-                    _buildCategorySection(context),
+                    Padding(
+                      padding: EdgeInsets.only(right: 15, left: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Categories",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 2.v),
+                            child: GestureDetector(
+                              // onTap: () {
+                              //   Get.to(CategoryScreen(
+                              //     showAppBar: true,
+                              //     FromHomeToCat: true,
+                              //     selectedTabIndex: 0,
+                              //   ));
+                              // },
+                              onTap: () {
+                                selectedTabIndex = 0;
+                                print(selectedTabIndex);
+
+                                mainCatId = homeView_controller
+                                    .userList.value.categoryData?[0].id!
+                                    .toString();
+
+                                setState(() {
+                                  EnglishsubMainCatId = mainCatId;
+                                });
+                                print("$EnglishsubMainCatId==");
+                                Get.to(CategoryScreen(
+                                    showAppBar: true,
+                                    FromHomeToCat: true,
+                                    selectedTabIndex: selectedTabIndex));
+                              },
+                              child: Text(
+                                "See All",
+                                style: CustomTextStyles.bodyMediumPrimary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // _buildCategorySection(context),
                     SizedBox(height: 19.v),
 
                     homeView_controller.userList.value.categoryData == null ||
@@ -358,6 +408,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                             FromHomeToCat: true,
                                             selectedTabIndex:
                                                 selectedTabIndex));
+                                        print("RRRRRRRRRRRRRRR$selectedTabIndex");
                                       },
                                       child: ClipRRect(
                                         borderRadius:
@@ -1560,8 +1611,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                                             158,
                                                                             158),
                                                                       )),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -2332,8 +2384,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -2539,8 +2592,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -3283,8 +3337,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -3490,8 +3545,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -4236,8 +4292,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -4443,8 +4500,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -5183,8 +5241,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -5390,8 +5449,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -6140,8 +6200,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -6347,8 +6408,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -7093,8 +7155,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -7300,8 +7363,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -8044,8 +8108,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -8251,8 +8316,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -8997,8 +9063,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -9204,8 +9271,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -9944,8 +10012,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -10151,8 +10220,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -10895,8 +10965,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedcolorname',
@@ -11102,8 +11173,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                               BorderRadius.circular(
                                                                   20), // Adjust the border radius as needed
                                                         ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        // Adjust the padding as needed
                                                         child: Center(
                                                           child: Text(
                                                             '$selectedsizename',
@@ -12988,8 +13060,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                             BorderRadius.circular(
                                                                 20), // Adjust the border radius as needed
                                                       ),
-                                                      padding: EdgeInsets.all(
-                                                          8), // Adjust the padding as needed
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      // Adjust the padding as needed
                                                       child: Center(
                                                         child: Text(
                                                           '$selectedcolorname',
@@ -13187,8 +13260,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                                             BorderRadius.circular(
                                                                 20), // Adjust the border radius as needed
                                                       ),
-                                                      padding: EdgeInsets.all(
-                                                          8), // Adjust the padding as needed
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      // Adjust the padding as needed
                                                       child: Center(
                                                         child: Text(
                                                           '$selectedsizename',

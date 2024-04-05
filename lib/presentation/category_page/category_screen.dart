@@ -76,6 +76,7 @@ class CategoryScreen extends StatefulWidget {
   final bool showAppBar;
   final int selectedTabIndex;
   final bool FromHomeToCat;
+
   const CategoryScreen(
       {Key? key,
       this.showAppBar = false,
@@ -100,12 +101,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
   ];
   HomeView_controller_English homeView_controller =
       HomeView_controller_English();
+
   // HomeView_controller_English _allcategory =
   //     HomeView_controller_English();
   EnglishAllSubCategory _allcategory = EnglishAllSubCategory();
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
+
   void openCamera(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
     setState(() {
@@ -123,13 +126,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
     Navigator.of(context).pop();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _allcategory.homeview_apihit();
-  //   setInitialLocale();
-  // _categoryByName.SeeAll_apiHit();
-  // }
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -166,442 +162,439 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
     return Obx(() {
-      if (_allcategory.rxRequestStatus.value == Status.LOADING) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      } else if (_allcategory.rxRequestStatus.value == Status.ERROR) {
-        return Scaffold(
-            body: Center(
-                child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/error2.png',
-            ),
-            Text(
-              "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
-              style: theme.textTheme.headlineMedium
-                  ?.copyWith(color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
-            ),
-          ],
-        )));
-      } else {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: widget.showAppBar
-              ? AppBar(
-                  leading: Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 10),
-                    child: CustomIconButton(
-                        onTap: () {
-                          Get.back();
-                        },
-                        height: 40.adaptSize,
-                        width: 40.adaptSize,
-                        decoration: IconButtonStyleHelper.fillGrayTL20,
-                        child: Center(
-                            child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
-                        ))),
-                  ),
-                )
-              : _buildAppBar(context),
-          body: SafeArea(
-            child: ListView(
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.h),
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        // CustomSearchView(
-                        //   readOnly: true,
-                        //   enableTap: true,
-                        //   controller: searchController,
-                        //   hintText: "search",
-                        // ),
-                        SizedBox(
-                          width: Get.width * .9,
-                          //  width ?? double.maxFinite,
-                          child: TextFormField(
-                            onTap: () {
-                              Get.to(CategorySearch());
-                            },
-                            style: CustomTextStyles.bodyLargeOnError_1,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              hintText: 'Search',
-                              hintStyle: CustomTextStyles.bodyLargeOnError_1,
-                              // prefixIcon: Padding(
-                              //   padding: EdgeInsets.all(
-                              //     15.h,
-                              //   ),
-                              //   child: Icon(
-                              //     Icons.search,
-                              //     color: Colors.grey.shade600,
-                              //   ),
-                              // ),
-                              // prefixIconConstraints: BoxConstraints(
-                              //   maxHeight: 50.v,
-                              // ),
-                              suffixIcon: Container(
-                                padding: EdgeInsets.all(15.h),
-                                margin: EdgeInsets.only(
-                                  left: 30.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.primary,
-                                  borderRadius: BorderRadius.horizontal(
-                                    right: Radius.circular(
-                                      55.h,
-                                    ),
-                                  ),
-                                ),
-                                child: CustomImageView(
-                                  imagePath: ImageConstant.imgSearchWhiteA70002,
-                                  height: 30.adaptSize,
-                                  width: 20.adaptSize,
-                                ),
-                              ),
-                              suffixIconConstraints: BoxConstraints(
-                                maxHeight: 60.v,
-                              ),
-                              isDense: true,
-                              contentPadding: EdgeInsets.only(
-                                left: 16.h,
-                                top: 17.v,
-                                bottom: 17.v,
-                              ),
-                              fillColor: appTheme.gray100,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.h),
-                                borderSide: BorderSide(
-                                  color: appTheme.gray300,
-                                  width: 1,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.h),
-                                borderSide: BorderSide(
-                                  color: appTheme.gray300,
-                                  width: 1,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.h),
-                                borderSide: BorderSide(
-                                  color: appTheme.gray300,
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                            top: 20,
-                            left: 240,
-                            child: GestureDetector(
-                                onTap: () {
-                                  _buildOncameraclick(context);
-                                },
-                                child: Image.asset(
-                                    'assets/images/greycamera.png'))),
-                      ],
+      switch (_allcategory.rxRequestStatus.value) {
+        case Status.LOADING:
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        case Status.ERROR:
+          return Scaffold(
+              body: Center(
+                  child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/error2.png',
+              ),
+              Text(
+                "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                style: theme.textTheme.headlineMedium?.copyWith(
+                    color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
+              ),
+            ],
+          )));
+        case Status.COMPLETED:
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: widget.showAppBar
+                ? AppBar(
+                    leading: Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 10),
+                      child: CustomIconButton(
+                          onTap: () {
+                            Get.back();
+                          },
+                          height: 40.adaptSize,
+                          width: 40.adaptSize,
+                          decoration: IconButtonStyleHelper.fillGrayTL20,
+                          child: Center(
+                              child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          ))),
                     ),
-                  ),
-                ),
-                Gap(15),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Shop By Category",
-                    style: theme.textTheme.titleMedium,
-                  ),
-                ),
-                // SizedBox(
-                //   height: Get.height * .02,
-                // ),
-
-                Obx(
-                  () => Container(
-                    width: double.infinity,
-                    height: widget.FromHomeToCat ? Get.height : height * .69,
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Row(
+                  )
+                : _buildAppBar(context),
+            body: SafeArea(
+              child: ListView(
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Center(
+                      child: Stack(
                         children: [
-                          Container(
-                            color: const Color.fromARGB(36, 158, 158, 158),
-                            width: 120,
-                            child: Column(
-                              children: [
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     print('tpp');
-                                //     setState(() {
-                                //       isFeaturedSelected = true;
-                                //       mainCatId = null;
-                                //       // widget.FromHomeToCat
-                                //       //     ? isFeaturedSelected = false
-                                //       //     : isFeaturedSelected = true;
-                                //       widget.FromHomeToCat
-                                //           ? widget.selectedTabIndex
-                                //           : selectedTabIndex = -1;
-                                //       print("-------------------${mainCatId}");
-                                //     });
-                                //   },
-                                //   child: Container(
-                                //     height: 60,
-                                //     width: 120,
-                                //     color:
-                                //         //  widget.FromHomeToCat
-                                //         //     ? null
-                                //         //     :
-                                //         isFeaturedSelected
-                                //             ? Colors.white
-                                //             : const Color.fromARGB(36, 158, 158,
-                                //                 158), // Change this to your condition
-                                //     child: Row(
-                                //       children: [
-                                //         Container(
-                                //           height: 60,
-                                //           width: 4,
-                                //           color:
-                                //               // widget.FromHomeToCat
-                                //               //     ? null
-                                //               //     :
-                                //               isFeaturedSelected
-                                //                   ? Color(0xffFF8300)
-                                //                   : null, // Change this to your condition
-                                //         ),
-                                //         Container(
-                                //           width: 100,
-                                //           child: Padding(
-                                //             padding:
-                                //                 const EdgeInsets.only(left: 5),
-                                //             child: Text(
-                                //               "Featured",
-                                //               style:
-                                //                   theme.textTheme.titleMedium,
-                                //             ),
-                                //           ),
-                                //           // textAlign: TextAlign.center,
-                                //         )
-                                //       ],
-                                //     ),
+                          // CustomSearchView(
+                          //   readOnly: true,
+                          //   enableTap: true,
+                          //   controller: searchController,
+                          //   hintText: "search",
+                          // ),
+                          SizedBox(
+                            width: Get.width * .9,
+                            //  width ?? double.maxFinite,
+                            child: TextFormField(
+                              onTap: () {
+                                Get.to(CategorySearch());
+                              },
+                              style: CustomTextStyles.bodyLargeOnError_1,
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                hintText: 'Search',
+                                hintStyle: CustomTextStyles.bodyLargeOnError_1,
+                                // prefixIcon: Padding(
+                                //   padding: EdgeInsets.all(
+                                //     15.h,
+                                //   ),
+                                //   child: Icon(
+                                //     Icons.search,
+                                //     color: Colors.grey.shade600,
                                 //   ),
                                 // ),
-                                Container(
-                                  height: widget.FromHomeToCat
-                                      ? Get.height
-                                      : Get.height * .6,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: homeView_controller.userList
-                                            .value.categoryData?.length ??
-                                        0,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          // isFeaturedSelected = false;
-                                          mainCatId = homeView_controller
-                                              .userList
-                                              .value
-                                              .categoryData?[index]
-                                              .id!
-                                              .toString();
-
-                                          setState(() {
-                                            // isFeaturedSelected =
-                                            //     false; // Update isFeaturedSelected
-                                            widget.FromHomeToCat
-                                                ? widget.selectedTabIndex
-                                                : selectedTabIndex =
-                                                    index; // Update selectedTabIndex
-                                            EnglishsubMainCatId = mainCatId;
-                                          });
-                                          print(selectedTabIndex);
-
-                                          print(mainCatId);
-                                          print(EnglishsubMainCatId);
-                                          _categoryByName.SeeAll_apiHit();
-                                          pagecontroller.animateToPage(
-                                              selectedTabIndex,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease);
-                                        },
-                                        child: Obx(
-                                          () => Container(
-                                              child: Row(children: [
-                                            Container(
-                                              height: 60,
-                                              width: 120,
-                                              color: widget.FromHomeToCat
-                                                  ? widget.selectedTabIndex ==
-                                                          index
-                                                      ? Colors.white
-                                                      : Color.fromARGB(
-                                                          36, 158, 158, 158)
-                                                  : selectedTabIndex == index
-                                                      ? Colors.white
-                                                      : Color.fromARGB(
-                                                          36, 158, 158, 158),
-                                              // ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                      height: 60,
-                                                      width: 4,
-                                                      color: widget
-                                                              .FromHomeToCat
-                                                          ? (widget.selectedTabIndex ==
-                                                                  index
-                                                              ? Colors.orange
-                                                              : Colors.white)
-                                                          : selectedTabIndex ==
-                                                                  index
-                                                              ? Colors.orange
-                                                              : Colors.white),
-                                                  // ),
-                                                  // SizedBox(
-                                                  //   width: Get.width * .03,
-                                                  // ),
-                                                  Container(
-                                                    // height: 60,
-                                                    width: 100,
-                                                    child: Text(
-                                                      "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF272727),
-                                                        fontSize: 12,
-                                                        fontFamily: 'Almarai',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      maxLines: 3,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      // theme.textTheme.bodySmall,
-                                                      // overflow: TextOverflow.ellipsis,
-                                                      // maxLines: 1,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ])),
-                                        ),
-                                      );
-                                    },
+                                // prefixIconConstraints: BoxConstraints(
+                                //   maxHeight: 50.v,
+                                // ),
+                                suffixIcon: Container(
+                                  padding: EdgeInsets.all(15.h),
+                                  margin: EdgeInsets.only(
+                                    left: 30.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.primary,
+                                    borderRadius: BorderRadius.horizontal(
+                                      right: Radius.circular(
+                                        55.h,
+                                      ),
+                                    ),
+                                  ),
+                                  child: CustomImageView(
+                                    imagePath:
+                                        ImageConstant.imgSearchWhiteA70002,
+                                    height: 30.adaptSize,
+                                    width: 20.adaptSize,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              child: PageView(
-                                physics: NeverScrollableScrollPhysics(),
-                                controller: pagecontroller,
-                                onPageChanged: (index) {
-                                  setState(() {
-                                    widget.FromHomeToCat
-                                        ? selectedTabIndex
-                                        : selectedTabIndex = index;
-                                  });
-                                },
-                                children: [
-                                  if (mainCatId == "id_for_all_cat")
-                                    Container(
-                                      child: Center(
-                                          child: FeaturedCategoryScreen()),
-                                    ),
-
-                                  if (mainCatId == "133")
-                                    Container(
-                                      child: Center(
-                                          child: Maincategory_MensScreen()),
-                                    ),
-
-                                  if (mainCatId == "134")
-                                    Container(
-                                      child: Center(
-                                          child:
-                                              MaincategoryElectronicsScreen()),
-                                    ),
-                                  if (mainCatId == "175")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategoryWomensScreen()),
-                                    ),
-                                  if (mainCatId == "181")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategoryKidsScreen()),
-                                    ),
-                                  if (mainCatId == "217")
-                                    Container(
-                                      child: Center(
-                                          child:
-                                              MaincategoryHealthAndWellness()),
-                                    ),
-                                  if (mainCatId == "211")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategoryFurnitureScreen()),
-                                    ),
-                                  if (mainCatId == "205")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategoryKitchenScreen()),
-                                    ),
-                                  if (mainCatId == "199")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategorySportsScreen()),
-                                    ),
-                                  if (mainCatId == "193")
-                                    Container(
-                                      child: Center(
-                                          child: MaincategoryBeautyScreen()),
-                                    ),
-                                  if (mainCatId == "187")
-                                    Container(
-                                      child: Center(
-                                          child:
-                                              MaincategoryHomeandLivingScreen()),
-                                    ),
-                                  // if (mainCatId == "228")
-                                  //   Container(
-                                  //     child: Center(
-                                  //         child:
-                                  //             MaincategoryGroceryandPantryScreen()),
-                                  //   ),
-                                ],
+                                suffixIconConstraints: BoxConstraints(
+                                  maxHeight: 60.v,
+                                ),
+                                isDense: true,
+                                contentPadding: EdgeInsets.only(
+                                  left: 16.h,
+                                  top: 17.v,
+                                  bottom: 17.v,
+                                ),
+                                fillColor: appTheme.gray100,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.h),
+                                  borderSide: BorderSide(
+                                    color: appTheme.gray300,
+                                    width: 1,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.h),
+                                  borderSide: BorderSide(
+                                    color: appTheme.gray300,
+                                    width: 1,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.h),
+                                  borderSide: BorderSide(
+                                    color: appTheme.gray300,
+                                    width: 1,
+                                  ),
+                                ),
                               ),
                             ),
-                          ))
+                          ),
+                          Positioned(
+                              top: 20,
+                              left: 240,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    _buildOncameraclick(context);
+                                  },
+                                  child: Image.asset(
+                                      'assets/images/greycamera.png'))),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Gap(15),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Shop By Category",
+                      style: theme.textTheme.titleMedium,
+                    ),
+                  ),
+                  // SizedBox(
+                  //   height: Get.height * .02,
+                  // ),
+
+                  Obx(
+                    () => Container(
+                      width: double.infinity,
+                      height: widget.FromHomeToCat ? Get.height : height * .69,
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Row(
+                          children: [
+                            Container(
+                              color: const Color.fromARGB(36, 158, 158, 158),
+                              width: 120,
+                              child: Column(
+                                children: [
+                                  // GestureDetector(
+                                  //   onTap: () {
+                                  //     print('tpp');
+                                  //     setState(() {
+                                  //       isFeaturedSelected = true;
+                                  //       mainCatId = null;
+                                  //       // widget.FromHomeToCat
+                                  //       //     ? isFeaturedSelected = false
+                                  //       //     : isFeaturedSelected = true;
+                                  //       widget.FromHomeToCat
+                                  //           ? widget.selectedTabIndex
+                                  //           : selectedTabIndex = -1;
+                                  //       print("-------------------${mainCatId}");
+                                  //     });
+                                  //   },
+                                  //   child: Container(
+                                  //     height: 60,
+                                  //     width: 120,
+                                  //     color:
+                                  //         //  widget.FromHomeToCat
+                                  //         //     ? null
+                                  //         //     :
+                                  //         isFeaturedSelected
+                                  //             ? Colors.white
+                                  //             : const Color.fromARGB(36, 158, 158,
+                                  //                 158), // Change this to your condition
+                                  //     child: Row(
+                                  //       children: [
+                                  //         Container(
+                                  //           height: 60,
+                                  //           width: 4,
+                                  //           color:
+                                  //               // widget.FromHomeToCat
+                                  //               //     ? null
+                                  //               //     :
+                                  //               isFeaturedSelected
+                                  //                   ? Color(0xffFF8300)
+                                  //                   : null, // Change this to your condition
+                                  //         ),
+                                  //         Container(
+                                  //           width: 100,
+                                  //           child: Padding(
+                                  //             padding:
+                                  //                 const EdgeInsets.only(left: 5),
+                                  //             child: Text(
+                                  //               "Featured",
+                                  //               style:
+                                  //                   theme.textTheme.titleMedium,
+                                  //             ),
+                                  //           ),
+                                  //           // textAlign: TextAlign.center,
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  Container(
+                                    height: widget.FromHomeToCat
+                                        ? Get.height
+                                        : Get.height * .6,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: homeView_controller
+                                          .userList.value.categoryData!.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            // isFeaturedSelected = false;
+                                            mainCatId = homeView_controller
+                                                .userList
+                                                .value
+                                                .categoryData?[index]
+                                                .id!
+                                                .toString();
+
+                                            setState(() {
+                                              // isFeaturedSelected =
+                                              //     false; // Update isFeaturedSelected
+                                              widget.FromHomeToCat
+                                                  ? widget.selectedTabIndex
+                                                  : selectedTabIndex =
+                                                      index; // Update selectedTabIndex
+                                              EnglishsubMainCatId = mainCatId;
+                                            });
+                                            print(selectedTabIndex);
+
+                                            print(mainCatId);
+                                            print(EnglishsubMainCatId);
+                                            _categoryByName.SeeAll_apiHit();
+                                            pagecontroller.animateToPage(
+                                                selectedTabIndex,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                curve: Curves.ease);
+                                          },
+                                          child: Obx(
+                                            () => Container(
+                                                child: Row(children: [
+                                              Container(
+                                                height: 60,
+                                                width: 120,
+                                                color: widget.FromHomeToCat
+                                                    ? widget.selectedTabIndex ==
+                                                            index
+                                                        ? Colors.white
+                                                        : Color.fromARGB(
+                                                            36, 158, 158, 158)
+                                                    : selectedTabIndex == index
+                                                        ? Colors.white
+                                                        : Color.fromARGB(
+                                                            36, 158, 158, 158),
+                                                // ),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                        height: 60,
+                                                        width: 4,
+                                                        color: widget
+                                                                .FromHomeToCat
+                                                            ? (widget.selectedTabIndex ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.white)
+                                                            : selectedTabIndex ==
+                                                                    index
+                                                                ? Colors.orange
+                                                                : Colors.white),
+                                                    Container(
+                                                      // height: 60,
+                                                      width: 100,
+                                                      child: Text(
+                                                        "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF272727),
+                                                          fontSize: 12,
+                                                          fontFamily: 'Almarai',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                        maxLines: 3,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        // theme.textTheme.bodySmall,
+                                                        // overflow: TextOverflow.ellipsis,
+                                                        // maxLines: 1,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ])),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: PageView(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  controller: pagecontroller,
+                                  onPageChanged: (index) {
+                                    setState(() {
+                                      widget.FromHomeToCat
+                                          ? selectedTabIndex
+                                          : selectedTabIndex = index;
+                                    });
+                                  },
+                                  children: [
+                                    if (mainCatId == "id_for_all_cat")
+                                      Container(
+                                        child: Center(
+                                            child: FeaturedCategoryScreen()),
+                                      ),
+
+                                    if (mainCatId == "133")
+                                      Container(
+                                        child: Center(
+                                            child: Maincategory_MensScreen()),
+                                      ),
+
+                                    if (mainCatId == "134")
+                                      Container(
+                                        child: Center(
+                                            child:
+                                                MaincategoryElectronicsScreen()),
+                                      ),
+                                    if (mainCatId == "175")
+                                      Container(
+                                        child: Center(
+                                            child: MaincategoryWomensScreen()),
+                                      ),
+                                    if (mainCatId == "181")
+                                      Container(
+                                        child: Center(
+                                            child: MaincategoryKidsScreen()),
+                                      ),
+                                    if (mainCatId == "217")
+                                      Container(
+                                        child: Center(
+                                            child:
+                                                MaincategoryHealthAndWellness()),
+                                      ),
+                                    if (mainCatId == "211")
+                                      Container(
+                                        child: Center(
+                                            child:
+                                                MaincategoryFurnitureScreen()),
+                                      ),
+                                    if (mainCatId == "205")
+                                      Container(
+                                        child: Center(
+                                            child: MaincategoryKitchenScreen()),
+                                      ),
+                                    if (mainCatId == "199")
+                                      Container(
+                                        child: Center(
+                                            child: MaincategorySportsScreen()),
+                                      ),
+                                    if (mainCatId == "193")
+                                      Container(
+                                        child: Center(
+                                            child: MaincategoryBeautyScreen()),
+                                      ),
+                                    if (mainCatId == "187")
+                                      Container(
+                                        child: Center(
+                                            child:
+                                                MaincategoryHomeandLivingScreen()),
+                                      ),
+                                    // if (mainCatId == "228")
+                                    //   Container(
+                                    //     child: Center(
+                                    //         child:
+                                    //             MaincategoryGroceryandPantryScreen()),
+                                    //   ),
+                                  ],
+                                ),
+                              ),
+                            ))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+          );
       }
     });
   }

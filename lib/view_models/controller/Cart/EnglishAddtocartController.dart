@@ -52,7 +52,9 @@ class AddToCartcontroller extends GetxController {
       'total_quantity': EnglishAddtocartquantity.toString(),
       'price': EnglishAddtocartprice.toString(),
       'coupon': "".toString(),
-      'product_details': json.encode(productDetails), // Encode the map to JSON
+      'product_details': productDetails.isNotEmpty
+          ? json.encode(productDetails)
+          : null.toString(), // Encode the map to JSON
       'language_type': 'English'
     };
 

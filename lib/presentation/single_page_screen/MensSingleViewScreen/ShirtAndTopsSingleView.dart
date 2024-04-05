@@ -687,102 +687,146 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          AselectedcolorIndex.value != ""
-              ? PageView.builder(
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: productviewcontroller
-                          .ShirtandTops_userlist
-                          .value
-                          .productView!
-                          .productDetails
-                          ?.details
-                          ?.color?[0]
-                          .gallery
-                          ?.length ??
-                      0,
-                  itemBuilder: (BuildContext context, int index) {
-                    print(productviewcontroller
-                        .ShirtandTops_userlist
-                        .value
-                        .productView!
-                        .productDetails
-                        ?.details
-                        ?.color?[0]
-                        .gallery
-                        ?.length);
-                    List<String>? colorGallery = productviewcontroller
-                        .ShirtandTops_userlist
-                        .value
-                        .productView!
-                        .productDetails
-                        ?.details
-                        ?.color?[AselectedcolorIndex.value]
-                        .gallery;
-                    String imageUrl = colorGallery?[index] ?? '';
-                    return CustomImageView(
-                      fit: BoxFit.fill,
-                      imagePath:
-                          // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
-                          "$imageUrl",
-                      // "${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
-                      height: 504.v,
-                      width: Get.width,
-                      alignment: Alignment.center,
-                    );
-                  },
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                )
-              : PageView.builder(
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: productviewcontroller
-                          .ShirtandTops_userlist
-                          .value
-                          .productView!
-                          .productDetails
-                          ?.details
-                          ?.color?[0]
-                          .gallery
-                          ?.length ??
-                      0,
-                  itemBuilder: (BuildContext context, int index) {
-                    print(productviewcontroller
-                        .ShirtandTops_userlist
-                        .value
-                        .productView!
-                        .productDetails
-                        ?.details
-                        ?.color?[0]
-                        .gallery
-                        ?.length);
-                    List<String>? colorGallery = productviewcontroller
-                        .ShirtandTops_userlist
-                        .value
-                        .productView!
-                        .productDetails
-                        ?.details
-                        ?.color?[0]
-                        .gallery;
-                    String imageUrl = colorGallery?[1] ?? '';
-                    return CustomImageView(
-                      fit: BoxFit.fill,
-                      imagePath: "$imageUrl",
-                      height: 504.v,
-                      width: Get.width,
-                      alignment: Alignment.center,
-                    );
-                  },
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                ),
+          if (productviewcontroller
+                  .ShirtandTops_userlist.value.productView?.productType ==
+              "variable")
+            // AselectedcolorIndex.value != ""
+            //     ? PageView.builder(
+            //         controller: _pageController,
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: productviewcontroller
+            //                 .ShirtandTops_userlist
+            //                 .value
+            //                 .productView!
+            //                 .productDetails
+            //                 ?.details
+            //                 ?.color?[0]
+            //                 .gallery
+            //                 ?.length ??
+            //             0,
+            //         itemBuilder: (BuildContext context, int index) {
+            //           print(productviewcontroller
+            //               .ShirtandTops_userlist
+            //               .value
+            //               .productView!
+            //               .productDetails
+            //               ?.details
+            //               ?.color?[0]
+            //               .gallery
+            //               ?.length);
+            //           List<String>? colorGallery = productviewcontroller
+            //               .ShirtandTops_userlist
+            //               .value
+            //               .productView!
+            //               .productDetails
+            //               ?.details
+            //               ?.color?[AselectedcolorIndex.value]
+            //               .gallery;
+            //           String imageUrl = colorGallery?[index] ?? '';
+            //           return CustomImageView(
+            //             fit: BoxFit.fill,
+            //             imagePath:
+            //                 // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+            //                 "$imageUrl",
+            //             // "${productviewcontroller.ShirtandTops_userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
+            //             height: 504.v,
+            //             width: Get.width,
+            //             alignment: Alignment.center,
+            //           );
+            //         },
+            //         onPageChanged: (index) {
+            //           setState(() {
+            //             _currentIndex = index;
+            //           });
+            //         },
+            //       )
+            //     :
+
+            PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: productviewcontroller
+                      .ShirtandTops_userlist
+                      .value
+                      .productView!
+                      .productDetails
+                      ?.details
+                      ?.color?[0]
+                      .gallery
+                      ?.length ??
+                  0,
+              itemBuilder: (BuildContext context, int index) {
+                print(productviewcontroller
+                    .ShirtandTops_userlist
+                    .value
+                    .productView!
+                    .productDetails
+                    ?.details
+                    ?.color?[0]
+                    .gallery
+                    ?.length);
+                List<String>? colorGallery = productviewcontroller
+                    .ShirtandTops_userlist
+                    .value
+                    .productView!
+                    .productDetails
+                    ?.details
+                    ?.color?[0]
+                    .gallery;
+                String imageUrl = colorGallery?[1] ?? '';
+                return CustomImageView(
+                  fit: BoxFit.fill,
+                  imagePath: "$imageUrl",
+                  height: 504.v,
+                  width: Get.width,
+                  alignment: Alignment.center,
+                );
+              },
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            )
+          else
+            PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                print(productviewcontroller
+                    .ShirtandTops_userlist
+                    .value
+                    .productView!
+                    .productDetails
+                    ?.details
+                    ?.color?[0]
+                    .gallery
+                    ?.length);
+                List<String>? colorGallery = productviewcontroller
+                    .ShirtandTops_userlist
+                    .value
+                    .productView!
+                    .productDetails
+                    ?.details
+                    ?.color?[0]
+                    .gallery;
+                String imageUrl = colorGallery?[1] ?? '';
+                return CustomImageView(
+                  fit: BoxFit.fill,
+                  imagePath:
+                      "${productviewcontroller.ShirtandTops_userlist.value.productView!.imageUrl.toString()}",
+                  height: 504.v,
+                  width: Get.width,
+                  alignment: Alignment.center,
+                );
+              },
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
           Align(
             alignment: Alignment.center,
             child: Column(
@@ -825,13 +869,13 @@ class _ShirtsandTopsSingleViewState extends State<ShirtsandTopsSingleView> {
                       ],
                     )),
                 SizedBox(height: 371.v),
-                _buildButtonOneHundredTen(
-                  context,
-                  productviewcontroller.ShirtandTops_userlist.value.productView!
-                          .productDetails?.details?.color?[0].gallery?.length ??
-                      0,
-                  _currentIndex, // Pass the current index
-                ),
+                // _buildButtonOneHundredTen(
+                //   context,
+                //   productviewcontroller.ShirtandTops_userlist.value.productView!
+                //           .productDetails?.details?.color?[0].gallery?.length ??
+                //       0,
+                //   _currentIndex, // Pass the current index
+                // ),
                 SizedBox(height: 10.v),
                 Padding(
                   padding: const EdgeInsets.only(top: 7),

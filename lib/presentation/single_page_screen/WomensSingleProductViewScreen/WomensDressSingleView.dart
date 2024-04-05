@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
@@ -53,6 +54,8 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
 
   final AddToCartcontrollerin = Get.put(AddToCartcontroller());
   PageController _pageController = PageController();
+  String selectedImageUrl = '';
+
   int _currentIndex = 0;
   RxString selectedcolored = "".obs;
   RxInt selectedcolorIndex = (-1).obs;
@@ -63,9 +66,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
   RxInt AselectedcolorIndex = (-1).obs;
   RxInt AselectedSizeIndex = (-1).obs;
   int selectedImageIndex = 0;
-  String selectedImageUrl = '';
   bool LikeisActive = false;
-
   int counter = 1;
   bool PrizeAdjustmentisExpanded = false;
   bool ShoppingSecurityisExpanded = false;
@@ -117,9 +118,9 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
           ],
         )));
       } else {
-        return SafeArea(
-          child: Scaffold(
-            body: Container(
+        return Scaffold(
+          body: SafeArea(
+            child: Container(
               width: Get.width,
               height: Get.height,
               child: productviewcontroller
@@ -223,7 +224,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                         ),
                         SizedBox(height: 14.v),
                         Container(
-                          height: Get.height * .05,
+                          height: Get.height * .04,
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: 1,
@@ -303,7 +304,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                 0)
                           _buildColors(context),
 
-                        _buildListRectangle(context),
+                        // _buildListRectangle(context),
 
                         if (productviewcontroller.womensDress_userlist.value
                                     .productView?.productType ==
@@ -318,80 +319,115 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                     ?.length !=
                                 0)
                           _buildsize(context),
-                        // Container(
-                        //   height: Get.height * .06,
-                        //   child: ListView.builder(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     itemCount: 1,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       if (color == null && size1 == null) {
-                        //         return Text('');
-                        //       } else {
-                        //         return Obx(
-                        //           () => InkWell(
-                        //             onTap: () {
-                        //               if (color != null && size1 != null) {
-                        //                 if (colorId == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Color');
-                        //                 } else if (sizeid == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Size');
-                        //                 } else {
-                        //                   pid = productviewcontroller
-                        //                       .womensDress_userlist
-                        //                       .value
-                        //                       .productView
-                        //                       ?.id
-                        //                       .toString();
-                        //                   productColor = colorId.toString();
-                        //                   // quantity = counter;
-                        //                   productSize = sizeid.toString();
-                        //                   _productpricechangebyattributecontroller
-                        //                       .ProductPriceChangeByAttribute(
-                        //                           context);
-                        //                 }
-                        //               }
-                        //             },
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.fromLTRB(
-                        //                   110, 0, 110, 0),
-                        //               child: Center(
-                        //                 child: Container(
-                        //                   height: Get.height * .05,
-                        //                   decoration: BoxDecoration(
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(35),
-                        //                       border: Border.all(
-                        //                         color: Color(0xffff8300),
-                        //                         width: 2,
-                        //                       ),
-                        //                       color: Color(0xffff8300)),
-                        //                   child: _productpricechangebyattributecontroller
-                        //                               .loading.value ==
-                        //                           false
-                        //                       ? Center(
-                        //                           child: Text(
-                        //                             "Check Combination",
-                        //                             style: TextStyle(
-                        //                                 fontSize: 14,
-                        //                                 color: Colors.white),
-                        //                           ),
-                        //                         )
-                        //                       : Center(
-                        //                           child:
-                        //                               CircularProgressIndicator(
-                        //                           color: Colors.white,
-                        //                         )),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         );
-                        //       }
-                        //     },
-                        //   ),
-                        // ),
+
+                        if (productviewcontroller.womensDress_userlist.value
+                                .productView?.productType ==
+                            "variable")
+                          Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: Get.height * .02,
+                                ),
+                                Row(
+                                  children: [
+                                    Text("Qty",
+                                        style: theme.textTheme.titleMedium),
+                                    SizedBox(
+                                      width: Get.width * .03,
+                                    ),
+                                    Container(
+                                      width: Get.width * .3,
+                                      height: Get.height * .05,
+                                      decoration: AppDecoration.fillPrimary
+                                          .copyWith(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadiusStyle
+                                                  .circleBorder30,
+                                              border: Border.all(
+                                                  color: Color(0xffff8300))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (colorId != null &&
+                                                  sizeid != null) {
+                                                int totalQuantity = int.tryParse(
+                                                        _productpricechangebyattributecontroller
+                                                            .totalQuantity
+                                                            .value) ??
+                                                    0;
+                                                if (quantity > 1)
+                                                  setState(() {
+                                                    quantity--;
+                                                  });
+                                                print(quantity);
+                                              } else {
+                                                Utils.snackBar(
+                                                    context,
+                                                    'Failed',
+                                                    'Please Select Color and Size Both');
+                                              }
+                                            },
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: Colors.black,
+                                              size: 15,
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              quantity.toString(),
+                                              style: theme.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                      color: Color(0xffff8300),
+                                                      fontSize: 20),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (colorId != null &&
+                                                  sizeid != null) {
+                                                int totalQuantity = int.tryParse(
+                                                        _productpricechangebyattributecontroller
+                                                            .totalQuantity
+                                                            .value) ??
+                                                    0;
+                                                if (quantity < totalQuantity)
+                                                  setState(() {
+                                                    quantity++;
+                                                  });
+                                                print(quantity);
+                                              } else {
+                                                Utils.snackBar(
+                                                    context,
+                                                    'Failed',
+                                                    'Please Select Color and Size Both');
+                                              }
+                                            },
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.black,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: Get.height * .02,
+                                ),
+                              ],
+                            ),
+                          ),
+
                         // Padding(
                         //   padding: EdgeInsets.only(left: 15.h),
                         //   child: Row(
@@ -587,46 +623,58 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                           },
                         ),
 
-                        SizedBox(height: 30.v),
-                        CustomImageView(
-                          imagePath:
-                              "${productviewcontroller.womensDress_userlist.value.productView?.imageUrl.toString()}",
-                          height: Get.height * .4,
-                          width: 335.h,
-                          alignment: Alignment.center,
-                        ),
-                        SizedBox(height: 5.v),
-                        if (SeeAllImage) _buildGridRectangle(context),
-
-                        SizedBox(height: 18.v),
-
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              SeeAllImage = !SeeAllImage;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "See All",
-                                style:
-                                    CustomTextStyles.titleMediumPrimaryMedium,
-                              ),
-                              Icon(
-                                SeeAllImage
-                                    ? Icons.keyboard_arrow_up
-                                    : Icons.keyboard_arrow_down,
-                                size: 20,
-                                color: Color(0xffff8300),
-                              ),
-                            ],
+                        if (productviewcontroller.womensDress_userlist.value
+                                .productView?.productType ==
+                            "simple")
+                          Container(
+                            child: Column(
+                              children: [
+                                SizedBox(height: 30.v),
+                                CustomImageView(
+                                  imagePath:
+                                      "${productviewcontroller.womensDress_userlist.value.productView?.imageUrl.toString()}",
+                                  height: Get.height * .4,
+                                  width: 335.h,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(height: 5.v),
+                                if (SeeAllImage) _buildGridRectangle(context),
+                                SizedBox(height: 18.v),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      SeeAllImage = !SeeAllImage;
+                                    });
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "See All",
+                                        style: CustomTextStyles
+                                            .titleMediumPrimaryMedium,
+                                      ),
+                                      Icon(
+                                        SeeAllImage
+                                            ? Icons.keyboard_arrow_up
+                                            : Icons.keyboard_arrow_down,
+                                        size: 20,
+                                        color: Color(0xffff8300),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
 
                         SizedBox(height: 17.v),
-                        _buildAddToCart(context),
+                        if (productviewcontroller.womensDress_userlist.value
+                                .productView!.productType ==
+                            "variable")
+                          _buildAddToCartVariable(context)
+                        else
+                          _buildAddToCartSimple(context),
                         // SizedBox(height: 37.v),
                         // _buildListRecommended(context),
                         SizedBox(height: 15.v),
@@ -675,29 +723,96 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          PageView.builder(
-            controller: _pageController,
-            scrollDirection: Axis.horizontal,
-            itemCount: productviewcontroller.womensDress_userlist.value
-                    .productView?.galleryUrl?.length ??
-                0,
-            itemBuilder: (BuildContext context, int index) {
-              return CustomImageView(
-                fit: BoxFit.fill,
-                imagePath: selectedImageUrl.isNotEmpty
-                    ? selectedImageUrl
-                    : "${productviewcontroller.womensDress_userlist.value.productView?.galleryUrl?[index] ?? ''}",
-                height: 504.v,
-                width: Get.width,
-                alignment: Alignment.center,
-              );
-            },
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          ),
+          if (productviewcontroller
+                  .womensDress_userlist.value.productView!.productType ==
+              "variable")
+            Aselectedcolored.value.isNotEmpty
+                ? PageView.builder(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productviewcontroller
+                            .womensDress_userlist
+                            .value
+                            .productView!
+                            .productDetails
+                            ?.details
+                            ?.color?[0]
+                            .gallery
+                            ?.length ??
+                        0,
+                    itemBuilder: (BuildContext context, int index) {
+                      List<String>? colorGallery = productviewcontroller
+                          .womensDress_userlist
+                          .value
+                          .productView!
+                          .productDetails
+                          ?.details
+                          ?.color?[AselectedcolorIndex.value]
+                          .gallery;
+                      String imageUrl = colorGallery?[index] ?? '';
+                      return CustomImageView(
+                        fit: BoxFit.fill,
+                        imagePath:
+                            // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+                            "$imageUrl",
+                        // "${productviewcontroller.womensDress_userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
+                        height: 504.v,
+                        width: Get.width,
+                        alignment: Alignment.center,
+                      );
+                    },
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                  )
+                : PageView.builder(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CustomImageView(
+                        fit: BoxFit.fill,
+                        imagePath:
+                            "${productviewcontroller.womensDress_userlist.value.productView?.imageUrl}",
+                        height: 504.v,
+                        width: Get.width,
+                        alignment: Alignment.center,
+                      );
+                    },
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                  )
+          else
+            PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: productviewcontroller.womensDress_userlist.value
+                      .productView?.galleryUrl?.length ??
+                  0,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomImageView(
+                  fit: BoxFit.fill,
+                  imagePath:
+                      // selectedImageUrl.isNotEmpty
+                      //     ? selectedImageUrl
+
+                      "${productviewcontroller.womensDress_userlist.value.productView?.galleryUrl?[index] ?? ''}",
+                  height: 504.v,
+                  width: Get.width,
+                  alignment: Alignment.center,
+                );
+              },
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
           Align(
             alignment: Alignment.center,
             child: Column(
@@ -740,13 +855,38 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                       ],
                     )),
                 SizedBox(height: 371.v),
-                _buildButtonOneHundredTen(
-                  context,
-                  productviewcontroller.womensDress_userlist.value.productView
-                          ?.galleryUrl?.length ??
-                      0,
-                  _currentIndex, // Pass the current index
-                ),
+                if (productviewcontroller
+                        .womensDress_userlist.value.productView!.productType ==
+                    "variable")
+                  Aselectedcolored.value.isNotEmpty
+                      ? _buildButtonOneHundredTen(
+                          context,
+                          productviewcontroller
+                                  .womensDress_userlist
+                                  .value
+                                  .productView!
+                                  .productDetails
+                                  ?.details
+                                  ?.color?[0]
+                                  .gallery
+                                  ?.length ??
+                              0,
+                          _currentIndex, // Pass the current index
+                        )
+                      : _buildButtonOneHundredTen(
+                          context,
+                          1,
+                          _currentIndex, // Pass the current index
+                        )
+                else
+                  _buildButtonOneHundredTen(
+                    context,
+
+                    productviewcontroller.womensDress_userlist.value.productView
+                            ?.galleryUrl?.length ??
+                        0,
+                    _currentIndex, // Pass the current index
+                  ),
                 SizedBox(height: 10.v),
                 Padding(
                   padding: const EdgeInsets.only(top: 7),
@@ -835,7 +975,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
               onTap: () {
                 // Set the selected image URL when an image is clicked
                 setState(() {
-                  selectedImageUrl = imageUrl;
+                  // selectedImageUrl = imageUrl;
                   selectedImageIndex = index;
                 });
               },
@@ -1930,6 +2070,13 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                             return _buildAddtocartwomensTop(
                                                 context, mainCatId, productId);
                                           });
+                                    } else {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (context) {
+                                            return _buildNoCartProduct(context);
+                                          });
                                     }
                                     print(mainCatId.toString());
                                   },
@@ -1956,13 +2103,13 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
 
   _buildColors(BuildContext context) {
     return Container(
-      height: Get.height * .09,
+      height: Get.height * .16,
       child: ListView.builder(
           itemCount: 1,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             color = productviewcontroller.womensDress_userlist.value.productView
-                ?.productDetails?.details?.color?[index].value
+                ?.productDetails?.details?.color![index].value
                 .toString();
 
             return Column(
@@ -1984,15 +2131,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                             TextSpan(
                               text: Aselectedcolored.value.isNotEmpty
                                   ? Aselectedcolored.value
-                                  : color = productviewcontroller
-                                      .womensDress_userlist
-                                      .value
-                                      .productView
-                                      ?.productDetails
-                                      ?.details
-                                      ?.color?[index]
-                                      .value
-                                      .toString(),
+                                  : "",
                               style: theme.textTheme.titleMedium?.copyWith(
                                   fontSize: 15,
                                   color: Color.fromARGB(255, 158, 158, 158),
@@ -2012,8 +2151,8 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      height: 35.v,
+                    child: Container(
+                      height: Get.height * .13,
                       child: ListView.separated(
                         // padding: EdgeInsets.only(left: 20.h),
                         scrollDirection: Axis.horizontal,
@@ -2035,65 +2174,116 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                 ?.length ??
                             0,
                         itemBuilder: (context, index) {
-                          String Aselectedcolorname = color =
-                              productviewcontroller
+                          String Aselectedcolorname = productviewcontroller
+                                  .womensDress_userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.color?[index]
+                                  .value ??
+                              "";
+                          String imageUrl = productviewcontroller
+                              .womensDress_userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details
+                              ?.color?[index]
+                              .featureImage;
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    Aselectedcolored.value = Aselectedcolorname;
+                                    AselectedcolorIndex.value = index;
+                                    selectedImageUrl = imageUrl;
+                                    selectedImageIndex = index;
+                                    print(
+                                        "${Aselectedcolored.value},${AselectedcolorIndex.value}");
+                                  });
+
+                                  colorId = productviewcontroller
                                       .womensDress_userlist
                                       .value
                                       .productView
                                       ?.productDetails
                                       ?.details
                                       ?.color?[index]
-                                      .value ??
-                                  "";
+                                      .id
+                                      .toString();
 
-                          return SizedBox(
-                            width: 70.h,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  Aselectedcolored.value = Aselectedcolorname;
-                                });
+                                  if (sizeid != null && colorId != null) {
+                                    print(sizeid);
+                                    pid = productviewcontroller
+                                        .womensDress_userlist
+                                        .value
+                                        .productView
+                                        ?.id
+                                        .toString();
+                                    productColor = colorId.toString();
+                                    // quantity = counter;
+                                    productSize = sizeid.toString();
+                                    print(pid);
+                                    print(productColor);
+                                    print(productSize);
 
-                                AselectedcolorIndex.value = index;
-                                colorId = color = productviewcontroller
-                                    .womensDress_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details
-                                    ?.color?[index]
-                                    .id
-                                    .toString();
-                                // print(selectedSizeIndex);
-                              },
-                              child: Obx(
-                                () => Center(
-                                  child: Container(
-                                    width: 70.h,
-                                    decoration: BoxDecoration(
-                                      color: AselectedcolorIndex.value == index
-                                          ? Color(0xffff8300)
-                                          : Color.fromARGB(111, 158, 158, 158),
-                                      borderRadius: BorderRadius.circular(
-                                          20), // Adjust the border radius as needed
-                                    ),
-                                    padding: EdgeInsets.all(
-                                        8), // Adjust the padding as needed
-                                    child: Center(
-                                      child: Text(
-                                        '$Aselectedcolorname',
-                                        style: TextStyle(
-                                          color:
-                                              AselectedcolorIndex.value == index
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                    _productpricechangebyattributecontroller
+                                        .ProductPriceChangeByAttribute(context);
+                                    updatedprice.value =
+                                        _productpricechangebyattributecontroller
+                                            .userlist.value.data!.totalQuantity
+                                            .toString();
+                                  }
+
+                                  // print(selectedSizeIndex);
+                                },
+                                child: Obx(
+                                  () => Container(
+                                      height: 100,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                          border: AselectedcolorIndex.value ==
+                                                  index
+                                              ? Border.all(
+                                                  color: Colors.black, width: 3)
+                                              : Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 80,
+                                            width: 70,
+                                            child: Center(
+                                              child: CustomImageView(
+                                                fit: BoxFit.cover,
+                                                imagePath: "$imageUrl",
+                                                height: 80.adaptSize,
+                                                width: 70.adaptSize,
+                                                radius: BorderRadius.circular(
+                                                  6.h,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              '$Aselectedcolorname',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
                                 ),
-                              ),
-                            ),
+                              )
+                            ],
                           );
                         },
                       ),
@@ -2108,7 +2298,7 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
 
   Widget _buildsize(BuildContext context) {
     return Container(
-      height: Get.height * .12,
+      height: Get.height * .14,
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         itemCount: 1,
@@ -2118,7 +2308,9 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
 
           return Column(
             children: [
-              SizedBox(height: 15.v),
+              SizedBox(
+                height: Get.height * .03,
+              ),
               _buildRowSize(context),
               SizedBox(height: 5.v),
               Padding(
@@ -2172,6 +2364,26 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                   ?.size?[index]
                                   .id
                                   .toString();
+
+                              if (sizeid != null && colorId != null) {
+                                print(sizeid);
+                                pid = productviewcontroller
+                                    .womensDress_userlist.value.productView?.id
+                                    .toString();
+                                productColor = colorId.toString();
+                                // quantity = counter;
+                                productSize = sizeid.toString();
+                                print(pid);
+                                print(productColor);
+                                print(productSize);
+
+                                _productpricechangebyattributecontroller
+                                    .ProductPriceChangeByAttribute(context);
+                                updatedprice.value =
+                                    _productpricechangebyattributecontroller
+                                        .userlist.value.data!.price
+                                        .toString();
+                              }
                             },
                             child: Obx(
                               () => Center(
@@ -2186,23 +2398,12 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                                               color: Color.fromARGB(
                                                   45, 158, 158, 158),
                                             )),
-
-                                  // BoxDecoration(
-                                  //   color: AselectedSizeIndex.value == index
-                                  //       ? Color(0xffff8300)
-                                  //       : Color.fromARGB(111, 158, 158, 158),
-                                  //   borderRadius: BorderRadius.circular(20),
-                                  // ),
                                   padding: EdgeInsets.all(8),
                                   child: Center(
                                     child: Text(
                                       '$Aselectedsizename',
                                       style: TextStyle(
-                                        color:
-                                            //  AselectedSizeIndex.value == index
-                                            //     ? Colors.white
-                                            // :
-                                            Colors.black,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -2223,84 +2424,101 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
     );
   }
 
-  Widget _buildAddToCart(BuildContext context) {
-    bool isInCart = false; // Flag to track if the product is in the cart
+//  if (!inCart)
 
+  Widget _buildAddToCartVariable(BuildContext context) {
     return Container(
       height: Get.height * .1,
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
+          bool inCart = productviewcontroller
+              .womensDress_userlist.value.productView!.inCart;
           return Obx(
             () => InkWell(
               onTap: () {
-                if (isInCart) {
-                  // If already in cart, show message and change container color to green
-                  Utils.snackBar(context, 'Failed', 'Product already in cart');
-                } else {
-                  if (color != null && size1 != null) {
-                    if (colorId == null) {
+                if (color != null && size1 != null) {
+                  if (colorId == null) {
+                    if (!inCart) {
                       Utils.snackBar(context, 'Failed', 'Please Select Color');
-                    } else if (sizeid == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Size');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .womensDress_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .womensDress_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
                     }
-                  } else if (size1 != null) {
-                    if (sizeid == null) {
+                  } else if (sizeid == null) {
+                    if (!inCart) {
                       Utils.snackBar(context, 'Failed', 'Please Select Size');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .womensDress_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .womensDress_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
-                    }
-                  } else if (color != null) {
-                    if (colorId == null) {
-                      Utils.snackBar(context, 'Failed', 'Please Select Color');
-                    } else {
-                      Englishcartproductid = productviewcontroller
-                          .womensDress_userlist.value.productView?.id
-                          .toString();
-                      EnglishAddtocartColor = colorId.toString();
-                      EnglishAddtocartprice = productviewcontroller
-                          .womensDress_userlist.value.productView?.price
-                          .toString();
-
-                      EnglishAddtocartSize = sizeid.toString();
-                      AddToCartcontrollerin.addtocart_Apihit(context);
-                      isInCart = true; // Update flag
                     }
                   } else {
-                    Englishcartproductid = productviewcontroller
-                        .womensDress_userlist.value.productView?.id
-                        .toString();
-                    EnglishAddtocartColor = colorId.toString();
-                    EnglishAddtocartprice = productviewcontroller
-                        .womensDress_userlist.value.productView?.price
-                        .toString();
-
-                    EnglishAddtocartSize = sizeid.toString();
-                    AddToCartcontrollerin.addtocart_Apihit(context);
-                    isInCart = true; // Update flag
+                    if (!inCart) {
+                      Englishcartproductid = productviewcontroller
+                          .womensDress_userlist.value.productView?.id
+                          .toString();
+                      EnglishAddtocartColor = colorId.toString();
+                      EnglishAddtocartprice = productviewcontroller
+                          .womensDress_userlist.value.productView?.price
+                          .toString();
+                      EnglishAddtocartquantity = quantity.toString();
+                      EnglishAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      quantity = 1;
+                      print("${colorId},${sizeid},${quantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
+                  }
+                } else if (size1 != null) {
+                  if (sizeid == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Size');
+                    }
+                  } else {
+                    if (!inCart) {
+                      Englishcartproductid = productviewcontroller
+                          .womensDress_userlist.value.productView?.id
+                          .toString();
+                      EnglishAddtocartColor = colorId.toString();
+                      EnglishAddtocartprice = productviewcontroller
+                          .womensDress_userlist.value.productView?.price
+                          .toString();
+                      EnglishAddtocartquantity = quantity.toString();
+                      EnglishAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      quantity = 1;
+                      print("${colorId},${sizeid},${quantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
+                  }
+                } else if (color != null) {
+                  if (colorId == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Color');
+                    }
+                  } else {
+                    if (!inCart) {
+                      Englishcartproductid = productviewcontroller
+                          .womensDress_userlist.value.productView?.id
+                          .toString();
+                      EnglishAddtocartColor = colorId.toString();
+                      EnglishAddtocartprice = productviewcontroller
+                          .womensDress_userlist.value.productView?.price
+                          .toString();
+                      EnglishAddtocartquantity = quantity.toString();
+                      EnglishAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      quantity = 1;
+                      print("${colorId},${sizeid},${quantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
                   }
                 }
               },
@@ -2311,15 +2529,75 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(35),
                     border: Border.all(
-                      color: isInCart ? Colors.green : Color(0xffff8300),
+                      color: Color(0xffff8300),
                       width: 2,
                     ),
-                    color: isInCart ? Colors.green : Color(0xffff8300),
+                    color: Color(0xffff8300),
                   ),
                   child: AddToCartcontrollerin.loading.value == false
                       ? Center(
                           child: Text(
-                            isInCart ? "Already in cart" : "Add to cart",
+                            inCart == false ? "Add to Cart" : "Already in Cart",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildAddToCartSimple(BuildContext context) {
+    return Container(
+      height: Get.height * .1,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          bool inCart = productviewcontroller
+              .womensDress_userlist.value.productView!.inCart;
+          return Obx(
+            () => GestureDetector(
+              onTap: () {
+                if (!inCart) {
+                  // Execute only if inCart is false
+                  Englishcartproductid = productviewcontroller
+                      .womensDress_userlist.value.productView?.id
+                      .toString();
+                  // EnglishAddtocartColor = "";
+                  EnglishAddtocartprice = productviewcontroller
+                      .womensDress_userlist.value.productView?.price
+                      .toString();
+                  EnglishAddtocartquantity = "1";
+                  // EnglishAddtocartSize = "";
+                  AddToCartcontrollerin.addtocart_Apihit(context);
+                  // Update flag
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
+                child: Container(
+                  height: Get.height * .06,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(35),
+                    border: Border.all(
+                      color: Color(0xffff8300),
+                      width: 2,
+                    ),
+                    color: Color(0xffff8300),
+                  ),
+                  child: AddToCartcontrollerin.loading.value == false
+                      ? Center(
+                          child: Text(
+                            inCart == false ? "Add to Cart" : "Already in Cart",
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         )
@@ -12508,37 +12786,168 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Container(
-                            height: Get.height * .4,
-                            width: Get.width,
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Container(
+                              height: Get.height * .5,
+                              width: double.maxFinite,
+                              decoration: AppDecoration.fillGray10003,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  if (productviewcontroller.womensDress_userlist
+                                          .value.productView!.productType ==
+                                      "variable")
+                                    Aselectedcolored.value.isNotEmpty
+                                        ? PageView.builder(
+                                            controller: _pageController,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: productviewcontroller
+                                                    .womensDress_userlist
+                                                    .value
+                                                    .productView!
+                                                    .productDetails
+                                                    ?.details
+                                                    ?.color?[0]
+                                                    .gallery
+                                                    ?.length ??
+                                                0,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              List<String>? colorGallery =
+                                                  productviewcontroller
+                                                      .womensDress_userlist
+                                                      .value
+                                                      .productView!
+                                                      .productDetails
+                                                      ?.details
+                                                      ?.color?[
+                                                          AselectedcolorIndex
+                                                              .value]
+                                                      .gallery;
+                                              String imageUrl =
+                                                  colorGallery?[index] ?? '';
+                                              return CustomImageView(
+                                                fit: BoxFit.fill,
+                                                imagePath:
+                                                    // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+                                                    "$imageUrl",
+                                                // "${productviewcontroller.womensDress_userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
+                                                height: 504.v,
+                                                width: Get.width,
+                                                alignment: Alignment.center,
+                                              );
+                                            },
+                                            onPageChanged: (index) {
+                                              setState(() {
+                                                _currentIndex = index;
+                                              });
+                                            },
+                                          )
+                                        : PageView.builder(
+                                            controller: _pageController,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 1,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return CustomImageView(
+                                                fit: BoxFit.fill,
+                                                imagePath:
+                                                    "${productviewcontroller.womensDress_userlist.value.productView?.imageUrl}",
+                                                height: Get.height * .5,
+                                                width: Get.width,
+                                                alignment: Alignment.center,
+                                              );
+                                            },
+                                            onPageChanged: (index) {
+                                              setState(() {
+                                                _currentIndex = index;
+                                              });
+                                            },
+                                          )
+                                  else
+                                    PageView.builder(
+                                      controller: _pageController,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: productviewcontroller
+                                              .womensDress_userlist
+                                              .value
+                                              .productView
+                                              ?.galleryUrl
+                                              ?.length ??
+                                          0,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return CustomImageView(
+                                          fit: BoxFit.fill,
+                                          imagePath:
+                                              // selectedImageUrl.isNotEmpty
+                                              //     ? selectedImageUrl
 
-                              scrollDirection: Axis.horizontal,
-                              // Remove the physics property or set it to ScrollPhysics()
-                              // physics: ScrollPhysics(),
-                              itemCount: productviewcontroller
-                                      .womensDress_userlist
-                                      .value
-                                      .productView
-                                      ?.galleryUrl
-                                      ?.length ??
-                                  0,
-                              itemBuilder: (BuildContext context, int index) {
-                                return CustomImageView(
-                                  fit: BoxFit.fill,
-                                  imagePath: AselectedImageUrl.value.isNotEmpty
-                                      ? AselectedImageUrl.value
-                                      : "${productviewcontroller.womensDress_userlist.value.productView?.galleryUrl?[index] ?? ''}",
-                                  height: 504.v,
-                                  width: Get.width,
-                                  alignment: Alignment.center,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                                              "${productviewcontroller.womensDress_userlist.value.productView?.galleryUrl?[index] ?? ''}",
+                                          height: Get.height * .5,
+                                          width: Get.width,
+                                          alignment: Alignment.center,
+                                        );
+                                      },
+                                      onPageChanged: (index) {
+                                        setState(() {
+                                          _currentIndex = index;
+                                        });
+                                      },
+                                    ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          if (productviewcontroller
+                                                  .womensDress_userlist
+                                                  .value
+                                                  .productView!
+                                                  .productType ==
+                                              "variable")
+                                            Aselectedcolored.value.isNotEmpty
+                                                ? _buildButtonOneHundredTen(
+                                                    context,
+                                                    productviewcontroller
+                                                            .womensDress_userlist
+                                                            .value
+                                                            .productView!
+                                                            .productDetails
+                                                            ?.details
+                                                            ?.color?[0]
+                                                            .gallery
+                                                            ?.length ??
+                                                        0,
+                                                    _currentIndex, // Pass the current index
+                                                  )
+                                                : _buildButtonOneHundredTen(
+                                                    context,
+                                                    1,
+                                                    _currentIndex, // Pass the current index
+                                                  )
+                                          else
+                                            _buildButtonOneHundredTen(
+                                              context,
+
+                                              productviewcontroller
+                                                      .womensDress_userlist
+                                                      .value
+                                                      .productView
+                                                      ?.galleryUrl
+                                                      ?.length ??
+                                                  0,
+                                              _currentIndex, // Pass the current index
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )),
                         SizedBox(height: 14.v),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
@@ -12638,666 +13047,516 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
                             },
                           ),
                         ),
-                        if (productviewcontroller.womensDress_userlist.value
-                                    .productView?.productType ==
-                                "variable" &&
-                            productviewcontroller
-                                    .womensDress_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details!
-                                    .color
-                                    ?.length !=
-                                0)
-                          Container(
-                            height: Get.height * .1,
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                Singlecolor = productviewcontroller
-                                    .womensDress_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details
-                                    ?.color?[index]
-                                    .value
-                                    .toString();
+                        // if (productviewcontroller.womensDress_userlist.value
+                        //             .productView?.productType ==
+                        //         "variable" &&
+                        //     productviewcontroller
+                        //             .womensDress_userlist
+                        //             .value
+                        //             .productView
+                        //             ?.productDetails
+                        //             ?.details!
+                        //             .color
+                        //             ?.length !=
+                        //         0)
+                        //   Container(
+                        //     height: Get.height * .1,
+                        //     child: ListView.builder(
+                        //       physics: NeverScrollableScrollPhysics(),
+                        //       itemCount: 1,
+                        //       itemBuilder: (BuildContext context, int index) {
+                        //         Singlecolor = productviewcontroller
+                        //             .womensDress_userlist
+                        //             .value
+                        //             .productView
+                        //             ?.productDetails
+                        //             ?.details
+                        //             ?.color?[index]
+                        //             .value
+                        //             .toString();
 
-                                return Column(
-                                  children: [
-                                    // SizedBox(height: 11.v),
-                                    Obx(
-                                      () => Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Row(
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Color: ",
-                                                    style: theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: selectedcolored
-                                                            .value.isNotEmpty
-                                                        ? selectedcolored.value
-                                                        : productviewcontroller
-                                                            .womensDress_userlist
-                                                            .value
-                                                            .productView
-                                                            ?.productDetails
-                                                            ?.details
-                                                            ?.color?[index]
-                                                            .value,
-                                                    style: theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                      fontSize: 18,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 11.v),
-
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 10, 0),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: SizedBox(
-                                          height: 35.v,
-                                          child: ListView.separated(
-                                            padding:
-                                                EdgeInsets.only(left: 20.h),
-                                            scrollDirection: Axis.horizontal,
-                                            separatorBuilder: (
-                                              context,
-                                              index,
-                                            ) {
-                                              return SizedBox(
-                                                width: 10.h,
-                                              );
-                                            },
-                                            itemCount: productviewcontroller
-                                                    .womensDress_userlist
-                                                    .value
-                                                    .productView
-                                                    ?.productDetails
-                                                    ?.details!
-                                                    .color
-                                                    ?.length ??
-                                                0,
-                                            itemBuilder: (context, index) {
-                                              String selectedcolorname =
-                                                  productviewcontroller
-                                                          .womensDress_userlist
-                                                          .value
-                                                          .productView
-                                                          ?.productDetails
-                                                          ?.details
-                                                          ?.color?[index]
-                                                          .value ??
-                                                      "";
-
-                                              return SizedBox(
-                                                width: 70.h,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    // setState(() {
-                                                    selectedcolored.value =
-                                                        selectedcolorname;
-                                                    selectedcolorIndex.value =
-                                                        index;
-                                                    SinglecolorId =
-                                                        productviewcontroller
-                                                            .womensDress_userlist
-                                                            .value
-                                                            .productView
-                                                            ?.productDetails
-                                                            ?.details
-                                                            ?.color?[index]
-                                                            .id
-                                                            .toString();
-
-                                                    // selectedIndex = index;
-                                                    // selectedColor = selectedcolor;
-                                                    // });
-                                                    print(selectedcolorIndex);
-                                                  },
-                                                  child: Obx(
-                                                    () => Center(
-                                                      child: Container(
-                                                        width: 70.h,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: selectedcolorIndex
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : const Color
-                                                                  .fromARGB(
-                                                                  111,
-                                                                  158,
-                                                                  158,
-                                                                  158),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  20), // Adjust the border radius as needed
-                                                        ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$selectedcolorname',
-                                                            style: TextStyle(
-                                                              color: selectedcolorIndex
-                                                                          .value ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                        Obx(
-                          () => Align(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              height: 60.v,
-                              child: ListView.separated(
-                                padding: EdgeInsets.only(
-                                  left: 20.h,
-                                  right: 23.h,
-                                ),
-                                scrollDirection: Axis.horizontal,
-                                separatorBuilder: (
-                                  context,
-                                  index,
-                                ) {
-                                  return SizedBox(
-                                    width: 8.h,
-                                  );
-                                },
-                                itemCount: productviewcontroller
-                                        .womensDress_userlist
-                                        .value
-                                        .productView
-                                        ?.galleryUrl
-                                        ?.length ??
-                                    0,
-                                itemBuilder: (context, index) {
-                                  String imageUrl = productviewcontroller
-                                          .womensDress_userlist
-                                          .value
-                                          .productView
-                                          ?.galleryUrl?[index] ??
-                                      '';
-                                  return GestureDetector(
-                                    onTap: () {
-                                      AselectedImageUrl.value = imageUrl;
-                                      AselectedImageIndex.value = index;
-                                      print(AselectedImageIndex);
-                                    },
-                                    child: SizedBox(
-                                      width: 60.h,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: CustomImageView(
-                                          fit: BoxFit.cover,
-                                          imagePath: "$imageUrl",
-                                          height: 60.adaptSize,
-                                          width: 60.adaptSize,
-                                          radius: BorderRadius.circular(
-                                            6.h,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (productviewcontroller.womensDress_userlist.value
-                                    .productView?.productType ==
-                                "variable" &&
-                            productviewcontroller
-                                    .womensDress_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details!
-                                    .size
-                                    ?.length !=
-                                0)
-                          Container(
-                            height: Get.height * .15,
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                Singlesize1 = productviewcontroller
-                                    .womensDress_userlist
-                                    .value
-                                    .productView
-                                    ?.productDetails
-                                    ?.details
-                                    ?.size?[index]
-                                    .value;
-
-                                return Column(
-                                  children: [
-                                    SizedBox(height: 27.v),
-                                    _buildRowSize(context),
-                                    SizedBox(height: 11.v),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 10, 0),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: SizedBox(
-                                          height: 35.v,
-                                          child: ListView.separated(
-                                            padding:
-                                                EdgeInsets.only(left: 20.h),
-                                            scrollDirection: Axis.horizontal,
-                                            separatorBuilder: (
-                                              context,
-                                              index,
-                                            ) {
-                                              return SizedBox(
-                                                width: 10.h,
-                                              );
-                                            },
-                                            itemCount: productviewcontroller
-                                                    .womensDress_userlist
-                                                    .value
-                                                    .productView
-                                                    ?.productDetails
-                                                    ?.details!
-                                                    .size
-                                                    ?.length ??
-                                                0,
-                                            itemBuilder: (context, index) {
-                                              String selectedsizename =
-                                                  productviewcontroller
-                                                          .womensDress_userlist
-                                                          .value
-                                                          .productView
-                                                          ?.productDetails
-                                                          ?.details
-                                                          ?.size?[index]
-                                                          .value ??
-                                                      "";
-
-                                              return SizedBox(
-                                                width: 70.h,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    selectedSizeIndex.value =
-                                                        index;
-                                                    Singlesizeid =
-                                                        productviewcontroller
-                                                            .womensDress_userlist
-                                                            .value
-                                                            .productView
-                                                            ?.productDetails
-                                                            ?.details
-                                                            ?.size?[index]
-                                                            .id
-                                                            .toString();
-                                                    // print(selectedSizeIndex);
-                                                  },
-                                                  child: Obx(
-                                                    () => Center(
-                                                      child: Container(
-                                                        width: 70.h,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: selectedSizeIndex
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xffff8300)
-                                                              : const Color
-                                                                  .fromARGB(
-                                                                  111,
-                                                                  158,
-                                                                  158,
-                                                                  158),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  20), // Adjust the border radius as needed
-                                                        ),
-                                                        padding: EdgeInsets.all(
-                                                            8), // Adjust the padding as needed
-                                                        child: Center(
-                                                          child: Text(
-                                                            '$selectedsizename',
-                                                            style: TextStyle(
-                                                              color: selectedSizeIndex
-                                                                          .value ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                        // Container(
-                        //   height: Get.height * .06,
-                        //   child: ListView.builder(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     itemCount: 1,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       if (Singlecolor == null && Singlesize1 == null) {
-                        //         return Text('');
-                        //       } else {
-                        //         return Obx(
-                        //           () => InkWell(
-                        //             onTap: () {
-                        //               if (Singlecolor != null &&
-                        //                   Singlesize1 != null) {
-                        //                 if (SinglecolorId == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Color');
-                        //                 } else if (Singlesizeid == null) {
-                        //                   Utils.snackBar(context, 'Failed',
-                        //                       'Please Select Size');
-                        //                 } else {
-                        //                   pid = productviewcontroller
-                        //                       .womensDress_userlist
-                        //                       .value
-                        //                       .productView
-                        //                       ?.id
-                        //                       .toString();
-                        //                   productColor =
-                        //                       SinglecolorId.toString();
-                        //                   // quantity = counter;
-                        //                   productSize = Singlesizeid.toString();
-                        //                   _productpricechangebyattributecontroller
-                        //                       .ProductPriceChangeByAttribute(
-                        //                           context);
-                        //                 }
-                        //               }
-                        //             },
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.fromLTRB(
-                        //                   110, 0, 110, 0),
-                        //               child: Center(
-                        //                 child: Container(
-                        //                   height: Get.height * .05,
-                        //                   decoration: BoxDecoration(
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(35),
-                        //                       border: Border.all(
-                        //                         color: Color(0xffff8300),
-                        //                         width: 2,
-                        //                       ),
-                        //                       color: Color(0xffff8300)),
-                        //                   child: _productpricechangebyattributecontroller
-                        //                               .loading.value ==
-                        //                           false
-                        //                       ? Center(
-                        //                           child: Text(
-                        //                             "Check Combination",
-                        //                             style: TextStyle(
-                        //                                 fontSize: 14,
-                        //                                 color: Colors.white),
+                        //         return Column(
+                        //           children: [
+                        //             // SizedBox(height: 11.v),
+                        //             Obx(
+                        //               () => Padding(
+                        //                 padding:
+                        //                     const EdgeInsets.only(left: 10),
+                        //                 child: Row(
+                        //                   children: [
+                        //                     RichText(
+                        //                       text: TextSpan(
+                        //                         children: [
+                        //                           TextSpan(
+                        //                             text: "Color: ",
+                        //                             style: theme
+                        //                                 .textTheme.titleMedium
+                        //                                 ?.copyWith(
+                        //                               fontSize: 20,
+                        //                             ),
                         //                           ),
-                        //                         )
-                        //                       : Center(
-                        //                           child:
-                        //                               CircularProgressIndicator(
-                        //                           color: Colors.white,
-                        //                         )),
+                        //                           TextSpan(
+                        //                             text: selectedcolored
+                        //                                     .value.isNotEmpty
+                        //                                 ? selectedcolored.value
+                        //                                 : productviewcontroller
+                        //                                     .womensDress_userlist
+                        //                                     .value
+                        //                                     .productView
+                        //                                     ?.productDetails
+                        //                                     ?.details
+                        //                                     ?.color?[index]
+                        //                                     .value,
+                        //                             style: theme
+                        //                                 .textTheme.titleMedium
+                        //                                 ?.copyWith(
+                        //                               fontSize: 18,
+                        //                               color: Colors.grey,
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                       textAlign: TextAlign.left,
+                        //                     )
+                        //                   ],
                         //                 ),
                         //               ),
                         //             ),
-                        //           ),
+                        //             SizedBox(height: 11.v),
+
+                        //             Padding(
+                        //               padding: const EdgeInsets.fromLTRB(
+                        //                   10, 0, 10, 0),
+                        //               child: Align(
+                        //                 alignment: Alignment.centerRight,
+                        //                 child: SizedBox(
+                        //                   height: 35.v,
+                        //                   child: ListView.separated(
+                        //                     padding:
+                        //                         EdgeInsets.only(left: 20.h),
+                        //                     scrollDirection: Axis.horizontal,
+                        //                     separatorBuilder: (
+                        //                       context,
+                        //                       index,
+                        //                     ) {
+                        //                       return SizedBox(
+                        //                         width: 10.h,
+                        //                       );
+                        //                     },
+                        //                     itemCount: productviewcontroller
+                        //                             .womensDress_userlist
+                        //                             .value
+                        //                             .productView
+                        //                             ?.productDetails
+                        //                             ?.details!
+                        //                             .color
+                        //                             ?.length ??
+                        //                         0,
+                        //                     itemBuilder: (context, index) {
+                        //                       String selectedcolorname =
+                        //                           productviewcontroller
+                        //                                   .womensDress_userlist
+                        //                                   .value
+                        //                                   .productView
+                        //                                   ?.productDetails
+                        //                                   ?.details
+                        //                                   ?.color?[index]
+                        //                                   .value ??
+                        //                               "";
+
+                        //                       return SizedBox(
+                        //                         width: 70.h,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             // setState(() {
+                        //                             selectedcolored.value =
+                        //                                 selectedcolorname;
+                        //                             selectedcolorIndex.value =
+                        //                                 index;
+                        //                             SinglecolorId =
+                        //                                 productviewcontroller
+                        //                                     .womensDress_userlist
+                        //                                     .value
+                        //                                     .productView
+                        //                                     ?.productDetails
+                        //                                     ?.details
+                        //                                     ?.color?[index]
+                        //                                     .id
+                        //                                     .toString();
+
+                        //                             // selectedIndex = index;
+                        //                             // selectedColor = selectedcolor;
+                        //                             // });
+                        //                             print(selectedcolorIndex);
+                        //                           },
+                        //                           child: Obx(
+                        //                             () => Center(
+                        //                               child: Container(
+                        //                                 width: 70.h,
+                        //                                 decoration:
+                        //                                     BoxDecoration(
+                        //                                   color: selectedcolorIndex
+                        //                                               .value ==
+                        //                                           index
+                        //                                       ? Color(
+                        //                                           0xffff8300)
+                        //                                       : const Color
+                        //                                           .fromARGB(
+                        //                                           111,
+                        //                                           158,
+                        //                                           158,
+                        //                                           158),
+                        //                                   borderRadius:
+                        //                                       BorderRadius.circular(
+                        //                                           20), // Adjust the border radius as needed
+                        //                                 ),
+                        //                                 padding: EdgeInsets.all(
+                        //                                     8), // Adjust the padding as needed
+                        //                                 child: Center(
+                        //                                   child: Text(
+                        //                                     '$selectedcolorname',
+                        //                                     style: TextStyle(
+                        //                                       color: selectedcolorIndex
+                        //                                                   .value ==
+                        //                                               index
+                        //                                           ? Colors.white
+                        //                                           : Colors
+                        //                                               .black,
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       );
+                        //                     },
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ],
                         //         );
-                        //       }
-                        //     },
+                        //       },
+                        //     ),
+                        //   ),
+                        // Obx(
+                        //   () => Align(
+                        //     alignment: Alignment.center,
+                        //     child: SizedBox(
+                        //       height: 60.v,
+                        //       child: ListView.separated(
+                        //         padding: EdgeInsets.only(
+                        //           left: 20.h,
+                        //           right: 23.h,
+                        //         ),
+                        //         scrollDirection: Axis.horizontal,
+                        //         separatorBuilder: (
+                        //           context,
+                        //           index,
+                        //         ) {
+                        //           return SizedBox(
+                        //             width: 8.h,
+                        //           );
+                        //         },
+                        //         itemCount: productviewcontroller
+                        //                 .womensDress_userlist
+                        //                 .value
+                        //                 .productView
+                        //                 ?.galleryUrl
+                        //                 ?.length ??
+                        //             0,
+                        //         itemBuilder: (context, index) {
+                        //           String imageUrl = productviewcontroller
+                        //                   .womensDress_userlist
+                        //                   .value
+                        //                   .productView
+                        //                   ?.galleryUrl?[index] ??
+                        //               '';
+                        //           return GestureDetector(
+                        //             onTap: () {
+                        //               AselectedImageUrl.value = imageUrl;
+                        //               AselectedImageIndex.value = index;
+                        //               print(AselectedImageIndex);
+                        //             },
+                        //             child: SizedBox(
+                        //               width: 60.h,
+                        //               child: Align(
+                        //                 alignment: Alignment.center,
+                        //                 child: CustomImageView(
+                        //                   fit: BoxFit.cover,
+                        //                   imagePath: "$imageUrl",
+                        //                   height: 60.adaptSize,
+                        //                   width: 60.adaptSize,
+                        //                   radius: BorderRadius.circular(
+                        //                     6.h,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           );
+                        //         },
+                        //       ),
+                        //     ),
                         //   ),
                         // ),
-                        SizedBox(
-                          height: Get.height * .03,
-                        ),
-                        Container(
-                          height: Get.height * .1,
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Obx(
-                                () => GestureDetector(
-                                  onTap: () {
-                                    if (Singlecolor != null &&
-                                        Singlesize1 != null) {
-                                      if (SinglecolorId == null) {
-                                        Utils.snackBar(context, 'Failed',
-                                            'Please Select Color');
-                                      } else if (Singlesizeid == null) {
-                                        Utils.snackBar(context, 'Failed',
-                                            'Please Select Size');
-                                      } else {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            SinglecolorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.price
-                                                .toString();
+                        // if (productviewcontroller.womensDress_userlist.value
+                        //             .productView?.productType ==
+                        //         "variable" &&
+                        //     productviewcontroller
+                        //             .womensDress_userlist
+                        //             .value
+                        //             .productView
+                        //             ?.productDetails
+                        //             ?.details!
+                        //             .size
+                        //             ?.length !=
+                        //         0)
+                        //   Container(
+                        //     height: Get.height * .15,
+                        //     child: ListView.builder(
+                        //       physics: NeverScrollableScrollPhysics(),
+                        //       itemCount: 1,
+                        //       itemBuilder: (BuildContext context, int index) {
+                        //         Singlesize1 = productviewcontroller
+                        //             .womensDress_userlist
+                        //             .value
+                        //             .productView
+                        //             ?.productDetails
+                        //             ?.details
+                        //             ?.size?[index]
+                        //             .value;
 
-                                        EnglishAddtocartSize =
-                                            Singlesizeid.toString();
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                        Singlecolor = null;
-                                        Singlesize1 = null;
-                                        SinglecolorId = null;
-                                        Singlesizeid = null;
-                                        // selectedcolored.value = "null";
-                                        selectedcolorIndex.value = -1;
+                        //         return Column(
+                        //           children: [
+                        //             SizedBox(height: 27.v),
+                        //             _buildRowSize(context),
+                        //             SizedBox(height: 11.v),
+                        //             Padding(
+                        //               padding: const EdgeInsets.fromLTRB(
+                        //                   10, 0, 10, 0),
+                        //               child: Align(
+                        //                 alignment: Alignment.centerRight,
+                        //                 child: SizedBox(
+                        //                   height: 35.v,
+                        //                   child: ListView.separated(
+                        //                     padding:
+                        //                         EdgeInsets.only(left: 20.h),
+                        //                     scrollDirection: Axis.horizontal,
+                        //                     separatorBuilder: (
+                        //                       context,
+                        //                       index,
+                        //                     ) {
+                        //                       return SizedBox(
+                        //                         width: 10.h,
+                        //                       );
+                        //                     },
+                        //                     itemCount: productviewcontroller
+                        //                             .womensDress_userlist
+                        //                             .value
+                        //                             .productView
+                        //                             ?.productDetails
+                        //                             ?.details!
+                        //                             .size
+                        //                             ?.length ??
+                        //                         0,
+                        //                     itemBuilder: (context, index) {
+                        //                       String selectedsizename =
+                        //                           productviewcontroller
+                        //                                   .womensDress_userlist
+                        //                                   .value
+                        //                                   .productView
+                        //                                   ?.productDetails
+                        //                                   ?.details
+                        //                                   ?.size?[index]
+                        //                                   .value ??
+                        //                               "";
 
-                                        selectedSizeIndex.value = -1;
-                                      }
-                                    } else if (Singlesize1 != null) {
-                                      if (Singlesizeid == null) {
-                                        Utils.snackBar(context, 'Failed',
-                                            'Please Select Size');
-                                      } else {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            SinglecolorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.price
-                                                .toString();
-
-                                        EnglishAddtocartSize =
-                                            Singlesizeid.toString();
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                        Singlesize1 = null;
-                                        Singlesizeid = null;
-
-                                        selectedSizeIndex.value = -1;
-                                      }
-                                    } else if (Singlecolor != null) {
-                                      if (SinglecolorId == null) {
-                                        Utils.snackBar(context, 'Failed',
-                                            'Please Select Color');
-                                      } else {
-                                        Englishcartproductid =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.id
-                                                .toString();
-                                        EnglishAddtocartColor =
-                                            SinglecolorId.toString();
-                                        EnglishAddtocartprice =
-                                            productviewcontroller
-                                                .womensDress_userlist
-                                                .value
-                                                .productView
-                                                ?.price
-                                                .toString();
-
-                                        EnglishAddtocartSize =
-                                            Singlesizeid.toString();
-                                        AddToCartcontrollerin.addtocart_Apihit(
-                                            context);
-                                        Singlecolor = null;
-                                        SinglecolorId = null;
-                                        // selectedcolored.value = "null";
-                                        selectedcolorIndex.value = -1;
-                                      }
-                                    } else {
-                                      Englishcartproductid =
-                                          productviewcontroller
-                                              .womensDress_userlist
-                                              .value
-                                              .productView
-                                              ?.id
-                                              .toString();
-                                      EnglishAddtocartColor =
-                                          SinglecolorId.toString();
-                                      EnglishAddtocartprice =
-                                          productviewcontroller
-                                              .womensDress_userlist
-                                              .value
-                                              .productView
-                                              ?.price
-                                              .toString();
-
-                                      EnglishAddtocartSize =
-                                          Singlesizeid.toString();
-                                      AddToCartcontrollerin.addtocart_Apihit(
-                                          context);
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(45, 0, 45, 0),
-                                    child: Container(
-                                      // width: Get.width * .4,
-                                      height: Get.height * .06,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                          border: Border.all(
-                                            color:
-                                                // tappedList[index]
-                                                // ?
-                                                Color(0xffff8300),
-                                            // : Colors.black,
-                                            width: 2,
-                                          ),
-                                          color:
-                                              //tappedList[index]
-                                              //?
-                                              Color(0xffff8300)
-                                          // : Colors.transparent,
-                                          ),
-                                      child: AddToCartcontrollerin
-                                                  .loading.value ==
-                                              false
-                                          ? Center(
-                                              child: Text(
-                                                // tappedList[index]
-                                                // ?
-                                                "Add to cart",
-                                                // : "Already in cart",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color:
-                                                        // tappedList[index]
-                                                        //  ?
-                                                        Colors.white
-                                                    // : Colors.black,
-                                                    ),
-                                              ),
-                                            )
-                                          : Center(
-                                              child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )),
-                                    ),
-                                  ),
+                        //                       return SizedBox(
+                        //                         width: 70.h,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             selectedSizeIndex.value =
+                        //                                 index;
+                        //                             Singlesizeid =
+                        //                                 productviewcontroller
+                        //                                     .womensDress_userlist
+                        //                                     .value
+                        //                                     .productView
+                        //                                     ?.productDetails
+                        //                                     ?.details
+                        //                                     ?.size?[index]
+                        //                                     .id
+                        //                                     .toString();
+                        //                             // print(selectedSizeIndex);
+                        //                           },
+                        //                           child: Obx(
+                        //                             () => Center(
+                        //                               child: Container(
+                        //                                 width: 70.h,
+                        //                                 decoration:
+                        //                                     BoxDecoration(
+                        //                                   color: selectedSizeIndex
+                        //                                               .value ==
+                        //                                           index
+                        //                                       ? Color(
+                        //                                           0xffff8300)
+                        //                                       : const Color
+                        //                                           .fromARGB(
+                        //                                           111,
+                        //                                           158,
+                        //                                           158,
+                        //                                           158),
+                        //                                   borderRadius:
+                        //                                       BorderRadius.circular(
+                        //                                           20), // Adjust the border radius as needed
+                        //                                 ),
+                        //                                 padding: EdgeInsets.all(
+                        //                                     8), // Adjust the padding as needed
+                        //                                 child: Center(
+                        //                                   child: Text(
+                        //                                     '$selectedsizename',
+                        //                                     style: TextStyle(
+                        //                                       color: selectedSizeIndex
+                        //                                                   .value ==
+                        //                                               index
+                        //                                           ? Colors.white
+                        //                                           : Colors
+                        //                                               .black,
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       );
+                        //                     },
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         );
+                        //       },
+                        //     ),
+                        //   ),
+                        _buildColors(context),
+                        _buildsize(context),
+                        if (productviewcontroller.womensDress_userlist.value
+                                .productView?.productType ==
+                            "variable")
+                          Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: Get.height * .02,
                                 ),
-                              );
-                            },
+                                Row(
+                                  children: [
+                                    Text("Qty",
+                                        style: theme.textTheme.titleMedium),
+                                    SizedBox(
+                                      width: Get.width * .03,
+                                    ),
+                                    Container(
+                                      width: Get.width * .3,
+                                      height: Get.height * .05,
+                                      decoration: AppDecoration.fillPrimary
+                                          .copyWith(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadiusStyle
+                                                  .circleBorder30,
+                                              border: Border.all(
+                                                  color: Color(0xffff8300))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (colorId != null &&
+                                                  sizeid != null) {
+                                                int totalQuantity = int.tryParse(
+                                                        _productpricechangebyattributecontroller
+                                                            .totalQuantity
+                                                            .value) ??
+                                                    0;
+                                                if (quantity > 1)
+                                                  setState(() {
+                                                    quantity--;
+                                                  });
+                                                print(quantity);
+                                              } else {
+                                                Utils.snackBar(
+                                                    context,
+                                                    'Failed',
+                                                    'Please Select Color and Size Both');
+                                              }
+                                            },
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: Colors.black,
+                                              size: 15,
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              quantity.toString(),
+                                              style: theme.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                      color: Color(0xffff8300),
+                                                      fontSize: 20),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (colorId != null &&
+                                                  sizeid != null) {
+                                                int totalQuantity = int.tryParse(
+                                                        _productpricechangebyattributecontroller
+                                                            .totalQuantity
+                                                            .value) ??
+                                                    0;
+                                                if (quantity < totalQuantity)
+                                                  setState(() {
+                                                    quantity++;
+                                                  });
+                                                print(quantity);
+                                              } else {
+                                                Utils.snackBar(
+                                                    context,
+                                                    'Failed',
+                                                    'Please Select Color and Size Both');
+                                              }
+                                            },
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.black,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: Get.height * .02,
+                                ),
+                              ],
+                            ),
                           ),
-                        )
+
+                        if (productviewcontroller.womensDress_userlist.value
+                                .productView!.productType ==
+                            "variable")
+                          _buildAddToCartVariable(context)
+                        else
+                          _buildAddToCartSimple(context),
                       ],
                     ),
                   ),
@@ -14227,5 +14486,73 @@ class _Womens_Dress_SingleViewState extends State<Womens_Dress_SingleView> {
         ),
       );
     }
+  }
+
+  Widget _buildNoCartProduct(BuildContext context) {
+    return Container(
+        constraints: BoxConstraints(maxHeight: 400),
+        child: Container(
+            height: double.infinity,
+            constraints: BoxConstraints.expand(),
+            padding: EdgeInsets.symmetric(vertical: 18.v),
+            decoration: AppDecoration.fillWhiteA.copyWith(
+              borderRadius: BorderRadiusStyle.customBorderTL30,
+            ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3.v),
+                          child: Text(
+                            "Add to cart",
+                            style: theme.textTheme.titleMedium?.copyWith(),
+                          ),
+                        ),
+                        CustomImageView(
+                          onTap: () {
+                            Get.back();
+                          },
+                          imagePath: ImageConstant.imgMaskGroup24x24,
+                          height: 24.adaptSize,
+                          width: 24.adaptSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey.shade200,
+                  ),
+                  Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Center(
+                            child: Image.asset(
+                          'assets/images/no_product.png',
+                          color: Color(0xffff8300),
+                          width: 250,
+                          height: 200,
+                        )),
+                      ),
+                      Center(
+                        child: Text(
+                          "Oops! Product Not Found",
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                              color: Color.fromARGB(120, 0, 0, 0),
+                              fontSize: 15),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ))
+                ])));
   }
 }

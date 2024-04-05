@@ -745,9 +745,9 @@ class AuthRepository {
         return HealthandWellnessAllProductsviewModel.fromJson(response);
       case "187":
         return HomelivingProducts.fromJson(response);
-      case "191":
+      case "188":
         return HomelivingSubCatFurnitureProductsModel.fromJson(response);
-      case "192":
+      case "189":
         return HomelivingSubCatBeddingProductsModel.fromJson(response);
 
       default:

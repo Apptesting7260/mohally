@@ -9,6 +9,8 @@ import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/su
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
 import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLiving_FurnitureProductView.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -124,16 +126,10 @@ class _MaincategoryHomeandLivingScreenState
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "166") {
-                                      Get.to(SubCat_Electronics_smartphone());
-                                    } else if (submainCatId == "170") {
-                                      Get.to(SubCat_Electronics_laptops());
-                                    } else if (submainCatId == "171") {
-                                      Get.to(SubCat_Electronics_headphones());
-                                    } else if (submainCatId == "172") {
-                                      Get.to(SubCat_Electronics_camera());
-                                    } else if (submainCatId == "173") {
-                                      Get.to(SubCat_Electronics_wearable());
+                                    if (submainCatId == "188") {
+                                      Get.to(HomeLivingFurnitureProducts());
+                                    } else if (submainCatId == "189") {
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else {
                                       Get.to(NoProductFound());
                                     }

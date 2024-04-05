@@ -56,10 +56,7 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
   final kids_girlsApparel_userlist = BabyGirlsSubCatModel().obs;
   final kids_shoes_userlist = BabyShoesSubCatModel().obs;
   final kids_toys_userlist = BabytoysSubCatModel().obs;
-  // final health_and_wellness_userlist =
-  //     health_and_wellnessAllproductsModel().obs;
   final homeliving_userlist = HomelivingProducts().obs;
-
   final Health_vitamins_userlist = Health_vitaminsSubcatProductsviewModel().obs;
   final healthwellness_userlist = HealthandWellnessAllProductsviewModel().obs;
   final homeliving_furniture_userlist =
@@ -180,10 +177,10 @@ class ProductsByCatIdListControllerEnglish extends GetxController {
           return healthandWellnessModel(value);
         case "187":
           return HomelivingModel(value);
-        case "191":
+        case "188":
           return homeliving_furnitureModel(value);
 
-        case "192":
+        case "189":
           return homeliving_BeddingModel(value);
         // case "220":
         //   return kidsclothingModel(value);

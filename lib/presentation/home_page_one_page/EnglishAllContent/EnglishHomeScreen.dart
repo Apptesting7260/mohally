@@ -363,7 +363,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         borderRadius:
                                             BorderRadius.circular(38.0),
                                         child: Image.network(
-                                          "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
+                                          "${homeView_controller.userList.value.categoryData?[index].imageUrl}",
                                           height: 68,
                                           width: 68,
                                           fit: BoxFit.cover,

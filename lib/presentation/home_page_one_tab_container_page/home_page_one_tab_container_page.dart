@@ -210,10 +210,24 @@ class _HomePageOneTabContainerPageState
                             right: 330,
                             left: 0,
                             child: GestureDetector(
+                              // onTap: () {
+                              //   selectedTabIndex =
+                              //       -1; // assuming -1 indicates "All"
+                              //   mainCatId = null; // Clear the mainCatId
+                              //   setState(() {
+                              //     EnglishsubMainCatId = mainCatId;
+                              //   });
+                              //   Get.to(CategoryScreen(
+                              //       showAppBar: true,
+                              //       FromHomeToCat: true,
+                              //       selectedTabIndex: selectedTabIndex));
+                              // },
                               onTap: () {
-                                selectedTabIndex =
-                                    -1; // assuming -1 indicates "All"
-                                mainCatId = null; // Clear the mainCatId
+                                selectedTabIndex = 0;
+                                print(selectedTabIndex);
+                                mainCatId = homeView_controller
+                                    .userList.value.categoryData?[0].id!
+                                    .toString();
                                 setState(() {
                                   EnglishsubMainCatId = mainCatId;
                                 });

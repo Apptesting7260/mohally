@@ -128,8 +128,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
     Navigator.of(context).pop();
   }
 
+  int selectedIndex = 0;
+
   @override
   void initState() {
+    selectedIndex = widget.selectedTabIndex;
     SchedulerBinding.instance.addPostFrameCallback((_) {
       pagecontroller = PageController(initialPage: selectedTabIndex);
 
@@ -393,63 +396,142 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     height: widget.FromHomeToCat
                                         ? Get.height * .78
                                         : Get.height * .6,
+                                    // child: ListView.builder(
+                                    //   scrollDirection: Axis.vertical,
+                                    //   itemCount: homeView_controller
+                                    //       .userList.value.categoryData!.length,
+                                    //   itemBuilder:
+                                    //       (BuildContext context, int index) {
+                                    //     return GestureDetector(
+                                    //       onTap: () {
+                                    //         // isFeaturedSelected = false;
+                                    //         mainCatId = homeView_controller
+                                    //             .userList
+                                    //             .value
+                                    //             .categoryData?[index]
+                                    //             .id!
+                                    //             .toString();
+                                    //
+                                    //         setState(() {
+                                    //           // isFeaturedSelected =
+                                    //           //     false; // Update isFeaturedSelected
+                                    //           widget.FromHomeToCat
+                                    //               ? widget.selectedTabIndex
+                                    //               : selectedTabIndex =
+                                    //                   index; // Update selectedTabIndex
+                                    //           EnglishsubMainCatId = mainCatId;
+                                    //         });
+                                    //         print(selectedTabIndex);
+                                    //
+                                    //         print(mainCatId);
+                                    //         print(EnglishsubMainCatId);
+                                    //         _categoryByName.SeeAll_apiHit();
+                                    //         pagecontroller.animateToPage(
+                                    //             selectedTabIndex,
+                                    //             duration:
+                                    //                 Duration(milliseconds: 500),
+                                    //             curve: Curves.ease);
+                                    //       },
+                                    //       child: Obx(
+                                    //         () => Container(
+                                    //             child: Row(children: [
+                                    //           Container(
+                                    //             height: 60,
+                                    //             width: 120,
+                                    //             color: widget.FromHomeToCat
+                                    //                 ? widget.selectedTabIndex ==
+                                    //                         index
+                                    //                     ? Colors.white
+                                    //                     : Color.fromARGB(
+                                    //                         36, 158, 158, 158)
+                                    //                 : selectedTabIndex == index
+                                    //                     ? Colors.white
+                                    //                     : Color.fromARGB(
+                                    //                         36, 158, 158, 158),
+                                    //             // ),
+                                    //             child: Row(
+                                    //               children: [
+                                    //                 Container(
+                                    //                     height: 60,
+                                    //                     width: 4,
+                                    //                     color: widget
+                                    //                             .FromHomeToCat
+                                    //                         ? (widget.selectedTabIndex ==
+                                    //                                 index
+                                    //                             ? Colors.orange
+                                    //                             : Colors.white)
+                                    //                         : selectedTabIndex ==
+                                    //                                 index
+                                    //                             ? Colors.orange
+                                    //                             : Colors.white),
+                                    //                 Container(
+                                    //                   // height: 60,
+                                    //                   width: 100,
+                                    //                   child: Text(
+                                    //                     "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                    //                     style: TextStyle(
+                                    //                       color:
+                                    //                           Color(0xFF272727),
+                                    //                       fontSize: 12,
+                                    //                       fontFamily: 'Almarai',
+                                    //                       fontWeight:
+                                    //                           FontWeight.w500,
+                                    //                     ),
+                                    //                     maxLines: 3,
+                                    //                     textAlign:
+                                    //                         TextAlign.center,
+                                    //                     // theme.textTheme.bodySmall,
+                                    //                     // overflow: TextOverflow.ellipsis,
+                                    //                     // maxLines: 1,
+                                    //                   ),
+                                    //                 )
+                                    //               ],
+                                    //             ),
+                                    //           )
+                                    //         ])),
+                                    //       ),
+                                    //     );
+                                    //   },
+                                    // ),
+
                                     child: ListView.builder(
                                       scrollDirection: Axis.vertical,
-                                      itemCount: homeView_controller.userList
-                                              .value.categoryData?.length ??
-                                          0,
+                                      itemCount: homeView_controller
+                                          .userList.value.categoryData!.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return GestureDetector(
                                           onTap: () {
-                                            // isFeaturedSelected = false;
-                                            mainCatId = homeView_controller
-                                                .userList
-                                                .value
-                                                .categoryData?[index]
-                                                .id!
-                                                .toString();
-
                                             setState(() {
-                                              // isFeaturedSelected =
-                                              //     false; // Update isFeaturedSelected
-                                              widget.FromHomeToCat
-                                                  ? widget.selectedTabIndex
-                                                  : selectedTabIndex =
-                                                      index; // Update selectedTabIndex
+                                              selectedIndex = index;
+                                              mainCatId = homeView_controller
+                                                  .userList
+                                                  .value
+                                                  .categoryData?[index]
+                                                  .id!
+                                                  .toString();
                                               EnglishsubMainCatId = mainCatId;
+                                              _categoryByName.SeeAll_apiHit();
+                                              pagecontroller.animateToPage(
+                                                  selectedIndex,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  curve: Curves.ease);
                                             });
-                                            print(selectedTabIndex);
-
-                                            print(mainCatId);
-                                            print(EnglishsubMainCatId);
-                                            _categoryByName.SeeAll_apiHit();
-                                            pagecontroller.animateToPage(
-                                                selectedTabIndex,
-                                                duration:
-                                                    Duration(milliseconds: 500),
-                                                curve: Curves.ease);
                                           },
-                                          child: Obx(
-                                            () => Container(
-                                                child: Row(children: [
-                                              Container(
-                                                height: 60,
-                                                width: 120,
-                                                color: widget.FromHomeToCat
-                                                    ? widget.selectedTabIndex ==
-                                                            index
-                                                        ? Colors.white
-                                                        : Color.fromARGB(
-                                                            36, 158, 158, 158)
-                                                    : selectedTabIndex == index
-                                                        ? Colors.white
-                                                        : Color.fromARGB(
-                                                            36, 158, 158, 158),
-                                                // ),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 60,
+                                                  width: 120,
+                                                  color: selectedIndex == index
+                                                      ? Colors.white
+                                                      : Color.fromARGB(
+                                                          36, 158, 158, 158),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
                                                         height: 60,
                                                         width: 4,
                                                         color: widget
@@ -462,10 +544,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                                     index
                                                                 ? Colors.orange
                                                                 : Colors.white),
-                                                    // ),
-                                                    // SizedBox(
-                                                    //   width: Get.width * .03,
-                                                    // ),
                                                     Container(
                                                       // height: 60,
                                                       width: 100,

@@ -6,6 +6,9 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/category_page/KidsSubCategoryView/KidsclothingProductsView.dart';
 import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsBoysApparel.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsGirlsProductsView.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsShoesProductsView.dart';
+import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsToysProductView.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -154,15 +157,13 @@ class _MaincategoryKidsScreenState extends State<MaincategoryKidsScreen> {
                                       Get.to(SubCat_kids_babyclothing());
                                     } else if (submainCatId == "183") {
                                       Get.to(SubCat_kids_boysApparel());
-                                    }
-                                    //  else if (submainCatId == "184") {
-                                    //   Get.to(SubCat_kids_GirlsApparel());
-                                    // } else if (submainCatId == "185") {
-                                    //   Get.to(SubCat_kids_shoes());
-                                    // } else if (submainCatId == "186") {
-                                    //   Get.to(SubCat_kids_Toys());
-                                    // }
-                                    else {
+                                    } else if (submainCatId == "184") {
+                                      Get.to(SubCat_kids_GirlsApparel());
+                                    } else if (submainCatId == "185") {
+                                      Get.to(SubCat_kids_shoes());
+                                    } else if (submainCatId == "186") {
+                                      Get.to(SubCat_kids_Toys());
+                                    } else {
                                       Get.to(NoProductFound());
                                     }
                                   },

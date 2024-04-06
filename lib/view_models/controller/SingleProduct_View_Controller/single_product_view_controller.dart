@@ -7,13 +7,21 @@ import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_mo
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/cameraModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/headPhones.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/smartphonesModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsBoysSingleviewmodel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsClothingSingleviewmodel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsGirlsSingleviewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/kidsShoesSingleviewmodel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/kidsToysSingleviewModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ActiveWearModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/BottomsModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/FormalsModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/JaketandOutwearModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensJacketSingleViewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSingleBottomModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSingleProductViewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSleepWareSingleModel.dart';
 import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensTopSingleProductViewModel.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
@@ -38,8 +46,36 @@ class EnglishSingleProductViewController extends GetxController {
   final wearable_userlist = WearableModel().obs;
   final womenstops_userlist = WomensTopSingleViewModel().obs;
   final womensDress_userlist = WomensDressSingleViewModel().obs;
+  final womenBottom_userlist = WomensBottomsSingleViewModel().obs;
+  final womensJacket_userlist = WomensJacketSingleViewModel().obs;
+  final womensSleepware_userlist = WomensSleepwareSingleViewModel().obs;
+  final kidsclothing_userlist = KidsClothingSingleViewModel().obs;
+  final kidsgirls_userlist = KidsgirlsSingleViewModel().obs;
+  final kidsboys_userlist = KidsBoysSingleViewModel().obs;
+  final kidsshoes_userlist = KidsShoesSingleViewModel().obs;
+  final kidtoys_userlist = KidsToysSingleViewModel().obs;
+
   // final userList = Rx<dynamic>(null);
   RxString error = ''.obs;
+  void kidsclothingModel(KidsClothingSingleViewModel value) =>
+      kidsclothing_userlist.value = value;
+
+  void kidsBoysModel(KidsBoysSingleViewModel value) =>
+      kidsboys_userlist.value = value;
+
+  void kidsGirlsModel(KidsgirlsSingleViewModel value) =>
+      kidsgirls_userlist.value = value;
+
+  void kidsShoesModel(KidsShoesSingleViewModel value) =>
+      kidsshoes_userlist.value = value;
+  void kidstoysModel(KidsToysSingleViewModel value) =>
+      kidtoys_userlist.value = value;
+  void womens_bottomModel(WomensBottomsSingleViewModel value) =>
+      womenBottom_userlist.value = value;
+  void womens_JacketModel(WomensJacketSingleViewModel value) =>
+      womensJacket_userlist.value = value;
+  void womens_SleepwareModel(WomensSleepwareSingleViewModel value) =>
+      womensSleepware_userlist.value = value;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void shirtandTopsModel(ShirtAndTopsModel value) =>
@@ -123,9 +159,24 @@ class EnglishSingleProductViewController extends GetxController {
           return wearableModel(value);
         case "176":
           return womendressModel(value);
-
         case "177":
           return womenTopModel(value);
+        case "178":
+          return womens_bottomModel(value);
+        case "179":
+          return womens_JacketModel(value);
+        case "180":
+          return womens_SleepwareModel(value);
+        case "182":
+          return kidsclothingModel(value);
+        case "183":
+          return kidsBoysModel(value);
+        case "184":
+          return kidsGirlsModel(value);
+        case "185":
+          return kidsShoesModel(value);
+        case "186":
+          return kidstoysModel(value);
         default:
           throw Exception('Unexpected condition');
       }

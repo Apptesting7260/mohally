@@ -5,7 +5,7 @@ class LaptopsModel {
     this.productView,
     this.productReview,
   });
-  var status;
+  bool? status;
   var modalCategory;
   ProductView? productView;
   ProductReview? productReview;
@@ -36,6 +36,7 @@ class ProductView {
     this.description,
     this.productCatgories,
     this.productDetails,
+    this.inCart,
     this.quantity,
     this.price,
     this.imageUrl,
@@ -48,10 +49,11 @@ class ProductView {
   var description;
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
+  var inCart;
   var quantity;
   var price;
   var imageUrl;
-  List<String>? galleryUrl;
+  var galleryUrl;
 
   ProductView.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,10 +63,13 @@ class ProductView {
     description = json['description'];
     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
     productDetails = ProductDetails.fromJson(json['product_details']);
+    inCart = json['in_cart'];
     quantity = null;
     price = json['price'];
-    imageUrl = json['image_url'];
-    galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
+    imageUrl = json['image_url'] != null ? json['image_url'] : null;
+    galleryUrl = json['gallery_url'] != null
+        ? List.castFrom<dynamic, String>(json['gallery_url'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +81,7 @@ class ProductView {
     _data['description'] = description;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();
+    _data['in_cart'] = inCart;
     _data['quantity'] = quantity;
     _data['price'] = price;
     _data['image_url'] = imageUrl;
@@ -191,29 +197,25 @@ class ProductDetails {
 class Details {
   Details({
     this.color,
-    this.model,
     this.size,
-    this.capacity,
+    this.item,
   });
   List<Color>? color;
-  List<Model>? model;
-  List<Size>? size;
-  List<Capacity>? capacity;
+  List<Model>? size;
+  List<Items>? item;
 
   Details.fromJson(Map<String, dynamic> json) {
     color = List.from(json['Color']).map((e) => Color.fromJson(e)).toList();
-    model = List.from(json['Model']).map((e) => Model.fromJson(e)).toList();
-    size = List.from(json['Size']).map((e) => Size.fromJson(e)).toList();
-    capacity =
-        List.from(json['Capacity']).map((e) => Capacity.fromJson(e)).toList();
+    size = List.from(json['Model']).map((e) => Model.fromJson(e)).toList();
+    item = List.from(json['Items']).map((e) => Items.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['Color'] = color!.map((e) => e.toJson()).toList();
-    _data['Size'] = size!.map((e) => e.toJson()).toList();
-    _data['Model'] = model!.map((e) => e.toJson()).toList();
-    _data['Capacity'] = capacity!.map((e) => e.toJson()).toList();
+    _data['Model'] = size!.map((e) => e.toJson()).toList();
+    _data['Items'] = item!.map((e) => e.toJson()).toList();
+
     return _data;
   }
 }
@@ -222,19 +224,27 @@ class Color {
   Color({
     this.id,
     this.value,
+    this.featureImage,
+    this.gallery,
   });
   var id;
   var value;
+  var featureImage;
+  List<String>? gallery;
 
   Color.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     value = json['value'];
+    featureImage = json['feature_image'];
+    gallery = List.castFrom<dynamic, String>(json['gallery']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
     _data['value'] = value;
+    _data['feature_image'] = featureImage;
+    _data['gallery'] = gallery;
     return _data;
   }
 }
@@ -260,36 +270,15 @@ class Model {
   }
 }
 
-class Size {
-  Size({
+class Items {
+  Items({
     this.id,
     this.value,
   });
   var id;
   var value;
 
-  Size.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['value'] = value;
-    return _data;
-  }
-}
-
-class Capacity {
-  Capacity({
-    this.id,
-    this.value,
-  });
-  var id;
-  var value;
-
-  Capacity.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     value = json['value'];
   }

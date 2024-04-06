@@ -53,7 +53,7 @@ class ProductView {
   var quantity;
   var price;
   var imageUrl;
-  var galleryUrl;
+  List<String>? galleryUrl;
 
   ProductView.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -66,8 +66,11 @@ class ProductView {
     inCart = json['in_cart'];
     quantity = null;
     price = json['price'];
-    imageUrl = null;
-    galleryUrl = null;
+    imageUrl = json['image_url'] != null ? json['image_url'] : null;
+    galleryUrl = json['gallery_url'] != null
+        ? List.castFrom<dynamic, String>(json['gallery_url'])
+        : null;
+    ;
   }
 
   Map<String, dynamic> toJson() {

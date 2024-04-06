@@ -6,6 +6,9 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatBottomProducts.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatJacketProducts.dart';
+import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatSleepWareProducts.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
 import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
@@ -161,6 +164,12 @@ class _MaincategoryWomensScreenState extends State<MaincategoryWomensScreen> {
                                       Get.to(SubCat_Womens_Dresses());
                                     } else if (submainCatId == "177") {
                                       Get.to(SubCat_Womens_Tops());
+                                    } else if (submainCatId == "178") {
+                                      Get.to(Womens_SubCatBottomsProducts());
+                                    } else if (submainCatId == "179") {
+                                      Get.to(Womens_SubCatJacketsProducts());
+                                    } else if (submainCatId == "180") {
+                                      Get.to(Womens_SubCatSleepwareProducts());
                                     } else {
                                       Get.to(NoProductFound());
                                     }

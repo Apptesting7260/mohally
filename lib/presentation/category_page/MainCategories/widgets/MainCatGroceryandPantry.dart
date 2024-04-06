@@ -4,11 +4,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatNaturalsProducts.dart';
+import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatPantryProductsScreen.dart';
+import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubcatSnacksProductsscreen.dart';
+import 'package:mohally/presentation/category_page/GrocerySubCatProducts/Grocery_FreshproduceproductsScreen.dart';
+import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerysubcatBevergesProducts.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -123,16 +123,16 @@ class _MaincategoryGroceryandPantryScreenState
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "166") {
-                                      Get.to(SubCat_Electronics_smartphone());
-                                    } else if (submainCatId == "170") {
-                                      Get.to(SubCat_Electronics_laptops());
-                                    } else if (submainCatId == "171") {
-                                      Get.to(SubCat_Electronics_headphones());
-                                    } else if (submainCatId == "172") {
-                                      Get.to(SubCat_Electronics_camera());
-                                    } else if (submainCatId == "173") {
-                                      Get.to(SubCat_Electronics_wearable());
+                                    if (submainCatId == "224") {
+                                      Get.to(GrocerySubCatProduceProducts());
+                                    } else if (submainCatId == "225") {
+                                      Get.to(GrocerySubCatPantryProducts());
+                                    } else if (submainCatId == "226") {
+                                      Get.to(GrocerySubCatSnacksProducts());
+                                    } else if (submainCatId == "227") {
+                                      Get.to(GrocerySubCatBevergesProducts());
+                                    } else if (submainCatId == "228") {
+                                      Get.to(GrocerySubatNaturalsProducts());
                                     } else {
                                       Get.to(NoProductFound());
                                     }

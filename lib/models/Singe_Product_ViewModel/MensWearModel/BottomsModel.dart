@@ -5,7 +5,7 @@ class BottomsModel {
     this.productView,
     this.productReview,
   });
-  bool? status;
+  var status;
   var modalCategory;
   ProductView? productView;
   ProductReview? productReview;
@@ -36,6 +36,7 @@ class ProductView {
     this.description,
     this.productCatgories,
     this.productDetails,
+    this.inCart,
     this.quantity,
     this.price,
     this.imageUrl,
@@ -48,6 +49,7 @@ class ProductView {
   var description;
   ProductCatgories? productCatgories;
   ProductDetails? productDetails;
+  var inCart;
   var quantity;
   var price;
   var imageUrl;
@@ -61,10 +63,14 @@ class ProductView {
     description = json['description'];
     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
     productDetails = ProductDetails.fromJson(json['product_details']);
+    inCart = json['in_cart'];
     quantity = null;
     price = json['price'];
-    imageUrl = json['image_url'];
-    galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
+    imageUrl = json['image_url'] != null ? json['image_url'] : null;
+    galleryUrl = json['gallery_url'] != null
+        ? List.castFrom<dynamic, String>(json['gallery_url'])
+        : null;
+    ;
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +82,7 @@ class ProductView {
     _data['description'] = description;
     _data['product_catgories'] = productCatgories!.toJson();
     _data['product_details'] = productDetails!.toJson();
+    _data['in_cart'] = inCart;
     _data['quantity'] = quantity;
     _data['price'] = price;
     _data['image_url'] = imageUrl;
@@ -213,19 +220,27 @@ class Color {
   Color({
     this.id,
     this.value,
+    this.featureImage,
+    this.gallery,
   });
   var id;
   var value;
+  var featureImage;
+  List<String>? gallery;
 
   Color.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     value = json['value'];
+    featureImage = json['feature_image'];
+    gallery = List.castFrom<dynamic, String>(json['gallery']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
     _data['value'] = value;
+    _data['feature_image'] = featureImage;
+    _data['gallery'] = gallery;
     return _data;
   }
 }

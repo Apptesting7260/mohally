@@ -13,9 +13,12 @@ class EnglishAllSubCategory extends GetxController {
   RxString error = ''.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
   void setUserList(Search_MainCategory_Model value) => userlist.value = value;
+
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
+
   void AllSubCat() async {
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
@@ -26,11 +29,11 @@ class EnglishAllSubCategory extends GetxController {
     Map data = {"main_cat_name": "", "language_type": "English"};
     var header = {'Authorization': "Bearer $token"};
     _api.EnglishsearchcategoriesApi(data, header).then((value) {
-      setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
       loading.value = false;
+      setRxRequestStatus(Status.COMPLETED);
     }).onError((error, stackTrace) {
       print("AllSubCat===error");
       print(error.toString());

@@ -1,5 +1,5 @@
-// class WearableModel {
-//   WearableModel({
+// class SmartPhoneModel {
+//   SmartPhoneModel({
 //     this.status,
 //     this.modalCategory,
 //     this.productView,
@@ -10,7 +10,7 @@
 //   ProductView? productView;
 //   ProductReview? productReview;
 
-//   WearableModel.fromJson(Map<String, dynamic> json) {
+//   SmartPhoneModel.fromJson(Map<String, dynamic> json) {
 //     status = json['status'];
 //     modalCategory = json['modal_category'];
 //     productView = ProductView.fromJson(json['product_view']);
@@ -36,6 +36,7 @@
 //     this.description,
 //     this.productCatgories,
 //     this.productDetails,
+//     this.inCart,
 //     this.quantity,
 //     this.price,
 //     this.imageUrl,
@@ -48,10 +49,11 @@
 //   var description;
 //   ProductCatgories? productCatgories;
 //   ProductDetails? productDetails;
+//   var inCart;
 //   var quantity;
 //   var price;
 //   var imageUrl;
-//   List<String>? galleryUrl;
+//   var galleryUrl;
 
 //   ProductView.fromJson(Map<String, dynamic> json) {
 //     id = json['id'];
@@ -61,10 +63,13 @@
 //     description = json['description'];
 //     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
 //     productDetails = ProductDetails.fromJson(json['product_details']);
-//     quantity = json['quantity'];
+//     inCart = json['in_cart'];
+//     quantity = null;
 //     price = json['price'];
-//     imageUrl = json['image_url'];
-//     galleryUrl = List.castFrom<dynamic, String>(json['gallery_url']);
+//     imageUrl = json['image_url'] != null ? json['image_url'] : null;
+//     galleryUrl = json['gallery_url'] != null
+//         ? List.castFrom<dynamic, String>(json['gallery_url'])
+//         : null;
 //   }
 
 //   Map<String, dynamic> toJson() {
@@ -76,6 +81,7 @@
 //     _data['description'] = description;
 //     _data['product_catgories'] = productCatgories!.toJson();
 //     _data['product_details'] = productDetails!.toJson();
+//     _data['in_cart'] = inCart;
 //     _data['quantity'] = quantity;
 //     _data['price'] = price;
 //     _data['image_url'] = imageUrl;
@@ -191,24 +197,25 @@
 // class Details {
 //   Details({
 //     this.color,
-//     this.items,
-//     this.model,
+//     this.size,
+//     this.item,
 //   });
 //   List<Color>? color;
-//   List<Items>? items;
-//   List<Model>? model;
+//   List<Model>? size;
+//   List<Items>? item;
 
 //   Details.fromJson(Map<String, dynamic> json) {
 //     color = List.from(json['Color']).map((e) => Color.fromJson(e)).toList();
-//     items = List.from(json['Items']).map((e) => Items.fromJson(e)).toList();
-//     model = List.from(json['Model']).map((e) => Model.fromJson(e)).toList();
+//     size = List.from(json['Model']).map((e) => Model.fromJson(e)).toList();
+//     item = List.from(json['Items']).map((e) => Items.fromJson(e)).toList();
 //   }
 
 //   Map<String, dynamic> toJson() {
 //     final _data = <String, dynamic>{};
 //     _data['Color'] = color!.map((e) => e.toJson()).toList();
-//     _data['Items'] = items!.map((e) => e.toJson()).toList();
-//     _data['Model'] = model!.map((e) => e.toJson()).toList();
+//     _data['Model'] = size!.map((e) => e.toJson()).toList();
+//     _data['Items'] = item!.map((e) => e.toJson()).toList();
+
 //     return _data;
 //   }
 // }
@@ -217,13 +224,42 @@
 //   Color({
 //     this.id,
 //     this.value,
+//     this.featureImage,
+//     this.gallery,
+//   });
+//   var id;
+//   var value;
+//   var featureImage;
+//   List<String>? gallery;
+
+//   Color.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     value = json['value'];
+//     featureImage = json['feature_image'];
+//     gallery = List.castFrom<dynamic, String>(json['gallery']);
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final _data = <String, dynamic>{};
+//     _data['id'] = id;
+//     _data['value'] = value;
+//     _data['feature_image'] = featureImage;
+//     _data['gallery'] = gallery;
+//     return _data;
+//   }
+// }
+
+// class Model {
+//   Model({
+//     this.id,
+//     this.value,
 //   });
 //   var id;
 //   var value;
 
-//   Color.fromJson(Map<String, dynamic> json) {
-//     id = null;
-//     value = null;
+//   Model.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     value = json['value'];
 //   }
 
 //   Map<String, dynamic> toJson() {
@@ -243,29 +279,8 @@
 //   var value;
 
 //   Items.fromJson(Map<String, dynamic> json) {
-//     id = null;
-//     value = null;
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['id'] = id;
-//     _data['value'] = value;
-//     return _data;
-//   }
-// }
-
-// class Model {
-//   Model({
-//     this.id,
-//     this.value,
-//   });
-//   var id;
-//   var value;
-
-//   Model.fromJson(Map<String, dynamic> json) {
-//     id = null;
-//     value = null;
+//     id = json['id'];
+//     value = json['value'];
 //   }
 
 //   Map<String, dynamic> toJson() {
@@ -282,69 +297,18 @@
 //     this.productReviewDetails,
 //   });
 //   var productAverageReview;
-//   List<ProductReviewDetails>? productReviewDetails;
+//   List<dynamic>? productReviewDetails;
 
 //   ProductReview.fromJson(Map<String, dynamic> json) {
 //     productAverageReview = json['product_average_review'];
-//     productReviewDetails = List.from(json['product_review_details'])
-//         .map((e) => ProductReviewDetails.fromJson(e))
-//         .toList();
+//     productReviewDetails =
+//         List.castFrom<dynamic, dynamic>(json['product_review_details']);
 //   }
 
 //   Map<String, dynamic> toJson() {
 //     final _data = <String, dynamic>{};
 //     _data['product_average_review'] = productAverageReview;
-//     _data['product_review_details'] =
-//         productReviewDetails!.map((e) => e.toJson()).toList();
-//     return _data;
-//   }
-// }
-
-// class ProductReviewDetails {
-//   ProductReviewDetails({
-//     this.id,
-//     this.userName,
-//     this.description,
-//     this.ratting,
-//     this.helpful,
-//     this.helpfulStatus,
-//     this.userImage,
-//     this.reviewDate,
-//     this.galleryUrl,
-//   });
-//   var id;
-//   var userName;
-//   var description;
-//   var ratting;
-//   var helpful;
-//   var helpfulStatus;
-//   var userImage;
-//   var reviewDate;
-//   var galleryUrl;
-
-//   ProductReviewDetails.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     userName = json['user_name'];
-//     description = json['description'];
-//     ratting = json['ratting'];
-//     helpful = json['helpful'];
-//     helpfulStatus = json['helpful_status'];
-//     userImage = json['user_image'];
-//     reviewDate = json['review_date'];
-//     galleryUrl = null;
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['id'] = id;
-//     _data['user_name'] = userName;
-//     _data['description'] = description;
-//     _data['ratting'] = ratting;
-//     _data['helpful'] = helpful;
-//     _data['helpful_status'] = helpfulStatus;
-//     _data['user_image'] = userImage;
-//     _data['review_date'] = reviewDate;
-//     _data['gallery_url'] = galleryUrl;
+//     _data['product_review_details'] = productReviewDetails;
 //     return _data;
 //   }
 // }

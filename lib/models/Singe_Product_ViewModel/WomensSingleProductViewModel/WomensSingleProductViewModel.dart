@@ -63,7 +63,7 @@ class ProductView {
     description = json['description'];
     productCatgories = ProductCatgories.fromJson(json['product_catgories']);
     productDetails = ProductDetails.fromJson(json['product_details']);
-    inCart = json['in_cart'];
+    inCart = json['in_cart'] != null ? json['in_cart'] : null;
     quantity = null;
     price = json['price'];
     imageUrl = json['image_url'] != null ? json['image_url'] : null;

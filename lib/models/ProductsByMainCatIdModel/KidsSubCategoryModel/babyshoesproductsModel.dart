@@ -8,9 +8,11 @@ class BabyShoesSubCatModel {
 
   BabyShoesSubCatModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    productByCategory = List.from(json['product_by_category'])
-        .map((e) => ProductByCategory.fromJson(e))
-        .toList();
+    productByCategory = json['product_by_category'] != null
+        ? List.from(json['product_by_category'])
+            .map((e) => ProductByCategory.fromJson(e))
+            .toList()
+        : null;
   }
 
   Map<String, dynamic> toJson() {

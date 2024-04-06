@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
+import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/SmartPhonesSingleViewScreen.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -19,14 +19,12 @@ import 'package:mohally/widgets/custom_rating_bar.dart';
 
 // String? allmainCatId;
 // String? allProductId;
-String? subMainCat;
 String? color;
 String? size1;
 
 class SubCat_Health_VitaminsProductScreen extends StatefulWidget {
   final bool showAppBar;
-
-  const SubCat_Health_VitaminsProductScreen({Key? key, this.showAppBar = true})
+  const SubCat_Health_VitaminsProductScreen({Key? key, this.showAppBar: true})
       : super(key: key);
 
   @override
@@ -37,9 +35,9 @@ class SubCat_Health_VitaminsProductScreen extends StatefulWidget {
 class _SubCat_Health_VitaminsProductScreenState
     extends State<SubCat_Health_VitaminsProductScreen> {
   List<bool> tappedList = List.generate(200, (index) => false);
-  ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
-      ProductPriceChngeByAttribute();
+
   final AddToCartcontrollerin = Get.put(AddToCartcontroller());
+
   RxInt selectedImageIndex = 0.obs;
   RxString selectedImageUrl = ''.obs;
   RxString selectedcolored = "".obs;
@@ -54,6 +52,8 @@ class _SubCat_Health_VitaminsProductScreenState
     _productbycatid_controller.ProductByCatId_apiHit();
   }
 
+  ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
+      ProductPriceChngeByAttribute();
   List<bool> isButtonTappedList = List.generate(200, (index) => false);
   ProductsByCatIdListControllerEnglish _productbycatid_controller =
       ProductsByCatIdListControllerEnglish();
@@ -112,23 +112,7 @@ class _SubCat_Health_VitaminsProductScreenState
                   _productbycatid_controller.Health_vitamins_userlist.value
                           .productByCategory?.length ==
                       0
-              ? Center(
-                  child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/no_product.png',
-                      color: Color(0xffff8300),
-                    ),
-                    SizedBox(
-                      height: Get.height * .03,
-                    ),
-                    Text(
-                      "Page Not Found",
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.normal, fontSize: 18),
-                    ),
-                  ],
-                ))
+              ? NoProductFound()
               : SingleChildScrollView(
                   child: Column(
                     children: [
@@ -182,8 +166,11 @@ class _SubCat_Health_VitaminsProductScreenState
                                             EnglishMainCatId = mainCatId;
                                           });
                                           print("$Englishproductid==");
-                                          if (mainCatId == "176") {
-                                            Get.to(Womens_Dress_SingleView());
+                                          if (mainCatId == "166") {
+                                            Get.to(
+                                                SinglePageScreen_Electronics_Smartphones());
+                                          } else {
+                                            print('not found ');
                                           }
                                         },
                                         fit: BoxFit.cover,
@@ -366,6 +353,8 @@ class _SubCat_Health_VitaminsProductScreenState
                                               Englishproductid = productId;
                                               EnglishMainCatId = mainCatId;
                                             });
+
+                                            print(mainCatId.toString());
                                           },
                                           height: 30.adaptSize,
                                           width: 30.adaptSize,

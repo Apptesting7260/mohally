@@ -4,11 +4,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
+import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureCarpetProducts.dart';
+import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureHomedecorProducts.dart';
+import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLightProducts.dart';
+import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLivingRoomProducts.dart';
+import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furniture_bedroomProducts.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -123,16 +123,16 @@ class _MaincategoryFurnitureScreenState
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "166") {
-                                      Get.to(SubCat_Electronics_smartphone());
-                                    } else if (submainCatId == "170") {
-                                      Get.to(SubCat_Electronics_laptops());
-                                    } else if (submainCatId == "171") {
-                                      Get.to(SubCat_Electronics_headphones());
-                                    } else if (submainCatId == "172") {
-                                      Get.to(SubCat_Electronics_camera());
-                                    } else if (submainCatId == "173") {
-                                      Get.to(SubCat_Electronics_wearable());
+                                    if (submainCatId == "212") {
+                                      Get.to(FurnitureLivingRoomProducts());
+                                    } else if (submainCatId == "213") {
+                                      Get.to(FurnitureBedRoomProducts());
+                                    } else if (submainCatId == "214") {
+                                      Get.to(FurnitureHomedecorProducts());
+                                    } else if (submainCatId == "215") {
+                                      Get.to(FurnitureLightsProducts());
+                                    } else if (submainCatId == "216") {
+                                      Get.to(FurniturecarpetsProducts());
                                     } else {
                                       Get.to(NoProductFound());
                                     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/presentation/welcome_screen/welcome_screen.dart';
 import 'package:mohally/presentation/choose_language_screen/choose_language_screen.dart';
@@ -7,7 +8,6 @@ import 'package:mohally/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:mohally/presentation/verification_code_screen/verification_code_screen.dart';
 import 'package:mohally/presentation/home_page_one_container_screen/home_page_one_container_screen.dart';
 import 'package:mohally/presentation/search_screen/search_screen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/presentation/add_review_screen/add_review_screen.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
@@ -123,7 +123,7 @@ class AppRoutes {
         ),
     homePageOneContainerScreen: (context) => HomePageOneContainerScreen(),
     searchScreen: (context) => SearchScreen(),
-    singlePageScreen: (context) => ShirtsandTopsSingleView(),
+    singlePageScreen: (context) => SingleProductView(),
     reviewsScreen: (context) => ReviewsScreen(),
     addReviewScreen: (context) => AddReviewScreen(),
     shippingAddressesScreen: (context) => ShippingAddress(),

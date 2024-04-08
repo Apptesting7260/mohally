@@ -2,21 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/ElectronicsAllProductView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/MensAllProduct.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -258,39 +244,37 @@ class _CategorySearchState extends State<CategorySearch> {
                             });
                             print("$EnglishproductbyCatId==");
                             if (submainCatId == "133") {
-                              Get.to(MensAllProduct());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "134") {
-                              Get.to(ElectronicsAllProduct());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "175") {
-                              Get.to(WomensAllProduct());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "153") {
-                              Get.to(SubCat_Mens_ShirtsView());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "154") {
-                              Get.to(SubCat_Mens_Bottoms());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "155") {
-                              Get.to(SubCat_Mens_jacket());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "156") {
-                              Get.to(SubCat_Mens_activewear());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "157") {
-                              Get.to(SubCat_Mens_formals());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "174") {
-                              Get.to(SubCat_Mens_shoes());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "166") {
-                              Get.to(SubCat_Electronics_smartphone());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "170") {
-                              Get.to(SubCat_Electronics_laptops());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "171") {
-                              Get.to(SubCat_Electronics_headphones());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "172") {
-                              Get.to(SubCat_Electronics_camera());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "173") {
-                              Get.to(MaincategoryWomensScreen());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "176") {
-                              Get.to(SubCat_Womens_Dresses());
+                              Get.to(HomeLivingBeddingProducts());
                             } else if (submainCatId == "177") {
-                              Get.to(SubCat_Womens_Tops());
-                            } else {
-                              Get.to(NoProductFound());
+                              Get.to(HomeLivingBeddingProducts());
                             }
                           },
                         ),

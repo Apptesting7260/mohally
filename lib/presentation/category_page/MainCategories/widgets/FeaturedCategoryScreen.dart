@@ -4,64 +4,11 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/FurnitureAllproducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLivingRoomProducts.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GroceryAllProductScreen.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandwellnessAllProducts.dart';
 import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
-import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLiving_FurnitureProductView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/KidsclothingProductsView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsBoysApparel.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsGirlsProductsView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsShoesProductsView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsToysProductView.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenAllProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenCookwareProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenDiningProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenGadgetsProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenLargeAppliances.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenSmallAppliancesProducts.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatBottomProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatJacketProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatSleepWareProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/ElectronicsAllProductView.dart';
-import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingAllProductsView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsAllproductsScreen.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/MensAllProduct.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatNaturalsProducts.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatPantryProductsScreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubcatSnacksProductsscreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/Grocery_FreshproduceproductsScreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerysubcatBevergesProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/Health_vitaminsSubcatProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandWellnessFittnessProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandWellnessSubCatHealthuidesProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandWellnessSubCatProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandwellnessSubCatwellnessGuides.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureCarpetProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureHomedecorProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLightProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLivingRoomProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furniture_bedroomProducts.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 
 // String? submainCatId;
 
@@ -179,129 +126,159 @@ class _FeaturedCategoryScreenState extends State<FeaturedCategoryScreen> {
 
                                         print("$EnglishsubMainCatId==");
                                         if (submainCatId == "133") {
-                                          Get.to(MensAllProduct());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "156") {
-                                          Get.to(SubCat_Mens_activewear());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "154") {
-                                          Get.to(SubCat_Mens_Bottoms());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "157") {
-                                          Get.to(SubCat_Mens_formals());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "155") {
-                                          Get.to(SubCat_Mens_jacket());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "174") {
-                                          Get.to(SubCat_Mens_shoes());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "153") {
-                                          Get.to(SubCat_Mens_ShirtsView());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "134") {
-                                          Get.to(ElectronicsAllProduct());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "172") {
-                                          Get.to(SubCat_Electronics_camera());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "171") {
-                                          Get.to(
-                                              SubCat_Electronics_headphones());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "170") {
-                                          Get.to(SubCat_Electronics_laptops());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "166") {
-                                          Get.to(
-                                              SubCat_Electronics_smartphone());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "173") {
-                                          Get.to(SubCat_Electronics_wearable());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "175") {
-                                          Get.to(WomensAllProduct());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "176") {
-                                          Get.to(SubCat_Womens_Dresses());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "177") {
-                                          Get.to(SubCat_Womens_Tops());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "178") {
-                                          Get.to(
-                                              Womens_SubCatBottomsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "179") {
-                                          Get.to(
-                                              Womens_SubCatJacketsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "180") {
-                                          Get.to(
-                                              Womens_SubCatSleepwareProducts());
-                                        } else if (submainCatId == "183") {
-                                          Get.to(SubCat_kids_boysApparel());
-                                        } else if (submainCatId == "182") {
-                                          Get.to(SubCat_kids_babyclothing());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "181") {
-                                          Get.to(KidsAllProductsScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "182") {
-                                          Get.to(SubCat_kids_babyclothing());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "183") {
-                                          Get.to(SubCat_kids_boysApparel());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "184") {
-                                          Get.to(SubCat_kids_GirlsApparel());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "185") {
-                                          Get.to(SubCat_kids_shoes());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "186") {
-                                          Get.to(SubCat_kids_Toys());
-                                        } else if (submainCatId == "188") {
-                                          Get.to(HomeLivingFurnitureProducts());
-                                        } else if (submainCatId == "189") {
                                           Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "187") {
-                                          Get.to(HomeLivingAllProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "223") {
-                                          Get.to(GroceryAllProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "224") {
-                                          Get.to(
-                                              GrocerySubCatProduceProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "225") {
-                                          Get.to(GrocerySubCatPantryProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "226") {
-                                          Get.to(GrocerySubCatSnacksProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "227") {
-                                          Get.to(
-                                              GrocerySubCatBevergesProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "228") {
-                                          Get.to(
-                                              GrocerySubatNaturalsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "217") {
-                                          Get.to(
-                                              HealthandWellnessAllProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "218") {
-                                          Get.to(
-                                              SubCat_Health_VitaminsProductScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "219") {
-                                          Get.to(
-                                              SubCat_Health_FittnessProductScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "220") {
-                                          Get.to(
-                                              SubCat_Health_personalProductScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "221") {
-                                          Get.to(
-                                              SubCat_Health_healthGuideProductScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "222") {
-                                          Get.to(
-                                              SubCat_Health_wellnessGuideProductScreen());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "211") {
-                                          Get.to(FurnitureAllProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "212") {
-                                          Get.to(FurnitureLivingRoomProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "213") {
-                                          Get.to(FurnitureBedRoomProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "214") {
-                                          Get.to(FurnitureHomedecorProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "215") {
-                                          Get.to(FurnitureLightsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "216") {
-                                          Get.to(FurniturecarpetsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "205") {
-                                          Get.to(KitchenAllProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "206") {
-                                          Get.to(
-                                              Kitchen_smallAppliancesProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "207") {
-                                          Get.to(Kitchen_cookwareProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "208") {
-                                          Get.to(Kitchen_GadgetsProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "209") {
-                                          Get.to(
-                                              Kitchen_LargeAppliancesProducts());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "210") {
-                                          Get.to(Kitchen_DiningProducts());
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "200") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "201") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "202") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "203") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "204") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "199") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "205") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "274") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "275") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "276") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "193") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "194") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "195") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "196") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "197") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "198") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "188") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "189") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "190") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "191") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "192") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "199") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "200") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "201") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "202") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "203") {
+                                          Get.to(HomeLivingBeddingProducts());
+                                        } else if (submainCatId == "204") {
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else {
                                           Get.to(NoProductFound(
                                             showAppBar: true,

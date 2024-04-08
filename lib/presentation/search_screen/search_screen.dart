@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/EnglishSearchController/EnglishsearchController.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
@@ -12,19 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../search_screen/widgets/vectorchipview_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/AudioSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/CameraSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/LaptopsSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/SmartPhonesSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/WearableSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ActivewearSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/Bottoms_single_view.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/JacketandOutwearSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/MensShoesSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/SuitsandFormalsSingleVoewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensTopsSingleViewScreen.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key})
@@ -262,34 +250,33 @@ class _SearchScreenState extends State<SearchScreen> {
                         });
                         print("$Englishproductid==");
                         if (mainCatId == "153") {
-                          Get.to(ShirtsandTopsSingleView());
+                          Get.to(SingleProductView());
                           print(
                               "$mainCatId===========Mens Appearl main category id ");
                         } else if (mainCatId == "154") {
-                          Get.to(SinglePageScreen_Bottoms());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "155") {
-                          Get.to(SinglePageScreen_mens_Jacket());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "156") {
-                          Get.to(SinglePageScreen_mens_activewear());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "157") {
-                          Get.to(SinglePageScreen_Mens_Formals());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "174") {
-                          Get.to(SinglePageScreen_Mens_Shoes());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "166") {
-                          Get.to(SinglePageScreen_Electronics_Smartphones());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "170") {
-                          Get.to(SinglePageScreen_Electronics_Laptops());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "171") {
-                          Get.to(
-                              SinglePageScreen_Electronics_AudioHeadphones());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "172") {
-                          Get.to(SinglePageScreen_Electronics_Camera());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "173") {
-                          Get.to(SinglePageScreen_Electronics_wearable());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "176") {
-                          Get.to(Womens_Dress_SingleView());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "177") {
-                          Get.to(Womens_Tops_SingleView());
+                          Get.to(SingleProductView());
                         } else {
                           print('not found ');
                         }

@@ -222,6 +222,20 @@ class _HomePageOneTabContainerPageState
                               //       FromHomeToCat: true,
                               //       selectedTabIndex: selectedTabIndex));
                               // },
+                              // onTap: () {
+                              //   selectedTabIndex = 0;
+                              //   print(selectedTabIndex);
+                              //   mainCatId = homeView_controller
+                              //       .userList.value.categoryData?[0].id!
+                              //       .toString();
+                              //   setState(() {
+                              //     EnglishsubMainCatId = mainCatId;
+                              //   });
+                              //   Get.to(CategoryScreen(
+                              //       showAppBar: true,
+                              //       FromHomeToCat: true,
+                              //       selectedTabIndex: selectedTabIndex));
+                              // },
                               onTap: () {
                                 selectedTabIndex = 0;
                                 print(selectedTabIndex);

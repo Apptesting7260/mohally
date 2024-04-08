@@ -5,12 +5,7 @@ import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_foun
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatBottomProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatJacketProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensSubCatSleepWareProducts.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -161,17 +156,17 @@ class _MaincategoryWomensScreenState extends State<MaincategoryWomensScreen> {
                                     });
                                     print("$EnglishproductbyCatId==");
                                     if (submainCatId == "176") {
-                                      Get.to(SubCat_Womens_Dresses());
+                                        Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "177") {
-                                      Get.to(SubCat_Womens_Tops());
+                                         Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "178") {
-                                      Get.to(Womens_SubCatBottomsProducts());
+                                        Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "179") {
-                                      Get.to(Womens_SubCatJacketsProducts());
+                                         Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "180") {
-                                      Get.to(Womens_SubCatSleepwareProducts());
+                                         Get.to(HomeLivingBeddingProducts());
                                     } else {
-                                      Get.to(NoProductFound());
+                                      Get.to(NoProductFound(showAppBar: true,));
                                     }
                                   },
                                   child: Column(

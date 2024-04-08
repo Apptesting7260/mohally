@@ -1,12 +1,12 @@
-class WomensDressSubcatviewModel {
-  WomensDressSubcatviewModel({
+class SubCategoryProducts {
+  SubCategoryProducts({
     this.status,
     this.productByCategory,
   });
   bool? status;
   List<ProductByCategory>? productByCategory;
 
-  WomensDressSubcatviewModel.fromJson(Map<String, dynamic> json) {
+  SubCategoryProducts.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     productByCategory = json['product_by_category'] != null
         ? List.from(json['product_by_category'])

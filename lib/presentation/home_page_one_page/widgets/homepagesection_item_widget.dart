@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
@@ -122,7 +122,7 @@ class HomepagesectionItemWidget extends StatelessWidget {
               ),
               child: CustomIconButton(
                 onTap: () {
-                  Get.to(() => ShirtsandTopsSingleView());
+                  Get.to(() => SingleProductView());
                 },
                 height: 30.adaptSize,
                 width: 30.adaptSize,

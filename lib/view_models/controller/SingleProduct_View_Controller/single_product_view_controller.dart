@@ -2,27 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/LaptopsModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/WearableModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/cameraModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/headPhones.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/Electronic_single_view_model/smartphonesModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsBoysSingleviewmodel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsClothingSingleviewmodel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/KidsGirlsSingleviewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/kidsShoesSingleviewmodel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/KidsSingleViewModel/kidsToysSingleviewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ActiveWearModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/BottomsModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/FormalsModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/JaketandOutwearModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/MensShoesModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/MensWearModel/ShirtAndTopsSingleViewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensJacketSingleViewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSingleBottomModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSingleProductViewModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensSleepWareSingleModel.dart';
-import 'package:mohally/models/Singe_Product_ViewModel/WomensSingleProductViewModel/WomensTopSingleProductViewModel.dart';
+import 'package:mohally/models/Singe_Product_ViewModel/single_product_view_model.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,71 +13,13 @@ String? EnglishMainCatId;
 class EnglishSingleProductViewController extends GetxController {
   final _api = AuthRepository();
   final rxRequestStatus = Status.LOADING.obs;
-  final ShirtandTops_userlist = ShirtAndTopsModel().obs;
-  final Bottom_userlist = BottomsModel().obs;
-  final jacket_userlist = JacketandOutwearModel().obs;
-  final activewear_userlist = ActiveWearModel().obs;
-  final formal_userlist = FormalModel().obs;
-  final mensshoes_userlist = MensShoesModel().obs;
-  final smartphone_userlist = SmartPhoneModel().obs;
-  final laptops_userlist = LaptopsModel().obs;
-  final headphones_userlist = HeadphonesAudioModel().obs;
-  final camera_userlist = CameraModel().obs;
-  final wearable_userlist = WearableModel().obs;
-  final womenstops_userlist = WomensTopSingleViewModel().obs;
-  final womensDress_userlist = WomensDressSingleViewModel().obs;
-  final womenBottom_userlist = WomensBottomsSingleViewModel().obs;
-  final womensJacket_userlist = WomensJacketSingleViewModel().obs;
-  final womensSleepware_userlist = WomensSleepwareSingleViewModel().obs;
-  final kidsclothing_userlist = KidsClothingSingleViewModel().obs;
-  final kidsgirls_userlist = KidsgirlsSingleViewModel().obs;
-  final kidsboys_userlist = KidsBoysSingleViewModel().obs;
-  final kidsshoes_userlist = KidsShoesSingleViewModel().obs;
-  final kidtoys_userlist = KidsToysSingleViewModel().obs;
-
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  final HomeLiving_userlist = HomeLivingSingleViewModel().obs;
   // final userList = Rx<dynamic>(null);
   RxString error = ''.obs;
-  void kidsclothingModel(KidsClothingSingleViewModel value) =>
-      kidsclothing_userlist.value = value;
+  void HomelivingModel(HomeLivingSingleViewModel value) =>
+      HomeLiving_userlist.value = value;
 
-  void kidsBoysModel(KidsBoysSingleViewModel value) =>
-      kidsboys_userlist.value = value;
-
-  void kidsGirlsModel(KidsgirlsSingleViewModel value) =>
-      kidsgirls_userlist.value = value;
-
-  void kidsShoesModel(KidsShoesSingleViewModel value) =>
-      kidsshoes_userlist.value = value;
-  void kidstoysModel(KidsToysSingleViewModel value) =>
-      kidtoys_userlist.value = value;
-  void womens_bottomModel(WomensBottomsSingleViewModel value) =>
-      womenBottom_userlist.value = value;
-  void womens_JacketModel(WomensJacketSingleViewModel value) =>
-      womensJacket_userlist.value = value;
-  void womens_SleepwareModel(WomensSleepwareSingleViewModel value) =>
-      womensSleepware_userlist.value = value;
-
-  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-  void shirtandTopsModel(ShirtAndTopsModel value) =>
-      ShirtandTops_userlist.value = value;
-  void bottomModel(BottomsModel value) => Bottom_userlist.value = value;
-  void jacketandOutwearModel(JacketandOutwearModel value) =>
-      jacket_userlist.value = value;
-  void activewearModel(ActiveWearModel value) =>
-      activewear_userlist.value = value;
-  void formalModel(FormalModel value) => formal_userlist.value = value;
-  void mensshoeModel(MensShoesModel value) => mensshoes_userlist.value = value;
-  void smartphonesModel(SmartPhoneModel value) =>
-      smartphone_userlist.value = value;
-  void laptopsModel(LaptopsModel value) => laptops_userlist.value = value;
-  void headphonesModel(HeadphonesAudioModel value) =>
-      headphones_userlist.value = value;
-  void cameraModel(CameraModel value) => camera_userlist.value = value;
-  void wearableModel(WearableModel value) => wearable_userlist.value = value;
-  void womendressModel(WomensDressSingleViewModel value) =>
-      womensDress_userlist.value = value;
-  void womenTopModel(WomensTopSingleViewModel value) =>
-      womenstops_userlist.value = value;
   void setError(String value) => error.value = value;
   RxBool loading = false.obs;
   void showLoadingDialog(BuildContext context) {
@@ -136,47 +58,91 @@ class EnglishSingleProductViewController extends GetxController {
       print("----------$value");
       switch (mainCatId) {
         case "153":
-          return shirtandTopsModel(value);
+          return HomelivingModel(value);
         case "154":
-          return bottomModel(value);
+          return HomelivingModel(value);
         case "155":
-          return jacketandOutwearModel(value);
+          return HomelivingModel(value);
         case "156":
-          return activewearModel(value);
+          return HomelivingModel(value);
         case "157":
-          return formalModel(value);
+          return HomelivingModel(value);
         case "174":
-          return mensshoeModel(value);
+          return HomelivingModel(value);
         case "166":
-          return smartphonesModel(value);
+          return HomelivingModel(value);
         case "170":
-          return laptopsModel(value);
+          return HomelivingModel(value);
         case "171":
-          return headphonesModel(value);
+          return HomelivingModel(value);
         case "172":
-          return cameraModel(value);
+          return HomelivingModel(value);
         case "173":
-          return wearableModel(value);
+          return HomelivingModel(value);
         case "176":
-          return womendressModel(value);
+          return HomelivingModel(value);
         case "177":
-          return womenTopModel(value);
+          return HomelivingModel(value);
         case "178":
-          return womens_bottomModel(value);
+          return HomelivingModel(value);
         case "179":
-          return womens_JacketModel(value);
+          return HomelivingModel(value);
         case "180":
-          return womens_SleepwareModel(value);
+          return HomelivingModel(value);
         case "182":
-          return kidsclothingModel(value);
+          return HomelivingModel(value);
         case "183":
-          return kidsBoysModel(value);
+          return HomelivingModel(value);
         case "184":
-          return kidsGirlsModel(value);
+          return HomelivingModel(value);
         case "185":
-          return kidsShoesModel(value);
+          return HomelivingModel(value);
         case "186":
-          return kidstoysModel(value);
+          return HomelivingModel(value);
+        case "188":
+          return HomelivingModel(value);
+        case "189":
+          return HomelivingModel(value);
+        case "190":
+          return HomelivingModel(value);
+        case "191":
+          return HomelivingModel(value);
+        case "192":
+          return HomelivingModel(value);
+        case "194":
+          return HomelivingModel(value);
+        case "195":
+          return HomelivingModel(value);
+        case "196":
+          return HomelivingModel(value);
+        case "197":
+          return HomelivingModel(value);
+        case "198":
+          return HomelivingModel(value);
+        case "200":
+          return HomelivingModel(value);
+        case "201":
+          return HomelivingModel(value);
+        case "202":
+          return HomelivingModel(value);
+        case "203":
+          return HomelivingModel(value);
+        case "204":
+          return HomelivingModel(value);
+        case "206":
+          return HomelivingModel(value);
+        case "207":
+          return HomelivingModel(value);
+        case "208":
+          return HomelivingModel(value);
+        case "209":
+          return HomelivingModel(value);
+        case "210":
+          return HomelivingModel(value);
+        case "275":
+          return HomelivingModel(value);
+        case "276":
+          return HomelivingModel(value);
         default:
           throw Exception('Unexpected condition');
       }

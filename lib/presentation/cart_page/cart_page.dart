@@ -10,19 +10,7 @@ import 'package:mohally/presentation/order_confirmed_screen/order_confirmed_scre
 import 'package:mohally/presentation/payment_screen/payment_screen.dart';
 import 'package:mohally/presentation/price_details_bottomsheet/price_details_bottomsheet.dart';
 import 'package:mohally/presentation/shipping_addresses_screen/shipping_addresses_screen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/AudioSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/CameraSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/LaptopsSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/SmartPhonesSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/ElectronicsSingleViewScreen/WearableSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ActivewearSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/Bottoms_single_view.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/JacketandOutwearSingleViewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/MensShoesSingleviewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/ShirtAndTopsSingleView.dart';
-import 'package:mohally/presentation/single_page_screen/MensSingleViewScreen/SuitsandFormalsSingleVoewScreen.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensTopsSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/AddressViewController/address_view_controller.dart';
 import 'package:mohally/view_models/controller/ApplyCouponCodeController/applycouponcodecontroller.dart';
@@ -336,43 +324,49 @@ class _CartPageState extends State<CartPage> {
                                             print("$Englishproductid==");
                                             print("$EnglishMainCatId==");
                                             if (cartmainCatId == "153") {
-                                              Get.to(ShirtsandTopsSingleView());
+                                              Get.to(SingleProductView());
                                               print(
                                                   "$cartmainCatId===========Mens Appearl main category id ");
                                             } else if (cartmainCatId == "154") {
-                                              Get.to(
-                                                  SinglePageScreen_Bottoms());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "155") {
-                                              Get.to(
-                                                  SinglePageScreen_mens_Jacket());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "156") {
-                                              Get.to(
-                                                  SinglePageScreen_mens_activewear());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "157") {
-                                              Get.to(
-                                                  SinglePageScreen_Mens_Formals());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "174") {
-                                              Get.to(
-                                                  SinglePageScreen_Mens_Shoes());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "166") {
-                                              Get.to(
-                                                  SinglePageScreen_Electronics_Smartphones());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "170") {
-                                              Get.to(
-                                                  SinglePageScreen_Electronics_Laptops());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "171") {
-                                              Get.to(
-                                                  SinglePageScreen_Electronics_AudioHeadphones());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "172") {
-                                              Get.to(
-                                                  SinglePageScreen_Electronics_Camera());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "173") {
-                                              Get.to(
-                                                  SinglePageScreen_Electronics_wearable());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "176") {
-                                              Get.to(Womens_Dress_SingleView());
+                                              Get.to(SingleProductView());
                                             } else if (cartmainCatId == "177") {
-                                              Get.to(Womens_Tops_SingleView());
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "178") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "179") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "180") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "182") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "183") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "184") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "186") {
+                                              Get.to(SingleProductView());
+                                            } else if (mainCatId == "185") {
+                                              Get.to(SingleProductView());
                                             } else {
                                               print('not found ');
                                             }
@@ -740,8 +734,7 @@ class _CartPageState extends State<CartPage> {
                                                                       .value
                                                                       .viewCart![
                                                                           index]
-                                                                      .totalQty
-                                                                      .value >
+                                                                      .totalQuantity >
                                                                   1) {
                                                                 // Decrement the counter
                                                                 _viewcartcontroller
@@ -749,15 +742,13 @@ class _CartPageState extends State<CartPage> {
                                                                     .value
                                                                     .viewCart![
                                                                         index]
-                                                                    .totalQty
-                                                                    .value -= 1;
+                                                                    .totalQuantity -= 1;
                                                                 print(_viewcartcontroller
                                                                     .userList
                                                                     .value
                                                                     .viewCart![
                                                                         index]
-                                                                    .totalQty
-                                                                    .value);
+                                                                    .totalQuantity);
                                                                 CartProductQtyIncrementCartcontroller()
                                                                     .QtyUpdate_Apihit(
                                                                         context,
@@ -784,8 +775,7 @@ class _CartPageState extends State<CartPage> {
                                                                   .value
                                                                   .viewCart![
                                                                       index]
-                                                                  .totalQty
-                                                                  .value
+                                                                  .totalQuantity
                                                                   .toString(),
                                                               style: theme
                                                                   .textTheme
@@ -811,16 +801,13 @@ class _CartPageState extends State<CartPage> {
                                                                   .value
                                                                   .viewCart![
                                                                       index]
-                                                                  .totalQty
-                                                                  .value += 1;
-                                                              print(
-                                                                  _viewcartcontroller
-                                                                      .userList
-                                                                      .value
-                                                                      .viewCart![
-                                                                          index]
-                                                                      .totalQty
-                                                                      .value);
+                                                                  .totalQuantity += 1;
+                                                              print(_viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart![
+                                                                      index]
+                                                                  .totalQuantity);
 
                                                               CartProductQtyIncrementCartcontroller()
                                                                   .QtyUpdate_Apihit(
@@ -1401,33 +1388,33 @@ class _CartPageState extends State<CartPage> {
                       print("$Englishproductid==");
                       print("$EnglishMainCatId==");
                       if (cartmainCatId == "153") {
-                        Get.to(ShirtsandTopsSingleView());
+                        Get.to(SingleProductView());
                         print(
                             "$cartmainCatId===========Mens Appearl main category id ");
                       } else if (cartmainCatId == "154") {
-                        Get.to(SinglePageScreen_Bottoms());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "155") {
-                        Get.to(SinglePageScreen_mens_Jacket());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "156") {
-                        Get.to(SinglePageScreen_mens_activewear());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "157") {
-                        Get.to(SinglePageScreen_Mens_Formals());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "174") {
-                        Get.to(SinglePageScreen_Mens_Shoes());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "166") {
-                        Get.to(SinglePageScreen_Electronics_Smartphones());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "170") {
-                        Get.to(SinglePageScreen_Electronics_Laptops());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "171") {
-                        Get.to(SinglePageScreen_Electronics_AudioHeadphones());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "172") {
-                        Get.to(SinglePageScreen_Electronics_Camera());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "173") {
-                        Get.to(SinglePageScreen_Electronics_wearable());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "176") {
-                        Get.to(Womens_Dress_SingleView());
+                        Get.to(SingleProductView());
                       } else if (cartmainCatId == "177") {
-                        Get.to(Womens_Tops_SingleView());
+                        Get.to(SingleProductView());
                       } else {
                         print('not found ');
                       }
@@ -3104,38 +3091,33 @@ class _CartPageState extends State<CartPage> {
                                   });
                                   print("$Englishproductid==");
                                   if (mainCatId == "153") {
-                                    Get.to(ShirtsandTopsSingleView());
+                                    Get.to(SingleProductView());
                                     print(
                                         "$mainCatId===========Mens Appearl main category id ");
                                   } else if (mainCatId == "154") {
-                                    Get.to(SinglePageScreen_Bottoms());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "155") {
-                                    Get.to(SinglePageScreen_mens_Jacket());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "156") {
-                                    Get.to(SinglePageScreen_mens_activewear());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "157") {
-                                    Get.to(SinglePageScreen_Mens_Formals());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "174") {
-                                    Get.to(SinglePageScreen_Mens_Shoes());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "166") {
-                                    Get.to(
-                                        SinglePageScreen_Electronics_Smartphones());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "170") {
-                                    Get.to(
-                                        SinglePageScreen_Electronics_Laptops());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "171") {
-                                    Get.to(
-                                        SinglePageScreen_Electronics_AudioHeadphones());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "172") {
-                                    Get.to(
-                                        SinglePageScreen_Electronics_Camera());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "173") {
-                                    Get.to(
-                                        SinglePageScreen_Electronics_wearable());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "176") {
-                                    Get.to(Womens_Dress_SingleView());
+                                    Get.to(SingleProductView());
                                   } else if (mainCatId == "177") {
-                                    Get.to(Womens_Tops_SingleView());
+                                    Get.to(SingleProductView());
                                   } else {
                                     print('not found ');
                                   }
@@ -3692,34 +3674,33 @@ class _CartPageState extends State<CartPage> {
                         });
                         print("$Englishproductid==");
                         if (mainCatId == "153") {
-                          Get.to(ShirtsandTopsSingleView());
+                          Get.to(SingleProductView());
                           print(
                               "$mainCatId===========Mens Appearl main category id ");
                         } else if (mainCatId == "154") {
-                          Get.to(SinglePageScreen_Bottoms());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "155") {
-                          Get.to(SinglePageScreen_mens_Jacket());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "156") {
-                          Get.to(SinglePageScreen_mens_activewear());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "157") {
-                          Get.to(SinglePageScreen_Mens_Formals());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "174") {
-                          Get.to(SinglePageScreen_Mens_Shoes());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "166") {
-                          Get.to(SinglePageScreen_Electronics_Smartphones());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "170") {
-                          Get.to(SinglePageScreen_Electronics_Laptops());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "171") {
-                          Get.to(
-                              SinglePageScreen_Electronics_AudioHeadphones());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "172") {
-                          Get.to(SinglePageScreen_Electronics_Camera());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "173") {
-                          Get.to(SinglePageScreen_Electronics_wearable());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "176") {
-                          Get.to(Womens_Dress_SingleView());
+                          Get.to(SingleProductView());
                         } else if (mainCatId == "177") {
-                          Get.to(Womens_Tops_SingleView());
+                          Get.to(SingleProductView());
                         } else {
                           print('not found ');
                         }

@@ -6,7 +6,7 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensTopsSingleViewScreen.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -104,9 +104,9 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
           )));
         } else {
           return _productbycatid_controller
-                          .womenstops_userlist.value.productByCategory ==
+                          .subcategoryProductuserlist.value.productByCategory ==
                       null ||
-                  _productbycatid_controller.womenstops_userlist.value
+                  _productbycatid_controller.subcategoryProductuserlist.value
                           .productByCategory?.length ==
                       0
               ? Center(
@@ -137,8 +137,11 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                       crossAxisSpacing: 10.h,
                     ),
                     physics: BouncingScrollPhysics(),
-                    itemCount: _productbycatid_controller.womenstops_userlist
-                            .value.productByCategory?.length ??
+                    itemCount: _productbycatid_controller
+                            .subcategoryProductuserlist
+                            .value
+                            .productByCategory
+                            ?.length ??
                         0,
                     itemBuilder: (context, index) {
                       return Column(
@@ -154,14 +157,14 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                 CustomImageView(
                                   onTap: () {
                                     mainCatId = _productbycatid_controller
-                                        .womenstops_userlist
+                                        .subcategoryProductuserlist
                                         .value
                                         .productByCategory?[index]
                                         .mainCategoryId!
                                         .toString();
                                     String? productId =
                                         _productbycatid_controller
-                                            .womenstops_userlist
+                                            .subcategoryProductuserlist
                                             .value
                                             .productByCategory?[index]
                                             .id!
@@ -173,12 +176,12 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                     });
                                     print("$Englishproductid==");
                                     if (mainCatId == "177") {
-                                      Get.to(Womens_Tops_SingleView());
+                                      Get.to(SingleProductView());
                                     }
                                   },
                                   fit: BoxFit.cover,
                                   imagePath:
-                                      "${_productbycatid_controller.womenstops_userlist.value.productByCategory?[index].imageUrl.toString()}",
+                                      "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].imageUrl.toString()}",
                                   // ImageConstant.imgRectangle569,
                                   height: 190.adaptSize,
                                   width: 190.adaptSize,
@@ -196,7 +199,7 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                       onTap: () {
                                         Add_remove_productidd =
                                             _productbycatid_controller
-                                                .womenstops_userlist
+                                                .subcategoryProductuserlist
                                                 .value
                                                 .productByCategory![index]
                                                 .id!
@@ -255,7 +258,7 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                             child: SizedBox(
                               width: 131.h,
                               child: Text(
-                                "${_productbycatid_controller.womenstops_userlist.value.productByCategory?[index].title.toString()}",
+                                "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].title.toString()}",
                                 //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -280,7 +283,7 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "${_productbycatid_controller.womenstops_userlist.value.productByCategory?[index].averageRating.toString()}",
+                                            "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].averageRating.toString()}",
                                             // "4.8",
                                             style: theme.textTheme.labelMedium,
                                           ),
@@ -290,7 +293,7 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                               ignoreGestures: true,
                                               initialRating:
                                                   _productbycatid_controller
-                                                      .womenstops_userlist
+                                                      .subcategoryProductuserlist
                                                       .value
                                                       .productByCategory?[index]
                                                       .averageRating
@@ -306,7 +309,7 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                         children: [
                                           TextSpan(
                                             text:
-                                                "${_productbycatid_controller.womenstops_userlist.value.productByCategory?[index].price.toString()}",
+                                                "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].price.toString()}",
                                             //"99 ",
                                             style: CustomTextStyles
                                                 .titleMediumPrimary_2,
@@ -329,14 +332,14 @@ class _SubCat_Womens_TopsState extends State<SubCat_Womens_Tops> {
                                   child: CustomIconButton(
                                     onTap: () {
                                       mainCatId = _productbycatid_controller
-                                          .womenstops_userlist
+                                          .subcategoryProductuserlist
                                           .value
                                           .productByCategory?[index]
                                           .mainCategoryId
                                           .toString();
                                       String? productId =
                                           _productbycatid_controller
-                                              .womenstops_userlist
+                                              .subcategoryProductuserlist
                                               .value
                                               .productByCategory?[index]
                                               .id

@@ -4,12 +4,7 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
@@ -20,7 +15,8 @@ class Maincategory_MensScreen extends StatefulWidget {
   const Maincategory_MensScreen({Key? key}) : super(key: key);
 
   @override
-  State<Maincategory_MensScreen> createState() => _Maincategory_MensScreenState();
+  State<Maincategory_MensScreen> createState() =>
+      _Maincategory_MensScreenState();
 }
 
 class _Maincategory_MensScreenState extends State<Maincategory_MensScreen> {
@@ -127,19 +123,21 @@ class _Maincategory_MensScreenState extends State<Maincategory_MensScreen> {
                                         });
                                         print("$EnglishproductbyCatId==");
                                         if (submainCatId == "153") {
-                                          Get.to(SubCat_Mens_ShirtsView());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "154") {
-                                          Get.to(SubCat_Mens_Bottoms());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "155") {
-                                          Get.to(SubCat_Mens_jacket());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "156") {
-                                          Get.to(SubCat_Mens_activewear());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "157") {
-                                          Get.to(SubCat_Mens_formals());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else if (submainCatId == "174") {
-                                          Get.to(SubCat_Mens_shoes());
+                                          Get.to(HomeLivingBeddingProducts());
                                         } else {
-                                          Get.to(NoProductFound());
+                                          Get.to(NoProductFound(
+                                            showAppBar: true,
+                                          ));
                                         }
                                       },
                                       child: ClipRRect(

@@ -4,14 +4,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenCookwareProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenDiningProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenGadgetsProducts.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenLargeAppliances.dart';
-import 'package:mohally/presentation/category_page/KitchenwareSubCatProducts/KitchenSmallAppliancesProducts.dart';
 
 class MaincategoryKitchenScreen extends StatefulWidget {
   const MaincategoryKitchenScreen({Key? key}) : super(key: key);
@@ -122,18 +118,22 @@ class _MaincategoryKitchenScreenState extends State<MaincategoryKitchenScreen> {
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "206") {
-                                      Get.to(Kitchen_smallAppliancesProducts());
+                                    if (submainCatId == "205") {
+                                      Get.to(HomeLivingBeddingProducts());
+                                    } else if (submainCatId == "206") {
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "207") {
-                                      Get.to(Kitchen_cookwareProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "208") {
-                                      Get.to(Kitchen_GadgetsProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "209") {
-                                      Get.to(Kitchen_LargeAppliancesProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "210") {
-                                      Get.to(Kitchen_DiningProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else {
-                                      Get.to(NoProductFound());
+                                      Get.to(NoProductFound(
+                                        showAppBar: true,
+                                      ));
                                     }
                                   },
                                   child: Column(

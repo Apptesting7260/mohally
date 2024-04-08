@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/add_review_screen/add_review_screen.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
 import 'package:mohally/view_models/controller/ProductAddReviewController/ProductAddreviewController.dart';
 import 'package:mohally/view_models/controller/ProductViewController/productviewReviewcontroller.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
@@ -32,8 +31,8 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   @override
   void initState() {
     super.initState();
-    reviewProductid = Get.arguments;
-    _viewreviewcontroller.reviewViewapiHit(context, reviewProductid.toString());
+    // reviewProductid = Get.arguments;
+    // _viewreviewcontroller.reviewViewapiHit(context, reviewProductid.toString());
   }
 
   EnglishSingleProductViewController productviewcontroller =
@@ -299,180 +298,182 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 
   /// Section Widget
 
-  Widget _buildReview(BuildContext context) {
-    return Container(
-      height: Get.height * .5,
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        itemCount:
-            _viewreviewcontroller.userlist.value.productReview?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: EdgeInsets.only(left: 20.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: Get.height * .04,
-                ),
-                // _buildRowItemsReviewsAnd(context),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${_viewreviewcontroller.userlist.value.productReview?[index].ratting?.toString()}",
-                      style: CustomTextStyles.titleMediumInter,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 6.h,
-                        top: 2.v,
-                        bottom: 2.v,
-                      ),
-                      child: CustomRatingBar(
-                        initialRating: _viewreviewcontroller
-                            .userlist.value.productReview?[index].ratting
-                            ?.toDouble(),
-                        itemSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 27.v),
-                Text(
-                    "${_viewreviewcontroller.userlist.value.productReview?[index].userName.toString()}",
-                    style: TextStyle(
-                        fontFamily: 'League Spartan',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black)),
+  // Widget _buildReview(BuildContext context) {
+  //   return Container(
+  //     height: Get.height * .5,
+  //     child: ListView.builder(
+  //       physics: NeverScrollableScrollPhysics(),
+  //       itemCount:
+  //           _viewreviewcontroller.userlist.value.productReview?.length ?? 0,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return Padding(
+  //           padding: EdgeInsets.only(left: 20.h),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               SizedBox(
+  //                 height: Get.height * .04,
+  //               ),
+  //               // _buildRowItemsReviewsAnd(context),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     "${_viewreviewcontroller.userlist.value.productReview?[index].ratting?.toString()}",
+  //                     style: CustomTextStyles.titleMediumInter,
+  //                   ),
+  //                   Padding(
+  //                     padding: EdgeInsets.only(
+  //                       left: 6.h,
+  //                       top: 2.v,
+  //                       bottom: 2.v,
+  //                     ),
+  //                     child: CustomRatingBar(
+  //                       initialRating: _viewreviewcontroller
+  //                           .userlist.value.productReview?[index].ratting
+  //                           ?.toDouble(),
+  //                       itemSize: 16,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               SizedBox(height: 27.v),
+  //               Text(
+  //                   "${_viewreviewcontroller.userlist.value.productReview?[index].userName.toString()}",
+  //                   style: TextStyle(
+  //                       fontFamily: 'League Spartan',
+  //                       fontSize: 11,
+  //                       fontWeight: FontWeight.w400,
+  //                       color: Colors.black)),
 
-                SizedBox(height: 4.v),
-                Text(
-                    "${_viewreviewcontroller.userlist.value.productReview?[index].description.toString()}",
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontFamily: 'League Spartan',
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400)),
-                SizedBox(height: 13.v),
-                //_buildListRectangle1(context),
-                Container(
-                  height: Get.height * .1,
-                  child: ListView.separated(
-                    padding: EdgeInsets.only(
-                      left: 20.h,
-                      right: 20.h,
-                    ),
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (
-                      context,
-                      index,
-                    ) {
-                      return SizedBox(
-                        width: Get.width * .04,
-                      );
-                    },
-                    itemCount: _viewreviewcontroller.userlist.value
-                            .productReview?[index].galleryUrl?.length ??
-                        0,
-                    itemBuilder: (context, index) {
-                      if (_viewreviewcontroller.userlist.value
-                              .productReview?[index].galleryUrl ==
-                          null) {
-                        return Text("");
-                      } else {
-                        return SizedBox(
-                          height: 80.adaptSize,
-                          width: 80.adaptSize,
-                          child: CustomImageView(
-                            imagePath:
-                                "${_viewreviewcontroller.userlist.value.productReview?[index].galleryUrl.toString()}",
-                            height: 80.adaptSize,
-                            width: 80.adaptSize,
-                            radius: BorderRadius.circular(
-                              8.h,
-                            ),
-                            alignment: Alignment.center,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 190.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomImageView(
-                        imagePath: ImageConstant.imgShare1,
-                        height: 16.adaptSize,
-                        width: 16.adaptSize,
-                      ),
-                      // SizedBox(
-                      //   width: Get.width * .02,
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 4.h),
-                        child: Text('Share',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'League Spartan',
-                                color: Colors.black)),
-                      ),
+  //               SizedBox(height: 4.v),
+  //               Text(
+  //                   "${_viewreviewcontroller.userlist.value.productReview?[index].description.toString()}",
+  //                   maxLines: 4,
+  //                   overflow: TextOverflow.ellipsis,
+  //                   style: TextStyle(
+  //                       fontFamily: 'League Spartan',
+  //                       color: Colors.black,
+  //                       fontSize: 15,
+  //                       fontWeight: FontWeight.w400)),
+  //               SizedBox(height: 13.v),
+  //               //_buildListRectangle1(context),
+  //               Container(
+  //                 height: Get.height * .1,
+  //                 child: ListView.separated(
+  //                   padding: EdgeInsets.only(
+  //                     left: 20.h,
+  //                     right: 20.h,
+  //                   ),
+  //                   scrollDirection: Axis.horizontal,
+  //                   separatorBuilder: (
+  //                     context,
+  //                     index,
+  //                   ) {
+  //                     return SizedBox(
+  //                       width: Get.width * .04,
+  //                     );
+  //                   },
+  //                   itemCount: _viewreviewcontroller.userlist.value
+  //                           .productReview?[index].galleryUrl?.length ??
+  //                       0,
+  //                   itemBuilder: (context, index) {
+  //                     if (_viewreviewcontroller.userlist.value
+  //                             .productReview?[index].galleryUrl ==
+  //                         null) {
+  //                       return Text("");
+  //                     } else {
+  //                       return SizedBox(
+  //                         height: 80.adaptSize,
+  //                         width: 80.adaptSize,
+  //                         child: CustomImageView(
+  //                           imagePath:
+  //                               "${_viewreviewcontroller.userlist.value.productReview?[index].galleryUrl.toString()}",
+  //                           height: 80.adaptSize,
+  //                           width: 80.adaptSize,
+  //                           radius: BorderRadius.circular(
+  //                             8.h,
+  //                           ),
+  //                           alignment: Alignment.center,
+  //                         ),
+  //                       );
+  //                     }
+  //                   },
+  //                 ),
+  //               ),
+  //               Padding(
+  //                 padding: EdgeInsets.only(left: 190.h),
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: [
+  //                     CustomImageView(
+  //                       imagePath: ImageConstant.imgShare1,
+  //                       height: 16.adaptSize,
+  //                       width: 16.adaptSize,
+  //                     ),
+  //                     // SizedBox(
+  //                     //   width: Get.width * .02,
+  //                     // ),
+  //                     Padding(
+  //                       padding: EdgeInsets.only(left: 4.h),
+  //                       child: Text('Share',
+  //                           style: TextStyle(
+  //                               fontSize: 12,
+  //                               fontWeight: FontWeight.w400,
+  //                               fontFamily: 'League Spartan',
+  //                               color: Colors.black)),
+  //                     ),
 
-                      GestureDetector(
-                        onTap: () {},
-                        child: CustomImageView(
-                          imagePath:
-                              // ? ImageConstant.imgLike1
-                              ImageConstant
-                                  .imgLike1, // Update image path based on likeIsActive status
-                          color: Colors
-                              .black, // Update color based on likeIsActive status
-                          height: 16.adaptSize,
-                          width: 16.adaptSize,
-                          margin: EdgeInsets.only(left: 10.h),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 4.h),
-                        child: Text(
-                            "Helpful(${productviewcontroller.womensDress_userlist.value.productReview?.productReviewDetails?[index].helpful.toString()})",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'League Spartan',
-                                color: Colors.black)),
-                      ),
+  //                     GestureDetector(
+  //                       onTap: () {},
+  //                       child: CustomImageView(
+  //                         imagePath:
+  //                             // ? ImageConstant.imgLike1
+  //                             ImageConstant
+  //                                 .imgLike1, // Update image path based on likeIsActive status
+  //                         color: Colors
+  //                             .black, // Update color based on likeIsActive status
+  //                         height: 16.adaptSize,
+  //                         width: 16.adaptSize,
+  //                         margin: EdgeInsets.only(left: 10.h),
+  //                       ),
+  //                     ),
+  //                     Padding(
+  //                       padding: EdgeInsets.only(left: 4.h),
+  //                       child: Text(
+  //                           "Helpful(${productviewcontroller.womensDress_userlist.value.productReview?.productReviewDetails?[index].helpful.toString()})",
+  //                           style: TextStyle(
+  //                               fontSize: 12,
+  //                               fontWeight: FontWeight.w400,
+  //                               fontFamily: 'League Spartan',
+  //                               color: Colors.black)),
+  //                     ),
 
-                      CustomImageView(
-                        imagePath: ImageConstant.imgGroup239583,
-                        height: 15.v,
-                        width: 3.h,
-                        margin: EdgeInsets.only(left: 10.h),
-                      ),
-                    ],
-                  ),
-                ),
-                // SizedBox(height: 20.v),
-                Center(
-                  child: Divider(
-                    color: Color.fromARGB(40, 39, 39, 39),
-                    endIndent: 20,
-                    indent: 20,
-                    thickness: 1,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
+  //                     CustomImageView(
+  //                       imagePath: ImageConstant.imgGroup239583,
+  //                       height: 15.v,
+  //                       width: 3.h,
+  //                       margin: EdgeInsets.only(left: 10.h),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //               // SizedBox(height: 20.v),
+  //               Center(
+  //                 child: Divider(
+  //                   color: Color.fromARGB(40, 39, 39, 39),
+  //                   endIndent: 20,
+  //                   indent: 20,
+  //                   thickness: 1,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
+
+
 }

@@ -92,6 +92,8 @@ class CategoriesByNameControllerEnglish extends GetxController {
           return BeautyModel(value);
         case "187":
           return HomeLivingModel(value);
+        case "274":
+          return HomeLivingModel(value);
         case "223":
           return GroceryModel(value);
         case "id_for_all_cat":

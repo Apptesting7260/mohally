@@ -10,7 +10,7 @@
 //   final rxRequestStatus = Status.LOADING.obs;
 //   final userList = Search_MainCategory_Model().obs;
 //   RxString error = ''.obs;
-//   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  // void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 //   void setUserList(Search_MainCategory_Model value) => userList.value = value;
 //   void setError(String value) => error.value = value;
 //   RxBool loading = false.obs;

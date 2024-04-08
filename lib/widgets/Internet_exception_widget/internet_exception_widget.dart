@@ -31,9 +31,9 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
             style: theme.textTheme.headlineMedium
                 ?.copyWith(color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
           ),
-          SizedBox(
-            height: height * .15,
-          ),
+          // SizedBox(
+          //   height: height * .15,
+          // ),
           // InkWell(
           //   onTap: widget.onPress,
           //   child: Container(

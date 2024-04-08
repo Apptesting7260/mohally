@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
-import 'package:mohally/presentation/single_page_screen/WomensSingleProductViewScreen/WomensDressSingleView.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -101,13 +102,13 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
             ],
           )));
         } else {
-          return _productbycatid_controller.homeliving_bedding_userlist.value
-                          .productByCategory ==
+          return _productbycatid_controller
+                          .subcategoryProductuserlist.value.productByCategory ==
                       null ||
-                  _productbycatid_controller.homeliving_bedding_userlist.value
+                  _productbycatid_controller.subcategoryProductuserlist.value
                           .productByCategory?.length ==
                       0 ||
-                  _productbycatid_controller.homeliving_bedding_userlist.value
+                  _productbycatid_controller.subcategoryProductuserlist.value
                       .productByCategory!.isEmpty
               ? Center(
                   child: Column(
@@ -142,7 +143,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                           ),
                           physics: BouncingScrollPhysics(),
                           itemCount: _productbycatid_controller
-                                  .homeliving_bedding_userlist
+                                  .subcategoryProductuserlist
                                   .value
                                   .productByCategory
                                   ?.length ??
@@ -161,14 +162,14 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                       CustomImageView(
                                         onTap: () {
                                           mainCatId = _productbycatid_controller
-                                              .homeliving_bedding_userlist
+                                              .subcategoryProductuserlist
                                               .value
                                               .productByCategory?[index]
                                               .mainCategoryId!
                                               .toString();
                                           String? productId =
                                               _productbycatid_controller
-                                                  .homeliving_bedding_userlist
+                                                  .subcategoryProductuserlist
                                                   .value
                                                   .productByCategory?[index]
                                                   .id!
@@ -179,13 +180,67 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                             EnglishMainCatId = mainCatId;
                                           });
                                           print("$Englishproductid==");
-                                          if (mainCatId == "176") {
-                                            Get.to(Womens_Dress_SingleView());
+                                          if (mainCatId == "189") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "190") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "191") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "192") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "194") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "195") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "196") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "197") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "198") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "200") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "201") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "202") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "203") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "204") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "206") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "207") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "208") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "209") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "210") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "275") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "276") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "182") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "183") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "184") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "185") {
+                                            Get.to(SingleProductView());
+                                          } else if (mainCatId == "186") {
+                                            Get.to(SingleProductView());
+                                          } else {
+                                            Get.to(NoProductFound(
+                                              showAppBar: true,
+                                            ));
                                           }
                                         },
                                         fit: BoxFit.cover,
                                         imagePath:
-                                            "${_productbycatid_controller.homeliving_bedding_userlist.value.productByCategory?[index].imageUrl.toString()}",
+                                            "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].imageUrl.toString()}",
                                         // ImageConstant.imgRectangle569,
                                         height: 190.adaptSize,
                                         width: 190.adaptSize,
@@ -203,7 +258,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                             onTap: () {
                                               Add_remove_productidd =
                                                   _productbycatid_controller
-                                                      .homeliving_bedding_userlist
+                                                      .subcategoryProductuserlist
                                                       .value
                                                       .productByCategory![index]
                                                       .id!
@@ -263,7 +318,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                   child: SizedBox(
                                     width: 131.h,
                                     child: Text(
-                                      "${_productbycatid_controller.homeliving_bedding_userlist.value.productByCategory?[index].title.toString()}",
+                                      "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].title.toString()}",
                                       //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -290,7 +345,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "${_productbycatid_controller.homeliving_bedding_userlist.value.productByCategory?[index].averageRating.toString()}",
+                                                  "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].averageRating.toString()}",
                                                   // "4.8",
                                                   style: theme
                                                       .textTheme.labelMedium,
@@ -302,7 +357,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                                     ignoreGestures: true,
                                                     initialRating:
                                                         _productbycatid_controller
-                                                            .homeliving_bedding_userlist
+                                                            .subcategoryProductuserlist
                                                             .value
                                                             .productByCategory?[
                                                                 index]
@@ -319,7 +374,7 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      "${_productbycatid_controller.homeliving_bedding_userlist.value.productByCategory?[index].price.toString()}",
+                                                      "${_productbycatid_controller.subcategoryProductuserlist.value.productByCategory?[index].price.toString()}",
                                                   //"99 ",
                                                   style: CustomTextStyles
                                                       .titleMediumPrimary_2,
@@ -344,14 +399,14 @@ class _HomeLivingBeddingProductsState extends State<HomeLivingBeddingProducts> {
                                           onTap: () {
                                             mainCatId =
                                                 _productbycatid_controller
-                                                    .homeliving_bedding_userlist
+                                                    .subcategoryProductuserlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .mainCategoryId
                                                     .toString();
                                             String? productId =
                                                 _productbycatid_controller
-                                                    .homeliving_bedding_userlist
+                                                    .subcategoryProductuserlist
                                                     .value
                                                     .productByCategory?[index]
                                                     .id

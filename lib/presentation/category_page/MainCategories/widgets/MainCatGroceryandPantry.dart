@@ -4,11 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatNaturalsProducts.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubCatPantryProductsScreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerySubcatSnacksProductsscreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/Grocery_FreshproduceproductsScreen.dart';
-import 'package:mohally/presentation/category_page/GrocerySubCatProducts/GrocerysubcatBevergesProducts.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -124,17 +120,19 @@ class _MaincategoryGroceryandPantryScreenState
                                     });
                                     print("$EnglishproductbyCatId==");
                                     if (submainCatId == "224") {
-                                      Get.to(GrocerySubCatProduceProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "225") {
-                                      Get.to(GrocerySubCatPantryProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "226") {
-                                      Get.to(GrocerySubCatSnacksProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "227") {
-                                      Get.to(GrocerySubCatBevergesProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "228") {
-                                      Get.to(GrocerySubatNaturalsProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else {
-                                      Get.to(NoProductFound());
+                                      Get.to(NoProductFound(
+                                        showAppBar: true,
+                                      ));
                                     }
                                   },
                                   child: Column(

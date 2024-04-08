@@ -4,11 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureCarpetProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureHomedecorProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLightProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furnitureLivingRoomProducts.dart';
-import 'package:mohally/presentation/category_page/FurnitureSubCatProducts/furniture_bedroomProducts.dart';
+import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
@@ -124,17 +120,19 @@ class _MaincategoryFurnitureScreenState
                                     });
                                     print("$EnglishproductbyCatId==");
                                     if (submainCatId == "212") {
-                                      Get.to(FurnitureLivingRoomProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "213") {
-                                      Get.to(FurnitureBedRoomProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "214") {
-                                      Get.to(FurnitureHomedecorProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "215") {
-                                      Get.to(FurnitureLightsProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else if (submainCatId == "216") {
-                                      Get.to(FurniturecarpetsProducts());
+                                      Get.to(HomeLivingBeddingProducts());
                                     } else {
-                                      Get.to(NoProductFound());
+                                      Get.to(NoProductFound(
+                                        showAppBar: true,
+                                      ));
                                     }
                                   },
                                   child: Column(

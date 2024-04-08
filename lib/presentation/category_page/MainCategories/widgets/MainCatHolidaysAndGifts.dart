@@ -9,15 +9,16 @@ import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCa
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 
-class MaincategorySportsScreen extends StatefulWidget {
-  const MaincategorySportsScreen({Key? key}) : super(key: key);
+class MaincategoryHolidaysAndGiftsScreen extends StatefulWidget {
+  const MaincategoryHolidaysAndGiftsScreen({Key? key}) : super(key: key);
 
   @override
-  State<MaincategorySportsScreen> createState() =>
-      _MaincategorySportsScreenState();
+  State<MaincategoryHolidaysAndGiftsScreen> createState() =>
+      _MaincategoryHolidaysAndGiftsScreenState();
 }
 
-class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
+class _MaincategoryHolidaysAndGiftsScreenState
+    extends State<MaincategoryHolidaysAndGiftsScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -57,10 +58,11 @@ class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
             ],
           )));
         } else {
-          return _categoryByName.sports_userlist.value.seeAllMainCategory ==
+          return _categoryByName
+                          .homeAndliving_userlist.value.seeAllMainCategory ==
                       null ||
-                  _categoryByName
-                          .sports_userlist.value.seeAllMainCategory?.length ==
+                  _categoryByName.homeAndliving_userlist.value
+                          .seeAllMainCategory?.length ==
                       0
               ? Center(
                   child: Padding(
@@ -100,14 +102,14 @@ class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
                                       crossAxisSpacing: 8.0,
                                       mainAxisSpacing: 8.0,
                                       mainAxisExtent: Get.height * .14),
-                              itemCount: _categoryByName.sports_userlist.value
-                                      .seeAllMainCategory?.length ??
+                              itemCount: _categoryByName.homeAndliving_userlist
+                                      .value.seeAllMainCategory?.length ??
                                   0,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
                                     submainCatId = _categoryByName
-                                        .sports_userlist
+                                        .homeAndliving_userlist
                                         .value
                                         .seeAllMainCategory![index]
                                         .id
@@ -118,15 +120,9 @@ class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
                                       showPageView = true;
                                     });
                                     print("$EnglishproductbyCatId==");
-                                    if (submainCatId == "200") {
+                                    if (submainCatId == "275") {
                                       Get.to(HomeLivingBeddingProducts());
-                                    } else if (submainCatId == "201") {
-                                      Get.to(HomeLivingBeddingProducts());
-                                    } else if (submainCatId == "202") {
-                                      Get.to(HomeLivingBeddingProducts());
-                                    } else if (submainCatId == "203") {
-                                      Get.to(HomeLivingBeddingProducts());
-                                    } else if (submainCatId == "204") {
+                                    } else if (submainCatId == "276") {
                                       Get.to(HomeLivingBeddingProducts());
                                     } else {
                                       Get.to(NoProductFound(
@@ -144,7 +140,7 @@ class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
                                           borderRadius:
                                               BorderRadius.circular(38.0),
                                           child: Image.network(
-                                            "${_categoryByName.sports_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                            "${_categoryByName.homeAndliving_userlist.value.seeAllMainCategory?[index].imageUrl.toString()}",
                                             height: 68,
                                             width: 68,
                                             fit: BoxFit.cover,
@@ -154,7 +150,7 @@ class _MaincategorySportsScreenState extends State<MaincategorySportsScreen> {
                                       SizedBox(height: 5.v),
                                       Center(
                                         child: Text(
-                                          "${_categoryByName.sports_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
+                                          "${_categoryByName.homeAndliving_userlist.value.seeAllMainCategory?[index].categoryName.toString()}",
                                           style: TextStyle(
                                             color: Color(0xFF272727),
                                             fontSize: 12,

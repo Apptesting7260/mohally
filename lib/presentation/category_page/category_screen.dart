@@ -15,27 +15,8 @@ import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/core/utils/size_utils.dart';
 import 'package:mohally/data/app_exceptions.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/ElectronicsAllProductView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryCameraView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryHeadphonesview.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategoryLaptopsModel.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorySmartphonesView.dart';
-import 'package:mohally/presentation/category_page/ElectronicsSubCategoryView/subcategorywearableview.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/Health_vitaminsSubcatProducts.dart';
-import 'package:mohally/presentation/category_page/HealthAndWellnessSubcategoriesScreen/healthandwellnessAllProducts.dart';
-import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingAllProductsView.dart';
-import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLivingBeddingProductScreen.dart';
-import 'package:mohally/presentation/category_page/HomeLivingSubCatProductsScreen/HomeLiving_FurnitureProductView.dart';
-import 'package:mohally/presentation/category_page/KidsSubCategoryView/kidsAllproductsScreen.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCatGroceryandPantry.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/FeaturedCategoryScreen.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/MensAllProduct.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatActivewearView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatBottomsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatFormalsView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatJacketView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatShoesView.dart';
-import 'package:mohally/presentation/category_page/MensSubCategoryAllProductScreen/SubCatTopsandShirtsAllProductView.dart';
+import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCatGroceryandPantry.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategorySportsScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryFurnitureScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryKitchenScreen.dart';
@@ -43,11 +24,7 @@ import 'package:mohally/presentation/category_page/MainCategories/widgets/Mainca
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryHealthAndWellnessScreen.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategory_Kids.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MaincategoryHomeandLivingScreen.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/WomensAllProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubCatTopProductView.dart';
-import 'package:mohally/presentation/category_page/WomensSubCategoryProductView/womensSubcatDressProductView.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/AllProductView.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/category_mensClothing.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategoriesMens.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/MainCategories_Womens.dart';
 import 'package:mohally/presentation/category_page/MainCategories/widgets/Maincategories_ElectronicScreen.dart';
@@ -82,7 +59,7 @@ class CategoryScreen extends StatefulWidget {
   const CategoryScreen(
       {Key? key,
       this.showAppBar = false,
-      required this.selectedTabIndex,
+      this.selectedTabIndex = 0,
       this.FromHomeToCat = false})
       : super(key: key);
 
@@ -128,16 +105,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
     Navigator.of(context).pop();
   }
 
-  int selectedIndex = 0;
+  // int selectedIndex = 0;
 
   @override
   void initState() {
-    selectedIndex = widget.selectedTabIndex;
+    selectedTabIndex =
+        widget.FromHomeToCat ? widget.selectedTabIndex : selectedTabIndex;
     SchedulerBinding.instance.addPostFrameCallback((_) {
       pagecontroller = PageController(initialPage: selectedTabIndex);
 
-      _allcategory.AllSubCat();
-      // _categoryByName.SeeAll_apiHit();
+      // _allcategory.AllSubCat();
+      _categoryByName.SeeAll_apiHit();
       homeView_controller.homeview_apihit();
 
       setInitialLocale();
@@ -321,12 +299,288 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   //   height: Get.height * .02,
                   // ),
 
+                  // Obx(
+                  //   () => Container(
+                  //     width: double.infinity,
+                  //     height: widget.FromHomeToCat
+                  //         ? Get.height * .78
+                  //         : height * .69,
+                  //     child: Align(
+                  //       alignment: Alignment.bottomLeft,
+                  //       child: Row(
+                  //         children: [
+                  //           Container(
+                  //             color: const Color.fromARGB(36, 158, 158, 158),
+                  //             width: 120,
+                  //             child: Column(
+                  //               children: [
+                  //                 // GestureDetector(
+                  //                 //   onTap: () {
+                  //                 //     print('tpp');
+                  //                 //     setState(() {
+                  //                 //       isFeaturedSelected = true;
+                  //                 //       mainCatId = null;
+                  //                 //       // widget.FromHomeToCat
+                  //                 //       //     ? isFeaturedSelected = false
+                  //                 //       //     : isFeaturedSelected = true;
+                  //                 //       widget.FromHomeToCat
+                  //                 //           ? widget.selectedTabIndex
+                  //                 //           : selectedTabIndex = -1;
+                  //                 //       print("-------------------${mainCatId}");
+                  //                 //     });
+                  //                 //   },
+                  //                 //   child: Container(
+                  //                 //     height: 60,
+                  //                 //     width: 120,
+                  //                 //     color:
+                  //                 //         //  widget.FromHomeToCat
+                  //                 //         //     ? null
+                  //                 //         //     :
+                  //                 //         isFeaturedSelected
+                  //                 //             ? Colors.white
+                  //                 //             : const Color.fromARGB(36, 158, 158,
+                  //                 //                 158), // Change this to your condition
+                  //                 //     child: Row(
+                  //                 //       children: [
+                  //                 //         Container(
+                  //                 //           height: 60,
+                  //                 //           width: 4,
+                  //                 //           color:
+                  //                 //               // widget.FromHomeToCat
+                  //                 //               //     ? null
+                  //                 //               //     :
+                  //                 //               isFeaturedSelected
+                  //                 //                   ? Color(0xffFF8300)
+                  //                 //                   : null, // Change this to your condition
+                  //                 //         ),
+                  //                 //         Container(
+                  //                 //           width: 100,
+                  //                 //           child: Padding(
+                  //                 //             padding:
+                  //                 //                 const EdgeInsets.only(left: 5),
+                  //                 //             child: Text(
+                  //                 //               "Featured",
+                  //                 //               style:
+                  //                 //                   theme.textTheme.titleMedium,
+                  //                 //             ),
+                  //                 //           ),
+                  //                 //           // textAlign: TextAlign.center,
+                  //                 //         )
+                  //                 //       ],
+                  //                 //     ),
+                  //                 //   ),
+                  //                 // ),
+                  //                 Container(
+                  //                   height: widget.FromHomeToCat
+                  // ? Get.height * .78
+                  // : Get.height * .6,
+                  //                   child: ListView.builder(
+                  //                     scrollDirection: Axis.vertical,
+                  //                     itemCount: homeView_controller.userList
+                  //                             .value.categoryData?.length ??
+                  //                         0,
+                  //                     itemBuilder:
+                  //                         (BuildContext context, int index) {
+                  //                       return GestureDetector(
+                  //                         onTap: () {
+                  //                           // isFeaturedSelected = false;
+                  //                           mainCatId = homeView_controller
+                  //                               .userList
+                  //                               .value
+                  //                               .categoryData?[index]
+                  //                               .id!
+                  //                               .toString();
+
+                  //                           setState(() {
+                  //                             // isFeaturedSelected =
+                  //                             //     false; // Update isFeaturedSelected
+                  //                             widget.FromHomeToCat
+                  //                                 ? widget.selectedTabIndex
+                  //                                 : selectedTabIndex =
+                  //                                     index; // Update selectedTabIndex
+                  //                             EnglishsubMainCatId = mainCatId;
+                  //                           });
+                  //                           print(selectedTabIndex);
+
+                  //                           print(mainCatId);
+                  //                           print(EnglishsubMainCatId);
+                  //                           _categoryByName.SeeAll_apiHit();
+                  //                           pagecontroller.animateToPage(
+                  //                               selectedTabIndex,
+                  //                               duration:
+                  //                                   Duration(milliseconds: 500),
+                  //                               curve: Curves.ease);
+                  //                         },
+                  //                         child: Obx(
+                  //                           () => Container(
+                  //                               child: Row(children: [
+                  //                             Container(
+                  //                               height: 60,
+                  //                               width: 120,
+                  //                               color: widget.FromHomeToCat
+                  //                                   ? widget.selectedTabIndex ==
+                  //                                           index
+                  //                                       ? Colors.white
+                  //                                       : Color.fromARGB(
+                  //                                           36, 158, 158, 158)
+                  //                                   : selectedTabIndex == index
+                  //                                       ? Colors.white
+                  //                                       : Color.fromARGB(
+                  //                                           36, 158, 158, 158),
+                  //                               // ),
+                  //                               child: Row(
+                  //                                 children: [
+                  //                                   Container(
+                  //                                       height: 60,
+                  //                                       width: 4,
+                  //                                       color: widget
+                  //                                               .FromHomeToCat
+                  //                                           ? (widget.selectedTabIndex ==
+                  //                                                   index
+                  //                                               ? Colors.orange
+                  //                                               : Colors.white)
+                  //                                           : selectedTabIndex ==
+                  //                                                   index
+                  //                                               ? Colors.orange
+                  //                                               : Colors.white),
+                  //                                   // ),
+                  //                                   // SizedBox(
+                  //                                   //   width: Get.width * .03,
+                  //                                   // ),
+                  //                                   Container(
+                  //                                     // height: 60,
+                  //                                     width: 100,
+                  //                                     child: Text(
+                  //                                       "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                  //                                       style: TextStyle(
+                  //                                         color:
+                  //                                             Color(0xFF272727),
+                  //                                         fontSize: 12,
+                  //                                         fontFamily: 'Almarai',
+                  //                                         fontWeight:
+                  //                                             FontWeight.w500,
+                  //                                       ),
+                  //                                       maxLines: 3,
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       // theme.textTheme.bodySmall,
+                  //                                       // overflow: TextOverflow.ellipsis,
+                  //                                       // maxLines: 1,
+                  //                                     ),
+                  //                                   )
+                  //                                 ],
+                  //                               ),
+                  //                             )
+                  //                           ])),
+                  //                         ),
+                  //                       );
+                  //                     },
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //               child: Padding(
+                  //             padding: const EdgeInsets.all(8.0),
+                  //             child: Container(
+                  //               child: PageView(
+                  //                 physics: NeverScrollableScrollPhysics(),
+                  //                 controller: pagecontroller,
+                  //                 onPageChanged: (index) {
+                  //                   setState(() {
+                  //                     widget.FromHomeToCat
+                  //                         ? selectedTabIndex
+                  //                         : selectedTabIndex = index;
+                  //                   });
+                  //                 },
+                  //                 children: [
+                  //                   if (mainCatId == "id_for_all_cat")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: FeaturedCategoryScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "133")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: Maincategory_MensScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "134")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child:
+                  //                               MaincategoryElectronicsScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "175")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: MaincategoryWomensScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "181")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: MaincategoryKidsScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "217")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child:
+                  //                               MaincategoryHealthAndWellness()),
+                  //                     ),
+                  //                   if (mainCatId == "211")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child:
+                  //                               MaincategoryFurnitureScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "205")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: MaincategoryKitchenScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "199")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: MaincategorySportsScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "193")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: MaincategoryBeautyScreen()),
+                  //                     ),
+                  //                   if (mainCatId == "187")
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child:
+                  //                               MaincategoryHomeandLivingScreen()),
+                  //                     ),
+                  // if (mainCatId == "223")
+                  //   Container(
+                  //     child: Center(
+                  //         child:
+                  //             MaincategoryGroceryandPantryScreen()),
+                  //   )
+                  //                   else
+                  //                     Container(
+                  //                       child: Center(
+                  //                           child: NoProductFound(
+                  //                         showAppBar: true,
+                  //                       )),
+                  //                     ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ))
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
                   Obx(
                     () => Container(
                       width: double.infinity,
-                      height: widget.FromHomeToCat
-                          ? Get.height * .78
-                          : height * .69,
+                      height: widget.FromHomeToCat ? Get.height : height * .69,
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Row(
@@ -394,8 +648,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   // ),
                                   Container(
                                     height: widget.FromHomeToCat
-                                        ? Get.height * .78
-                                        : Get.height * .6,
+                                        ? Get.height * .77
+                                        : Get.height * .67,
                                     // child: ListView.builder(
                                     //   scrollDirection: Axis.vertical,
                                     //   itemCount: homeView_controller
@@ -495,7 +749,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     // ),
 
                                     child: ListView.builder(
-                                      scrollDirection: Axis.vertical,
                                       itemCount: homeView_controller
                                           .userList.value.categoryData!.length,
                                       itemBuilder:
@@ -503,7 +756,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         return GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              selectedIndex = index;
+                                              selectedTabIndex = index;
                                               mainCatId = homeView_controller
                                                   .userList
                                                   .value
@@ -513,7 +766,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               EnglishsubMainCatId = mainCatId;
                                               _categoryByName.SeeAll_apiHit();
                                               pagecontroller.animateToPage(
-                                                  selectedIndex,
+                                                  selectedTabIndex,
                                                   duration: Duration(
                                                       milliseconds: 500),
                                                   curve: Curves.ease);
@@ -525,7 +778,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 Container(
                                                   height: 60,
                                                   width: 120,
-                                                  color: selectedIndex == index
+                                                  color: selectedTabIndex ==
+                                                          index
                                                       ? Colors.white
                                                       : Color.fromARGB(
                                                           36, 158, 158, 158),
@@ -534,41 +788,43 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                       Container(
                                                         height: 60,
                                                         width: 4,
-                                                        color: widget
-                                                                .FromHomeToCat
-                                                            ? (widget.selectedTabIndex ==
+                                                        color:
+                                                            selectedTabIndex ==
                                                                     index
-                                                                ? Colors.orange
-                                                                : Colors.white)
-                                                            : selectedTabIndex ==
-                                                                    index
-                                                                ? Colors.orange
-                                                                : Colors.white),
-                                                    Container(
-                                                      // height: 60,
-                                                      width: 100,
-                                                      child: Text(
-                                                        "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF272727),
-                                                          fontSize: 12,
-                                                          fontFamily: 'Almarai',
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                        maxLines: 3,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        // theme.textTheme.bodySmall,
-                                                        // overflow: TextOverflow.ellipsis,
-                                                        // maxLines: 1,
+                                                                ? Color(
+                                                                    0xffFF8300)
+                                                                : null,
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                              )
-                                            ])),
+                                                      Container(
+                                                        width: 100,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 5),
+                                                          child: Text(
+                                                            "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF272727),
+                                                              fontSize: 12,
+                                                              fontFamily:
+                                                                  'Almarai',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                            maxLines: 3,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         );
                                       },
@@ -579,7 +835,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                             Expanded(
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(bottom: 50),
                               child: Container(
                                 child: PageView(
                                   physics: NeverScrollableScrollPhysics(),
@@ -651,19 +907,70 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             child:
                                                 MaincategoryHomeandLivingScreen()),
                                       ),
-                                    if (mainCatId == "223")
+                                    if (mainCatId == "228")
                                       Container(
                                         child: Center(
                                             child:
                                                 MaincategoryGroceryandPantryScreen()),
-                                      )
-                                    else
+                                      ),
+                                    // if (mainCatId == "274")
+                                    //   Container(
+                                    //     child: Center(
+                                    //         child:
+                                    //             MaincategoryHolidaysAndGiftsScreen()),
+                                    //   ),
+                                    if (mainCatId == "268")
                                       Container(
                                         child: Center(
                                             child: NoProductFound(
                                           showAppBar: false,
                                         )),
                                       ),
+                                    if (mainCatId == "262")
+                                      Container(
+                                        child: Center(
+                                            child: NoProductFound(
+                                          showAppBar: false,
+                                        )),
+                                      ),
+                                    if (mainCatId == "259")
+                                      Container(
+                                        child: Center(
+                                            child: NoProductFound(
+                                          showAppBar: false,
+                                        )),
+                                      ),
+                                    if (mainCatId == "249")
+                                      Container(
+                                        child: Center(
+                                            child: NoProductFound(
+                                          showAppBar: false,
+                                        )),
+                                      ),
+                                    if (mainCatId == "247")
+                                      Container(
+                                        child: Center(
+                                            child: NoProductFound(
+                                          showAppBar: false,
+                                        )),
+                                      ),
+                                    if (mainCatId == "229")
+                                      Container(
+                                        child: Center(
+                                            child: NoProductFound(
+                                          showAppBar: false,
+                                        )),
+                                      ),
+                                    if (mainCatId == "223")
+                                      Container(
+                                        child: Center(
+                                            child:
+                                                MaincategoryGroceryandPantryScreen()),
+                                      )
+                                    // else
+                                    //   Container(
+                                    //     child: Center(child: NoProductFound()),
+                                    //   )
                                   ],
                                 ),
                               ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/CancelOrderModel/cancelordermodel.dart';
+import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,7 +42,7 @@ class CancelOrderController extends GetxController {
       print(data);
       rxRequestStatus.value = Status.COMPLETED;
       if (value.status == true) {
-        // Get.to(MyOrdersTabContainerScreen());
+        Get.off(MyOrdersTabContainerScreen());
       } else {
         setRxRequestStatus(Status.ERROR);
       }
